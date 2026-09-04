@@ -1,8 +1,5 @@
 /* Шапка одинакова на всех страницах: разница только в модификаторе класса.
-   mix-blend-mode: difference — как в макете: логотип и «меню» сами читаются
-   и на светлом фоне, и поверх картинки. Смешивание стоит на логотипе
-   и на кнопке по отдельности, а не на шапке: на ховере кнопка заливается
-   тёмным, и под difference заливка стала бы серой. */
+   Логотип и «меню» тёмные на любом фоне. */
 .header {
   position: fixed;
   top: calc(var(--header-top) + var(--admin-bar-height));
@@ -20,7 +17,6 @@
   display: block;
   flex-shrink: 0;
   width: calc(134.3 * var(--u));
-  mix-blend-mode: difference;
 }
 
 .header__logo-image {
@@ -37,16 +33,17 @@
   gap: calc(8 * var(--u));
   padding: calc(14 * var(--u));
   border-radius: calc(50 * var(--u));
-  color: var(--color-bg);
-  mix-blend-mode: difference;
-  transition: background-color var(--duration-fast) var(--ease-out);
+  color: var(--color-ink);
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
 }
 
-/* Ховер из кита: тёмная пилюля со светлой подписью, без смешивания. */
+/* Ховер из кита: тёмная пилюля со светлой подписью. */
 .menu-toggle:hover,
 .menu-toggle:focus-visible {
   background-color: var(--color-ink);
-  mix-blend-mode: normal;
+  color: var(--color-bg);
 }
 
 .menu-toggle__label {
