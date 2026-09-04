@@ -4,6 +4,9 @@
   --color-bg: #f2f1ed;
   --color-beige: #dfdcd3;
   --color-line: rgb(58 58 55 / 10%);
+  --color-line-light: rgb(242 241 237 / 10%);
+  --color-shade-top: rgb(0 0 0 / 8%);
+  --color-shade-bottom: rgb(0 0 0 / 40%);
 
   /* Шрифты */
   --font-sans: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
@@ -14,6 +17,7 @@
 
   /* Типографика: размер / межстрочный / трекинг */
   --fs-h1: calc(96 * var(--u));
+  --fs-h1-display: calc(116 * var(--u));
   --lh-h1: 0.8;
   --ls-h1: -0.03em;
   --lh-h1-accent: 0.9;

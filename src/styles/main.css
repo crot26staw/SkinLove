@@ -13,7 +13,11 @@
 @import './components/button.css';
 @import './components/service-card.css';
 @import './components/advantage.css';
-@import './components/review-tab.css';
+@import './components/occasion-card.css';
+@import './components/procedure-panel.css';
+@import './components/step.css';
+@import './components/faq-item.css';
+@import './components/tab.css';
 @import './components/arrow-button.css';
 @import './components/header.css';
 @import './components/blinds.css';
@@ -26,3 +30,10 @@
 @import './sections/advantages.css';
 @import './sections/reviews.css';
 @import './sections/cta.css';
+@import './sections/page-hero.css';
+@import './sections/philosophy.css';
+@import './sections/service-hero.css';
+@import './sections/occasions.css';
+@import './sections/procedures.css';
+@import './sections/steps.css';
+@import './sections/faq.css';

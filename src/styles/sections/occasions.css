@@ -1,0 +1,26 @@
+/* Задачи: заголовок по центру и сетка карточек «где удобно» в три колонки.
+   Секция наезжает на липкий первый экран, поэтому стоит выше него по z. */
+.occasions {
+  --section-padding-block: calc(150 * var(--u));
+
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: calc(80 * var(--u));
+  padding-inline: var(--gutter);
+}
+
+.occasions__head {
+  display: flex;
+  flex-direction: column;
+  gap: calc(20 * var(--u));
+  align-items: center;
+  text-align: center;
+}
+
+/* Количество карточек задаёт редактор: сетка тянется на любое число. */
+.occasions__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: calc(20 * var(--u));
+}

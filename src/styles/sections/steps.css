@@ -1,0 +1,120 @@
+/* Этапы: заголовок по центру, слева счётчик и фото активного этапа, справа
+   список этапов. Секция закреплена на время сцены «Наслоение» и занимает
+   ровно экран: список длиннее окна, лишнее срезается снизу и подъезжает
+   по ходу сцены. Фото и номера лежат стопками в одной ячейке. */
+.steps {
+  --section-padding-block: calc(150 * var(--u));
+
+  display: flex;
+  flex-direction: column;
+  gap: calc(70 * var(--u));
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+  padding-inline: var(--gutter);
+}
+
+.steps__head {
+  display: flex;
+  flex-direction: column;
+  gap: calc(20 * var(--u));
+  align-items: center;
+  text-align: center;
+}
+
+.steps__row {
+  display: flex;
+  gap: calc(20 * var(--u));
+  align-items: flex-start;
+  width: 100%;
+  padding-top: calc(50 * var(--u));
+}
+
+.steps__visual {
+  display: flex;
+  flex-shrink: 0;
+  gap: calc(20 * var(--u));
+  align-items: center;
+  width: calc(1065 * var(--u));
+  height: calc(500 * var(--u));
+}
+
+/* Счётчик: номер активного этапа крупно и общее число мелко, по базовой линии. */
+.steps__counter {
+  display: flex;
+  gap: calc(20 * var(--u));
+  align-items: flex-end;
+  width: calc(290 * var(--u));
+}
+
+.steps__counters {
+  display: grid;
+}
+
+.steps__count {
+  grid-area: 1 / 1;
+  font-family: var(--font-serif);
+  font-size: var(--fs-h2);
+  font-style: italic;
+  line-height: var(--lh-h2-accent);
+  letter-spacing: var(--ls-h2-accent);
+  text-box: trim-both cap alphabetic;
+}
+
+.steps__total {
+  font-size: var(--fs-text-18);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  text-box: trim-both cap alphabetic;
+}
+
+.steps__frames {
+  display: grid;
+  overflow: hidden;
+  width: calc(600 * var(--u));
+  height: 100%;
+  border-radius: calc(5 * var(--u));
+  background-color: var(--color-bg);
+}
+
+.steps__frame {
+  grid-area: 1 / 1;
+  overflow: hidden;
+}
+
+.steps__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.steps__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: calc(30 * var(--u));
+  min-width: 0;
+  padding-top: calc(150 * var(--u));
+}
+
+.steps__label {
+  padding-bottom: calc(10 * var(--u));
+  border-bottom: 1px solid var(--color-line);
+  font-size: var(--fs-text-18);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  text-box: trim-both cap alphabetic;
+  opacity: 0.3;
+}
+
+/* Окно списка: пройденные этапы уходят за его верхний край. */
+.steps__viewport {
+  overflow: hidden;
+}
+
+.steps__list {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: calc(30 * var(--u));
+}

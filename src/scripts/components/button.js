@@ -1,16 +1,18 @@
 import { gsap } from 'gsap';
 
-/* Кнопка: на ховере сердце перепрыгивает подпись по дуге с правого края
-   на левый, подпись сдвигается ему навстречу. При уходе курсора та же сцена
-   идёт назад — таймлайн просто реверсится, поэтому прерванный ховер не рвётся.
+/* Кнопка: на ховере сердце гаснет у правого края подписи и проявляется
+   у левого, подпись сдвигается ему навстречу. Сердце одно: первую половину
+   оно растворяется, чуть уходя наружу, потом мгновенно переносится за левый
+   край и проявляется на своё место. При уходе курсора та же сцена идёт назад —
+   таймлайн просто реверсится, поэтому прерванный ховер не рвётся.
 
    Ход сердца — ширина подписи плюс зазор, ход подписи — ширина сердца плюс
    зазор. Подпись у каждой кнопки своя, поэтому ходы считаются из реальных
    размеров при каждом старте из покоя. Без JS и при отключённых анимациях
    сердце просто перескакивает налево — см. button.css. */
 
-/* Высота прыжка — в долях высоты сердца. */
-const HOP = 2.4;
+/* Насколько сердце уходит наружу, пока гаснет, — в долях своей ширины. */
+const DRIFT = 0.6;
 const DURATION = 0.45;
 
 export function initButtons() {
@@ -35,12 +37,20 @@ export function initButtons() {
         const gap = () => parseFloat(getComputedStyle(button).columnGap) || 0;
         const size = () => icon.getBoundingClientRect();
 
+        const drift = () => size().width * DRIFT;
+        const travel = () => -(label.offsetWidth + gap());
+        const half = DURATION / 2;
+
         const timeline = gsap
           .timeline({ paused: true, defaults: { duration: DURATION, ease: 'power2.inOut' } })
           .to(label, { x: () => size().width + gap() }, 0)
-          .to(icon, { x: () => -(label.offsetWidth + gap()) }, 0)
-          .to(icon, { y: () => -size().height * HOP, duration: DURATION / 2, ease: 'sine.out' }, 0)
-          .to(icon, { y: 0, duration: DURATION / 2, ease: 'sine.in' }, DURATION / 2);
+          .to(icon, { x: drift, opacity: 0, duration: half, ease: 'power2.in' }, 0)
+          .fromTo(
+            icon,
+            { x: () => travel() - drift(), opacity: 0 },
+            { x: travel, opacity: 1, duration: half, ease: 'power2.out', immediateRender: false },
+            half
+          );
 
         /* Размеры перечитываются только из покоя: посреди хода invalidate
            запомнил бы промежуточное положение как стартовое. */

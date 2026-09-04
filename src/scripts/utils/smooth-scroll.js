@@ -7,6 +7,19 @@ import Lenis from 'lenis';
    и на мыши это читалось как вязкость. */
 const SPEED = 1;
 
+let instance = null;
+
+/* Прокрутка к позиции из скриптов: через Lenis, пока он живёт, иначе
+   нативно. Нативный window.scrollTo Lenis перехватывает и возвращает
+   страницу к своей цели, поэтому напрямую им пользоваться нельзя. */
+export function scrollTo(top) {
+  if (instance) {
+    instance.scrollTo(top);
+  } else {
+    window.scrollTo({ top, behavior: 'smooth' });
+  }
+}
+
 export function initSmoothScroll() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
@@ -24,10 +37,12 @@ export function initSmoothScroll() {
   lenis.on('scroll', ScrollTrigger.update);
   gsap.ticker.add(update);
   gsap.ticker.lagSmoothing(0);
+  instance = lenis;
 
   return () => {
     gsap.ticker.remove(update);
     gsap.ticker.lagSmoothing(500, 33);
     lenis.destroy();
+    instance = null;
   };
 }

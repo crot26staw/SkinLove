@@ -1,6 +1,7 @@
 import { gsap } from 'gsap';
 
 import { dissolveLength } from './timing.js';
+import { nextSection } from '../utils/siblings.js';
 
 /* Растворение (dissolve): секция замирает и гаснет целиком — вместе с фоном.
    Под ней уже стоит следующая секция (underlap) — неподвижно, всю фазу,
@@ -9,7 +10,7 @@ import { dissolveLength } from './timing.js';
    Описание сцен и их имена — в ANIMATIONS.md. */
 export function initAboutDissolve() {
   const section = document.querySelector('[data-section="about"]');
-  const next = section?.nextElementSibling;
+  const next = nextSection(section);
 
   if (!section || !next) return;
 

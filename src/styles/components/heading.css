@@ -45,3 +45,9 @@
   line-height: var(--lh-h2-accent);
   letter-spacing: var(--ls-h2-accent);
 }
+
+/* Строки в ряд, по базовой линии: «Love — буквально». */
+.heading--row {
+  flex-direction: row;
+  align-items: flex-end;
+}

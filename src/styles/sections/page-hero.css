@@ -1,0 +1,130 @@
+/* Первый экран «О клинике»: фото во весь экран, логотип-вектор внизу слева,
+   подводка внизу справа, перекрестие через центр. Секция липкая: следующая
+   наезжает на неё сверху скруглённым верхом, а сцена «Разъезд» разводит
+   логотип и подводку по бокам и высветляет фото. Без JS следующая секция
+   просто накрывает первый экран.
+
+   Фото высветляется не до конца: у следующей секции скруглённый верх, и в углах
+   фото остаётся видно ещё почти экран прокрутки — закрашенное полностью оно
+   слилось бы с фоном, и полукруг пропал бы. */
+.page-hero {
+  --spread-veil-max: 0.6;
+
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: flex-end;
+  height: 100vh;
+  padding: var(--gutter);
+  overflow: hidden;
+  background-color: var(--color-bg);
+}
+
+.page-hero__decor {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.page-hero__decor-media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Затемнение снизу, чтобы светлый текст читался на фото. */
+.page-hero__decor::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, var(--color-shade-top), var(--color-shade-bottom));
+}
+
+/* Перекрестие: две линии через центр экрана и плюс в точке пересечения. */
+.page-hero__lines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.page-hero__lines::before,
+.page-hero__lines::after {
+  content: '';
+  position: absolute;
+  background-color: var(--color-line-light);
+}
+
+.page-hero__lines::before {
+  top: 50%;
+  right: 0;
+  left: 0;
+  height: 1px;
+}
+
+.page-hero__lines::after {
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+}
+
+.page-hero__marker {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: calc(13.787 * var(--u));
+  height: calc(13.787 * var(--u));
+  color: var(--color-bg);
+  opacity: 0.5;
+  transform: translate(-50%, -50%);
+}
+
+/* Слой, которым первый экран высветляется под наезжающую секцию.
+   Цвет проставляет JS, начальное состояние — только здесь. */
+.page-hero__veil {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.page-hero__inner {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.page-hero__title {
+  width: calc(910 * var(--u));
+}
+
+.page-hero__wordmark {
+  width: 100%;
+  height: auto;
+}
+
+.page-hero__text {
+  display: flex;
+  flex-direction: column;
+  gap: calc(20 * var(--u));
+  width: calc(435 * var(--u));
+  color: var(--color-bg);
+}
+
+.page-hero__lead {
+  font-family: var(--font-serif);
+  font-size: var(--fs-h4-accent);
+  font-style: italic;
+  line-height: var(--lh-h4-accent);
+  letter-spacing: var(--ls-h4-accent);
+  text-box: trim-both cap alphabetic;
+}
+
+.page-hero__note {
+  font-size: var(--fs-text-20);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  text-box: trim-both cap alphabetic;
+}

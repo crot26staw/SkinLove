@@ -1,11 +1,13 @@
 import { gsap } from 'gsap';
 
+import { nextSection } from '../utils/siblings.js';
+
 /* Пока следующая секция наезжает на липкий hero, открытая часть hero
    перекрашивается в её фон — экран уходит не срезом, а растворением. */
 export function initHeroBackdrop() {
   const hero = document.querySelector('[data-section="hero"]');
   const veil = hero?.querySelector('[data-hero-veil]');
-  const next = hero?.nextElementSibling;
+  const next = nextSection(hero);
 
   if (!hero || !veil || !next) return;
 

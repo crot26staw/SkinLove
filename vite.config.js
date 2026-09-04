@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite';
+import { resolve } from 'node:path';
 
 export default defineConfig({
   // На GitHub Pages сайт живёт по адресу /SkinLove/, локально — в корне
@@ -9,6 +10,15 @@ export default defineConfig({
   },
   build: {
     target: 'es2022',
-    cssTarget: ['chrome112', 'edge112', 'firefox117', 'safari16.5']
+    cssTarget: ['chrome112', 'edge112', 'firefox117', 'safari16.5'],
+    rollupOptions: {
+      // Одна страница вёрстки — один будущий шаблон темы
+      input: {
+        index: resolve(import.meta.dirname, 'index.html'),
+        about: resolve(import.meta.dirname, 'about.html'),
+        ivTherapy: resolve(import.meta.dirname, 'iv-therapy.html'),
+        outcall: resolve(import.meta.dirname, 'outcall.html')
+      }
+    }
   }
 });

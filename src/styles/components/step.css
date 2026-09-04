@@ -1,0 +1,32 @@
+/* Этап: название курсивом и описание. Будущие этапы приглушены,
+   активный отмечен aria-current. */
+.step {
+  display: flex;
+  flex-direction: column;
+  gap: calc(20 * var(--u));
+  align-items: flex-start;
+  padding-bottom: calc(30 * var(--u));
+  border-bottom: 1px solid var(--color-line);
+  opacity: 0.3;
+}
+
+.step[aria-current='step'] {
+  opacity: 1;
+}
+
+.step__title {
+  font-family: var(--font-serif);
+  font-size: var(--fs-h3);
+  font-style: italic;
+  line-height: var(--lh-h3);
+  letter-spacing: var(--ls-h3);
+  text-box: trim-both cap alphabetic;
+}
+
+.step__text {
+  max-width: calc(611 * var(--u));
+  font-size: var(--fs-subtitle);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  text-box: trim-both cap alphabetic;
+}

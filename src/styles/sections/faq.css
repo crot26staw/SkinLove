@@ -1,0 +1,23 @@
+/* Частые вопросы: слева дескриптор и заголовок, справа список вопросов.
+   Нижнего отступа нет: следующая секция несёт свой. */
+.faq {
+  --section-padding-block: calc(150 * var(--u)) 0;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: calc(20 * var(--u));
+  padding-inline: var(--gutter);
+}
+
+.faq__head {
+  display: flex;
+  flex-direction: column;
+  gap: calc(20 * var(--u));
+  align-items: flex-start;
+}
+
+.faq__list {
+  display: flex;
+  flex-direction: column;
+  gap: calc(20 * var(--u));
+}

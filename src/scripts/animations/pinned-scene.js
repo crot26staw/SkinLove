@@ -3,6 +3,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import { blindsOpen } from './blinds.js';
 import { exitLength, openLength, screen } from './timing.js';
+import { nextSection } from '../utils/siblings.js';
 
 /* Каркас закреплённой сцены с уездом: пауза (hold) на длину фазы предыдущей
    секции → жалюзи (blinds, необязательно) → своя фаза (phase) → уезд влево,
@@ -24,7 +25,7 @@ export function createPinnedScene({
   holdNext = true,
   hold = () => 0
 }) {
-  const next = section?.nextElementSibling;
+  const next = nextSection(section);
 
   if (!section || !next || !phase) return;
 

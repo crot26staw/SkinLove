@@ -1,0 +1,79 @@
+/* Вопрос с ответом на <details>. Раскрытие ведёт components/faq.js;
+   здесь — два состояния кнопки и поворот плюса в крест. Пока ответ
+   закрывается, атрибут open ещё стоит, и закрытый вид даёт data-faq-closing. */
+.faq-item {
+  border-top: 1px solid var(--color-line);
+}
+
+.faq-item__summary {
+  display: flex;
+  gap: calc(20 * var(--u));
+  align-items: center;
+  justify-content: space-between;
+  padding-top: calc(20 * var(--u));
+  list-style: none;
+  cursor: pointer;
+}
+
+.faq-item__summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item__question {
+  font-size: var(--fs-h4);
+  font-weight: 500;
+  line-height: var(--lh-h4);
+  letter-spacing: var(--ls-h4);
+  text-box: trim-both cap alphabetic;
+}
+
+.faq-item__toggle {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: calc(70 * var(--u));
+  height: calc(70 * var(--u));
+  border: 1px solid var(--color-line);
+  border-radius: calc(5 * var(--u));
+  color: var(--color-ink);
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
+}
+
+.faq-item__summary:hover .faq-item__toggle,
+.faq-item__summary:focus-visible .faq-item__toggle {
+  border-color: var(--color-ink);
+}
+
+.faq-item[open]:not([data-faq-closing]) .faq-item__toggle {
+  border-color: var(--color-ink);
+  background-color: var(--color-ink);
+  color: var(--color-bg);
+}
+
+.faq-item__icon {
+  width: calc(12 * var(--u));
+  height: calc(12 * var(--u));
+  transition: transform var(--duration-base) var(--ease-out);
+}
+
+.faq-item[open]:not([data-faq-closing]) .faq-item__icon {
+  transform: rotate(45deg) scale(0.83);
+}
+
+.faq-item__answer {
+  margin-top: calc(20 * var(--u));
+  padding-top: calc(20 * var(--u));
+  border-top: 1px solid var(--color-line);
+}
+
+.faq-item__text {
+  max-width: calc(600 * var(--u));
+  font-size: var(--fs-subtitle);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  text-box: trim-both cap alphabetic;
+  opacity: 0.8;
+}

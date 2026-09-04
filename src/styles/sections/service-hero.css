@@ -1,0 +1,132 @@
+/* Первый экран страницы услуги: фото во весь экран, затемнённое книзу,
+   перекрестие через центр, в середине — подводка слева и текст с кнопкой
+   справа, внизу — заголовок в строку от края до края. Секция липкая:
+   следующая наезжает на неё сверху, а сцена «Разъезд» разводит текст
+   по бокам и перекрашивает фото в цвет следующей секции. Без JS следующая
+   секция просто накрывает первый экран. */
+.service-hero {
+  position: sticky;
+  top: 0;
+  display: flex;
+  height: 100vh;
+  padding: calc(124 * var(--u)) var(--gutter) var(--gutter);
+  overflow: hidden;
+  background-color: var(--color-ink);
+}
+
+.service-hero__decor {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Кадр вертикальный, в макете виден его средний пояс — отсюда смещение. */
+.service-hero__decor-media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 57%;
+}
+
+/* Затемнение снизу, чтобы светлый текст читался на фото. */
+.service-hero__decor::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, var(--color-shade-top), var(--color-shade-bottom));
+}
+
+/* Перекрестие: две линии через центр экрана и плюс в точке пересечения. */
+.service-hero__lines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.service-hero__lines::before,
+.service-hero__lines::after {
+  content: '';
+  position: absolute;
+  background-color: var(--color-line-light);
+}
+
+.service-hero__lines::before {
+  top: 50%;
+  right: 0;
+  left: 0;
+  height: 1px;
+}
+
+.service-hero__lines::after {
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+}
+
+.service-hero__marker {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: calc(13.787 * var(--u));
+  height: calc(13.787 * var(--u));
+  color: var(--color-bg);
+  opacity: 0.5;
+  transform: translate(-50%, -50%);
+}
+
+/* Слой, которым первый экран перекрашивается под наезжающую секцию.
+   Цвет проставляет JS, начальное состояние — только здесь. */
+.service-hero__veil {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.service-hero__inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  color: var(--color-bg);
+}
+
+/* Средний ряд стоит посередине между верхним полем и заголовком. */
+.service-hero__row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-block: auto;
+}
+
+.service-hero__lead {
+  width: calc(322.469 * var(--u));
+  font-size: var(--fs-subtitle);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  text-transform: uppercase;
+  text-box: trim-both cap alphabetic;
+}
+
+.service-hero__aside {
+  display: flex;
+  flex-direction: column;
+  gap: calc(30 * var(--u));
+  align-items: flex-start;
+  width: calc(435 * var(--u));
+}
+
+.service-hero__text {
+  font-size: var(--fs-text-20);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  text-box: trim-both cap alphabetic;
+}
+
+/* Заголовок крупнее обычного h1 и разведён по краям экрана. */
+.service-hero__title {
+  justify-content: space-between;
+  font-size: var(--fs-h1-display);
+  color: var(--color-bg);
+}

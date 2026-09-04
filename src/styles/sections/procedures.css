@@ -1,0 +1,116 @@
+/* Услуги с выездом: экран, закреплённый на время сцены «Наслоение». Слева
+   фото активного элемента и список услуг-вкладок поверх него, справа описание,
+   внизу по центру название курсивом, которое инвертируется на стыке фото
+   и фона. Фото, описания и названия лежат стопками в одной ячейке: сцена
+   открывает следующее фото снизу поверх текущего и подменяет текст. Без сцены
+   виден активный элемент, вкладки переключают его.
+
+   Блок открывается жалюзи, как подвал: цвет полос скрипт берёт из фона
+   предыдущей секции, в CSS — запасной. */
+.procedures {
+  --section-padding-block: 0;
+  --blinds-color: var(--color-bg);
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: calc(20 * var(--u));
+  height: 100vh;
+  overflow: hidden;
+}
+
+.procedures__media {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Затемнение книзу, чтобы вкладки читались на фото. */
+.procedures__media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 74%, var(--color-shade-bottom));
+  pointer-events: none;
+}
+
+.procedures__frames {
+  position: absolute;
+  inset: 0;
+  display: grid;
+}
+
+.procedures__frame {
+  grid-area: 1 / 1;
+  overflow: hidden;
+}
+
+.procedures__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Элемент без фото: логотип по центру на фоне секции. Фон обязателен —
+   кадр накрывает предыдущее фото. */
+.procedures__frame--empty {
+  display: grid;
+  place-items: center;
+  background-color: var(--color-beige);
+}
+
+.procedures__logo {
+  width: calc(255 * var(--u));
+  height: auto;
+}
+
+.procedures__tabs {
+  position: absolute;
+  bottom: calc(40 * var(--u));
+  left: calc(30 * var(--u));
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.procedures__body {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: calc(50 * var(--u)) var(--gutter) var(--gutter) 0;
+}
+
+.procedures__panels {
+  display: grid;
+  width: calc(600 * var(--u));
+}
+
+.procedures__panels > * {
+  grid-area: 1 / 1;
+}
+
+/* Название активного элемента: по центру экрана, на стыке фото и фона.
+   Разница цветов делает его светлым на фото и тёмным на бежевом. Смешивание
+   стоит на контейнере: у него трансформ, и он изолирует детей от подложки. */
+.procedures__captions {
+  position: absolute;
+  bottom: var(--gutter);
+  left: 50%;
+  z-index: 1;
+  display: grid;
+  width: calc(872 * var(--u));
+  transform: translateX(-50%);
+  mix-blend-mode: difference;
+  pointer-events: none;
+}
+
+.procedures__caption {
+  grid-area: 1 / 1;
+  color: var(--color-bg);
+  font-family: var(--font-serif);
+  font-size: var(--fs-h2);
+  font-style: italic;
+  line-height: var(--lh-h2-accent);
+  letter-spacing: var(--ls-h2-accent);
+  text-align: center;
+  text-box: trim-both cap alphabetic;
+}

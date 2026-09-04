@@ -1,5 +1,6 @@
-/* Имя в списке отзывов. Активное — с сердцем, остальные приглушены. */
-.review-tab {
+/* Вкладка в вертикальном списке: имя в отзывах, услуга в выездных.
+   Активная — с сердцем, остальные приглушены. */
+.tab {
   display: flex;
   gap: calc(10 * var(--u));
   align-items: center;
@@ -13,26 +14,31 @@
   transition: opacity var(--duration-fast) var(--ease-out);
 }
 
-.review-tab:hover,
-.review-tab:focus-visible {
+.tab:hover,
+.tab:focus-visible {
   opacity: 1;
 }
 
-.review-tab[aria-selected='true'] {
+.tab[aria-selected='true'] {
   font-weight: 500;
   opacity: 1;
 }
 
-.review-tab__label {
+.tab__label {
   text-box: trim-both cap alphabetic;
 }
 
-.review-tab__icon {
+.tab__icon {
   flex-shrink: 0;
   width: calc(10 * var(--u));
   height: calc(9.175 * var(--u));
 }
 
-.review-tab:not([aria-selected='true']) .review-tab__icon {
+.tab:not([aria-selected='true']) .tab__icon {
   display: none;
+}
+
+/* На фото и тёмном фоне. */
+.tab--light {
+  color: var(--color-bg);
 }
