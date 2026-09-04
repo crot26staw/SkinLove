@@ -1,0 +1,47 @@
+/* Заголовок из двух строк: первая — Inter Tight, вторая — акцентная IBM Plex Serif italic.
+   Вторая строка необязательна, макет не разъезжается без неё. */
+.heading {
+  display: flex;
+  flex-direction: column;
+  color: var(--color-ink);
+}
+
+.heading__line {
+  display: block;
+  text-box: trim-both cap alphabetic;
+  font-family: var(--font-sans);
+  font-style: normal;
+}
+
+.heading__line--accent {
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+
+.heading--h1 {
+  font-size: var(--fs-h1);
+}
+
+.heading--h1 .heading__line {
+  line-height: var(--lh-h1);
+  letter-spacing: var(--ls-h1);
+}
+
+.heading--h1 .heading__line--accent {
+  line-height: var(--lh-h1-accent);
+  letter-spacing: var(--ls-h1-accent);
+}
+
+.heading--h2 {
+  font-size: var(--fs-h2);
+}
+
+.heading--h2 .heading__line {
+  line-height: var(--lh-h2);
+  letter-spacing: var(--ls-h2);
+}
+
+.heading--h2 .heading__line--accent {
+  line-height: var(--lh-h2-accent);
+  letter-spacing: var(--ls-h2-accent);
+}

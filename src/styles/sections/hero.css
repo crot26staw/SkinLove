@@ -1,0 +1,52 @@
+.hero {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  background-color: var(--color-bg);
+}
+
+.hero__decor {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Слой на всю секцию, как в макете. Позже сюда встанет <video> с теми же правилами. */
+.hero__decor-media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Слой, которым hero перекрашивается в цвет следующей секции при скролле.
+   Цвет проставляет JS, начальное состояние — только здесь. */
+.hero__veil {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.hero__inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(40 * var(--u));
+  width: calc(1065 * var(--u));
+  margin-left: var(--gutter);
+  padding-top: calc(158 * var(--u));
+}
+
+.hero__title {
+  width: 100%;
+}
+
+.hero__lead {
+  width: calc(555.663 * var(--u));
+  font-size: var(--fs-subtitle);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  text-transform: uppercase;
+  text-box: trim-both cap alphabetic;
+}

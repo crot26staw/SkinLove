@@ -1,0 +1,219 @@
+/* Подвал одинаков на всех страницах — уедет в footer.php целиком.
+   Полосы жалюзи повторяют фон предыдущей секции, поэтому цвет объявлен здесь,
+   а не в компоненте: сменится фон СТА — правится одна строка. */
+.footer {
+  --blinds-color: var(--color-beige);
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: calc(100 * var(--u));
+  overflow: hidden;
+  padding: calc(100 * var(--u)) var(--gutter) var(--gutter);
+  background-color: var(--color-bg);
+}
+
+.footer__columns {
+  display: flex;
+  gap: calc(20 * var(--u));
+  align-items: start;
+}
+
+.footer__column {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: calc(20 * var(--u));
+  min-width: 0;
+}
+
+/* В колонке контактов три группы, между ними шаг крупнее. */
+.footer__column--contacts {
+  gap: calc(40 * var(--u));
+}
+
+.footer__group {
+  display: flex;
+  flex-direction: column;
+  gap: calc(20 * var(--u));
+}
+
+.footer__label {
+  font-size: var(--fs-text-18);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  text-box: trim-both cap alphabetic;
+  opacity: 0.5;
+}
+
+/* Структура повторяет вывод wp_nav_menu: ul.menu > li.menu-item > a. */
+.footer__menu {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.footer__menu a {
+  display: block;
+  padding-block: calc(5 * var(--u));
+  font-size: var(--fs-text-20);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  text-transform: uppercase;
+  text-box: trim-both cap alphabetic;
+}
+
+/* Активное направление показано в превью, остальные приглушены. */
+.footer__menu--directions .menu-item {
+  opacity: 0.5;
+}
+
+.footer__menu--directions .current-menu-item {
+  opacity: 1;
+}
+
+.footer__socials {
+  display: flex;
+  gap: calc(5 * var(--u));
+}
+
+.social-button {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: calc(60 * var(--u));
+  height: calc(60 * var(--u));
+  border: 1px solid var(--color-ink);
+  border-radius: calc(5 * var(--u));
+  color: var(--color-ink);
+  transition: background-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
+}
+
+.social-button:hover,
+.social-button:focus-visible {
+  background-color: var(--color-ink);
+  color: var(--color-bg);
+}
+
+.social-button__icon {
+  width: calc(58 * var(--u));
+  height: calc(58 * var(--u));
+}
+
+.footer__preview {
+  overflow: hidden;
+  width: calc(130 * var(--u));
+  height: calc(130 * var(--u));
+  border-radius: calc(10 * var(--u));
+}
+
+.footer__preview-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center bottom;
+}
+
+/* Указатель на активное направление: сердец столько же, сколько пунктов. */
+.footer__hearts {
+  display: flex;
+  gap: calc(2 * var(--u));
+}
+
+.footer__heart {
+  width: calc(10 * var(--u));
+  height: calc(9.175 * var(--u));
+  opacity: 0.2;
+}
+
+.footer__heart--current {
+  opacity: 1;
+}
+
+.footer__cta {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: calc(10 * var(--u));
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  min-width: 0;
+  padding: calc(20 * var(--u)) calc(20 * var(--u)) calc(30 * var(--u));
+  background-color: var(--color-ink);
+  color: var(--color-bg);
+}
+
+.footer__cta-hearts {
+  display: flex;
+  gap: calc(2 * var(--u));
+}
+
+.footer__cta-heart {
+  width: calc(7 * var(--u));
+  height: calc(6.423 * var(--u));
+}
+
+.footer__cta-label {
+  font-size: var(--fs-text-20);
+  font-weight: 500;
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-descriptor);
+  text-align: center;
+  text-transform: uppercase;
+  text-box: trim-both cap alphabetic;
+}
+
+.footer__bottom {
+  display: flex;
+  gap: calc(20 * var(--u));
+  align-items: end;
+}
+
+.footer__legal {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  gap: calc(10 * var(--u));
+  min-width: 0;
+}
+
+.footer__legal a {
+  display: block;
+  padding-block: calc(10 * var(--u));
+  font-size: var(--fs-text-16);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  text-box: trim-both cap alphabetic;
+  opacity: 0.5;
+}
+
+.footer__brand {
+  display: flex;
+  flex: 1;
+  gap: calc(20 * var(--u));
+  align-items: end;
+  justify-content: space-between;
+  min-width: 0;
+}
+
+.footer__logo {
+  display: block;
+  flex-shrink: 0;
+  width: calc(193.85 * var(--u));
+}
+
+.footer__logo-image {
+  width: 100%;
+  height: calc(65.1 * var(--u));
+  object-fit: contain;
+  object-position: left bottom;
+}
+
+.footer__badge {
+  flex-shrink: 0;
+  width: calc(149.466 * var(--u));
+  height: calc(20 * var(--u));
+}

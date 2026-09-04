@@ -1,0 +1,95 @@
+/* Секция описана финальным состоянием макета «СТА 1920»: кадр во всю карточку,
+   заголовок собран по центру, под ним текст и кнопка. Стартовое состояние
+   (маленький кадр, разбросанные слова) поднимает сцена «Сборка» — без JS
+   и при отключённых анимациях секция сразу выглядит собранной. */
+.cta {
+  --section-padding-block: calc(100 * var(--u));
+
+  display: flex;
+  height: 100vh;
+  padding-inline: var(--gutter);
+}
+
+.cta__card {
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: calc(40 * var(--u));
+  align-items: center;
+  justify-content: center;
+  padding-inline: var(--gutter);
+  border-radius: calc(30 * var(--u));
+  background-color: var(--color-bg);
+}
+
+.cta__media {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: calc(30 * var(--u));
+}
+
+/* Снимок вертикальный, в кадр берётся его нижняя треть: смещение задано
+   в процентах от высоты карточки, как в макете. Пропорцию картинке даёт
+   пара width/height в разметке — до загрузки файла высота уже известна. */
+.cta__media-image {
+  position: absolute;
+  top: -197.6%;
+  left: 0;
+  width: 100%;
+  height: auto;
+}
+
+.cta__shade {
+  position: absolute;
+  inset: 0;
+  background-color: rgb(0 0 0 / 20%);
+}
+
+.cta__title {
+  position: relative;
+  z-index: 1;
+  flex-direction: row;
+  gap: calc(10 * var(--u));
+  justify-content: center;
+  width: 100%;
+  color: var(--color-bg);
+  text-align: center;
+}
+
+/* Слова разъезжаются по ширине карточки, поэтому переносить их нельзя. */
+.cta__title .heading__line {
+  white-space: nowrap;
+}
+
+.cta__text {
+  position: relative;
+  z-index: 1;
+  max-width: calc(672 * var(--u));
+  color: var(--color-bg);
+  font-size: var(--fs-subtitle);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  text-align: center;
+  text-transform: uppercase;
+  text-box: trim-both cap alphabetic;
+}
+
+.cta__button {
+  position: relative;
+  z-index: 1;
+}
+
+/* В разбросанном состоянии под заголовком ещё пусто: текст и кнопка
+   проявляются в конце сцены. Без сцены они видны сразу. */
+.cta[data-scene='on'] .cta__text,
+.cta[data-scene='on'] .cta__button {
+  opacity: 0;
+}
+
+/* Кадр — самое тяжёлое место сцены: окно режется clip-path, а снимок под ним
+   едет и масштабируется. Подсказка нужна только пока сцена работает. */
+.cta[data-scene='on'] .cta__media-image {
+  will-change: transform;
+}

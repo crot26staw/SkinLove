@@ -1,0 +1,33 @@
+/* Секция самодостаточна: свой фон и свои вертикальные отступы (padding, не margin).
+   Отступы задаёт файл секции через --section-padding-block. */
+.section {
+  position: relative;
+  padding-block: var(--section-padding-block, calc(150 * var(--u)));
+  background-color: var(--color-bg);
+}
+
+.section--light {
+  background-color: var(--color-bg);
+}
+
+.section--beige {
+  background-color: var(--color-beige);
+}
+
+/* Подкладка (underlap): секция заранее стоит под предыдущей, чтобы та открыла
+   её уездом или растворением. Величину задаёт скрипт предыдущей секции — она
+   завязана на длину её фазы, поэтому в CSS константы нет. */
+[data-underlap='on'] {
+  margin-top: calc(-1 * var(--underlap, 0px));
+}
+
+/* Распорка, которую GSAP подставляет вместо закреплённой секции, наследует её
+   z-index и перехватывает клики у секции, подложенной под неё. Распорка держит
+   только высоту — события ей не нужны, а закреплённой секции внутри нужны. */
+.pin-spacer {
+  pointer-events: none;
+}
+
+.pin-spacer > * {
+  pointer-events: auto;
+}

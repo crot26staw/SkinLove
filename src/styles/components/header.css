@@ -1,0 +1,66 @@
+/* Шапка одинакова на всех страницах: разница только в модификаторе класса.
+   mix-blend-mode: difference — как в макете: логотип и «меню» сами читаются
+   и на светлом фоне, и поверх картинки. */
+.header {
+  position: fixed;
+  top: calc(var(--header-top) + var(--admin-bar-height));
+  right: 0;
+  left: 0;
+  z-index: var(--z-header);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding-left: var(--gutter);
+  padding-right: calc(26 * var(--u));
+  mix-blend-mode: difference;
+}
+
+.header__logo {
+  display: block;
+  flex-shrink: 0;
+  width: calc(134.3 * var(--u));
+}
+
+.header__logo-image {
+  width: 100%;
+  height: calc(45.102 * var(--u));
+  object-fit: contain;
+  object-position: left center;
+}
+
+.menu-toggle {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: calc(8 * var(--u));
+  padding: calc(14 * var(--u));
+  border-radius: calc(50 * var(--u));
+  color: var(--color-bg);
+}
+
+.menu-toggle__label {
+  font-family: var(--font-sans);
+  font-size: var(--fs-text-18);
+  font-weight: 500;
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  text-align: right;
+  text-transform: uppercase;
+  text-box: trim-both cap alphabetic;
+  opacity: 0.8;
+}
+
+.menu-toggle__icon {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: calc(21 * var(--u));
+  height: calc(11 * var(--u));
+  opacity: 0.8;
+}
+
+.menu-toggle__line {
+  display: block;
+  height: 1px;
+  background-color: currentcolor;
+}

@@ -1,0 +1,184 @@
+.atmosphere {
+  --pad: calc(150 * var(--u));
+  --section-padding-block: var(--pad);
+
+  display: flex;
+  flex-direction: column;
+  gap: calc(60 * var(--u));
+  justify-content: center;
+  overflow: hidden;
+  padding-inline: var(--gutter);
+}
+
+.atmosphere__marker {
+  position: absolute;
+  top: calc(143.77 * var(--u));
+  left: 50%;
+  width: calc(13.787 * var(--u));
+  height: calc(13.787 * var(--u));
+  transform: translateX(-50%);
+}
+
+.atmosphere__head {
+  position: relative;
+  display: flex;
+  gap: calc(20 * var(--u));
+  align-items: start;
+  padding-top: calc(30 * var(--u));
+  border-top: 1px solid var(--color-line);
+}
+
+.atmosphere__label {
+  flex: 1;
+}
+
+.atmosphere__intro {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: calc(60 * var(--u));
+  align-items: start;
+}
+
+.atmosphere__texts {
+  display: flex;
+  gap: calc(20 * var(--u));
+  align-items: start;
+  width: 100%;
+}
+
+.atmosphere__lead {
+  flex: 1;
+  font-size: var(--fs-subtitle);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  text-transform: uppercase;
+  text-box: trim-both cap alphabetic;
+}
+
+.atmosphere__text {
+  flex: 1;
+  font-size: var(--fs-text-20);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  text-box: trim-both cap alphabetic;
+}
+
+/* Шапка выводится из потока: она всё равно уезжает, и без неё высота секции
+   равна финальной раскладке. Иначе после морфа под кадром оставалась бы
+   пустота в высоту ушедшей шапки. Стартовое смещение медиа задаёт скрипт. */
+.atmosphere[data-morph='on'] .atmosphere__head {
+  position: absolute;
+  top: var(--pad);
+  right: var(--gutter);
+  left: var(--gutter);
+}
+
+/* Режим морфа: превью остаётся в разметке ради замеров, но выводится из потока
+   и не видно — его роль играет большой кадр, обрезанный до размера превью.
+   Без JS всё это не включается и секция выглядит как в макете. */
+.atmosphere[data-morph='on'] .atmosphere__preview {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.atmosphere[data-morph='on'] .atmosphere__features {
+  opacity: 0;
+}
+
+.atmosphere__media {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: calc(20 * var(--u));
+}
+
+.atmosphere__preview {
+  overflow: hidden;
+  width: calc(455 * var(--u));
+  height: calc(400 * var(--u));
+  border-radius: calc(8 * var(--u));
+}
+
+.atmosphere__preview-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.atmosphere__scene {
+  position: relative;
+  overflow: hidden;
+  height: calc(900 * var(--u));
+  padding: calc(40 * var(--u));
+  border-radius: calc(8 * var(--u));
+}
+
+/* Кадрирование как в макете: видимое окно смещено выше центра кадра. */
+.atmosphere__scene-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 45%;
+}
+
+.atmosphere__scene::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgb(0 0 0 / 8%), rgb(0 0 0 / 40%));
+}
+
+.atmosphere__features {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: calc(20 * var(--u));
+  align-items: end;
+  height: 100%;
+}
+
+.feature {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: calc(30 * var(--u));
+  align-items: start;
+  justify-content: end;
+  color: var(--color-bg);
+}
+
+.feature__steps {
+  display: flex;
+  gap: calc(2 * var(--u));
+  flex-shrink: 0;
+}
+
+.feature__heart {
+  width: calc(10 * var(--u));
+  height: calc(9.175 * var(--u));
+}
+
+.feature__heart--muted {
+  opacity: 0.3;
+}
+
+.feature__title {
+  font-family: var(--font-serif);
+  font-size: var(--fs-h4-accent);
+  font-style: italic;
+  line-height: var(--lh-h4-accent);
+  letter-spacing: var(--ls-h4-accent);
+  text-box: trim-both cap alphabetic;
+}
+
+.feature__text {
+  font-size: var(--fs-subtitle);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  text-box: trim-both cap alphabetic;
+  opacity: 0.8;
+}

@@ -1,0 +1,64 @@
+.advantage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: calc(910 * var(--u));
+  height: 100%;
+  border-radius: calc(10 * var(--u));
+  background-color: var(--color-bg);
+}
+
+/* Разделитель стоит в середине зазора слева от карточки — у каждой одинаково. */
+.advantage::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(-10 * var(--u));
+  border-left: 1px solid var(--color-line);
+}
+
+.advantage__body {
+  display: flex;
+  flex-direction: column;
+  gap: calc(30 * var(--u));
+  align-items: start;
+  width: calc(754 * var(--u));
+}
+
+.advantage__media {
+  overflow: hidden;
+  width: 100%;
+  height: calc(400 * var(--u));
+  border-radius: calc(8 * var(--u));
+  background-color: var(--color-beige);
+}
+
+.advantage__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+}
+
+.advantage__title {
+  width: 100%;
+  font-family: var(--font-serif);
+  font-size: var(--fs-h3);
+  font-style: italic;
+  line-height: var(--lh-h3);
+  letter-spacing: var(--ls-h3);
+  text-box: trim-both cap alphabetic;
+}
+
+.advantage__text {
+  width: calc(567.605 * var(--u));
+  font-size: var(--fs-subtitle);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  text-box: trim-both cap alphabetic;
+  opacity: 0.8;
+}

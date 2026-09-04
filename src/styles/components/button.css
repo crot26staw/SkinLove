@@ -1,0 +1,40 @@
+/* Кнопка-ссылка с подчёркиванием. На ховере сердце перепрыгивает подпись
+   с правого края на левый — движение ведёт components/button.js на GSAP.
+   Без скрипта и при отключённых анимациях сердце просто перескакивает
+   налево через order. */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(10 * var(--u));
+  padding-block: calc(10 * var(--u));
+  border-bottom: 1px solid var(--color-ink);
+  color: var(--color-ink);
+}
+
+.button__label {
+  font-family: var(--font-sans);
+  font-size: var(--fs-text-20);
+  font-weight: 500;
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-descriptor);
+  text-align: center;
+  text-transform: uppercase;
+  text-box: trim-both cap alphabetic;
+}
+
+.button__icon {
+  flex-shrink: 0;
+  width: calc(10 * var(--u));
+  height: calc(9.175 * var(--u));
+}
+
+.button:not([data-button='on']):hover .button__icon,
+.button:not([data-button='on']):focus-visible .button__icon {
+  order: -1;
+}
+
+.button--light {
+  border-bottom-color: var(--color-bg);
+  color: var(--color-bg);
+}

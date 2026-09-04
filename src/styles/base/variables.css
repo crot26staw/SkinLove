@@ -1,0 +1,60 @@
+:root {
+  /* Цвет */
+  --color-ink: #3a3a37;
+  --color-bg: #f2f1ed;
+  --color-beige: #dfdcd3;
+  --color-line: rgb(58 58 55 / 10%);
+
+  /* Шрифты */
+  --font-sans: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+  --font-serif: 'IBM Plex Serif', 'Times New Roman', Georgia, serif;
+
+  /* Единица макета: 1 = 1px в макете 1920. Ниже 1280 не уменьшаем. */
+  --u: clamp(0.6667px, 0.0520833vw, 1px);
+
+  /* Типографика: размер / межстрочный / трекинг */
+  --fs-h1: calc(96 * var(--u));
+  --lh-h1: 0.8;
+  --ls-h1: -0.03em;
+  --lh-h1-accent: 0.9;
+  --ls-h1-accent: -0.04em;
+
+  --fs-h2: calc(80 * var(--u));
+  --lh-h2: 0.8;
+  --ls-h2: -0.03em;
+  --lh-h2-accent: 0.7;
+  --ls-h2-accent: -0.04em;
+
+  --fs-h3: calc(60 * var(--u));
+  --lh-h3: 0.8;
+  --ls-h3: -0.04em;
+
+  --fs-h4: calc(35 * var(--u));
+  --lh-h4: 0.9;
+  --ls-h4: -0.01em;
+  --fs-h4-accent: calc(40 * var(--u));
+  --lh-h4-accent: 0.8;
+  --ls-h4-accent: -0.04em;
+
+  --fs-subtitle: calc(23 * var(--u));
+  --fs-text-20: calc(20 * var(--u));
+  --fs-text-18: calc(18 * var(--u));
+  --fs-text-16: calc(16 * var(--u));
+  --fs-descriptor: calc(16 * var(--u));
+  --lh-text: 1.05;
+  --ls-text: -0.02em;
+  --ls-descriptor: -0.01em;
+
+  /* Раскладка */
+  --gutter: calc(40 * var(--u));
+
+  /* Шапка. --admin-bar-height переопределяется темой под админ-бар WP. */
+  --admin-bar-height: 0px;
+  --header-top: calc(30 * var(--u));
+  --z-header: 100;
+
+  /* Движение */
+  --duration-fast: 0.2s;
+  --duration-base: 0.4s;
+  --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+}

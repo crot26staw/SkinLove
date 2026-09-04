@@ -1,0 +1,134 @@
+.reviews {
+  --section-padding-block: calc(150 * var(--u)) 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  padding-inline: var(--gutter);
+}
+
+.reviews__line {
+  position: absolute;
+  top: calc(50% - 107.13 * var(--u));
+  left: 0;
+  width: 100%;
+  border-top: 1px solid var(--color-line);
+}
+
+.reviews__divider {
+  position: absolute;
+  top: calc(366 * var(--u));
+  left: 50%;
+  height: calc(489 * var(--u));
+  border-left: 1px solid var(--color-line);
+}
+
+.reviews__marker {
+  position: absolute;
+  top: calc(50% - 107.13 * var(--u));
+  left: 50%;
+  width: calc(13.787 * var(--u));
+  height: calc(13.787 * var(--u));
+  transform: translate(-50%, -50%);
+}
+
+.reviews__inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: calc(60 * var(--u));
+  align-items: center;
+  width: 100%;
+}
+
+.reviews__head {
+  display: flex;
+  flex-direction: column;
+  gap: calc(20 * var(--u));
+  align-items: center;
+}
+
+.reviews__title {
+  align-items: center;
+  text-align: center;
+}
+
+.reviews__body {
+  display: flex;
+  gap: calc(40 * var(--u));
+  align-items: center;
+  width: calc(1528 * var(--u));
+  height: calc(507 * var(--u));
+  padding-top: calc(50 * var(--u));
+}
+
+.reviews__aside,
+.reviews__main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: start;
+  justify-content: space-between;
+  height: 100%;
+  min-width: 0;
+}
+
+.reviews__names {
+  display: flex;
+  flex-direction: column;
+  gap: calc(5 * var(--u));
+  align-items: start;
+}
+
+.reviews__nav {
+  display: flex;
+  align-items: start;
+}
+
+/* Панель одного отзыва. Видна всегда одна, остальные скрыты атрибутом hidden.
+   Правило на [hidden] нужно здесь: общее из reset проигрывает этому по порядку
+   подключения при равной специфичности. */
+.review {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: space-between;
+  height: 100%;
+  margin: 0;
+}
+
+.review[hidden] {
+  display: none;
+}
+
+.review__quote {
+  width: calc(715.397 * var(--u));
+  margin: 0;
+  font-size: var(--fs-h4);
+  font-weight: 500;
+  line-height: var(--lh-h4);
+  letter-spacing: var(--ls-h4);
+  text-box: trim-both cap alphabetic;
+}
+
+.review__author {
+  display: flex;
+  gap: calc(10 * var(--u));
+  align-items: end;
+}
+
+.review__avatar {
+  flex-shrink: 0;
+  width: calc(80 * var(--u));
+  height: calc(80 * var(--u));
+}
+
+.review__name {
+  font-size: var(--fs-text-20);
+  font-weight: 500;
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  text-transform: uppercase;
+  text-box: trim-both cap alphabetic;
+}

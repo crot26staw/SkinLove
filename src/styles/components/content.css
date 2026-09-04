@@ -1,0 +1,11 @@
+/* Обёртка под вывод редактора (the_content / WYSIWYG): стили по тегам живут только здесь. */
+.content > * + * {
+  margin-top: 1.05em;
+}
+
+.content p {
+  text-box: trim-both cap alphabetic;
+  font-size: var(--fs-text-20);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+}

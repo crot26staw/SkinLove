@@ -1,0 +1,38 @@
+/* Имя в списке отзывов. Активное — с сердцем, остальные приглушены. */
+.review-tab {
+  display: flex;
+  gap: calc(10 * var(--u));
+  align-items: center;
+  padding-block: calc(5 * var(--u));
+  color: var(--color-ink);
+  font-size: var(--fs-text-20);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  text-transform: uppercase;
+  opacity: 0.5;
+  transition: opacity var(--duration-fast) var(--ease-out);
+}
+
+.review-tab:hover,
+.review-tab:focus-visible {
+  opacity: 1;
+}
+
+.review-tab[aria-selected='true'] {
+  font-weight: 500;
+  opacity: 1;
+}
+
+.review-tab__label {
+  text-box: trim-both cap alphabetic;
+}
+
+.review-tab__icon {
+  flex-shrink: 0;
+  width: calc(10 * var(--u));
+  height: calc(9.175 * var(--u));
+}
+
+.review-tab:not([aria-selected='true']) .review-tab__icon {
+  display: none;
+}

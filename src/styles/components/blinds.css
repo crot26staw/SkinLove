@@ -1,0 +1,24 @@
+/* Жалюзи: полосы цвета предыдущего блока, которые расходятся при скролле
+   и открывают то, что под ними. Цвет задаёт сам блок через --blinds-color:
+   полосы должны совпадать с фоном того, что было на экране до них.
+
+   Показываются только когда сценой управляет JS. Без анимации блок остался бы
+   закрытым навсегда, поэтому по умолчанию полос нет вовсе. */
+.blinds {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  display: none;
+  flex-direction: column;
+  pointer-events: none;
+}
+
+[data-scene='on'] > .blinds {
+  display: flex;
+}
+
+.blinds__bar {
+  flex: 1;
+  background-color: var(--blinds-color, var(--color-bg));
+  transform-origin: top center;
+}

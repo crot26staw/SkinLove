@@ -1,0 +1,64 @@
+/* Секция на высоту экрана: карточки по одной приезжают справа и складываются
+   в стопку, пока секция закреплена. */
+.services {
+  --section-padding-block: 0;
+
+  z-index: 1;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.services__viewport {
+  position: relative;
+  height: 100%;
+}
+
+.services__aside {
+  position: absolute;
+  top: calc(-5.59 * var(--u));
+  left: calc(-10 * var(--u));
+  width: calc(723.725 * var(--u));
+  height: calc(1085.588 * var(--u));
+  object-fit: cover;
+}
+
+/* Все карточки в ряду одной высоты — по самой высокой. */
+.services__item {
+  display: flex;
+}
+
+.services__track {
+  position: absolute;
+  top: calc(196 * var(--u));
+  left: 0;
+  display: flex;
+  gap: calc(10 * var(--u));
+  padding-right: var(--gutter);
+  padding-left: calc(610 * var(--u));
+}
+
+/* Без сцены лента просто прокручивается по горизонтали: иначе видна была бы
+   только первая карточка. Жалюзи — общий компонент, см. components/blinds.css. */
+.services:not([data-scene='on']) .services__viewport {
+  overflow-x: auto;
+}
+
+/* Режим стопки: лента сжимается до одного слота активной карточки (как в
+   макете), а все карточки встают в него друг под другом — позднее в разметке
+   выше. Въезд и оседание им задаёт скрипт. */
+.services[data-scene='on'] .services__track {
+  left: calc(950 * var(--u));
+  width: calc(700 * var(--u));
+  padding: 0;
+}
+
+.services[data-scene='on'] .services__item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  will-change: transform;
+}
+
+.services[data-scene='on'] .service-card {
+  will-change: transform;
+}

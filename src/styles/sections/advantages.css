@@ -1,0 +1,93 @@
+/* Секция на высоту экрана: лента едет по горизонтали, пока секция закреплена,
+   затем уезжает влево и открывает следующую. Без жалюзи. */
+.advantages {
+  --section-padding-block: 0;
+
+  z-index: 1;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.advantages__viewport {
+  position: relative;
+  height: 100%;
+}
+
+/* Без JS лента просто прокручивается по горизонтали. */
+.advantages:not([data-scene='on']) .advantages__viewport {
+  overflow-x: auto;
+}
+
+.advantages__track {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  gap: calc(20 * var(--u));
+  height: 100%;
+  padding-inline: var(--gutter);
+  will-change: transform;
+}
+
+.advantages__line {
+  position: absolute;
+  top: calc(6.89 * var(--u));
+  left: 0;
+  width: calc(1920 * var(--u));
+  border-top: 1px solid var(--color-line);
+}
+
+.advantages__marker {
+  position: absolute;
+  top: 0;
+  left: calc(952.89 * var(--u));
+  width: calc(13.787 * var(--u));
+  height: calc(13.787 * var(--u));
+}
+
+/* Первый элемент ленты — заголовочная колонка, она едет вместе с карточками. */
+.advantages__intro {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  width: calc(910 * var(--u));
+  padding-block: calc(150 * var(--u));
+}
+
+.advantages__logo {
+  width: calc(117.813 * var(--u));
+  height: calc(39.565 * var(--u));
+  object-fit: contain;
+}
+
+.advantages__title {
+  align-items: center;
+  text-align: center;
+}
+
+.advantages__marks {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: calc(910 * var(--u));
+  height: calc(420 * var(--u));
+  opacity: 0.5;
+  transform: translate(-50%, -50%);
+}
+
+.advantages__steps {
+  display: flex;
+  gap: calc(2 * var(--u));
+}
+
+.advantages__heart {
+  width: calc(10 * var(--u));
+  height: calc(9.175 * var(--u));
+}
+
+.advantages__heart--muted {
+  opacity: 0.2;
+}

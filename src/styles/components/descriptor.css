@@ -1,0 +1,9 @@
+.descriptor {
+  font-family: var(--font-sans);
+  font-size: var(--fs-descriptor);
+  font-weight: 500;
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-descriptor);
+  text-transform: uppercase;
+  text-box: trim-both cap alphabetic;
+}

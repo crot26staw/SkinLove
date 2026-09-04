@@ -1,0 +1,28 @@
+@import 'lenis/dist/lenis.css';
+
+@import './base/variables.css';
+@import './base/reset.css';
+@import './base/typography.css';
+
+@import './layout/container.css';
+@import './layout/section.css';
+
+@import './components/heading.css';
+@import './components/descriptor.css';
+@import './components/content.css';
+@import './components/button.css';
+@import './components/service-card.css';
+@import './components/advantage.css';
+@import './components/review-tab.css';
+@import './components/arrow-button.css';
+@import './components/header.css';
+@import './components/blinds.css';
+@import './components/footer.css';
+
+@import './sections/hero.css';
+@import './sections/about.css';
+@import './sections/services.css';
+@import './sections/atmosphere.css';
+@import './sections/advantages.css';
+@import './sections/reviews.css';
+@import './sections/cta.css';

@@ -1,0 +1,80 @@
+.about {
+  --section-padding-block: calc(159 * var(--u)) calc(296 * var(--u));
+
+  /* Выше направлений: они подложены под эту секцию и проступают,
+     когда она растворяется. */
+  z-index: 2;
+  overflow: hidden;
+}
+
+.about__decor {
+  position: absolute;
+  bottom: 0;
+  left: calc(20.8333% + 14.73 * var(--u));
+  width: calc(1920 * var(--u));
+  height: calc(1080 * var(--u));
+  object-fit: cover;
+  opacity: 0.2;
+  transform: translateX(-50%) scaleY(-1);
+  pointer-events: none;
+}
+
+.about__inner {
+  position: relative;
+  display: grid;
+  grid-template-columns: calc(309.73 * var(--u)) 1fr;
+  align-items: start;
+  row-gap: calc(222.46 * var(--u));
+  padding-inline: var(--gutter);
+}
+
+.about__label {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.about__title {
+  grid-column: 2;
+  grid-row: 1;
+  gap: calc(10 * var(--u));
+}
+
+/* Первая строка заголовка сдвинута вправо относительно акцентной. */
+.about__title .heading__line {
+  margin-left: calc(155 * var(--u));
+}
+
+.about__title .heading__line--accent {
+  margin-left: 0;
+}
+
+/* Линия уходит в правый край экрана, поэтому отрицательный отступ на поле контейнера. */
+.about__body {
+  position: relative;
+  grid-column: 2;
+  grid-row: 2;
+  display: grid;
+  grid-template-columns: calc(445 * var(--u)) calc(445.5 * var(--u));
+  justify-content: start;
+  column-gap: calc(330 * var(--u));
+  margin-right: calc(-1 * var(--gutter));
+  padding-top: calc(30 * var(--u));
+  border-top: 1px solid var(--color-line);
+}
+
+.about__marker {
+  position: absolute;
+  top: 0;
+  left: calc(775 * var(--u));
+  width: calc(13.787 * var(--u));
+  height: calc(13.787 * var(--u));
+  transform: translate(-50%, -50%);
+}
+
+.about__lead {
+  font-size: var(--fs-subtitle);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  text-transform: uppercase;
+  text-box: trim-both cap alphabetic;
+}
