@@ -76,7 +76,7 @@
   height: calc(13.787 * var(--u));
   color: var(--color-bg);
   opacity: 0.5;
-  transform: translate(-50%, -50%);
+  translate: -50% -50%;
 }
 
 /* Слой, которым первый экран высветляется под наезжающую секцию.

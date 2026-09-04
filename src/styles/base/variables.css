@@ -61,4 +61,7 @@
   --duration-fast: 0.2s;
   --duration-base: 0.4s;
   --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --hero-intro-fallback: 2.5s;
+  /* Прозрачность слов заголовка до заливки по скроллу. */
+  --heading-muted: 0.3;
 }

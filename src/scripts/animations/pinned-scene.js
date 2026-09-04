@@ -4,6 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { blindsOpen } from './blinds.js';
 import { exitLength, openLength, screen } from './timing.js';
 import { nextSection } from '../utils/siblings.js';
+import { paintSpacer } from '../utils/pin-spacer.js';
 
 /* Каркас закреплённой сцены с уездом: пауза (hold) на длину фазы предыдущей
    секции → жалюзи (blinds, необязательно) → своя фаза (phase) → уезд влево,
@@ -69,15 +70,19 @@ export function createPinnedScene({
 
       /* Пока секция уезжает, следующая должна стоять неподвижно. Если у неё есть
          своя закреплённая сцена, держать себя должна она сама — два пина на одном
-         элементе конфликтуют; тогда сюда передаётся holdNext: false. */
+         элементе конфликтуют; тогда сюда передаётся holdNext: false.
+         Распорка удержания красится в цвет секции: она ниже экрана, и под ней
+         просвечивал бы фон страницы. */
       if (holdNext) {
-        ScrollTrigger.create({
-          trigger: next,
-          start: 'top top',
-          end: () => `+=${exitLength()}`,
-          pin: true,
-          invalidateOnRefresh: true
-        });
+        paintSpacer(
+          ScrollTrigger.create({
+            trigger: next,
+            start: 'top top',
+            end: () => `+=${exitLength()}`,
+            pin: true,
+            invalidateOnRefresh: true
+          })
+        );
       }
 
       return () => {

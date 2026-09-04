@@ -50,3 +50,18 @@
   text-transform: uppercase;
   text-box: trim-both cap alphabetic;
 }
+
+/* Появление при загрузке. Пока JS не подхватил секцию, контент спрятан,
+   чтобы не мигнуть до старта анимации; JS снимает модификатор и ведёт
+   появление сам. Если JS не загрузился, контент всё равно проявится
+   после паузы — за это отвечает задержка у нулевой анимации. */
+@media (prefers-reduced-motion: no-preference) {
+  .hero--intro [data-hero-intro] {
+    animation: hero-intro-fallback 0s var(--hero-intro-fallback) both;
+  }
+}
+
+@keyframes hero-intro-fallback {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

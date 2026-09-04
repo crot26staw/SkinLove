@@ -46,6 +46,10 @@
   letter-spacing: var(--ls-h2-accent);
 }
 
+/* .heading__word — слово заголовка. Обёртку создаёт скрипт заливки
+   (heading-fill.js), прозрачность ведёт он же: от --heading-muted до единицы.
+   Своих стилей у слова нет. */
+
 /* Строки в ряд, по базовой линии: «Love — буквально». */
 .heading--row {
   flex-direction: row;

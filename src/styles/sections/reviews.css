@@ -13,7 +13,6 @@
   top: calc(50% - 107.13 * var(--u));
   left: 0;
   width: 100%;
-  border-top: 1px solid var(--color-line);
 }
 
 .reviews__divider {
@@ -21,7 +20,6 @@
   top: calc(366 * var(--u));
   left: 50%;
   height: calc(489 * var(--u));
-  border-left: 1px solid var(--color-line);
 }
 
 .reviews__marker {
@@ -30,7 +28,7 @@
   left: 50%;
   width: calc(13.787 * var(--u));
   height: calc(13.787 * var(--u));
-  transform: translate(-50%, -50%);
+  translate: -50% -50%;
 }
 
 .reviews__inner {

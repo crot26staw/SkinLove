@@ -10,13 +10,14 @@
   padding-inline: var(--gutter);
 }
 
+/* Плюс сидит на линии шапки и уходит вверх вместе с ней в сцене раскрытия. */
 .atmosphere__marker {
   position: absolute;
-  top: calc(143.77 * var(--u));
+  top: 0;
   left: 50%;
   width: calc(13.787 * var(--u));
   height: calc(13.787 * var(--u));
-  transform: translateX(-50%);
+  translate: -50% -50%;
 }
 
 .atmosphere__head {
@@ -25,7 +26,6 @@
   gap: calc(20 * var(--u));
   align-items: start;
   padding-top: calc(30 * var(--u));
-  border-top: 1px solid var(--color-line);
 }
 
 .atmosphere__label {

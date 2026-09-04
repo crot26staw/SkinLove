@@ -1,12 +1,16 @@
 import { createPinnedScene } from './pinned-scene.js';
 import { stackStep } from './timing.js';
 
-/* Стопка (stack): карточки приезжают справа по одной и встают в один слот.
-   Пока новая едет, предыдущая оседает — чуть уменьшается и сдвигается влево —
-   и уходит под неё. Все осевшие лежат в одном месте, каждая новая поверх
-   старой: порядок задаёт разметка, отдельных z-index не нужно.
+/* Стопка (stack): карточки лежат в ряд от слота вправо с зазором из CSS,
+   следующая с самого начала выглядывает из-за правого края экрана. На каждом
+   шаге ряд сдвигается на карточку влево: следующая встаёт в слот, а та, что
+   его занимала, оседает — чуть уменьшается, сдвигается влево и уходит под
+   новую. Все осевшие лежат в одном месте, каждая новая поверх старой:
+   порядок задаёт разметка, отдельных z-index не нужно.
 
-   Въезд крутит обёртку (item), оседание — саму карточку (card). Это разные
+   Ряд едет равномерно, поэтому у каждой обёртки один линейный твин: из своего
+   места в ряду в слот за столько шагов, сколько карточек перед ней. Въезд
+   крутит обёртку (item), оседание — саму карточку (card). Это разные
    элементы, поэтому два движения по одной оси не спорят за один transform.
    Стыки, жалюзи и уезд — в общем каркасе pinned-scene.js.
 
@@ -24,9 +28,10 @@ export function createStackScene({ section, track, items, cards, ...scene }) {
   const steps = items.length - 1;
   const length = () => steps * stackStep();
 
-  /* Карточка стартует за правым краем экрана: слот стоит на offsetLeft
-     от левого края секции, а секция в закреплённом виде — во всю ширину. */
-  const enter = () => window.innerWidth - track.offsetLeft;
+  /* Место карточки в ряду: слот плюс столько шагов ряда, сколько карточек
+     перед ней. Шаг — ширина слота и зазор ряда из CSS. */
+  const gap = () => parseFloat(getComputedStyle(track).columnGap) || 0;
+  const enter = (index) => index * (track.offsetWidth + gap());
   const shift = () => track.offsetWidth * SETTLE_SHIFT;
 
   return createPinnedScene({
@@ -41,9 +46,9 @@ export function createStackScene({ section, track, items, cards, ...scene }) {
           if (index > 0) {
             timeline.fromTo(
               item,
-              { x: () => enter() },
-              { x: 0, duration: step, immediateRender: true },
-              at + (index - 1) * step
+              { x: () => enter(index) },
+              { x: 0, duration: index * step, immediateRender: true },
+              at
             );
           }
 

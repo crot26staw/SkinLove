@@ -21,6 +21,7 @@
 @import './components/arrow-button.css';
 @import './components/header.css';
 @import './components/blinds.css';
+@import './components/rule.css';
 @import './components/footer.css';
 
 @import './sections/hero.css';

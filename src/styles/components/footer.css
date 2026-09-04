@@ -144,6 +144,16 @@
   padding: calc(20 * var(--u)) calc(20 * var(--u)) calc(30 * var(--u));
   background-color: var(--color-ink);
   color: var(--color-bg);
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
+}
+
+/* Ховер из кита: бежевая плашка, тёмная подпись, крайние сердца гаснут. */
+.footer__cta:hover,
+.footer__cta:focus-visible {
+  background-color: var(--color-beige);
+  color: var(--color-ink);
 }
 
 .footer__cta-hearts {
@@ -154,6 +164,12 @@
 .footer__cta-heart {
   width: calc(7 * var(--u));
   height: calc(6.423 * var(--u));
+  transition: opacity var(--duration-fast) var(--ease-out);
+}
+
+.footer__cta:hover .footer__cta-heart:not(.footer__cta-heart--main),
+.footer__cta:focus-visible .footer__cta-heart:not(.footer__cta-heart--main) {
+  opacity: 0.5;
 }
 
 .footer__cta-label {

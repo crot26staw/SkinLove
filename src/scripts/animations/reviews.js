@@ -1,8 +1,9 @@
 import { gsap } from 'gsap';
 
 import { blindsOpen } from './blinds.js';
-import { exitLength, openLength } from './timing.js';
+import { BLINDS_AT, exitLength, openLength } from './timing.js';
 import { previousSection } from '../utils/siblings.js';
+import { paintSpacer } from '../utils/pin-spacer.js';
 
 /* Отзывы за уезжающей секцией: подложены под неё и открываются жалюзи.
    Своей фазы у отзывов нет, но держать себя на время уезда они должны сами —
@@ -14,9 +15,6 @@ import { previousSection } from '../utils/siblings.js';
    Отзывы без жалюзи (главная) сюда не попадают: их держит предыдущая сцена.
 
    Описание сцен и их имена — в ANIMATIONS.md. */
-
-/* Доля уезда предыдущей секции, после которой полосы начинают расходиться. */
-const BLINDS_AT = 0.5;
 
 export function initReviewsBlinds() {
   const cleanups = [...document.querySelectorAll('[data-section="reviews"]')]
@@ -44,7 +42,7 @@ function setup(section) {
       const pause = exitLength() * BLINDS_AT;
       const opening = openLength();
 
-      gsap
+      const timeline = gsap
         .timeline({
           defaults: { ease: 'none' },
           scrollTrigger: {
@@ -57,6 +55,10 @@ function setup(section) {
           }
         })
         .to(bars, blindsOpen(opening), pause);
+
+      /* Секция ниже экрана: распорка под ней красится в её цвет, иначе на стыке
+         просвечивает фон страницы. */
+      paintSpacer(timeline.scrollTrigger);
 
       return () => {
         delete section.dataset.scene;

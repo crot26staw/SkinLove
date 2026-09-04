@@ -1,6 +1,7 @@
 /* Вопрос с ответом на <details>. Раскрытие ведёт components/faq.js;
-   здесь — два состояния кнопки и поворот плюса в крест. Пока ответ
-   закрывается, атрибут open ещё стоит, и закрытый вид даёт data-faq-closing. */
+   здесь — состояния кнопки и поворот плюса в крест: ховер и открытый вид
+   заливают кнопку, открытый ещё и поворачивает плюс. Пока ответ закрывается,
+   атрибут open ещё стоит, и закрытый вид даёт data-faq-closing. */
 .faq-item {
   border-top: 1px solid var(--color-line);
 }
@@ -43,10 +44,7 @@
 }
 
 .faq-item__summary:hover .faq-item__toggle,
-.faq-item__summary:focus-visible .faq-item__toggle {
-  border-color: var(--color-ink);
-}
-
+.faq-item__summary:focus-visible .faq-item__toggle,
 .faq-item[open]:not([data-faq-closing]) .faq-item__toggle {
   border-color: var(--color-ink);
   background-color: var(--color-ink);

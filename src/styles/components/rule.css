@@ -1,0 +1,28 @@
+/* Черта: линия, которую рисует прокрутка (animations/rule.js). Линию даёт
+   псевдоэлемент, ход — переменная --rule-progress: без скрипта она равна
+   единице, и линия нарисована целиком. Хозяин должен быть позиционирован.
+   Горизонтальная линия лежит по верху элемента и рисуется слева направо,
+   вертикальная — по левому краю, сверху вниз. */
+.rule {
+  --rule-progress: 1;
+}
+
+.rule::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: var(--color-line);
+  transform: scaleX(var(--rule-progress));
+  transform-origin: left;
+  pointer-events: none;
+}
+
+.rule--vertical::before {
+  width: 1px;
+  height: 100%;
+  transform: scaleY(var(--rule-progress));
+  transform-origin: top;
+}

@@ -38,7 +38,7 @@
   </header>
 
   <main id="main">
-    <section class="hero" data-section="hero">
+    <section class="hero hero--intro" data-section="hero">
       <div class="hero__decor" aria-hidden="true">
         <img class="hero__decor-media" src="/img/dna-hero.jpg" width="1672" height="941" alt="" decoding="async">
       </div>
@@ -47,16 +47,16 @@
 
       <div class="hero__inner">
         <h1 class="heading heading--h1 hero__title">
-          <span class="heading__line">Клиника эстетической</span>
-          <span class="heading__line heading__line--accent">медицины и wellness</span>
+          <span class="heading__line" data-hero-intro>Клиника эстетической</span>
+          <span class="heading__line heading__line--accent" data-hero-intro>медицины и wellness</span>
         </h1>
 
-        <p class="hero__lead">
+        <p class="hero__lead" data-hero-intro>
           Персональные решения для красоты, здоровья и восстановления — в клинике
           или с выездом в удобное для вас место.
         </p>
 
-        <a class="button hero__button" data-button href="#services">
+        <a class="button hero__button" data-button data-hero-intro href="#services">
           <span class="button__label">Выбрать направление</span>
           <svg class="button__icon" viewBox="0 0 10 9.175" fill="none" aria-hidden="true" focusable="false">
             <path d="M5 9.175 4.275 8.515C1.7 6.18 0 4.635 0 2.75 0 1.205 1.21 0 2.75 0c.87 0 1.705.405 2.25 1.04C5.545.405 6.38 0 7.25 0 8.79 0 10 1.205 10 2.75c0 1.885-1.7 3.43-4.275 5.765L5 9.175Z" fill="currentColor"/>
@@ -71,13 +71,13 @@
       <div class="about__inner">
         <p class="descriptor about__label">о клинике</p>
 
-        <h2 class="heading heading--h2 about__title">
+        <h2 class="heading heading--h2 about__title" data-heading-fill>
           <span class="heading__line">SkinLove — не просто клиника.</span>
           <span class="heading__line heading__line--accent">Это место, куда хочется возвращаться.</span>
         </h2>
 
-        <div class="about__body">
-          <svg class="about__marker" viewBox="0 0 13.7866 13.7866" fill="none" aria-hidden="true" focusable="false">
+        <div class="about__body rule" data-rule>
+          <svg class="about__marker" data-rule-marker viewBox="0 0 13.7866 13.7866" fill="none" aria-hidden="true" focusable="false">
             <path d="M5.74443 13.7866V0h2.32649v13.7866H5.74443ZM0 8.07092V5.7157h13.7866v2.35522H0Z" fill="currentColor"/>
           </svg>
 
@@ -97,6 +97,11 @@
               естественно и соответствует именно вашим ожиданиям.
             </p>
           </div>
+
+          <a class="button about__button" data-button href="/about.html">
+            <span class="button__label">Подробнее о клинике</span>
+            <svg class="button__icon" viewBox="0 0 10 9.175" fill="none" aria-hidden="true" focusable="false"><path d="M5 9.175 4.275 8.515C1.7 6.18 0 4.635 0 2.75 0 1.205 1.21 0 2.75 0c.87 0 1.705.405 2.25 1.04C5.545.405 6.38 0 7.25 0 8.79 0 10 1.205 10 2.75c0 1.885-1.7 3.43-4.275 5.765L5 9.175Z" fill="currentColor"/></svg>
+          </a>
         </div>
       </div>
     </section>
@@ -210,15 +215,15 @@
     </section>
 
     <section class="section section--light atmosphere" data-section="atmosphere">
-      <svg class="atmosphere__marker" viewBox="0 0 13.7866 13.7866" fill="none" aria-hidden="true" focusable="false">
-        <path d="M5.74443 13.7866V0h2.32649v13.7866H5.74443ZM0 8.07092V5.7157h13.7866v2.35522H0Z" fill="currentColor"/>
-      </svg>
+      <div class="atmosphere__head rule" data-rule data-atmosphere-head>
+        <svg class="atmosphere__marker" data-rule-marker viewBox="0 0 13.7866 13.7866" fill="none" aria-hidden="true" focusable="false">
+          <path d="M5.74443 13.7866V0h2.32649v13.7866H5.74443ZM0 8.07092V5.7157h13.7866v2.35522H0Z" fill="currentColor"/>
+        </svg>
 
-      <div class="atmosphere__head" data-atmosphere-head>
         <p class="descriptor atmosphere__label">атмосфера клиники</p>
 
         <div class="atmosphere__intro">
-          <h2 class="heading heading--h2 atmosphere__title">
+          <h2 class="heading heading--h2 atmosphere__title" data-heading-fill>
             <span class="heading__line">Здесь забота ощущается</span>
             <span class="heading__line heading__line--accent">ещё до процедуры</span>
           </h2>
@@ -271,7 +276,7 @@
           <li class="advantages__intro">
             <img class="advantages__logo" src="/img/logo-black.png" width="2402" height="808" alt="SkinLove" decoding="async">
 
-            <h2 class="heading heading--h2 advantages__title">
+            <h2 class="heading heading--h2 advantages__title" data-heading-fill>
               <span class="heading__line">Почему выбирают</span>
               <span class="heading__line heading__line--accent">SkinLove</span>
             </h2>
@@ -282,7 +287,7 @@
           </li>
 
           <li class="advantage">
-            <div class="advantage__body">
+            <div class="advantage__body" data-advantage-body>
               <div class="advantage__media">
                 <img class="advantage__image" src="/img/adv-1.jpg" width="754" height="400" alt="Индивидуальный подход" decoding="async">
               </div>
@@ -291,7 +296,7 @@
             </div>
           </li>
           <li class="advantage">
-            <div class="advantage__body">
+            <div class="advantage__body" data-advantage-body>
               <div class="advantage__media">
                 <img class="advantage__image" src="/img/adv-2.jpg" width="754" height="400" alt="Комплексная забота" decoding="async">
               </div>
@@ -300,7 +305,7 @@
             </div>
           </li>
           <li class="advantage">
-            <div class="advantage__body">
+            <div class="advantage__body" data-advantage-body>
               <div class="advantage__media">
                 <img class="advantage__image" src="/img/adv-3.jpg" width="754" height="400" alt="Премиальный сервис" decoding="async">
               </div>
@@ -309,7 +314,7 @@
             </div>
           </li>
           <li class="advantage">
-            <div class="advantage__body">
+            <div class="advantage__body" data-advantage-body>
               <div class="advantage__media">
                 <img class="advantage__image" src="/img/adv-4.jpg" width="754" height="400" alt="Медицинская экспертиза" decoding="async">
               </div>
@@ -318,7 +323,7 @@
             </div>
           </li>
           <li class="advantage">
-            <div class="advantage__body">
+            <div class="advantage__body" data-advantage-body>
               <div class="advantage__media">
                 <img class="advantage__image" src="/img/adv-5.jpg" width="754" height="400" alt="Выездные услуги" decoding="async">
               </div>
@@ -327,7 +332,7 @@
             </div>
           </li>
           <li class="advantage">
-            <div class="advantage__body">
+            <div class="advantage__body" data-advantage-body>
               <div class="advantage__media">
                 <img class="advantage__image" src="/img/adv-6.jpg" width="754" height="400" alt="Естественный результат" decoding="async">
               </div>
@@ -337,20 +342,20 @@
           </li>
         </ul>
 
-        <span class="advantages__line" aria-hidden="true"></span>
-        <svg class="advantages__marker" viewBox="0 0 13.7866 13.7866" fill="none" aria-hidden="true" focusable="false"><path d="M5.74443 13.7866V0h2.32649v13.7866H5.74443ZM0 8.07092V5.7157h13.7866v2.35522H0Z" fill="currentColor"/></svg>
+        <span class="advantages__line rule" data-rule aria-hidden="true"></span>
+        <svg class="advantages__marker" data-rule-marker viewBox="0 0 13.7866 13.7866" fill="none" aria-hidden="true" focusable="false"><path d="M5.74443 13.7866V0h2.32649v13.7866H5.74443ZM0 8.07092V5.7157h13.7866v2.35522H0Z" fill="currentColor"/></svg>
       </div>
     </section>
 
     <section class="section section--beige reviews" data-section="reviews" data-reviews>
-      <span class="reviews__line" aria-hidden="true"></span>
-      <span class="reviews__divider" aria-hidden="true"></span>
-      <svg class="reviews__marker" viewBox="0 0 13.7866 13.7866" fill="none" aria-hidden="true" focusable="false"><path d="M5.74443 13.7866V0h2.32649v13.7866H5.74443ZM0 8.07092V5.7157h13.7866v2.35522H0Z" fill="currentColor"/></svg>
+      <span class="reviews__line rule" data-rule aria-hidden="true"></span>
+      <span class="reviews__divider rule rule--vertical" data-rule aria-hidden="true"></span>
+      <svg class="reviews__marker" data-rule-marker viewBox="0 0 13.7866 13.7866" fill="none" aria-hidden="true" focusable="false"><path d="M5.74443 13.7866V0h2.32649v13.7866H5.74443ZM0 8.07092V5.7157h13.7866v2.35522H0Z" fill="currentColor"/></svg>
 
       <div class="reviews__inner">
         <header class="reviews__head">
           <p class="descriptor">Отзывы</p>
-          <h2 class="heading heading--h2 reviews__title">
+          <h2 class="heading heading--h2 reviews__title" data-heading-fill>
             <span class="heading__line">Нам доверяют</span>
             <span class="heading__line heading__line--accent">самое ценное — здоровье</span>
           </h2>
@@ -649,7 +654,7 @@
           <span class="cta__shade" data-cta-shade aria-hidden="true"></span>
         </div>
 
-        <h2 class="heading heading--h2 cta__title" data-cta-title>
+        <h2 class="heading heading--h2 cta__title" data-heading-fill data-cta-title>
           <span class="heading__line" data-cta-word>Начните</span>
           <span class="heading__line heading__line--accent" data-cta-word>с заботы</span>
           <span class="heading__line" data-cta-word>о себе</span>
@@ -749,7 +754,7 @@
       <a class="footer__cta" href="#">
         <span class="footer__cta-hearts" aria-hidden="true">
           <svg class="footer__cta-heart" viewBox="0 0 10 9.175" fill="none" aria-hidden="true" focusable="false"><path d="M5 9.175 4.275 8.515C1.7 6.18 0 4.635 0 2.75 0 1.205 1.21 0 2.75 0c.87 0 1.705.405 2.25 1.04C5.545.405 6.38 0 7.25 0 8.79 0 10 1.205 10 2.75c0 1.885-1.7 3.43-4.275 5.765L5 9.175Z" fill="currentColor"/></svg>
-          <svg class="footer__cta-heart" viewBox="0 0 10 9.175" fill="none" aria-hidden="true" focusable="false"><path d="M5 9.175 4.275 8.515C1.7 6.18 0 4.635 0 2.75 0 1.205 1.21 0 2.75 0c.87 0 1.705.405 2.25 1.04C5.545.405 6.38 0 7.25 0 8.79 0 10 1.205 10 2.75c0 1.885-1.7 3.43-4.275 5.765L5 9.175Z" fill="currentColor"/></svg>
+          <svg class="footer__cta-heart footer__cta-heart--main" viewBox="0 0 10 9.175" fill="none" aria-hidden="true" focusable="false"><path d="M5 9.175 4.275 8.515C1.7 6.18 0 4.635 0 2.75 0 1.205 1.21 0 2.75 0c.87 0 1.705.405 2.25 1.04C5.545.405 6.38 0 7.25 0 8.79 0 10 1.205 10 2.75c0 1.885-1.7 3.43-4.275 5.765L5 9.175Z" fill="currentColor"/></svg>
           <svg class="footer__cta-heart" viewBox="0 0 10 9.175" fill="none" aria-hidden="true" focusable="false"><path d="M5 9.175 4.275 8.515C1.7 6.18 0 4.635 0 2.75 0 1.205 1.21 0 2.75 0c.87 0 1.705.405 2.25 1.04C5.545.405 6.38 0 7.25 0 8.79 0 10 1.205 10 2.75c0 1.885-1.7 3.43-4.275 5.765L5 9.175Z" fill="currentColor"/></svg>
         </span>
         <span class="footer__cta-label">Записаться на консультацию</span>

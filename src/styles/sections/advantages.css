@@ -34,7 +34,6 @@
   top: calc(6.89 * var(--u));
   left: 0;
   width: calc(1920 * var(--u));
-  border-top: 1px solid var(--color-line);
 }
 
 .advantages__marker {

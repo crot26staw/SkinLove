@@ -5,7 +5,19 @@ import { exitLength, screen } from './timing.js';
 /* Сцена секции: сначала пауза, пока предыдущая секция уезжает влево,
    затем шапка уходит вверх, а маленькое превью разрастается в большой кадр.
    Рост сделан через clip-path (окно меняет пропорции) и масштаб самой
-   картинки — так кадр не растягивается и не дёргается layout. */
+   картинки — так кадр не растягивается и не дёргается layout.
+
+   Рост начинается почти сразу после открытия секции — через GROW_LEAD
+   пикселей прокрутки, — пока шапка ещё уходит; следом за ростом проявляются
+   подписи. Длина сцены складывается из этих отрезков. */
+
+/* Через сколько пикселей прокрутки после открытия секции кадр начинает расти. */
+const GROW_LEAD = 50;
+
+/* Длины отрезков в долях экрана: уход шапки, рост кадра, появление подписей. */
+const HEAD_SHARE = 0.385;
+const GROW_SHARE = 0.5;
+const FEATURES_SHARE = 0.275;
 export function initAtmosphere() {
   const section = document.querySelector('[data-section="atmosphere"]');
   const head = section?.querySelector('[data-atmosphere-head]');
@@ -20,7 +32,8 @@ export function initAtmosphere() {
   /* Пауза равна длине уезда предыдущей секции — берём её оттуда же, иначе
      фазы разъедутся при смене темпа. */
   const hold = () => exitLength();
-  const morph = () => screen() * 1.1;
+  const grow = () => screen() * GROW_SHARE;
+  const morph = () => GROW_LEAD + screen() * (GROW_SHARE + FEATURES_SHARE);
 
   const radius = () => parseFloat(getComputedStyle(scene).borderTopLeftRadius) || 0;
   const closed = () =>
@@ -47,7 +60,8 @@ export function initAtmosphere() {
       section.dataset.morph = 'on';
 
       const pause = hold();
-      const length = morph();
+      const start = pause + GROW_LEAD;
+      const length = grow();
 
       const timeline = gsap.timeline({
         defaults: { ease: 'none' },
@@ -62,26 +76,26 @@ export function initAtmosphere() {
       });
 
       timeline
-        .to(head, { yPercent: -100, opacity: 0, duration: length * 0.35 }, pause)
+        .to(head, { yPercent: -100, opacity: 0, duration: screen() * HEAD_SHARE }, pause)
         .fromTo(
           media,
           { y: () => shift() },
-          { y: 0, duration: length * 0.35, immediateRender: true },
+          { y: 0, duration: screen() * HEAD_SHARE, immediateRender: true },
           pause
         )
         .fromTo(
           scene,
           { clipPath: () => closed() },
-          { clipPath: () => opened(), duration: length * 0.45 },
-          pause + length * 0.3
+          { clipPath: () => opened(), duration: length },
+          start
         )
         .fromTo(
           image,
           { scale: () => startScale(), x: () => startShift(), transformOrigin: 'top left' },
-          { scale: 1, x: 0, duration: length * 0.45 },
-          pause + length * 0.3
+          { scale: 1, x: 0, duration: length },
+          start
         )
-        .to(features, { opacity: 1, duration: length * 0.25 }, pause + length * 0.75);
+        .to(features, { opacity: 1, duration: screen() * FEATURES_SHARE }, start + length);
 
       return () => delete section.dataset.morph;
     });

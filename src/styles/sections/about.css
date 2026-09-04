@@ -48,7 +48,8 @@
   margin-left: 0;
 }
 
-/* Линия уходит в правый край экрана, поэтому отрицательный отступ на поле контейнера. */
+/* Линия (черта) уходит в правый край экрана, поэтому отрицательный отступ
+   на поле контейнера. */
 .about__body {
   position: relative;
   grid-column: 2;
@@ -59,7 +60,6 @@
   column-gap: calc(330 * var(--u));
   margin-right: calc(-1 * var(--gutter));
   padding-top: calc(30 * var(--u));
-  border-top: 1px solid var(--color-line);
 }
 
 .about__marker {
@@ -68,7 +68,7 @@
   left: calc(775 * var(--u));
   width: calc(13.787 * var(--u));
   height: calc(13.787 * var(--u));
-  transform: translate(-50%, -50%);
+  translate: -50% -50%;
 }
 
 .about__lead {
@@ -77,4 +77,12 @@
   letter-spacing: var(--ls-text);
   text-transform: uppercase;
   text-box: trim-both cap alphabetic;
+}
+
+/* Кнопка стоит под текстом, в его колонке. Отступ на ней самой: без кнопки
+   под текстом ничего не остаётся. */
+.about__button {
+  grid-column: 2;
+  justify-self: start;
+  margin-top: calc(40 * var(--u));
 }
