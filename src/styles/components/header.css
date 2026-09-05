@@ -1,22 +1,25 @@
 /* Шапка одинакова на всех страницах: разница только в модификаторе класса.
-   Логотип и «меню» тёмные на любом фоне. */
+   mix-blend-mode: difference — инверсия, как в макете: логотип и «меню»
+   светлые, на светлом фоне читаются тёмными, поверх тёмного фото — светлыми.
+
+   Логотип и кнопка закреплены по отдельности, а сама шапка — пустой блок
+   без размеров и без собственного контекста наложения. Иначе нельзя:
+   закреплённая шапка — свой контекст, и смешивание её детей считалось бы
+   внутри неё, а не со страницей. Смешивание же нужно на каждом элементе
+   своё: на ховере кнопка заливается тёмным, и под инверсией заливка стала бы
+   серой — у кнопки инверсия снимается. */
 .header {
-  position: fixed;
-  top: calc(var(--header-top) + var(--admin-bar-height));
-  right: 0;
-  left: 0;
-  z-index: var(--z-header);
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  padding-left: var(--gutter);
-  padding-right: calc(26 * var(--u));
+  --header-offset: calc(var(--header-top) + var(--admin-bar-height));
 }
 
 .header__logo {
+  position: fixed;
+  top: var(--header-offset);
+  left: var(--gutter);
+  z-index: var(--z-header);
   display: block;
-  flex-shrink: 0;
   width: calc(134.3 * var(--u));
+  mix-blend-mode: difference;
 }
 
 .header__logo-image {
@@ -27,23 +30,24 @@
 }
 
 .menu-toggle {
+  position: fixed;
+  top: var(--header-offset);
+  right: calc(26 * var(--u));
+  z-index: var(--z-header);
   display: flex;
-  flex-shrink: 0;
   align-items: center;
   gap: calc(8 * var(--u));
   padding: calc(14 * var(--u));
   border-radius: calc(50 * var(--u));
-  color: var(--color-ink);
-  transition:
-    background-color var(--duration-fast) var(--ease-out),
-    color var(--duration-fast) var(--ease-out);
+  color: var(--color-bg);
+  mix-blend-mode: difference;
 }
 
-/* Ховер из кита: тёмная пилюля со светлой подписью. */
+/* Ховер из кита: тёмная пилюля со светлой подписью, без инверсии. */
 .menu-toggle:hover,
 .menu-toggle:focus-visible {
   background-color: var(--color-ink);
-  color: var(--color-bg);
+  mix-blend-mode: normal;
 }
 
 .menu-toggle__label {
