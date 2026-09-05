@@ -49,7 +49,8 @@
    тянутся по самой высокой. По ряду их раскладывает скрипт, зазор ряда берёт
    из gap ленты. */
 .services[data-scene='on'] .services__track {
-  left: calc(950 * var(--u));
+  /* Слот по центру экрана: (1920 − 700) / 2, как в макете. */
+  left: calc(610 * var(--u));
   display: grid;
   width: calc(700 * var(--u));
   padding: 0;

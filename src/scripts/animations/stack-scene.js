@@ -4,8 +4,8 @@ import { stackStep } from './timing.js';
 /* Стопка (stack): карточки лежат в ряд от слота вправо с зазором из CSS,
    следующая с самого начала выглядывает из-за правого края экрана. На каждом
    шаге ряд сдвигается на карточку влево: следующая встаёт в слот, а та, что
-   его занимала, оседает — чуть уменьшается, сдвигается влево и уходит под
-   новую. Все осевшие лежат в одном месте, каждая новая поверх старой:
+   его занимала, оседает — чуть уменьшается на месте и уходит под новую.
+   Все осевшие лежат в одном месте, по центру, каждая новая поверх старой:
    порядок задаёт разметка, отдельных z-index не нужно.
 
    Ряд едет равномерно, поэтому у каждой обёртки один линейный твин: из своего
@@ -16,11 +16,8 @@ import { stackStep } from './timing.js';
 
    Описание сцен и их имена — в ANIMATIONS.md. */
 
-/* Из макета: активная карточка 700 в ширину, осевшая — 620, и её центр
-   смещён влево на 340. Держим долями от ширины карточки, чтобы считалось
-   от её реального размера. */
+/* Из макета: активная карточка 700 в ширину, осевшая — 620, центр на месте. */
 const SETTLE_SCALE = 620 / 700;
-const SETTLE_SHIFT = -340 / 700;
 
 export function createStackScene({ section, track, items, cards, ...scene }) {
   if (!section || !track || !items?.length || items.length !== cards?.length) return;
@@ -32,7 +29,6 @@ export function createStackScene({ section, track, items, cards, ...scene }) {
      перед ней. Шаг — ширина слота и зазор ряда из CSS. */
   const gap = () => parseFloat(getComputedStyle(track).columnGap) || 0;
   const enter = (index) => index * (track.offsetWidth + gap());
-  const shift = () => track.offsetWidth * SETTLE_SHIFT;
 
   return createPinnedScene({
     section,
@@ -55,8 +51,8 @@ export function createStackScene({ section, track, items, cards, ...scene }) {
           if (index < steps) {
             timeline.fromTo(
               cards[index],
-              { x: 0, scale: 1 },
-              { x: () => shift(), scale: SETTLE_SCALE, duration: step, immediateRender: false },
+              { scale: 1 },
+              { scale: SETTLE_SCALE, duration: step, immediateRender: false },
               at + index * step
             );
           }
