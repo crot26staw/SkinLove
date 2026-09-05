@@ -1,0 +1,66 @@
+/* Виды программ: слева фото на всю высоту, справа заголовок, текст, теги
+   и кнопка, прижатые к низу. Фон — переход от светлого к бежевому: секция
+   стоит между светлой и бежевой и сшивает их, поэтому модификатора фона
+   у неё нет. Высота минимальная: длинный текст из админки её растянет. */
+.programs {
+  --section-padding-block: 0;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: calc(20 * var(--u));
+  min-height: calc(800 * var(--u));
+  background: linear-gradient(to bottom, var(--color-bg), var(--color-beige));
+}
+
+/* Кадр вынут из потока: иначе фото своей высотой растянуло бы сетку. */
+.programs__media {
+  position: relative;
+  overflow: hidden;
+}
+
+.programs__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.programs__body {
+  display: flex;
+  flex-direction: column;
+  gap: calc(80 * var(--u));
+  justify-content: flex-end;
+  min-width: 0;
+  padding: calc(150 * var(--u)) var(--gutter) calc(20 * var(--u)) 0;
+}
+
+.programs__head {
+  display: flex;
+  flex-direction: column;
+  gap: calc(20 * var(--u));
+  align-items: flex-start;
+}
+
+.programs__content {
+  display: flex;
+  flex-direction: column;
+  gap: calc(40 * var(--u));
+  align-items: flex-start;
+}
+
+.programs__text {
+  max-width: calc(541 * var(--u));
+  font-size: var(--fs-text-20);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  text-box: trim-both cap alphabetic;
+}
+
+/* Количество тегов задаёт редактор: ряд переносится. */
+.programs__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(5 * var(--u));
+  max-width: calc(870 * var(--u));
+}

@@ -130,3 +130,8 @@
   font-size: var(--fs-h1-display);
   color: var(--color-bg);
 }
+
+/* Заголовок из одной строки стоит по центру, а не по краям. */
+.service-hero__title--center {
+  justify-content: center;
+}

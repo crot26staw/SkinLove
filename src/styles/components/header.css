@@ -58,6 +58,12 @@
   opacity: 0.8;
 }
 
+/* Открытое меню: подпись «Закрыть», три полоски складываются в крест. */
+.menu-toggle[aria-expanded='true'] .menu-toggle__label--open,
+.menu-toggle:not([aria-expanded='true']) .menu-toggle__label--close {
+  display: none;
+}
+
 .menu-toggle__icon {
   display: flex;
   flex-direction: column;
@@ -71,4 +77,19 @@
   display: block;
   height: 1px;
   background-color: currentcolor;
+  transition:
+    transform var(--duration-base) var(--ease-out),
+    opacity var(--duration-base) var(--ease-out);
+}
+
+.menu-toggle[aria-expanded='true'] .menu-toggle__line--top {
+  transform: translateY(calc(5 * var(--u))) rotate(45deg);
+}
+
+.menu-toggle[aria-expanded='true'] .menu-toggle__line--middle {
+  opacity: 0;
+}
+
+.menu-toggle[aria-expanded='true'] .menu-toggle__line--bottom {
+  transform: translateY(calc(-5 * var(--u))) rotate(-45deg);
 }

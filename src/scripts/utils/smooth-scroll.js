@@ -20,6 +20,21 @@ export function scrollTo(top) {
   }
 }
 
+/* Остановка прокрутки под открытым меню. Lenis сам вешает на <html> класс
+   lenis-stopped, а его стили закрывают overflow; без Lenis (отключённые
+   анимации) overflow закрывается здесь. */
+export function lockScroll(locked) {
+  if (instance) {
+    if (locked) {
+      instance.stop();
+    } else {
+      instance.start();
+    }
+  } else {
+    document.documentElement.style.overflow = locked ? 'hidden' : '';
+  }
+}
+
 export function initSmoothScroll() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 

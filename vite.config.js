@@ -17,7 +17,8 @@ export default defineConfig({
         index: resolve(import.meta.dirname, 'index.html'),
         about: resolve(import.meta.dirname, 'about.html'),
         ivTherapy: resolve(import.meta.dirname, 'iv-therapy.html'),
-        outcall: resolve(import.meta.dirname, 'outcall.html')
+        outcall: resolve(import.meta.dirname, 'outcall.html'),
+        wellness: resolve(import.meta.dirname, 'wellness.html')
       }
     }
   }

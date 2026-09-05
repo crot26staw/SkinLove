@@ -1,0 +1,139 @@
+/* Форма обратной связи. Стили держатся на структуре label > input, чтобы
+   пережить замену на Contact Form 7: кнопке отправки в настройках формы
+   задаётся класс button, ошибке — form__error. Состояния: ошибка у поля
+   (aria-invalid) и у согласия, успех — модификатор form--sent: вместо полей
+   остаётся form__status. */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: calc(30 * var(--u));
+  align-items: start;
+}
+
+.form__fields {
+  display: flex;
+  flex-direction: column;
+  gap: calc(10 * var(--u));
+  align-self: stretch;
+}
+
+.form__field {
+  display: flex;
+  flex-direction: column;
+  gap: calc(5 * var(--u));
+}
+
+.form__input {
+  width: 100%;
+  height: calc(52 * var(--u));
+  padding-inline: calc(20 * var(--u));
+  border: 1px solid transparent;
+  border-radius: calc(2 * var(--u));
+  background-color: var(--color-line);
+  font-size: var(--fs-text-16);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  text-transform: uppercase;
+  transition: border-color var(--duration-fast) var(--ease-out);
+}
+
+.form__input::placeholder {
+  color: var(--color-ink);
+  opacity: 0.5;
+  transition: opacity var(--duration-fast) var(--ease-out);
+}
+
+.form__input:hover::placeholder {
+  opacity: 1;
+}
+
+.form__input:focus-visible {
+  outline: none;
+}
+
+.form__input[aria-invalid='true'] {
+  border-color: var(--color-error);
+}
+
+/* Согласие: круглый чекбокс и подпись со ссылками. */
+.form__check {
+  display: flex;
+  flex-direction: column;
+  gap: calc(5 * var(--u));
+}
+
+.form__check-row {
+  display: flex;
+  gap: calc(5 * var(--u));
+  align-items: center;
+  border: 1px solid transparent;
+  border-radius: calc(2 * var(--u));
+  transition: border-color var(--duration-fast) var(--ease-out), padding var(--duration-fast) var(--ease-out);
+}
+
+.form__check:has([aria-invalid='true']) .form__check-row {
+  padding: calc(5 * var(--u));
+  border-color: var(--color-error);
+}
+
+.form__checkbox {
+  appearance: none;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: calc(12 * var(--u));
+  height: calc(12 * var(--u));
+  margin: 0;
+  border: 1px solid var(--color-ink);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.form__checkbox::after {
+  content: '';
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-ink);
+  mask: url('../../assets/img/check.svg') center / contain no-repeat;
+  opacity: 0;
+  transition: opacity var(--duration-fast) var(--ease-out);
+}
+
+.form__checkbox:checked::after {
+  opacity: 1;
+}
+
+.form__checkbox[aria-invalid='true'] {
+  border-color: var(--color-error);
+}
+
+.form__check-label {
+  font-size: var(--fs-text-16);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  opacity: 0.5;
+}
+
+.form__check-label a {
+  text-decoration: underline;
+  text-underline-position: from-font;
+}
+
+.form__error {
+  color: var(--color-error);
+  font-size: var(--fs-text-16);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+}
+
+/* Успех: поля и кнопка уступают место сообщению. */
+.form--sent .form__fields,
+.form--sent .form__submit {
+  display: none;
+}
+
+.form__status {
+  font-size: var(--fs-text-20);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+}

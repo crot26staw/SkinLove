@@ -1,0 +1,54 @@
+/* Результаты пациентов: слева заголовок и стрелки на высоту карточек,
+   справа лента карточек «до/после». Лента шире экрана и обрезается по правому
+   краю; стрелки листают её по карточке (components/results.js). Без скрипта
+   лента прокручивается по горизонтали нативно. */
+.results {
+  --section-padding-block: calc(150 * var(--u));
+
+  display: flex;
+  gap: calc(20 * var(--u));
+  align-items: flex-start;
+  overflow: hidden;
+  padding-inline: var(--gutter);
+}
+
+.results__aside {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  justify-content: space-between;
+  align-self: stretch;
+  width: calc(910 * var(--u));
+}
+
+.results__head {
+  display: flex;
+  flex-direction: column;
+  gap: calc(20 * var(--u));
+  align-items: flex-start;
+}
+
+.results__nav {
+  display: flex;
+}
+
+.results__viewport {
+  flex: 1;
+  min-width: 0;
+}
+
+.results:not([data-results='on']) .results__viewport {
+  overflow-x: auto;
+}
+
+/* Сдвинутая лента режется по левому краю окна, справа по-прежнему уходит
+   за экран — обрезкой, а не overflow, чтобы правый край остался открытым. */
+.results[data-results='on'] .results__viewport {
+  clip-path: inset(0 -100% 0 0);
+}
+
+.results__track {
+  display: flex;
+  gap: calc(20 * var(--u));
+  will-change: transform;
+}

@@ -28,14 +28,88 @@
       data-menu-toggle
       aria-expanded="false"
       aria-controls="site-menu">
-      <span class="menu-toggle__label">Меню</span>
+      <span class="menu-toggle__label menu-toggle__label--open">Меню</span>
+      <span class="menu-toggle__label menu-toggle__label--close">Закрыть</span>
       <span class="menu-toggle__icon" aria-hidden="true">
-        <span class="menu-toggle__line"></span>
-        <span class="menu-toggle__line"></span>
-        <span class="menu-toggle__line"></span>
+        <span class="menu-toggle__line menu-toggle__line--top"></span>
+        <span class="menu-toggle__line menu-toggle__line--middle"></span>
+        <span class="menu-toggle__line menu-toggle__line--bottom"></span>
       </span>
     </button>
   </header>
+
+  <div class="site-menu" id="site-menu" data-menu data-lenis-prevent hidden>
+    <div class="site-menu__inner">
+      <nav class="site-menu__nav" aria-label="Основная навигация">
+        <p class="site-menu__label">Навигация</p>
+
+        <ul class="menu site-menu__pages">
+          <li class="menu-item"><a href="/about.html">О клинике</a></li>
+          <li class="menu-item"><a href="#">Контакты</a></li>
+          <li class="menu-item"><a href="/#services">Направления</a></li>
+        </ul>
+      </nav>
+
+      <div class="site-menu__aside">
+        <nav class="site-menu__directions" aria-label="Направления" data-menu-directions>
+          <p class="site-menu__label">Направления</p>
+
+          <div class="site-menu__preview">
+            <img class="site-menu__preview-image" data-menu-preview src="/img/footer-direction.jpg" width="720" height="1280" alt="" decoding="async">
+          </div>
+
+          <ul class="menu site-menu__list">
+            <li class="menu-item current-menu-item"><a href="#" data-menu-direction data-image="/img/footer-direction.jpg">IV Therapy</a></li>
+            <li class="menu-item"><a href="#" data-menu-direction data-image="/img/svc-3-face.jpg">Инъекционная косметология</a></li>
+            <li class="menu-item"><a href="#" data-menu-direction data-image="/img/svc-3-face.jpg">Эстетическая косметология лица</a></li>
+            <li class="menu-item"><a href="#" data-menu-direction data-image="/img/svc-4-laser.png">Лазерная косметология</a></li>
+            <li class="menu-item"><a href="#" data-menu-direction data-image="/img/svc-5-body.png">Коррекция фигуры и массаж</a></li>
+            <li class="menu-item"><a href="#" data-menu-direction data-image="/img/svc-7-wellness.jpg">Wellness</a></li>
+            <li class="menu-item"><a href="#" data-menu-direction data-image="/img/svc-6-outcall.jpg">Выездные услуги</a></li>
+          </ul>
+
+          <div class="site-menu__hearts" aria-hidden="true">
+            <svg class="site-menu__heart" data-menu-heart viewBox="0 0 10 9.175" fill="none" aria-hidden="true" focusable="false"><path d="M5 9.175 4.275 8.515C1.7 6.18 0 4.635 0 2.75 0 1.205 1.21 0 2.75 0c.87 0 1.705.405 2.25 1.04C5.545.405 6.38 0 7.25 0 8.79 0 10 1.205 10 2.75c0 1.885-1.7 3.43-4.275 5.765L5 9.175Z" fill="currentColor"/></svg>
+            <svg class="site-menu__heart" data-menu-heart viewBox="0 0 10 9.175" fill="none" aria-hidden="true" focusable="false"><path d="M5 9.175 4.275 8.515C1.7 6.18 0 4.635 0 2.75 0 1.205 1.21 0 2.75 0c.87 0 1.705.405 2.25 1.04C5.545.405 6.38 0 7.25 0 8.79 0 10 1.205 10 2.75c0 1.885-1.7 3.43-4.275 5.765L5 9.175Z" fill="currentColor"/></svg>
+            <svg class="site-menu__heart" data-menu-heart viewBox="0 0 10 9.175" fill="none" aria-hidden="true" focusable="false"><path d="M5 9.175 4.275 8.515C1.7 6.18 0 4.635 0 2.75 0 1.205 1.21 0 2.75 0c.87 0 1.705.405 2.25 1.04C5.545.405 6.38 0 7.25 0 8.79 0 10 1.205 10 2.75c0 1.885-1.7 3.43-4.275 5.765L5 9.175Z" fill="currentColor"/></svg>
+            <svg class="site-menu__heart" data-menu-heart viewBox="0 0 10 9.175" fill="none" aria-hidden="true" focusable="false"><path d="M5 9.175 4.275 8.515C1.7 6.18 0 4.635 0 2.75 0 1.205 1.21 0 2.75 0c.87 0 1.705.405 2.25 1.04C5.545.405 6.38 0 7.25 0 8.79 0 10 1.205 10 2.75c0 1.885-1.7 3.43-4.275 5.765L5 9.175Z" fill="currentColor"/></svg>
+            <svg class="site-menu__heart" data-menu-heart viewBox="0 0 10 9.175" fill="none" aria-hidden="true" focusable="false"><path d="M5 9.175 4.275 8.515C1.7 6.18 0 4.635 0 2.75 0 1.205 1.21 0 2.75 0c.87 0 1.705.405 2.25 1.04C5.545.405 6.38 0 7.25 0 8.79 0 10 1.205 10 2.75c0 1.885-1.7 3.43-4.275 5.765L5 9.175Z" fill="currentColor"/></svg>
+            <svg class="site-menu__heart" data-menu-heart viewBox="0 0 10 9.175" fill="none" aria-hidden="true" focusable="false"><path d="M5 9.175 4.275 8.515C1.7 6.18 0 4.635 0 2.75 0 1.205 1.21 0 2.75 0c.87 0 1.705.405 2.25 1.04C5.545.405 6.38 0 7.25 0 8.79 0 10 1.205 10 2.75c0 1.885-1.7 3.43-4.275 5.765L5 9.175Z" fill="currentColor"/></svg>
+            <svg class="site-menu__heart" data-menu-heart viewBox="0 0 10 9.175" fill="none" aria-hidden="true" focusable="false"><path d="M5 9.175 4.275 8.515C1.7 6.18 0 4.635 0 2.75 0 1.205 1.21 0 2.75 0c.87 0 1.705.405 2.25 1.04C5.545.405 6.38 0 7.25 0 8.79 0 10 1.205 10 2.75c0 1.885-1.7 3.43-4.275 5.765L5 9.175Z" fill="currentColor"/></svg>
+          </div>
+        </nav>
+
+        <div class="site-menu__contacts">
+          <div class="site-menu__group">
+            <p class="site-menu__label">Контакты</p>
+
+            <ul class="menu site-menu__list">
+              <li class="menu-item"><a href="tel:+971564974681">+971 56 497 4681 (What’s app и звонки)</a></li>
+              <li class="menu-item"><a href="tel:+971506894801">+971 50 689 4801 (только звонки)</a></li>
+              <li class="menu-item"><a href="mailto:medicalclinicskin@gmail.com">Medicalclinicskin@gmail.com</a></li>
+            </ul>
+          </div>
+
+          <div class="site-menu__group">
+            <p class="site-menu__label">Адрес</p>
+
+            <ul class="menu site-menu__list">
+              <li class="menu-item"><a href="#">Dubai,Damac Smart Height</a></li>
+            </ul>
+          </div>
+
+          <div class="site-menu__group">
+            <p class="site-menu__label">Социальные сети</p>
+
+            <div class="site-menu__socials">
+            <a class="social-button" href="#" aria-label="SkinLove в Instagram" target="_blank" rel="noopener"><svg class="social-button__icon" viewBox="0 0 58 58" fill="none" aria-hidden="true" focusable="false"><path d="M33 20C34.3261 20 35.5979 20.5268 36.5355 21.4645C37.4732 22.4021 38 23.6739 38 25V33C38 34.3261 37.4732 35.5979 36.5355 36.5355C35.5979 37.4732 34.3261 38 33 38H25C23.6739 38 22.4021 37.4732 21.4645 36.5355C20.5268 35.5979 20 34.3261 20 33V25C20 23.6739 20.5268 22.4021 21.4645 21.4645C22.4021 20.5268 23.6739 20 25 20H33ZM29 25C27.9391 25 26.9217 25.4214 26.1716 26.1716C25.4214 26.9217 25 27.9391 25 29C25 30.0609 25.4214 31.0783 26.1716 31.8284C26.9217 32.5786 27.9391 33 29 33C30.0609 33 31.0783 32.5786 31.8284 31.8284C32.5786 31.0783 33 30.0609 33 29C33 27.9391 32.5786 26.9217 31.8284 26.1716C31.0783 25.4214 30.0609 25 29 25ZM29 27C29.5304 27 30.0391 27.2107 30.4142 27.5858C30.7893 27.9609 31 28.4696 31 29C31 29.5304 30.7893 30.0391 30.4142 30.4142C30.0391 30.7893 29.5304 31 29 31C28.4696 31 27.9609 30.7893 27.5858 30.4142C27.2107 30.0391 27 29.5304 27 29C27 28.4696 27.2107 27.9609 27.5858 27.5858C27.9609 27.2107 28.4696 27 29 27ZM33.5 23.5C33.2348 23.5 32.9804 23.6054 32.7929 23.7929C32.6054 23.9804 32.5 24.2348 32.5 24.5C32.5 24.7652 32.6054 25.0196 32.7929 25.2071C32.9804 25.3946 33.2348 25.5 33.5 25.5C33.7652 25.5 34.0196 25.3946 34.2071 25.2071C34.3946 25.0196 34.5 24.7652 34.5 24.5C34.5 24.2348 34.3946 23.9804 34.2071 23.7929C34.0196 23.6054 33.7652 23.5 33.5 23.5Z" fill="currentColor"/></svg></a>
+            <a class="social-button" href="#" aria-label="SkinLove в Telegram" target="_blank" rel="noopener"><svg class="social-button__icon" viewBox="0 0 58 58" fill="none" aria-hidden="true" focusable="false"><path d="M33 20C34.3261 20 35.5979 20.5268 36.5355 21.4645C37.4732 22.4021 38 23.6739 38 25V33C38 34.3261 37.4732 35.5979 36.5355 36.5355C35.5979 37.4732 34.3261 38 33 38H25C23.6739 38 22.4021 37.4732 21.4645 36.5355C20.5268 35.5979 20 34.3261 20 33V25C20 23.6739 20.5268 22.4021 21.4645 21.4645C22.4021 20.5268 23.6739 20 25 20H33ZM29 25C27.9391 25 26.9217 25.4214 26.1716 26.1716C25.4214 26.9217 25 27.9391 25 29C25 30.0609 25.4214 31.0783 26.1716 31.8284C26.9217 32.5786 27.9391 33 29 33C30.0609 33 31.0783 32.5786 31.8284 31.8284C32.5786 31.0783 33 30.0609 33 29C33 27.9391 32.5786 26.9217 31.8284 26.1716C31.0783 25.4214 30.0609 25 29 25ZM29 27C29.5304 27 30.0391 27.2107 30.4142 27.5858C30.7893 27.9609 31 28.4696 31 29C31 29.5304 30.7893 30.0391 30.4142 30.4142C30.0391 30.7893 29.5304 31 29 31C28.4696 31 27.9609 30.7893 27.5858 30.4142C27.2107 30.0391 27 29.5304 27 29C27 28.4696 27.2107 27.9609 27.5858 27.5858C27.9609 27.2107 28.4696 27 29 27ZM33.5 23.5C33.2348 23.5 32.9804 23.6054 32.7929 23.7929C32.6054 23.9804 32.5 24.2348 32.5 24.5C32.5 24.7652 32.6054 25.0196 32.7929 25.2071C32.9804 25.3946 33.2348 25.5 33.5 25.5C33.7652 25.5 34.0196 25.3946 34.2071 25.2071C34.3946 25.0196 34.5 24.7652 34.5 24.5C34.5 24.2348 34.3946 23.9804 34.2071 23.7929C34.0196 23.6054 33.7652 23.5 33.5 23.5Z" fill="currentColor"/></svg></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <main id="main">
     <section class="page-hero" data-section="page-hero" data-spread>
@@ -193,7 +267,7 @@
         </div>
       </nav>
 
-      <a class="footer__cta" href="#">
+      <a class="footer__cta" href="#request-modal" data-modal-open="request-modal">
         <span class="footer__cta-hearts" aria-hidden="true">
           <svg class="footer__cta-heart" viewBox="0 0 10 9.175" fill="none" aria-hidden="true" focusable="false"><path d="M5 9.175 4.275 8.515C1.7 6.18 0 4.635 0 2.75 0 1.205 1.21 0 2.75 0c.87 0 1.705.405 2.25 1.04C5.545.405 6.38 0 7.25 0 8.79 0 10 1.205 10 2.75c0 1.885-1.7 3.43-4.275 5.765L5 9.175Z" fill="currentColor"/></svg>
           <svg class="footer__cta-heart footer__cta-heart--main" viewBox="0 0 10 9.175" fill="none" aria-hidden="true" focusable="false"><path d="M5 9.175 4.275 8.515C1.7 6.18 0 4.635 0 2.75 0 1.205 1.21 0 2.75 0c.87 0 1.705.405 2.25 1.04C5.545.405 6.38 0 7.25 0 8.79 0 10 1.205 10 2.75c0 1.885-1.7 3.43-4.275 5.765L5 9.175Z" fill="currentColor"/></svg>
@@ -221,6 +295,70 @@
       </div>
     </div>
   </footer>
+
+  <div class="modal" id="request-modal" data-modal hidden>
+    <div class="modal__backdrop" data-modal-backdrop data-modal-close></div>
+
+    <button class="modal__close" type="button" aria-label="Закрыть" data-modal-close>
+      <svg class="modal__close-icon" viewBox="0 0 21 21" fill="none" aria-hidden="true" focusable="false"><path d="M3 3l15 15M18 3 3 18" stroke="currentColor" stroke-linecap="round"/></svg>
+    </button>
+
+    <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="request-modal-title" data-modal-dialog>
+      <div class="modal__media">
+        <img class="modal__media-image" src="/img/svc-3-face.jpg" width="1672" height="941" alt="" loading="lazy" decoding="async">
+      </div>
+
+      <div class="modal__body">
+        <img class="modal__logo" src="/img/logo-black.png" width="301" height="102" alt="SkinLove" decoding="async">
+
+        <div class="modal__content">
+          <div class="modal__head">
+            <h2 class="modal__title" id="request-modal-title">Оставьте свои данные</h2>
+            <p class="modal__text">
+              Администратор SkinLove свяжется с вами, уточнит запрос и поможет подобрать
+              направление, специалиста и удобное время для визита.
+            </p>
+          </div>
+
+          <form class="form" action="#" method="post" novalidate data-form>
+            <div class="form__fields">
+              <label class="form__field">
+                <input class="form__input" type="text" name="name" placeholder="Ваше имя" autocomplete="name" required>
+                <span class="form__error" data-form-error hidden>Данное поле обязательно для заполнения</span>
+              </label>
+
+              <label class="form__field">
+                <input class="form__input" type="tel" name="phone" placeholder="Номер телефона" autocomplete="tel" required>
+                <span class="form__error" data-form-error hidden>Данное поле обязательно для заполнения</span>
+              </label>
+
+              <label class="form__check">
+                <span class="form__check-row">
+                  <input class="form__checkbox" type="checkbox" name="consent" required>
+                  <span class="form__check-label">Даю <a href="#">согласие</a> на обработку моих персональных данных в соответствии с <a href="#">политикой конфиденциальности</a>.</span>
+                </span>
+                <span class="form__error" data-form-error hidden>Данное поле обязательно для заполнения</span>
+              </label>
+
+              <label class="form__check">
+                <span class="form__check-row">
+                  <input class="form__checkbox" type="checkbox" name="marketing">
+                  <span class="form__check-label"><a href="#">Соглашаюсь</a> получать информационные сообщения, в том числе рекламные</span>
+                </span>
+              </label>
+            </div>
+
+            <button class="button form__submit" type="submit" data-button>
+              <span class="button__label">Оставить заявку</span>
+              <svg class="button__icon" viewBox="0 0 10 9.175" fill="none" aria-hidden="true" focusable="false"><path d="M5 9.175 4.275 8.515C1.7 6.18 0 4.635 0 2.75 0 1.205 1.21 0 2.75 0c.87 0 1.705.405 2.25 1.04C5.545.405 6.38 0 7.25 0 8.79 0 10 1.205 10 2.75c0 1.885-1.7 3.43-4.275 5.765L5 9.175Z" fill="currentColor"/></svg>
+            </button>
+
+            <p class="form__status" data-form-status tabindex="-1" hidden>Спасибо, заявка отправлена. Администратор SkinLove свяжется с вами в ближайшее время.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script type="module" src="/src/main.js"></script>
 </body>

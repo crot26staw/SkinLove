@@ -1,0 +1,16 @@
+/* Карточка результата: кадр «до/после» в скруглённой рамке.
+   Пропорции задаёт карточка, картинка их заполняет. */
+.result-card {
+  flex-shrink: 0;
+  overflow: hidden;
+  width: calc(445 * var(--u));
+  height: calc(520 * var(--u));
+  border-radius: calc(8 * var(--u));
+  background-color: var(--color-beige);
+}
+
+.result-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

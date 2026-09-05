@@ -1,0 +1,129 @@
+/* Попап: тёмная размытая подложка на весь экран, карточка по центру,
+   кнопка закрытия в углу экрана. Открывает и закрывает components/modal.js
+   через атрибут hidden. Разметка уедет в footer.php, форма внутри —
+   Contact Form 7 (см. form.css). */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
+  padding: calc(100 * var(--u)) var(--gutter) var(--gutter);
+}
+
+.modal[hidden] {
+  display: none;
+}
+
+.modal__backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: var(--color-scrim);
+  backdrop-filter: blur(calc(7.5 * var(--u)));
+}
+
+.modal__close {
+  position: fixed;
+  top: calc(var(--header-top) + var(--admin-bar-height));
+  right: var(--gutter);
+  display: grid;
+  place-items: center;
+  width: calc(49 * var(--u));
+  height: calc(49 * var(--u));
+  border: 1px solid var(--color-bg);
+  border-radius: calc(3 * var(--u));
+  color: var(--color-bg);
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
+}
+
+.modal__close:hover,
+.modal__close:focus-visible {
+  background-color: var(--color-bg);
+  color: var(--color-ink);
+}
+
+.modal__close-icon {
+  width: calc(21 * var(--u));
+  height: calc(21 * var(--u));
+}
+
+.modal__dialog {
+  position: relative;
+  display: flex;
+  gap: calc(20 * var(--u));
+  align-items: stretch;
+  width: calc(1216 * var(--u));
+  max-width: 100%;
+  min-height: calc(750 * var(--u));
+  padding: calc(5 * var(--u)) calc(40 * var(--u)) calc(5 * var(--u)) calc(5 * var(--u));
+  border-radius: calc(10 * var(--u));
+  background-color: var(--color-bg);
+  color: var(--color-ink);
+}
+
+.modal__media {
+  flex-shrink: 0;
+  overflow: hidden;
+  width: calc(593 * var(--u));
+  border-radius: calc(8 * var(--u));
+  background-color: var(--color-beige);
+}
+
+.modal__media-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.modal__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: calc(40 * var(--u));
+  justify-content: space-between;
+  min-width: 0;
+  padding-block: calc(40 * var(--u));
+}
+
+.modal__logo {
+  width: calc(106 * var(--u));
+  height: calc(36 * var(--u));
+  object-fit: contain;
+  object-position: left center;
+}
+
+.modal__content {
+  display: flex;
+  flex-direction: column;
+  gap: calc(50 * var(--u));
+}
+
+.modal__head {
+  display: flex;
+  flex-direction: column;
+  gap: calc(30 * var(--u));
+}
+
+.modal__title {
+  max-width: calc(500 * var(--u));
+  font-family: var(--font-serif);
+  font-size: var(--fs-h2);
+  font-style: italic;
+  font-weight: 400;
+  line-height: var(--lh-h2-accent);
+  letter-spacing: var(--ls-h2-accent);
+  text-box: trim-both cap alphabetic;
+}
+
+.modal__text {
+  max-width: calc(450 * var(--u));
+  font-size: var(--fs-text-20);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  text-box: trim-both cap alphabetic;
+  opacity: 0.8;
+}

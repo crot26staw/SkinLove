@@ -1,0 +1,153 @@
+/* Меню: оверлей на весь экран под шапкой — логотип и кнопка «Закрыть»
+   остаются в шапке, оверлей начинается ниже неё. Открывает и закрывает
+   components/menu.js через атрибут hidden. Разметка уедет в header.php:
+   навигация и направления — wp_nav_menu, контакты и соцсети — с Options.
+   При нехватке высоты оверлей прокручивается сам (data-lenis-prevent). */
+.site-menu {
+  --site-menu-top: calc(var(--header-top) + var(--admin-bar-height) + 115.102 * var(--u));
+
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-menu);
+  overflow-y: auto;
+  padding: var(--site-menu-top) var(--gutter) calc(30 * var(--u));
+  background-color: var(--color-bg);
+}
+
+.site-menu__inner {
+  display: flex;
+  gap: calc(20 * var(--u));
+  align-items: stretch;
+  min-height: 100%;
+}
+
+.site-menu__nav,
+.site-menu__aside {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.site-menu__nav {
+  gap: calc(20 * var(--u));
+}
+
+.site-menu__aside {
+  gap: calc(40 * var(--u));
+  justify-content: space-between;
+}
+
+.site-menu__label {
+  font-size: var(--fs-text-18);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  text-box: trim-both cap alphabetic;
+  opacity: 0.5;
+}
+
+/* Структура повторяет вывод wp_nav_menu: ul.menu > li.menu-item > a. */
+.site-menu__pages {
+  display: flex;
+  flex-direction: column;
+  gap: calc(20 * var(--u));
+  align-items: start;
+}
+
+.site-menu__pages a {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: var(--fs-h2);
+  font-style: italic;
+  line-height: var(--lh-h2-accent);
+  letter-spacing: var(--ls-h2-accent);
+  text-box: trim-both cap alphabetic;
+}
+
+.site-menu__directions {
+  display: flex;
+  flex-direction: column;
+  gap: calc(20 * var(--u));
+  align-items: start;
+}
+
+.site-menu__preview {
+  overflow: hidden;
+  width: calc(130 * var(--u));
+  height: calc(130 * var(--u));
+  border-radius: calc(10 * var(--u));
+  background-color: var(--color-beige);
+}
+
+.site-menu__preview-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.site-menu__list {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.site-menu__list a {
+  display: block;
+  padding-block: calc(5 * var(--u));
+  font-size: var(--fs-text-20);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  text-transform: uppercase;
+  text-box: trim-both cap alphabetic;
+}
+
+/* Направления — как вкладки: горит текущее или то, над которым курсор.
+   Пока курсор в списке, текущее гаснет, чтобы горело одно. */
+.site-menu__directions .menu-item {
+  opacity: 0.5;
+  transition: opacity var(--duration-fast) var(--ease-out);
+}
+
+.site-menu__directions .menu-item:hover,
+.site-menu__directions .menu-item:focus-within,
+.site-menu__directions .current-menu-item {
+  opacity: 1;
+}
+
+.site-menu__list:hover .current-menu-item:not(:hover) {
+  opacity: 0.5;
+}
+
+/* Указатель на направление: сердец столько же, сколько пунктов. */
+.site-menu__hearts {
+  display: flex;
+  gap: calc(2 * var(--u));
+}
+
+.site-menu__heart {
+  width: calc(10 * var(--u));
+  height: calc(9.175 * var(--u));
+  opacity: 0.2;
+  transition: opacity var(--duration-fast) var(--ease-out);
+}
+
+.site-menu__heart--current {
+  opacity: 1;
+}
+
+.site-menu__contacts {
+  display: flex;
+  flex-direction: column;
+  gap: calc(40 * var(--u));
+}
+
+.site-menu__group {
+  display: flex;
+  flex-direction: column;
+  gap: calc(20 * var(--u));
+}
+
+.site-menu__socials {
+  display: flex;
+  gap: calc(5 * var(--u));
+}

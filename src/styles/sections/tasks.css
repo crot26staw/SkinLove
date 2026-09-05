@@ -1,0 +1,58 @@
+/* Задачи: заголовок по центру и ряд круглых карточек, растущих к середине.
+   Ряд едет по кольцу — сцена «Карусель» (animations/tasks.js): в её режиме
+   карточки вынуты из потока, положение и масштаб каждой ставит скрипт,
+   а ряд держит высоту полной карточки. При отключённых анимациях ряд стоит,
+   и размер карточки задаёт её расстояние от середины разметки: скрипт ставит
+   --task-rank, масштаб от него считает сама карточка (components/task-card.css).
+   Ряд шире экрана и обрезается по краям. Без скрипта карточки равны,
+   и ряд листается по горизонтали.
+   Секция наезжает на липкий первый экран, поэтому стоит выше него по z. */
+.tasks {
+  --section-padding-block: calc(150 * var(--u));
+
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: calc(80 * var(--u));
+  align-items: center;
+  overflow: hidden;
+  padding-inline: var(--gutter);
+}
+
+.tasks__head {
+  display: flex;
+  flex-direction: column;
+  gap: calc(20 * var(--u));
+  align-items: center;
+  text-align: center;
+}
+
+.tasks__title {
+  align-items: center;
+}
+
+/* Ряд центрирован: при переполнении карточки уходят за оба края поровну. */
+.tasks__list {
+  display: flex;
+  gap: calc(20 * var(--u));
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.tasks:not([data-tasks='on']):not([data-scene='on']) .tasks__list {
+  justify-content: flex-start;
+  overflow-x: auto;
+}
+
+.tasks[data-scene='on'] .tasks__list {
+  position: relative;
+  height: calc(600 * var(--u));
+}
+
+.tasks[data-scene='on'] .task-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  will-change: transform;
+}

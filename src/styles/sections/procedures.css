@@ -50,11 +50,17 @@
 }
 
 /* Элемент без фото: логотип по центру на фоне секции. Фон обязателен —
-   кадр накрывает предыдущее фото. */
+   кадр накрывает предыдущее фото. Без сцены неактивный кадр спрятан
+   атрибутом hidden: правило на него нужно здесь, общее из reset проигрывает
+   display: grid по порядку подключения. */
 .procedures__frame--empty {
   display: grid;
   place-items: center;
   background-color: var(--color-beige);
+}
+
+.procedures__frame--empty[hidden] {
+  display: none;
 }
 
 .procedures__logo {

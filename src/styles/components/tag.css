@@ -1,0 +1,23 @@
+/* Тег: пилюля с сердцем и подписью. Ширину задаёт текст. */
+.tag {
+  display: inline-flex;
+  gap: calc(10 * var(--u));
+  align-items: center;
+  padding: calc(17 * var(--u));
+  border-radius: calc(80 * var(--u));
+  background-color: var(--color-bg);
+}
+
+.tag__icon {
+  flex-shrink: 0;
+  width: calc(10.899 * var(--u));
+  height: calc(10 * var(--u));
+}
+
+.tag__label {
+  font-size: var(--fs-text-18);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  text-box: trim-both cap alphabetic;
+  opacity: 0.8;
+}

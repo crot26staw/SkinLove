@@ -1,10 +1,16 @@
 /* Описание услуги с выездом: заголовок, зоны (необязательно), «подходит,
-   если» со списком и кнопка. Ширину задаёт контейнер. */
+   если» со списком и кнопка. Ширину задаёт контейнер. Без сцены видна одна
+   панель, остальные спрятаны атрибутом hidden: правило на него нужно здесь,
+   общее из reset проигрывает display: flex по порядку подключения. */
 .procedure-panel {
   display: flex;
   flex-direction: column;
   gap: calc(40 * var(--u));
   align-items: flex-start;
+}
+
+.procedure-panel[hidden] {
+  display: none;
 }
 
 .procedure-panel__title {

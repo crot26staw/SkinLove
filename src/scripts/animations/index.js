@@ -12,6 +12,7 @@ import { initFooter } from './footer.js';
 import { initSpread } from './spread.js';
 import { initProcedures } from './procedures.js';
 import { initSteps } from './steps.js';
+import { initTasks } from './tasks.js';
 import { initReviewsBlinds } from './reviews.js';
 import { initHeadingFill } from './heading-fill.js';
 import { initRules } from './rule.js';
@@ -27,6 +28,7 @@ export function initAnimations() {
     initSpread(),
     initProcedures(),
     initSteps(),
+    initTasks(),
     initAboutDissolve(),
     initServices(),
     initAtmosphere(),

@@ -18,8 +18,14 @@
 @import './components/step.css';
 @import './components/faq-item.css';
 @import './components/tab.css';
+@import './components/task-card.css';
+@import './components/tag.css';
+@import './components/result-card.css';
 @import './components/arrow-button.css';
 @import './components/header.css';
+@import './components/site-menu.css';
+@import './components/form.css';
+@import './components/modal.css';
 @import './components/blinds.css';
 @import './components/rule.css';
 @import './components/footer.css';
@@ -35,6 +41,10 @@
 @import './sections/philosophy.css';
 @import './sections/service-hero.css';
 @import './sections/occasions.css';
+@import './sections/tasks.css';
+@import './sections/programs.css';
+@import './sections/program-request.css';
+@import './sections/results.css';
 @import './sections/procedures.css';
 @import './sections/steps.css';
 @import './sections/faq.css';

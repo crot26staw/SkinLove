@@ -7,6 +7,8 @@
   --color-line-light: rgb(242 241 237 / 10%);
   --color-shade-top: rgb(0 0 0 / 8%);
   --color-shade-bottom: rgb(0 0 0 / 40%);
+  --color-scrim: rgb(0 0 0 / 60%);
+  --color-error: #f00;
 
   /* Шрифты */
   --font-sans: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
@@ -56,6 +58,8 @@
   --admin-bar-height: 0px;
   --header-top: calc(30 * var(--u));
   --z-header: 100;
+  --z-menu: 90;
+  --z-modal: 200;
 
   /* Движение */
   --duration-fast: 0.2s;

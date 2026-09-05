@@ -22,6 +22,12 @@
   border-color: var(--color-ink);
 }
 
+/* Край ленты: стрелка гаснет. */
+.arrow-button:disabled {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
 /* Нажатие: заливка, стрелка светлая. */
 .arrow-button:active {
   border-color: var(--color-ink);
