@@ -135,3 +135,44 @@
 .service-hero__title--center {
   justify-content: center;
 }
+
+/* Планшет: всё в столбик по центру и прижато к низу, заголовок над текстом.
+   Разъезд тот же: строки заголовка и подводка уходят влево, текст с кнопкой —
+   вправо. */
+@media (width < 1024px) {
+  .service-hero {
+    padding: 120px var(--gutter) 40px;
+  }
+
+  .service-hero__inner {
+    gap: 60px;
+    align-items: center;
+    justify-content: flex-end;
+    text-align: center;
+  }
+
+  .service-hero__title {
+    order: -1;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+  }
+
+  .service-hero__row {
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    margin-block: 0;
+  }
+
+  .service-hero__lead {
+    width: auto;
+    max-width: 400px;
+  }
+
+  .service-hero__aside {
+    align-items: center;
+    width: auto;
+    max-width: 460px;
+  }
+}

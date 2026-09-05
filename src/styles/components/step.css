@@ -30,3 +30,16 @@
   letter-spacing: var(--ls-text);
   text-box: trim-both cap alphabetic;
 }
+
+/* Планшет: карточка в ленте — без разделителя снизу, все этапы в полный цвет. */
+@media (width < 1024px) {
+  .step {
+    padding: 10px 0 0;
+    border-bottom: 0;
+    opacity: 1;
+  }
+
+  .step__text {
+    font-size: var(--fs-text-20);
+  }
+}

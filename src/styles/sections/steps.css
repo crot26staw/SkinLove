@@ -39,20 +39,26 @@
   height: calc(500 * var(--u));
 }
 
-/* Счётчик: номер активного этапа крупно и общее число мелко, по базовой линии. */
+/* Счётчик: номера этапов лежат стопкой в одной ячейке, у каждого свой номер
+   крупно и общее число мелко, по базовой линии. Правило на [hidden] нужно
+   здесь: общее из reset проигрывает display: flex по порядку подключения. */
 .steps__counter {
-  display: flex;
-  gap: calc(20 * var(--u));
-  align-items: flex-end;
-  width: calc(290 * var(--u));
-}
-
-.steps__counters {
   display: grid;
+  width: calc(290 * var(--u));
 }
 
 .steps__count {
   grid-area: 1 / 1;
+  display: flex;
+  gap: calc(20 * var(--u));
+  align-items: flex-end;
+}
+
+.steps__count[hidden] {
+  display: none;
+}
+
+.steps__number {
   font-family: var(--font-serif);
   font-size: var(--fs-h2);
   font-style: italic;
@@ -117,4 +123,71 @@
   display: flex;
   flex-direction: column;
   gap: calc(30 * var(--u));
+}
+
+/* Планшет: сцена «Лента» вместо «Наслоения». Фото, счётчик и описание
+   каждого этапа собираются в карточку: обёртки трёх проходов раскрыты
+   (display: contents), сетка раскладывает слои по строкам колонка за колонкой.
+   Заголовок стоит, ряд карточек едет. Без сцены ряд листается нативно. */
+@media (width < 1024px) {
+  .steps {
+    --section-padding-block: 120px;
+
+    gap: 60px;
+    align-items: stretch;
+    height: auto;
+    padding-inline: 0;
+  }
+
+  .steps__head {
+    padding-inline: var(--gutter);
+  }
+
+  .steps__row {
+    display: grid;
+    grid-auto-flow: column dense;
+    grid-template-rows: 300px auto auto;
+    grid-auto-columns: 349px;
+    gap: 20px 10px;
+    width: max-content;
+    padding: 0 var(--gutter);
+    will-change: transform;
+  }
+
+  .steps:not([data-scene='on']) .steps__row {
+    width: auto;
+    overflow-x: auto;
+  }
+
+  .steps__visual,
+  .steps__counter,
+  .steps__frames,
+  .steps__body,
+  .steps__viewport,
+  .steps__list {
+    display: contents;
+  }
+
+  .steps__label {
+    display: none;
+  }
+
+  /* Высота кадра явная, а не от строки сетки: процентную высоту картинки
+     не все браузеры считают от растянутой ячейки. */
+  .steps__frame {
+    grid-area: 1 / auto;
+    height: 300px;
+    border-radius: 5px;
+    background-color: var(--color-bg);
+  }
+
+  .steps__count {
+    grid-area: 2 / auto;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .steps__list > * {
+    grid-area: 3 / auto;
+  }
 }

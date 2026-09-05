@@ -1,6 +1,8 @@
 import { gsap } from 'gsap';
 
 import { createOverlayScene, crossfade, hideLayers } from './overlay-scene.js';
+import { createRailScene } from './rail-scene.js';
+import { DESKTOP, MOTION, TABLET } from '../utils/media.js';
 
 /* Этапы на сцене «Наслоение» (overlay-scene.js): при прокрутке фото следующего
    этапа открывается снизу поверх текущего, номер в счётчике подменяется,
@@ -10,6 +12,9 @@ import { createOverlayScene, crossfade, hideLayers } from './overlay-scene.js';
    Фото, номера и этапы — три прохода по одному набору, модуль связывает
    их по индексу. Без сцены (и при отключённых анимациях) виден первый этап
    с фото и номером, остальные этапы стоят в списке приглушёнными.
+
+   Ниже 1024 наслоения нет: слои собраны в карточки (steps.css), видны все,
+   и ряд карточек едет лентой (rail-scene.js), пока секция закреплена.
 
    Описание сцен и их имена — в ANIMATIONS.md. */
 
@@ -23,6 +28,7 @@ export function initSteps() {
 
 function setup(section) {
   const list = section.querySelector('[data-steps-list]');
+  const track = section.querySelector('[data-steps-track]');
   const items = [...section.querySelectorAll('[data-steps-item]')];
   const frames = [...section.querySelectorAll('[data-steps-frame]')];
   const counters = [...section.querySelectorAll('[data-steps-counter]')];
@@ -31,6 +37,12 @@ function setup(section) {
   if (!list || count < 2 || frames.length !== count || counters.length !== count) return;
 
   const layers = [...frames, ...counters];
+  const showAll = () => layers.forEach((layer) => {
+    layer.hidden = false;
+  });
+  const showFirst = () => layers.forEach((layer, i) => {
+    layer.hidden = i % count !== 0;
+  });
 
   const mark = (index) => {
     items.forEach((item, i) => {
@@ -45,12 +57,9 @@ function setup(section) {
   const context = gsap.context(() => {
     const mm = gsap.matchMedia();
 
-    mm.add('(prefers-reduced-motion: no-preference)', () => {
+    mm.add(`${MOTION} and ${DESKTOP}`, () => {
       section.dataset.scene = 'on';
-
-      layers.forEach((layer) => {
-        layer.hidden = false;
-      });
+      showAll();
 
       /* Приглушённость будущих этапов берётся из CSS и закрепляется инлайном,
          чтобы смена aria-current по ходу сцены не дёргала прозрачность. */
@@ -78,12 +87,22 @@ function setup(section) {
       return () => {
         delete section.dataset.scene;
         mark(0);
-        layers.forEach((layer, i) => {
-          layer.hidden = i % count !== 0;
-        });
+        showFirst();
       };
+    });
+
+    /* Планшет: все этапы видны карточками в ряд, в том числе без анимаций. */
+    mm.add(TABLET, () => {
+      showAll();
+
+      return showFirst;
     });
   }, section);
 
-  return () => context.revert();
+  const rail = createRailScene({ section, track, media: TABLET });
+
+  return () => {
+    rail?.();
+    context.revert();
+  };
 }

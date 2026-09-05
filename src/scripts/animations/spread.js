@@ -45,9 +45,13 @@ function createSpread(section) {
 
   if (!veil || !next || !(left.length || right.length)) return;
 
-  /* Ход — собственная ширина плюс поле секции: элемент уходит за край целиком. */
-  const gutter = () => parseFloat(getComputedStyle(section).paddingLeft) || 0;
-  const travel = (element) => element.offsetWidth + gutter();
+  /* Ход — до края экрана целиком: от правого края элемента до левого края
+     экрана и от левого края до правого. Текущий сдвиг сцены вычитается:
+     при пересчёте элемент может стоять уже сдвинутым. */
+  const shift = (element) => Number(gsap.getProperty(element, 'x')) || 0;
+  const travelLeft = (element) => element.getBoundingClientRect().right - shift(element);
+  const travelRight = (element) =>
+    window.innerWidth - element.getBoundingClientRect().left + shift(element);
   const veilMax = () =>
     parseFloat(getComputedStyle(section).getPropertyValue('--spread-veil-max')) || 1;
 
@@ -78,11 +82,11 @@ function createSpread(section) {
       const overlap = SPREAD_SHARE * LEAD_SHARE;
 
       if (left.length) {
-        timeline.to(left, { x: (_, element) => -travel(element), duration: SPREAD_SHARE }, 0);
+        timeline.to(left, { x: (_, element) => -travelLeft(element), duration: SPREAD_SHARE }, 0);
       }
 
       if (right.length) {
-        timeline.to(right, { x: (_, element) => travel(element), duration: SPREAD_SHARE }, 0);
+        timeline.to(right, { x: (_, element) => travelRight(element), duration: SPREAD_SHARE }, 0);
       }
 
       timeline.to(veil, { opacity: veilMax, duration: 1 }, overlap);

@@ -4,7 +4,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow: hidden;
   padding-inline: var(--gutter);
 }
 
@@ -141,6 +140,7 @@
     --section-padding-block: 120px 0;
 
     align-items: stretch;
+    overflow: hidden;
   }
 
   .reviews__line,

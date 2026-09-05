@@ -52,3 +52,53 @@
   gap: calc(20 * var(--u));
   will-change: transform;
 }
+
+/* Планшет: заголовок по центру, под ним лента с активной карточкой посередине
+   (components/results.js), стрелки по центру снизу. Ряд не режется по левому
+   краю: соседи активной карточки видны с обеих сторон. Зазор ряда шире зазора
+   макета на выступ увеличенной активной карточки, отступ ряда — на её выступ
+   по высоте. */
+@media (width < 1024px) {
+  .results {
+    --section-padding-block: 120px;
+
+    flex-direction: column;
+    gap: 60px;
+    align-items: center;
+    padding-inline: 0;
+  }
+
+  .results__aside {
+    display: contents;
+  }
+
+  .results__head,
+  .results__title {
+    align-items: center;
+    text-align: center;
+  }
+
+  .results__nav {
+    order: 1;
+  }
+
+  .results__viewport {
+    flex: none;
+    width: 100%;
+  }
+
+  .results[data-results='on'] .results__viewport {
+    clip-path: none;
+  }
+
+  .results__track {
+    gap: 58px;
+    align-items: center;
+    padding-block: 56px;
+  }
+
+  .results:not([data-results='on']) .results__track {
+    gap: 10px;
+    padding-block: 0;
+  }
+}

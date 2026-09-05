@@ -71,3 +71,10 @@
   width: calc(10.899 * var(--u));
   height: calc(10 * var(--u));
 }
+
+/* Планшет: карточка в ленте, шаг между блоками меньше. */
+@media (width < 1024px) {
+  .procedure-panel {
+    gap: 30px;
+  }
+}

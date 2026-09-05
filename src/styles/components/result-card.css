@@ -14,3 +14,16 @@
   height: 100%;
   object-fit: cover;
 }
+
+/* Планшет: карточки меньше, активная вырастает масштабом до 445×520. */
+@media (width < 1024px) {
+  .result-card {
+    width: 349px;
+    height: 408px;
+    transition: scale var(--duration-base) var(--ease-out);
+  }
+
+  .result-card[aria-current='true'] {
+    scale: 1.275;
+  }
+}

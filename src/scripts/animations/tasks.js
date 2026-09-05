@@ -1,5 +1,7 @@
 import { gsap } from 'gsap';
 
+import { DESKTOP, MOTION } from '../utils/media.js';
+
 /* Карусель (carousel): круглые карточки задач медленно и без остановки едут
    влево по кольцу, у центра вырастают, к краям уменьшаются. Размер зависит
    от текущего расстояния до центра ряда, а не от места в разметке: положение
@@ -16,6 +18,7 @@ import { gsap } from 'gsap';
    Если карточек мало и ряд не закрывает экран, набор дописывается копиями
    (aria-hidden). Едет только пока секция на экране. При отключённых
    анимациях ряд стоит, размеры — по расстоянию от середины разметки.
+   Ниже 1024 карусели нет: задачи стоят списком строк (tasks.css).
 
    Описание сцен и их имена — в ANIMATIONS.md. */
 
@@ -45,7 +48,7 @@ function setup(section) {
   const context = gsap.context(() => {
     const mm = gsap.matchMedia();
 
-    mm.add('(prefers-reduced-motion: reduce)', () => {
+    mm.add(`(prefers-reduced-motion: reduce) and ${DESKTOP}`, () => {
       const center = (originals.length - 1) / 2;
 
       originals.forEach((card, index) => {
@@ -59,7 +62,7 @@ function setup(section) {
       };
     });
 
-    mm.add('(prefers-reduced-motion: no-preference)', () => {
+    mm.add(`${MOTION} and ${DESKTOP}`, () => {
       section.dataset.scene = 'on';
 
       let base = 0;

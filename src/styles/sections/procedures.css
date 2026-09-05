@@ -11,11 +11,16 @@
   --section-padding-block: 0;
   --blinds-color: var(--color-bg);
 
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Содержимое без жалюзи: на десктопе две колонки, на планшете — лента. */
+.procedures__inner {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: calc(20 * var(--u));
-  height: 100vh;
-  overflow: hidden;
+  height: 100%;
 }
 
 .procedures__media {
@@ -119,4 +124,68 @@
   letter-spacing: var(--ls-h2-accent);
   text-align: center;
   text-box: trim-both cap alphabetic;
+}
+
+/* Планшет: сцена «Лента» вместо «Наслоения». Кадр, название и описание
+   каждой услуги собираются в карточку: обёртки трёх проходов раскрыты
+   (display: contents), а сетка раскладывает слои по строкам — кадры в первую,
+   названия во вторую, описания в третью — колонка за колонкой. Вкладок нет,
+   все услуги видны сразу. Без сцены ряд листается нативно. */
+@media (width < 1024px) {
+  .procedures {
+    --section-padding-block: 120px 0;
+
+    height: auto;
+  }
+
+  .procedures__inner {
+    grid-auto-flow: column dense;
+    grid-template-columns: none;
+    grid-template-rows: 540px auto auto;
+    grid-auto-columns: 650px;
+    gap: 20px 10px;
+    height: auto;
+    padding-right: var(--gutter);
+    will-change: transform;
+  }
+
+  .procedures[data-scene='on'] .procedures__inner {
+    width: max-content;
+  }
+
+  .procedures:not([data-scene='on']) .procedures__inner {
+    overflow-x: auto;
+  }
+
+  .procedures__media,
+  .procedures__frames,
+  .procedures__body,
+  .procedures__panels,
+  .procedures__captions {
+    display: contents;
+  }
+
+  .procedures__media::after,
+  .procedures__tabs {
+    display: none;
+  }
+
+  /* Высота кадра явная, а не от строки сетки: процентную высоту картинки
+     не все браузеры считают от растянутой ячейки. */
+  .procedures__frame {
+    grid-area: 1 / auto;
+    height: 540px;
+  }
+
+  .procedures__caption {
+    grid-area: 2 / auto;
+    padding-left: 10px;
+    color: var(--color-ink);
+    text-align: left;
+  }
+
+  .procedures__panels > * {
+    grid-area: 3 / auto;
+    padding: 10px 0 0 10px;
+  }
 }

@@ -2,9 +2,11 @@ import { gsap } from 'gsap';
 
 import { blindsOpen } from './blinds.js';
 import { createOverlayScene, crossfade, hideLayers } from './overlay-scene.js';
+import { createRailScene } from './rail-scene.js';
 import { screen } from './timing.js';
 import { scrollTo } from '../utils/smooth-scroll.js';
 import { previousSection } from '../utils/siblings.js';
+import { DESKTOP, MOTION, TABLET } from '../utils/media.js';
 
 /* Услуги с выездом на сцене «Наслоение» (overlay-scene.js): при прокрутке
    фото следующей услуги открывается снизу поверх текущего, описание и название
@@ -17,9 +19,17 @@ import { previousSection } from '../utils/siblings.js';
    на месте.
 
    Открывается блок жалюзи, как подвал: полосы расходятся, пока секция
-   входит в кадр, и раскрываются к моменту закрепления.
+   входит в кадр, и полностью открыты ещё до закрепления (BLINDS_OPEN_AT).
+
+   Ниже 1024 наслоения нет: слои собраны в карточки (procedures.css), видны
+   все, вкладок нет, и ряд карточек едет лентой (rail-scene.js), пока секция
+   закреплена. Жалюзи те же.
 
    Описание сцен и их имена — в ANIMATIONS.md. */
+
+/* Отметка экрана, на которой верх секции встречает полностью открытые жалюзи:
+   раскрытие заканчивается раньше закрепления, а не ровно на нём. */
+const BLINDS_OPEN_AT = 'top 15%';
 
 export function initProcedures() {
   const cleanups = [...document.querySelectorAll('[data-procedures]')].map(setup).filter(Boolean);
@@ -31,6 +41,7 @@ export function initProcedures() {
 
 function setup(section) {
   const list = section.querySelector('[data-procedures-tablist]');
+  const track = section.querySelector('[data-procedures-track]');
   const tabs = [...section.querySelectorAll('[data-procedures-tab]')];
   const frames = [...section.querySelectorAll('[data-procedures-frame]')];
   const panels = [...section.querySelectorAll('[data-procedures-panel]')];
@@ -46,8 +57,15 @@ function setup(section) {
   let current = Math.max(0, tabs.findIndex((tab) => tab.getAttribute('aria-selected') === 'true'));
   let scene = null;
 
-  /* Вкладки отражают активный элемент всегда; слои — только без сцены,
-     в сцене их состояние ведёт таймлайн. */
+  /* Слои лежат стопкой, и виден один; на планшете они стоят рядом и видны все. */
+  let layered = true;
+
+  const showAll = () => layers.forEach((layer) => {
+    layer.hidden = false;
+  });
+
+  /* Вкладки отражают активный элемент всегда; слои — только без сцены
+     и в стопке: в сцене их состояние ведёт таймлайн. */
   const select = (index) => {
     tabs.forEach((tab, i) => {
       const active = i === index;
@@ -55,7 +73,7 @@ function setup(section) {
       tab.setAttribute('aria-selected', String(active));
       tab.tabIndex = active ? 0 : -1;
 
-      if (!scene) {
+      if (!scene && layered) {
         frames[i].hidden = !active;
         panels[i].hidden = !active;
         captions[i].hidden = !active;
@@ -107,20 +125,13 @@ function setup(section) {
   const context = gsap.context(() => {
     const mm = gsap.matchMedia();
 
-    mm.add('(prefers-reduced-motion: no-preference)', () => {
+    /* Жалюзи на въезде — на всех ширинах, где секция играет сцену. */
+    mm.add(MOTION, () => {
       const previous = previousSection(section);
-
-      section.dataset.scene = 'on';
 
       if (previous) {
         section.style.setProperty('--blinds-color', getComputedStyle(previous).backgroundColor);
       }
-
-      layers.forEach((layer) => {
-        layer.hidden = false;
-      });
-
-      hideLayers([...panels.slice(1), ...captions.slice(1)]);
 
       if (bars.length) {
         gsap.to(bars, {
@@ -129,12 +140,20 @@ function setup(section) {
           scrollTrigger: {
             trigger: section,
             start: 'top 90%',
-            end: 'top top',
+            end: BLINDS_OPEN_AT,
             scrub: true,
             invalidateOnRefresh: true
           }
         });
       }
+
+      return () => section.style.removeProperty('--blinds-color');
+    });
+
+    mm.add(`${MOTION} and ${DESKTOP}`, () => {
+      section.dataset.scene = 'on';
+      showAll();
+      hideLayers([...panels.slice(1), ...captions.slice(1)]);
 
       scene = createOverlayScene({
         section,
@@ -149,13 +168,26 @@ function setup(section) {
       return () => {
         scene = null;
         delete section.dataset.scene;
-        section.style.removeProperty('--blinds-color');
+        select(current);
+      };
+    });
+
+    /* Планшет: все услуги видны карточками в ряд, в том числе без анимаций. */
+    mm.add(TABLET, () => {
+      layered = false;
+      showAll();
+
+      return () => {
+        layered = true;
         select(current);
       };
     });
   }, section);
 
+  const rail = createRailScene({ section, track, media: TABLET });
+
   return () => {
+    rail?.();
     context.revert();
     list.removeEventListener('keydown', onKeydown);
     onClicks.forEach((unbind) => unbind());

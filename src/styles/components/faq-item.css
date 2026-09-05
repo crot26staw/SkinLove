@@ -75,3 +75,14 @@
   text-box: trim-both cap alphabetic;
   opacity: 0.8;
 }
+
+@media (width < 1024px) {
+  .faq-item__toggle {
+    width: 50px;
+    height: 50px;
+  }
+
+  .faq-item__text {
+    font-size: var(--fs-text-20);
+  }
+}

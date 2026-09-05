@@ -21,3 +21,18 @@
   flex-direction: column;
   gap: calc(20 * var(--u));
 }
+
+/* Планшет: заголовок по центру, список под ним. */
+@media (width < 1024px) {
+  .faq {
+    --section-padding-block: 120px 0;
+
+    grid-template-columns: 1fr;
+    gap: 60px;
+  }
+
+  .faq__head {
+    align-items: center;
+    text-align: center;
+  }
+}

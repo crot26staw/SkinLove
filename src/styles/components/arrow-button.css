@@ -43,3 +43,10 @@
 .arrow-button--next .arrow-button__icon {
   transform: rotate(180deg);
 }
+
+@media (width < 1024px) {
+  .arrow-button {
+    width: 60px;
+    height: 60px;
+  }
+}

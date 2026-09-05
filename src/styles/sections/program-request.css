@@ -53,3 +53,21 @@
   height: 100%;
   object-fit: cover;
 }
+
+/* Планшет: текст и форма сверху, фото под ними во всю ширину. */
+@media (width < 1024px) {
+  .program-request {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-height: 0;
+  }
+
+  .program-request__body {
+    padding: 0 var(--gutter);
+  }
+
+  .program-request__media {
+    height: 500px;
+  }
+}

@@ -23,7 +23,14 @@ import { DESKTOP, MOTION } from '../utils/media.js';
    Длительности фаз заданы в пикселях прокрутки, а не долями: подкладка
    следующей секции считается от длины уезда, и при пропорциях они разъезжаются.
 
+   Секция выше экрана (планшет: карточки процедур с описанием) закрепляется
+   по нижнему краю, иначе её низ во время сцены не виден. На десктопе секции
+   со сценой ровно в экран, и это ни на что не влияет.
+
    Описание сцен и их имена — в ANIMATIONS.md. */
+
+const pinStart = (section) => () =>
+  section.offsetHeight > window.innerHeight + 1 ? 'bottom bottom' : 'top top';
 export function createPinnedScene({
   section,
   phase,
@@ -63,12 +70,16 @@ export function createPinnedScene({
         defaults: { ease: 'none' },
         scrollTrigger: {
           trigger: section,
-          start: 'top top',
+          start: pinStart(section),
           end: () => `+=${hold() + opening() + phase.length() + (exit ? exitLength() : 0)}`,
           pin: true,
           scrub: true,
           invalidateOnRefresh: true,
-          onRefreshInit: exit ? applyUnderlap : undefined
+          onRefreshInit: exit ? applyUnderlap : undefined,
+          /* Ниже 1024 подкладок нет, и распорку можно красить: секция может быть
+             ниже экрана, и под её краем на время сцены просвечивал бы липкий
+             первый экран. Красится на refresh: при создании распорки ещё нет. */
+          onRefresh: exit ? undefined : paintSpacer
         }
       });
 

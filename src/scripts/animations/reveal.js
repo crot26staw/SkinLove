@@ -1,4 +1,4 @@
-import { BLINDS_AT, exitLength, openLength } from './timing.js';
+import { blindsExitLength, exitLength } from './timing.js';
 
 /* Окно открытия: отрезок прокрутки, на котором элемент секции попадает
    на экран. Им пользуются сцены, привязанные к появлению элемента, —
@@ -25,14 +25,13 @@ export function revealWindow(section, element) {
   }
 
   /* Подложенная секция открывается уездом предыдущей; если у неё есть жалюзи,
-     они начинают расходиться на BLINDS_AT уезда и открывают её до конца.
+     они расходятся вместе с уездом и открывают её чуть раньше его конца.
      Отсчёт — от верха секции, длины в пикселях прокрутки. От `top top`,
      а не от смещённой отметки: секция в это время сама закреплена, и отметку
      ниже верха ScrollTrigger сдвинул бы на длину её пина. */
   const hasBlinds = Boolean(section.querySelector('[data-blind]'));
-  const opening = hasBlinds ? openLength() : exitLength();
-  const uncovered = hasBlinds ? exitLength() * BLINDS_AT + openLength() : exitLength();
-  const length = opening * UNCOVER_SHARE;
+  const uncovered = hasBlinds ? blindsExitLength() : exitLength();
+  const length = uncovered * UNCOVER_SHARE;
 
   return {
     trigger: section,

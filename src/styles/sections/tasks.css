@@ -56,3 +56,24 @@
   left: 0;
   will-change: transform;
 }
+
+/* Планшет: карусели нет — задачи стоят списком строк с номерами
+   (номер считает components/task-card.css). */
+@media (width < 1024px) {
+  .tasks {
+    --section-padding-block: 120px;
+
+    gap: 60px;
+    align-items: stretch;
+  }
+
+  .tasks__list {
+    flex-direction: column;
+    gap: 20px;
+    counter-reset: task;
+  }
+
+  .tasks:not([data-tasks='on']):not([data-scene='on']) .tasks__list {
+    overflow: visible;
+  }
+}

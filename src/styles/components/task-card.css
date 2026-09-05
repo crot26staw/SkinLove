@@ -54,3 +54,41 @@
   text-box: trim-both cap alphabetic;
   opacity: 0.7;
 }
+
+/* Планшет: строка списка — номер слева, название и текст справа, линия сверху.
+   Номер считает CSS: строк столько, сколько задаст редактор. */
+@media (width < 1024px) {
+  .task-card {
+    --task-scale: 1;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px 10px;
+    width: auto;
+    height: auto;
+    padding: 20px 0 0;
+    border: 0;
+    border-top: 1px solid var(--color-line);
+    border-radius: 0;
+    text-align: left;
+    counter-increment: task;
+  }
+
+  .task-card::before {
+    content: counter(task, decimal-leading-zero);
+    grid-row: 1 / 3;
+    font-size: var(--fs-descriptor);
+    line-height: var(--lh-text);
+    letter-spacing: var(--ls-descriptor);
+    text-box: trim-both cap alphabetic;
+  }
+
+  .task-card__hearts {
+    display: none;
+  }
+
+  .task-card__title,
+  .task-card__text {
+    grid-column: 2;
+  }
+}
