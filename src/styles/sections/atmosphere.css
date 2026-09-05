@@ -64,6 +64,20 @@
   text-box: trim-both cap alphabetic;
 }
 
+/* Черта у текстов рисуется только на планшете (см. ниже); на десктопе линия
+   одна — по верху шапки. */
+.atmosphere__texts::before {
+  display: none;
+}
+
+/* В режиме сцены секция ничего не режет: медиа на старте сдвинуто вниз
+   на высоту шапки и выходит за низ секции, а обрезка по секции срезала бы
+   окно превью снизу вместе со скруглением (так было на мобильном). Шапка
+   уезжает вверх за край экрана — секция в это время закреплена по верху. */
+.atmosphere[data-morph='on'] {
+  overflow: visible;
+}
+
 /* Шапка выводится из потока: она всё равно уезжает, и без неё высота секции
    равна финальной раскладке. Иначе после морфа под кадром оставалась бы
    пустота в высоту ушедшей шапки. Стартовое смещение медиа задаёт скрипт. */
@@ -81,10 +95,6 @@
   position: absolute;
   opacity: 0;
   pointer-events: none;
-}
-
-.atmosphere[data-morph='on'] .atmosphere__features {
-  opacity: 0;
 }
 
 .atmosphere__media {
@@ -181,4 +191,112 @@
   letter-spacing: var(--ls-text);
   text-box: trim-both cap alphabetic;
   opacity: 0.8;
+}
+
+/* Планшет: шапка в одну колонку, черта переезжает под заголовок, превью
+   по центру. Секция заканчивается сразу под кадром, как в макете: пока она
+   закреплена, ниже видно начало следующей — растягивать её на экран нельзя,
+   иначе под кадром остаётся пустой хвост. */
+@media (width < 1024px) {
+  .atmosphere {
+    --pad: 100px;
+    --section-padding-block: var(--pad) 0;
+
+    gap: 40px;
+  }
+
+  .atmosphere__marker {
+    display: none;
+  }
+
+  .atmosphere__head {
+    flex-direction: column;
+    gap: 0;
+    align-items: stretch;
+    padding-top: 0;
+  }
+
+  .atmosphere__head::before {
+    display: none;
+  }
+
+  .atmosphere__label {
+    flex: none;
+  }
+
+  .atmosphere__intro {
+    flex: none;
+    gap: 0;
+    align-items: stretch;
+  }
+
+  .atmosphere__title {
+    margin-top: 20px;
+  }
+
+  .atmosphere__texts {
+    position: relative;
+    gap: 10px;
+    margin-top: 40px;
+    padding-top: 20px;
+  }
+
+  .atmosphere__texts::before {
+    display: block;
+  }
+
+  .atmosphere__text {
+    font-size: var(--fs-text-20);
+  }
+
+  .atmosphere__media {
+    gap: 10px;
+  }
+
+  .atmosphere__preview {
+    align-self: center;
+    width: 256px;
+    height: 225px;
+  }
+
+  .atmosphere__scene {
+    height: 600px;
+    padding: 20px var(--gutter);
+  }
+
+  .feature {
+    gap: 14px;
+  }
+
+  .feature__text {
+    font-size: var(--fs-text-20);
+  }
+}
+
+/* Мобильный: тексты в одну колонку, превью во всю ширину, подписи в кадре
+   друг под другом. */
+@media (width < 768px) {
+  .atmosphere__texts {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  /* Ширина явная: в режиме сцены превью вынуто из потока, и «на всю ширину»
+     ему не от чего считаться. */
+  .atmosphere__preview {
+    width: calc(100vw - 20px);
+    height: auto;
+    aspect-ratio: 455 / 400;
+  }
+
+  .atmosphere__features {
+    flex-direction: column;
+    gap: 20px;
+    align-items: stretch;
+    justify-content: end;
+  }
+
+  .feature {
+    flex: none;
+  }
 }

@@ -1,9 +1,6 @@
 .about {
   --section-padding-block: calc(159 * var(--u)) calc(296 * var(--u));
 
-  /* Выше направлений: они подложены под эту секцию и проступают,
-     когда она растворяется. */
-  z-index: 2;
   overflow: hidden;
 }
 
@@ -85,4 +82,72 @@
   grid-column: 2;
   justify-self: start;
   margin-top: calc(40 * var(--u));
+}
+
+/* Планшет: всё в одну колонку, текст и кнопка в две равные под чертой. */
+@media (width < 1024px) {
+  .about {
+    --section-padding-block: 120px;
+  }
+
+  .about__decor {
+    top: 16px;
+    bottom: auto;
+    left: -368px;
+    width: 1139px;
+    max-width: none;
+    height: 641px;
+    transform: scaleY(-1);
+  }
+
+  .about__inner {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .about__title {
+    margin-top: 20px;
+  }
+
+  .about__title .heading__line {
+    margin-left: 0;
+  }
+
+  .about__body {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 10px;
+    margin-top: 40px;
+    margin-right: 0;
+    padding-top: 20px;
+  }
+
+  .about__marker {
+    display: none;
+  }
+
+  .about__button {
+    margin-top: 40px;
+  }
+}
+
+/* Мобильный: текст и кнопка в одну колонку под чертой. */
+@media (width < 768px) {
+  .about {
+    --section-padding-block: 100px;
+  }
+
+  .about__decor {
+    top: -4px;
+  }
+
+  .about__body {
+    grid-template-columns: 1fr;
+    row-gap: 20px;
+  }
+
+  .about__button {
+    grid-column: 1;
+    margin-top: 0;
+  }
 }

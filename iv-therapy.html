@@ -398,7 +398,7 @@
 
             <span class="advantages__steps" aria-hidden="true"><svg class="advantages__heart advantages__heart--muted" viewBox="0 0 10 9.175" fill="none" aria-hidden="true" focusable="false"><path d="M5 9.175 4.275 8.515C1.7 6.18 0 4.635 0 2.75 0 1.205 1.21 0 2.75 0c.87 0 1.705.405 2.25 1.04C5.545.405 6.38 0 7.25 0 8.79 0 10 1.205 10 2.75c0 1.885-1.7 3.43-4.275 5.765L5 9.175Z" fill="currentColor"/></svg><svg class="advantages__heart" viewBox="0 0 10 9.175" fill="none" aria-hidden="true" focusable="false"><path d="M5 9.175 4.275 8.515C1.7 6.18 0 4.635 0 2.75 0 1.205 1.21 0 2.75 0c.87 0 1.705.405 2.25 1.04C5.545.405 6.38 0 7.25 0 8.79 0 10 1.205 10 2.75c0 1.885-1.7 3.43-4.275 5.765L5 9.175Z" fill="currentColor"/></svg><svg class="advantages__heart advantages__heart--muted" viewBox="0 0 10 9.175" fill="none" aria-hidden="true" focusable="false"><path d="M5 9.175 4.275 8.515C1.7 6.18 0 4.635 0 2.75 0 1.205 1.21 0 2.75 0c.87 0 1.705.405 2.25 1.04C5.545.405 6.38 0 7.25 0 8.79 0 10 1.205 10 2.75c0 1.885-1.7 3.43-4.275 5.765L5 9.175Z" fill="currentColor"/></svg></span>
 
-            <svg class="advantages__marks" viewBox="0 0 910 420" fill="none" aria-hidden="true" focusable="false"><path opacity=".5" d="M4.16667 10V0H5.85417V10H4.16667ZM0 5.85417V4.14583H10V5.85417H0Z" fill="currentColor"/><path opacity=".5" d="M904.167 10V0H905.854V10H904.167ZM900 5.85417V4.14583H910V5.85417H900Z" fill="currentColor"/><path opacity=".5" d="M4.16667 420V410H5.85417V420H4.16667ZM0 415.854V414.146H10V415.854H0Z" fill="currentColor"/><path opacity=".5" d="M904.167 420V410H905.854V420H904.167ZM900 415.854V414.146H910V415.854H900Z" fill="currentColor"/></svg>
+            <span class="advantages__marks" aria-hidden="true"><svg class="advantages__mark advantages__mark--top-left" viewBox="0 0 10 10" fill="none" aria-hidden="true" focusable="false"><path d="M4.16667 10V0H5.85417V10H4.16667ZM0 5.85417V4.14583H10V5.85417H0Z" fill="currentColor"/></svg><svg class="advantages__mark advantages__mark--top-right" viewBox="0 0 10 10" fill="none" aria-hidden="true" focusable="false"><path d="M4.16667 10V0H5.85417V10H4.16667ZM0 5.85417V4.14583H10V5.85417H0Z" fill="currentColor"/></svg><svg class="advantages__mark advantages__mark--bottom-left" viewBox="0 0 10 10" fill="none" aria-hidden="true" focusable="false"><path d="M4.16667 10V0H5.85417V10H4.16667ZM0 5.85417V4.14583H10V5.85417H0Z" fill="currentColor"/></svg><svg class="advantages__mark advantages__mark--bottom-right" viewBox="0 0 10 10" fill="none" aria-hidden="true" focusable="false"><path d="M4.16667 10V0H5.85417V10H4.16667ZM0 5.85417V4.14583H10V5.85417H0Z" fill="currentColor"/></svg></span>
           </li>
 
           <li class="advantage">
@@ -881,7 +881,7 @@
     </div>
 
     <div class="footer__columns">
-      <nav class="footer__column" aria-labelledby="footer-sitemap">
+      <nav class="footer__column footer__column--sitemap" aria-labelledby="footer-sitemap">
         <p class="footer__label" id="footer-sitemap">Карта сайта</p>
 
         <ul class="menu footer__menu">
@@ -893,7 +893,7 @@
       </nav>
 
       <div class="footer__column footer__column--contacts">
-        <div class="footer__group">
+        <div class="footer__group footer__group--contacts">
           <p class="footer__label" id="footer-contacts">Контакты</p>
 
           <ul class="menu footer__menu" aria-labelledby="footer-contacts">
@@ -903,7 +903,7 @@
           </ul>
         </div>
 
-        <div class="footer__group">
+        <div class="footer__group footer__group--address">
           <p class="footer__label" id="footer-address">Адрес</p>
 
           <ul class="menu footer__menu" aria-labelledby="footer-address">
@@ -911,7 +911,7 @@
           </ul>
         </div>
 
-        <div class="footer__group">
+        <div class="footer__group footer__group--socials">
           <p class="footer__label" id="footer-socials">Социальные сети</p>
 
           <div class="footer__socials" aria-labelledby="footer-socials" role="group">
@@ -921,7 +921,7 @@
         </div>
       </div>
 
-      <nav class="footer__column" aria-labelledby="footer-directions">
+      <nav class="footer__column footer__column--directions" aria-labelledby="footer-directions">
         <p class="footer__label" id="footer-directions">Направления</p>
 
         <div class="footer__preview">
@@ -978,7 +978,7 @@
     </div>
   </footer>
 
-  <div class="modal" id="request-modal" data-modal hidden>
+  <div class="modal" id="request-modal" data-modal data-lenis-prevent hidden>
     <div class="modal__backdrop" data-modal-backdrop data-modal-close></div>
 
     <button class="modal__close" type="button" aria-label="Закрыть" data-modal-close>

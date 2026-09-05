@@ -4,6 +4,7 @@ import { blindsOpen } from './blinds.js';
 import { BLINDS_AT, exitLength, openLength } from './timing.js';
 import { previousSection } from '../utils/siblings.js';
 import { paintSpacer } from '../utils/pin-spacer.js';
+import { DESKTOP, MOTION } from '../utils/media.js';
 
 /* Отзывы за уезжающей секцией: подложены под неё и открываются жалюзи.
    Своей фазы у отзывов нет, но держать себя на время уезда они должны сами —
@@ -13,6 +14,8 @@ import { paintSpacer } from '../utils/pin-spacer.js';
    так переход идёт без остановки, — и заканчивают уже после её ухода.
 
    Отзывы без жалюзи (главная) сюда не попадают: их держит предыдущая сцена.
+   Ниже 1024 уезда у предыдущей секции нет, и держать себя не нужно — сцена
+   только десктопная.
 
    Описание сцен и их имена — в ANIMATIONS.md. */
 
@@ -35,7 +38,7 @@ function setup(section) {
   const context = gsap.context(() => {
     const mm = gsap.matchMedia();
 
-    mm.add('(prefers-reduced-motion: no-preference)', () => {
+    mm.add(`${MOTION} and ${DESKTOP}`, () => {
       section.dataset.scene = 'on';
       section.style.setProperty('--blinds-color', getComputedStyle(previous).backgroundColor);
 

@@ -56,7 +56,8 @@
   display: flex;
   gap: calc(40 * var(--u));
   align-items: center;
-  width: calc(1528 * var(--u));
+  width: 100%;
+  max-width: calc(1528 * var(--u));
   height: calc(507 * var(--u));
   padding-top: calc(50 * var(--u));
 }
@@ -92,6 +93,7 @@
   flex-direction: column;
   align-items: start;
   justify-content: space-between;
+  width: 100%;
   height: 100%;
   margin: 0;
 }
@@ -102,6 +104,7 @@
 
 .review__quote {
   width: calc(715.397 * var(--u));
+  max-width: 100%;
   margin: 0;
   font-size: var(--fs-h4);
   font-weight: 500;
@@ -129,4 +132,89 @@
   letter-spacing: var(--ls-text);
   text-transform: uppercase;
   text-box: trim-both cap alphabetic;
+}
+
+/* Планшет: вкладок и стрелок нет, все отзывы стоят в ряд и листаются
+   прокруткой по горизонтали (панели показывает components/reviews.js). */
+@media (width < 1024px) {
+  .reviews {
+    --section-padding-block: 120px 0;
+
+    align-items: stretch;
+  }
+
+  .reviews__line,
+  .reviews__divider,
+  .reviews__marker {
+    display: none;
+  }
+
+  .reviews__inner,
+  .reviews__head,
+  .reviews__title {
+    align-items: start;
+  }
+
+  .reviews__title {
+    text-align: left;
+  }
+
+  .reviews__body {
+    max-width: none;
+    height: auto;
+    padding-top: 0;
+  }
+
+  .reviews__aside {
+    display: none;
+  }
+
+  /* Карточки одной высоты — по самой длинной цитате: автор у всех стоит
+     на одной линии, у нижнего края. */
+  .reviews__main {
+    flex-direction: row;
+    gap: 10px;
+    align-items: stretch;
+    justify-content: start;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .review {
+    flex: 0 0 459px;
+    gap: 60px;
+    width: 459px;
+    height: auto;
+    padding-right: 10px;
+    scroll-snap-align: start;
+  }
+
+  .review:not(:last-child) {
+    border-right: 1px solid var(--color-line);
+  }
+
+  .review__quote {
+    width: auto;
+  }
+
+  .review__name {
+    font-size: var(--fs-subtitle);
+  }
+}
+
+/* Мобильный: карточки уже, шаг между заголовком и рядом меньше. */
+@media (width < 768px) {
+  .reviews {
+    --section-padding-block: 100px 0;
+  }
+
+  .reviews__inner {
+    gap: 40px;
+  }
+
+  .review {
+    flex-basis: 335px;
+    width: 335px;
+  }
 }

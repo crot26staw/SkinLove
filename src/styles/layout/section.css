@@ -2,7 +2,7 @@
    Отступы задаёт файл секции через --section-padding-block. */
 .section {
   position: relative;
-  padding-block: var(--section-padding-block, calc(150 * var(--u)));
+  padding-block: var(--section-padding-block, var(--section-padding));
   background-color: var(--color-bg);
 }
 
@@ -22,7 +22,7 @@
 }
 
 /* Подкладка (underlap): секция заранее стоит под предыдущей, чтобы та открыла
-   её уездом или растворением. Величину задаёт скрипт предыдущей секции — она
+   её уездом. Величину задаёт скрипт предыдущей секции — она
    завязана на длину её фазы, поэтому в CSS константы нет. */
 [data-underlap='on'] {
   margin-top: calc(-1 * var(--underlap, 0px));

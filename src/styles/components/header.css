@@ -97,3 +97,37 @@
 .menu-toggle[aria-expanded='true'] .menu-toggle__line--bottom {
   transform: translateY(calc(-5 * var(--u))) rotate(-45deg);
 }
+
+/* Планшет: логотип и кнопка меньше, кнопка у самого края. */
+@media (width < 1024px) {
+  .header__logo {
+    width: 100px;
+  }
+
+  .header__logo-image {
+    height: 33.583px;
+  }
+
+  .menu-toggle {
+    right: var(--gutter);
+    gap: 8px;
+    padding: 8px;
+  }
+
+  .menu-toggle__label {
+    font-size: var(--fs-text-16);
+  }
+
+  .menu-toggle__icon {
+    width: 14px;
+    height: 6px;
+  }
+
+  .menu-toggle[aria-expanded='true'] .menu-toggle__line--top {
+    transform: translateY(2.5px) rotate(45deg);
+  }
+
+  .menu-toggle[aria-expanded='true'] .menu-toggle__line--bottom {
+    transform: translateY(-2.5px) rotate(-45deg);
+  }
+}

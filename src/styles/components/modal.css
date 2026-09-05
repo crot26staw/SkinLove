@@ -24,10 +24,12 @@
   backdrop-filter: blur(calc(7.5 * var(--u)));
 }
 
+/* Поверх карточки: на планшете она во весь экран и накрывала бы кнопку. */
 .modal__close {
   position: fixed;
   top: calc(var(--header-top) + var(--admin-bar-height));
   right: var(--gutter);
+  z-index: 1;
   display: grid;
   place-items: center;
   width: calc(49 * var(--u));
@@ -126,4 +128,84 @@
   letter-spacing: var(--ls-text);
   text-box: trim-both cap alphabetic;
   opacity: 0.8;
+}
+
+/* Планшет: карточка во весь экран, форма сверху, фото под ней; кнопка
+   закрытия тёмная — она лежит на светлой карточке. */
+@media (width < 1024px) {
+  .modal {
+    padding: 0;
+  }
+
+  .modal__close {
+    top: 15px;
+    right: 15px;
+    border-color: var(--color-ink);
+    color: var(--color-ink);
+  }
+
+  .modal__close:hover,
+  .modal__close:focus-visible {
+    background-color: var(--color-ink);
+    color: var(--color-bg);
+  }
+
+  .modal__dialog {
+    flex-direction: column;
+    gap: 40px;
+    width: 100%;
+    min-height: 100%;
+    padding: 5px;
+    border-radius: 0;
+  }
+
+  .modal__media {
+    position: relative;
+    order: 1;
+    flex: 1;
+    width: auto;
+    min-height: 300px;
+  }
+
+  .modal__media-image {
+    position: absolute;
+    inset: 0;
+  }
+
+  .modal__body {
+    flex: none;
+    gap: 50px;
+    padding: 79px var(--gutter) 0;
+  }
+
+  .modal__logo {
+    display: none;
+  }
+
+  .modal__title,
+  .modal__text {
+    max-width: 500px;
+  }
+}
+
+/* Мобильный: кнопка закрытия 39, заголовок во всю ширину, шаги плотнее. */
+@media (width < 768px) {
+  .modal__close {
+    width: 39px;
+    height: 39px;
+  }
+
+  .modal__body {
+    padding-top: 69px;
+  }
+
+  .modal__content,
+  .modal__head {
+    gap: 20px;
+  }
+
+  .modal__title,
+  .modal__text {
+    max-width: none;
+  }
 }

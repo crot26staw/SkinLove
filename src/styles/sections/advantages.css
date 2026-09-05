@@ -67,6 +67,8 @@
   text-align: center;
 }
 
+/* Плюсы по углам заголовочной колонки: рамка без линий. Четыре значка,
+   а не один svg — на планшете рамка другой пропорции. */
 .advantages__marks {
   position: absolute;
   top: 50%;
@@ -75,6 +77,33 @@
   height: calc(420 * var(--u));
   opacity: 0.5;
   transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.advantages__mark {
+  position: absolute;
+  width: calc(10 * var(--u));
+  height: calc(10 * var(--u));
+}
+
+.advantages__mark--top-left {
+  top: 0;
+  left: 0;
+}
+
+.advantages__mark--top-right {
+  top: 0;
+  right: 0;
+}
+
+.advantages__mark--bottom-left {
+  bottom: 0;
+  left: 0;
+}
+
+.advantages__mark--bottom-right {
+  right: 0;
+  bottom: 0;
 }
 
 .advantages__steps {
@@ -89,4 +118,34 @@
 
 .advantages__heart--muted {
   opacity: 0.2;
+}
+
+/* Планшет: лента без уезда, колонки уже, без черты и плюса. */
+@media (width < 1024px) {
+  .advantages__track {
+    gap: 10px;
+  }
+
+  .advantages__line,
+  .advantages__marker {
+    display: none;
+  }
+
+  .advantages__intro {
+    width: 459px;
+    padding-block: 60px;
+  }
+
+  .advantages__marks {
+    width: 355px;
+    height: 412px;
+  }
+}
+
+/* Мобильный: колонки во всю ширину экрана, отступ 100. */
+@media (width < 768px) {
+  .advantages__intro {
+    width: calc(100vw - 20px);
+    padding-block: 100px;
+  }
 }

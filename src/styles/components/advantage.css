@@ -62,3 +62,44 @@
   text-box: trim-both cap alphabetic;
   opacity: 0.8;
 }
+
+/* Планшет: карточка уже, без разделителя слева. Фото всех карточек стоит
+   на одной линии — середине экрана — независимо от того, на сколько строк
+   лёг текст: центровка тела по его высоте сдвигала бы карточку с длинным
+   текстом вверх. */
+@media (width < 1024px) {
+  .advantage {
+    justify-content: start;
+    width: 459px;
+    padding-top: calc(50vh - 125px);
+  }
+
+  .advantage::before {
+    display: none;
+  }
+
+  .advantage__body {
+    gap: 15px;
+    width: 100%;
+  }
+
+  .advantage__media {
+    height: 250px;
+  }
+
+  .advantage__text {
+    width: auto;
+    max-width: 363px;
+    font-size: var(--fs-text-20);
+  }
+}
+
+@media (width < 768px) {
+  .advantage {
+    width: calc(100vw - 20px);
+  }
+
+  .advantage__text {
+    max-width: 305px;
+  }
+}

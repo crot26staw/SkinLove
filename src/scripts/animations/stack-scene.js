@@ -14,6 +14,10 @@ import { stackStep } from './timing.js';
    элементы, поэтому два движения по одной оси не спорят за один transform.
    Стыки, жалюзи и уезд — в общем каркасе pinned-scene.js.
 
+   Режим стопки в CSS (лента сжата до слота, карточки друг под другом)
+   включает атрибут data-stack: у той же секции на другой ширине может
+   играть другая фаза, и общий data-scene для этого не годится.
+
    Описание сцен и их имена — в ANIMATIONS.md. */
 
 /* Из макета: активная карточка 700 в ширину, осевшая — 620, центр на месте. */
@@ -38,6 +42,9 @@ export function createStackScene({ section, track, items, cards, ...scene }) {
       build: (timeline, at) => {
         const step = stackStep();
 
+        /* До первого замера: стартовые положения считаются от ширины слота. */
+        section.dataset.stack = 'on';
+
         items.forEach((item, index) => {
           if (index > 0) {
             timeline.fromTo(
@@ -57,6 +64,8 @@ export function createStackScene({ section, track, items, cards, ...scene }) {
             );
           }
         });
+
+        return () => delete section.dataset.stack;
       }
     }
   });

@@ -32,13 +32,18 @@
 
 /* Снимок вертикальный, в кадр берётся его нижняя треть: смещение задано
    в процентах от высоты карточки, как в макете. Пропорцию картинке даёт
-   пара width/height в разметке — до загрузки файла высота уже известна. */
+   пара width/height в разметке — до загрузки файла высота уже известна.
+   На вытянутых по высоте экранах (1024×768) снимка по пропорции не хватает
+   до низа карточки, и под затемнением просвечивал фон: минимальная высота
+   дотягивает его до низа, лишнее по бокам срезает object-fit. */
 .cta__media-image {
   position: absolute;
   top: -197.6%;
   left: 0;
   width: 100%;
   height: auto;
+  min-height: calc(100% + 197.6%);
+  object-fit: cover;
 }
 
 .cta__shade {
@@ -92,4 +97,54 @@
    едет и масштабируется. Подсказка нужна только пока сцена работает. */
 .cta[data-scene='on'] .cta__media-image {
   will-change: transform;
+}
+
+/* Планшет: сцены нет, карточка фиксированной высоты, снимок целиком. */
+@media (width < 1024px) {
+  .cta {
+    --section-padding-block: 120px;
+
+    height: auto;
+  }
+
+  .cta__card {
+    height: 700px;
+    border-radius: 20px;
+  }
+
+  .cta__media {
+    border-radius: 20px;
+  }
+
+  .cta__media-image {
+    top: 0;
+    height: 100%;
+    min-height: 0;
+    object-position: center;
+  }
+
+  .cta__shade {
+    background-color: var(--color-shade-bottom);
+  }
+
+  .cta__text {
+    max-width: 455px;
+  }
+}
+
+/* Мобильный: поле 5, заголовок в столбик, текст на всю ширину карточки. */
+@media (width < 768px) {
+  .cta {
+    --section-padding-block: 100px;
+
+    padding-inline: 5px;
+  }
+
+  .cta__title {
+    flex-direction: column;
+  }
+
+  .cta__text {
+    max-width: none;
+  }
 }

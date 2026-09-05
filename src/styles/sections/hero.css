@@ -65,3 +65,48 @@
   from { opacity: 0; }
   to { opacity: 1; }
 }
+
+/* Планшет: экран в 800, спираль справа внизу, как в макете 768. */
+@media (width < 1024px) {
+  .hero {
+    min-height: 800px;
+  }
+
+  .hero__decor {
+    inset: auto;
+    top: 153px;
+    left: -330px;
+    width: 1193px;
+    height: 671px;
+  }
+
+  .hero__inner {
+    gap: 40px;
+    width: auto;
+    margin-inline: var(--gutter);
+    padding-top: 144px;
+  }
+
+  .hero__lead {
+    width: auto;
+    max-width: 461px;
+  }
+}
+
+/* Мобильный: экран в 765, спираль ниже текста. */
+@media (width < 768px) {
+  .hero {
+    min-height: 765px;
+  }
+
+  .hero__decor {
+    top: 298px;
+    left: -252px;
+    width: 830px;
+    height: 467px;
+  }
+
+  .hero__lead {
+    max-width: none;
+  }
+}

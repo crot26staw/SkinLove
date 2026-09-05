@@ -151,3 +151,58 @@
   display: flex;
   gap: calc(5 * var(--u));
 }
+
+/* Планшет: без превью направления и сердец, пункты мельче. */
+@media (width < 1024px) {
+  .site-menu {
+    --site-menu-top: calc(var(--header-top) + var(--admin-bar-height) + 33.583px + 50px);
+
+    padding-bottom: 30px;
+  }
+
+  .site-menu__nav {
+    gap: 15px;
+  }
+
+  .site-menu__preview,
+  .site-menu__hearts {
+    display: none;
+  }
+
+  .site-menu__list a {
+    font-size: var(--fs-subtitle);
+  }
+
+  .site-menu__socials .social-button {
+    width: 50px;
+    height: 50px;
+  }
+
+  .site-menu__socials .social-button__icon {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+/* Мобильный: одна колонка, пункты навигации мельче, список с шагом 10. */
+@media (width < 768px) {
+  .site-menu__inner {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .site-menu__pages a {
+    font-size: var(--fs-h3);
+    line-height: var(--lh-h3);
+    letter-spacing: var(--ls-h3);
+  }
+
+  .site-menu__aside {
+    gap: 40px;
+    justify-content: start;
+  }
+
+  .site-menu__list {
+    gap: 10px;
+  }
+}

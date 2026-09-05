@@ -52,3 +52,34 @@
   text-box: trim-both cap alphabetic;
   opacity: 0.8;
 }
+
+@media (width < 1024px) {
+  .service-card {
+    width: 459px;
+    min-height: 494px;
+    padding: 5px 5px 30px;
+  }
+
+  .service-card__media {
+    height: 280px;
+  }
+
+  .service-card__body {
+    padding-inline: 0;
+  }
+
+  .service-card__text {
+    font-size: var(--fs-text-20);
+  }
+}
+
+@media (width < 768px) {
+  .service-card {
+    width: calc(100vw - 40px);
+    min-height: 0;
+  }
+
+  .service-card__media {
+    height: 200px;
+  }
+}

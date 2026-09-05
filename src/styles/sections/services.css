@@ -43,12 +43,12 @@
   overflow-x: auto;
 }
 
-/* Режим стопки: лента сжимается до одного слота активной карточки (как в
-   макете), а все карточки встают в него друг под другом — позднее в разметке
-   выше. Слот — грид с одной ячейкой, а не абсолют: так карточки, как и в ряду,
-   тянутся по самой высокой. По ряду их раскладывает скрипт, зазор ряда берёт
-   из gap ленты. */
-.services[data-scene='on'] .services__track {
+/* Режим стопки (data-stack ставит stack-scene.js): лента сжимается до одного
+   слота активной карточки (как в макете), а все карточки встают в него друг
+   под другом — позднее в разметке выше. Слот — грид с одной ячейкой, а не
+   абсолют: так карточки, как и в ряду, тянутся по самой высокой. По ряду их
+   раскладывает скрипт, зазор ряда берёт из gap ленты. */
+.services[data-stack='on'] .services__track {
   /* Слот по центру экрана: (1920 − 700) / 2, как в макете. */
   left: calc(610 * var(--u));
   display: grid;
@@ -56,11 +56,56 @@
   padding: 0;
 }
 
-.services[data-scene='on'] .services__item {
+.services[data-stack='on'] .services__item {
   grid-area: 1 / 1;
   will-change: transform;
 }
 
-.services[data-scene='on'] .service-card {
+.services[data-stack='on'] .service-card {
   will-change: transform;
+}
+
+/* Планшет: та же стопка, слот под карточку 459 по центру экрана, ряд
+   по середине высоты, боковое фото во всю высоту. */
+@media (width < 1024px) {
+  .services__aside {
+    top: 0;
+    left: -141px;
+    width: 489px;
+    height: 100%;
+  }
+
+  .services__track {
+    top: 50%;
+    gap: 10px;
+    padding-right: var(--gutter);
+    padding-left: calc((100% - 459px) / 2);
+    translate: 0 -50%;
+  }
+
+  .services[data-stack='on'] .services__track {
+    left: calc((100% - 459px) / 2);
+    width: 459px;
+  }
+}
+
+/* Мобильный: слот стопки от левого поля, карточка на ширину экрана без полей
+   по 20, следующая выглядывает справа на 20; капельница по центру высоты. */
+@media (width < 768px) {
+  .services__aside {
+    top: 50%;
+    left: -130px;
+    width: 424px;
+    height: 636px;
+    translate: 0 -50%;
+  }
+
+  .services__track {
+    padding-left: var(--gutter);
+  }
+
+  .services[data-stack='on'] .services__track {
+    left: var(--gutter);
+    width: calc(100% - 40px);
+  }
 }

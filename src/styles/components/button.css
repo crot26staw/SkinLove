@@ -38,3 +38,10 @@
   border-bottom-color: var(--color-bg);
   color: var(--color-bg);
 }
+
+@media (width < 1024px) {
+  .button__icon {
+    width: 7.82px;
+    height: 7.175px;
+  }
+}

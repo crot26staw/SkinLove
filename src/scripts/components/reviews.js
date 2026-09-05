@@ -1,8 +1,13 @@
 import { gsap } from 'gsap';
 
+import { TABLET } from '../utils/media.js';
+
 /* Имена — вкладки, отзывы — панели. Стрелки листают по кругу.
    Разметка рассчитана на Repeater: имена и отзывы это два прохода
-   по одному набору, поэтому модуль связывает их по индексу. */
+   по одному набору, поэтому модуль связывает их по индексу.
+
+   Ниже 1024 вкладок нет (CSS их прячет): все отзывы стоят в ряд
+   и листаются прокруткой, поэтому панели не прячутся. */
 export function initReviews() {
   document.querySelectorAll('[data-reviews]').forEach(setup);
 }
@@ -17,6 +22,7 @@ function setup(root) {
   if (!list || tabs.length < 2 || tabs.length !== panels.length) return;
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const tablet = window.matchMedia(TABLET);
   let current = Math.max(0, tabs.findIndex((tab) => tab.getAttribute('aria-selected') === 'true'));
 
   const render = (target, { animate = false, focus = false } = {}) => {
@@ -25,7 +31,7 @@ function setup(root) {
 
       tab.setAttribute('aria-selected', String(active));
       tab.tabIndex = active ? 0 : -1;
-      panels[index].hidden = !active;
+      panels[index].hidden = !active && !tablet.matches;
     });
 
     current = target;
@@ -72,5 +78,6 @@ function setup(root) {
     go(steps[event.key], true);
   });
 
+  tablet.addEventListener('change', () => render(current));
   render(current);
 }

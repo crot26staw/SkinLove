@@ -3,7 +3,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import { initHeroBackdrop } from './hero.js';
 import { initHeroIntro } from './hero-intro.js';
-import { initAboutDissolve } from './about.js';
 import { initServices } from './services.js';
 import { initAtmosphere } from './atmosphere.js';
 import { initAdvantages } from './advantages.js';
@@ -29,7 +28,6 @@ export function initAnimations() {
     initProcedures(),
     initSteps(),
     initTasks(),
-    initAboutDissolve(),
     initServices(),
     initAtmosphere(),
     initAdvantages(),

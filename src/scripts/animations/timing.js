@@ -12,9 +12,6 @@ export const screen = () => window.innerHeight;
 /* Уезд секции влево, открывающий следующую. */
 export const exitLength = () => screen() * 0.7;
 
-/* Растворение секции на месте, открывающее подложенную под неё. */
-export const dissolveLength = () => screen() * 0.6;
-
 /* Раскрытие жалюзи. */
 export const openLength = () => screen() * 0.6;
 

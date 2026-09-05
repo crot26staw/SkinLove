@@ -55,3 +55,15 @@
   flex-direction: row;
   align-items: flex-end;
 }
+
+/* Планшет: строки заголовка с зазором, как в макете 768. */
+@media (width < 1024px) {
+  .heading--h1,
+  .heading--h2 {
+    gap: 5px;
+  }
+
+  .heading--row {
+    gap: 0;
+  }
+}
