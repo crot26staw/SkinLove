@@ -1,0 +1,161 @@
+/* Контакты: слева заголовок, справа строки «подпись — значение» с линией
+   сверху. Секция первая на странице и стоит под фиксированной шапкой,
+   поэтому верхний отступ больше нижнего: он включает высоту шапки.
+   Строк столько, сколько задаст редактор; у каждой значение может быть
+   одно (почта) или несколько (телефоны), с картой или без. */
+.contacts {
+  --section-padding-block: calc(224 * var(--u)) var(--section-padding);
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: calc(20 * var(--u));
+  padding-inline: var(--gutter);
+}
+
+.contacts__title {
+  min-width: 0;
+}
+
+.contacts__list {
+  display: flex;
+  flex-direction: column;
+  gap: calc(40 * var(--u));
+  min-width: 0;
+}
+
+.contacts__row {
+  display: flex;
+  gap: calc(20 * var(--u));
+  align-items: flex-start;
+  padding-top: calc(20 * var(--u));
+  border-top: 1px solid var(--color-line-strong);
+}
+
+.contacts__label {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--fs-text-18);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  text-box: trim-both cap alphabetic;
+  opacity: 0.5;
+}
+
+.contacts__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: calc(20 * var(--u));
+  align-items: flex-start;
+  min-width: 0;
+}
+
+/* Значение с пометкой над ним: «(только звонки)» и номер. */
+.contacts__item {
+  display: flex;
+  flex-direction: column;
+  gap: calc(10 * var(--u));
+  align-items: flex-start;
+  max-width: 100%;
+}
+
+.contacts__note {
+  font-size: var(--fs-text-18);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  text-box: trim-both cap alphabetic;
+  opacity: 0.5;
+}
+
+.contacts__value {
+  max-width: 100%;
+  font-size: var(--fs-h4);
+  font-weight: 500;
+  line-height: var(--lh-h4);
+  letter-spacing: var(--ls-h4);
+  overflow-wrap: anywhere;
+  text-box: trim-both cap alphabetic;
+}
+
+/* Карта: высоту задаёт вёрстка, картинка заполняет кадр. */
+.contacts__map {
+  overflow: hidden;
+  width: 100%;
+  height: calc(300 * var(--u));
+  border-radius: calc(5 * var(--u));
+  background-color: var(--color-beige);
+}
+
+.contacts__map-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.contacts__socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(5 * var(--u));
+}
+
+/* Планшет: заголовок в одну строку над списком, зазоры по макету 768. */
+@media (width < 1024px) {
+  .contacts {
+    --section-padding-block: 144px var(--section-padding);
+
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+  }
+
+  .contacts__title {
+    flex-direction: row;
+    gap: 10px;
+    align-items: flex-end;
+  }
+
+  .contacts__row {
+    gap: 10px;
+  }
+
+  /* Кнопки соцсетей ниже 1024 в макете залиты тёмным и остаются 60,
+     хотя в подвале на тех же ширинах они 53 с обводкой. */
+  .contacts__socials .social-button {
+    width: 60px;
+    height: 60px;
+    background-color: var(--color-ink);
+    color: var(--color-bg);
+  }
+
+  .contacts__socials .social-button__icon {
+    width: 58px;
+    height: 58px;
+  }
+}
+
+/* Мобильный: заголовок снова в две строки, подпись над значением. */
+@media (width < 768px) {
+  .contacts {
+    gap: 40px;
+  }
+
+  .contacts__title {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .contacts__list {
+    gap: 20px;
+  }
+
+  .contacts__row {
+    flex-direction: column;
+  }
+
+  .contacts__label,
+  .contacts__body {
+    flex: none;
+    width: 100%;
+  }
+}
