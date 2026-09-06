@@ -12,6 +12,7 @@ import { initSpread } from './spread.js';
 import { initProcedures } from './procedures.js';
 import { initSteps } from './steps.js';
 import { initTasks } from './tasks.js';
+import { initOccasions } from './occasions.js';
 import { initReviewsBlinds } from './reviews.js';
 import { initHeadingFill } from './heading-fill.js';
 import { initRules } from './rule.js';
@@ -25,6 +26,10 @@ export function initAnimations() {
     initHeroIntro(),
     initHeroBackdrop(),
     initSpread(),
+    /* Сцены с закреплением — в порядке секций на странице: распорку
+       закреплённой секции ScrollTrigger учитывает только у триггеров,
+       созданных после неё. */
+    initOccasions(),
     initProcedures(),
     initSteps(),
     initTasks(),

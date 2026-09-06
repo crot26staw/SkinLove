@@ -27,3 +27,15 @@
     scale: 1.275;
   }
 }
+
+/* Мобильный: карточка 269×308, активная — 325×373. */
+@media (width < 768px) {
+  .result-card {
+    width: 269px;
+    height: 308px;
+  }
+
+  .result-card[aria-current='true'] {
+    scale: 1.21;
+  }
+}

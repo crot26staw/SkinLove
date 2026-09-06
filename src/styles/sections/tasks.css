@@ -77,3 +77,18 @@
     overflow: visible;
   }
 }
+
+/* Мобильный: заголовок слева, отступ секции 100, до списка 40. */
+@media (width < 768px) {
+  .tasks {
+    --section-padding-block: 100px;
+
+    gap: 40px;
+  }
+
+  .tasks__head,
+  .tasks__title {
+    align-items: start;
+    text-align: left;
+  }
+}

@@ -176,3 +176,10 @@
     max-width: 460px;
   }
 }
+
+/* Мобильный: заголовок ближе к тексту. */
+@media (width < 768px) {
+  .service-hero__inner {
+    gap: 30px;
+  }
+}

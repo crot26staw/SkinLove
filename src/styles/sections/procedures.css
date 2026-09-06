@@ -189,3 +189,29 @@
     padding: 10px 0 0 10px;
   }
 }
+
+/* Мобильный: карточки 345 с полем секции по краям, кадр 360, название
+   и описание без своего отступа слева — в макете они вровень с кадром. */
+@media (width < 768px) {
+  .procedures__inner {
+    grid-template-rows: 360px auto auto;
+    grid-auto-columns: 345px;
+    padding-left: var(--gutter);
+  }
+
+  .procedures__frame {
+    height: 360px;
+  }
+
+  .procedures__caption {
+    padding: 10px 0 0;
+  }
+
+  .procedures__panels > * {
+    padding: 0;
+  }
+
+  .procedures__logo {
+    width: 185px;
+  }
+}

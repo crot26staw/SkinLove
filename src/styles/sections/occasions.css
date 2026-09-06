@@ -24,3 +24,55 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: calc(20 * var(--u));
 }
+
+/* Планшет: сцена «Лента» — карточки 349 в ряд, ряд едет, пока секция
+   закреплена (animations/occasions.js). Поле секции переезжает на заголовок
+   и ряд, чтобы ряд резался по краю экрана. Без сцены ряд листается нативно. */
+@media (width < 1024px) {
+  .occasions {
+    --section-padding-block: 120px;
+
+    gap: 60px;
+    overflow: hidden;
+    padding-inline: 0;
+  }
+
+  .occasions__head {
+    padding-inline: var(--gutter);
+  }
+
+  .occasions__grid {
+    display: flex;
+    gap: 10px;
+    width: max-content;
+    padding-inline: var(--gutter);
+    will-change: transform;
+  }
+
+  .occasions:not([data-scene='on']) .occasions__grid {
+    width: auto;
+    overflow-x: auto;
+  }
+
+  .occasion-card {
+    flex: 0 0 349px;
+  }
+}
+
+/* Мобильный: заголовок слева, отступ секции 100, до ряда 40, карточки 335. */
+@media (width < 768px) {
+  .occasions {
+    --section-padding-block: 100px;
+
+    gap: 40px;
+  }
+
+  .occasions__head {
+    align-items: start;
+    text-align: left;
+  }
+
+  .occasion-card {
+    flex-basis: 335px;
+  }
+}

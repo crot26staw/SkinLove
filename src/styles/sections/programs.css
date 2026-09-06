@@ -64,3 +64,38 @@
   gap: calc(5 * var(--u));
   max-width: calc(870 * var(--u));
 }
+
+/* Планшет: заголовок, текст, теги и кнопка в столбик, под ними фото 500
+   с полями секции по бокам. Вертикальных отступов у секции нет, шаг между
+   блоками 40. */
+@media (width < 1024px) {
+  .programs {
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+    min-height: 0;
+    padding-inline: var(--gutter);
+  }
+
+  .programs__media {
+    order: 1;
+    height: 500px;
+  }
+
+  .programs__body {
+    gap: 40px;
+    padding: 0;
+  }
+
+  .programs__content {
+    gap: 40px;
+  }
+
+  .programs__text {
+    max-width: 636px;
+  }
+
+  .programs__tags {
+    max-width: none;
+  }
+}

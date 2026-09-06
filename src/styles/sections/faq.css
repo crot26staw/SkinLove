@@ -36,3 +36,17 @@
     text-align: center;
   }
 }
+
+/* Мобильный: заголовок слева, до списка 50. */
+@media (width < 768px) {
+  .faq {
+    --section-padding-block: 100px 0;
+
+    gap: 50px;
+  }
+
+  .faq__head {
+    align-items: start;
+    text-align: left;
+  }
+}

@@ -71,3 +71,14 @@
     height: 500px;
   }
 }
+
+/* Мобильный: шаг между заголовком, текстом и формой 30, фото 300. */
+@media (width < 768px) {
+  .program-request__inner {
+    gap: 30px;
+  }
+
+  .program-request__media {
+    height: 300px;
+  }
+}

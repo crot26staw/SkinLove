@@ -41,3 +41,18 @@
   text-box: trim-both cap alphabetic;
   opacity: 0.7;
 }
+
+/* Планшет: карточка в ленте, кадр 300 по высоте. */
+@media (width < 1024px) {
+  .occasion-card__media {
+    height: 300px;
+    aspect-ratio: auto;
+  }
+}
+
+/* Мобильный: кадр 250. */
+@media (width < 768px) {
+  .occasion-card__media {
+    height: 250px;
+  }
+}

@@ -78,3 +78,10 @@
     gap: 30px;
   }
 }
+
+/* Мобильный: шаг между блоками 20. */
+@media (width < 768px) {
+  .procedure-panel {
+    gap: 20px;
+  }
+}

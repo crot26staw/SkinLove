@@ -102,3 +102,18 @@
     padding-block: 0;
   }
 }
+
+/* Мобильный: карточки 269, активная вырастает до 325 — зазор и отступ
+   ряда под её выступ; до ряда и до стрелок по 40. */
+@media (width < 768px) {
+  .results {
+    --section-padding-block: 100px;
+
+    gap: 40px;
+  }
+
+  .results__track {
+    gap: 38px;
+    padding-block: 33px;
+  }
+}

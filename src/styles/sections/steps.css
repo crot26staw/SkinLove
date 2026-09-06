@@ -191,3 +191,25 @@
     grid-area: 3 / auto;
   }
 }
+
+/* Мобильный: заголовок слева, карточки 335, счётчик с линией на 30 ниже. */
+@media (width < 768px) {
+  .steps {
+    --section-padding-block: 100px;
+
+    gap: 40px;
+  }
+
+  .steps__head {
+    align-items: start;
+    text-align: left;
+  }
+
+  .steps__row {
+    grid-auto-columns: 335px;
+  }
+
+  .steps__count {
+    padding-bottom: 30px;
+  }
+}

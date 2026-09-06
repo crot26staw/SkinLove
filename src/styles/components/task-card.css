@@ -92,3 +92,24 @@
     grid-column: 2;
   }
 }
+
+/* Мобильный: номер над названием, всё в одну колонку. */
+@media (width < 768px) {
+  .task-card {
+    grid-template-columns: none;
+    gap: 10px;
+  }
+
+  .task-card::before {
+    grid-row: auto;
+  }
+
+  .task-card__title,
+  .task-card__text {
+    grid-column: 1;
+  }
+
+  .task-card__text {
+    margin-top: 5px;
+  }
+}
