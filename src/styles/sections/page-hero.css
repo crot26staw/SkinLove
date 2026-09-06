@@ -128,3 +128,53 @@
   letter-spacing: var(--ls-text);
   text-box: trim-both cap alphabetic;
 }
+
+/* Планшет: логотип и подводка в ряд по половине ширины. Высота остаётся
+   в экран: разъезд считает старт от следующей секции, и при экране ниже
+   окна сцена начиналась бы ещё до прокрутки. */
+@media (width < 1024px) {
+  .page-hero {
+    padding: 20px var(--gutter) 40px;
+  }
+
+  .page-hero__inner {
+    gap: 20px;
+  }
+
+  .page-hero__title {
+    flex: 1;
+    width: auto;
+  }
+
+  .page-hero__text {
+    flex: 1;
+    width: auto;
+  }
+
+  .page-hero__note {
+    max-width: 327px;
+  }
+}
+
+/* Мобильный: логотип во всю ширину, подводка под ним по центру. */
+@media (width < 768px) {
+  .page-hero__inner {
+    flex-direction: column;
+    gap: 40px;
+    align-items: stretch;
+  }
+
+  .page-hero__title {
+    width: 100%;
+  }
+
+  .page-hero__text {
+    align-items: center;
+    width: 100%;
+    text-align: center;
+  }
+
+  .page-hero__note {
+    width: 100%;
+  }
+}

@@ -1,0 +1,230 @@
+/* Кадр: фото на весь экран с затемнением, заголовок в верхнем левом углу,
+   перекрестие через центр, внизу текст и сердца. Два варианта в одной секции:
+   карточка со скруглением на поле страницы (`frame--inset`) и навылет.
+   `frame--reverse` меняет низ местами: сердца слева, текст справа.
+   Подводка (`frame__lead`) необязательна. */
+.frame {
+  --section-padding-block: 0;
+
+  height: 100vh;
+}
+
+.frame--inset {
+  padding-inline: var(--gutter);
+}
+
+.frame__card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  padding: calc(100 * var(--u)) var(--gutter);
+  overflow: hidden;
+  color: var(--color-bg);
+}
+
+.frame--inset .frame__card {
+  border-radius: calc(30 * var(--u));
+}
+
+.frame__decor {
+  position: absolute;
+  inset: 0;
+  background-color: var(--color-beige);
+  pointer-events: none;
+}
+
+.frame__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.frame__decor::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: var(--color-shade);
+}
+
+/* Перекрестие: две линии через центр кадра и плюс в точке пересечения. */
+.frame__lines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.frame__lines::before,
+.frame__lines::after {
+  content: '';
+  position: absolute;
+  background-color: var(--color-line-light);
+}
+
+.frame__lines::before {
+  top: 50%;
+  right: 0;
+  left: 0;
+  height: 1px;
+}
+
+.frame__lines::after {
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+}
+
+.frame__marker {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: calc(13.787 * var(--u));
+  height: calc(13.787 * var(--u));
+  color: var(--color-bg);
+  opacity: 0.5;
+  translate: -50% -50%;
+}
+
+.frame__title {
+  position: relative;
+  gap: calc(10 * var(--u));
+  color: var(--color-bg);
+}
+
+.frame__foot {
+  position: relative;
+  display: flex;
+  gap: calc(20 * var(--u));
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.frame--reverse .frame__foot {
+  flex-direction: row-reverse;
+}
+
+.frame__texts {
+  display: flex;
+  flex-direction: column;
+  gap: calc(30 * var(--u));
+  align-items: flex-start;
+}
+
+.frame__lead {
+  width: calc(605 * var(--u));
+  font-size: var(--fs-subtitle);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  text-transform: uppercase;
+  text-box: trim-both cap alphabetic;
+}
+
+.frame__text {
+  --content-font-size: var(--fs-subtitle);
+
+  width: calc(478 * var(--u));
+}
+
+.frame--reverse .frame__text {
+  width: calc(428 * var(--u));
+}
+
+.frame__hearts {
+  display: flex;
+  flex-shrink: 0;
+  gap: calc(2 * var(--u));
+}
+
+.frame__heart {
+  width: calc(10 * var(--u));
+  height: calc(9.175 * var(--u));
+}
+
+.frame__heart--muted {
+  opacity: 0.2;
+}
+
+/* Планшет: оба варианта — карточка 700 на поле 5 со скруглением 20,
+   подводка и текст в ряд по половине ширины, без сердец. */
+@media (width < 1024px) {
+  .frame {
+    --section-padding-block: 100px;
+
+    height: auto;
+    padding-inline: 5px;
+  }
+
+  .frame__card {
+    height: 700px;
+    padding: 100px 20px;
+    border-radius: 20px;
+  }
+
+  .frame__foot {
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .frame--reverse .frame__foot {
+    flex-direction: row;
+  }
+
+  .frame__texts {
+    flex-direction: row;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .frame__lead,
+  .frame__text {
+    flex: 1;
+    width: auto;
+  }
+
+  .frame__text {
+    --content-font-size: var(--fs-text-20);
+  }
+
+  .frame--reverse .frame__text {
+    flex: none;
+    max-width: 452px;
+  }
+
+  .frame__hearts {
+    display: none;
+  }
+}
+
+/* Мобильный: карточка не ниже 700 и растёт по содержимому, подводка
+   и текст друг под другом. */
+@media (width < 768px) {
+  .frame__card {
+    gap: 40px;
+    height: auto;
+    min-height: 700px;
+  }
+
+  .frame__foot {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .frame__texts {
+    flex-direction: column;
+    gap: 20px;
+    max-width: 325px;
+  }
+
+  .frame__lead,
+  .frame__text {
+    flex: none;
+    width: 100%;
+  }
+
+  .frame--reverse .frame__text {
+    width: 100%;
+    max-width: none;
+  }
+}

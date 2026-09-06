@@ -1,0 +1,271 @@
+/* Основательница: бежевый экран с чертой через середину. Сверху едва видимый
+   заголовок во всю ширину и подводка, портрет стоит на нижнем крае и внизу
+   растворяется в фон, под ним — год, карточка с цитатой и имя по центру.
+   Портрет в разметке идёт после шапки и до низа: он закрывает заголовок,
+   а карточка с цитатой и имя лежат поверх него. */
+.founder {
+  --section-padding-block: calc(150 * var(--u)) 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+  padding-inline: var(--gutter);
+  overflow: hidden;
+}
+
+.founder__line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+}
+
+.founder__head {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: calc(70 * var(--u));
+  align-items: flex-start;
+}
+
+/* Заголовок подобран по ширине макета: 1840 на 1920. Переносить нельзя —
+   он декоративный и должен лечь одной строкой. */
+.founder__title {
+  font-size: calc(168 * var(--u));
+  line-height: var(--lh-h2);
+  letter-spacing: var(--ls-h2);
+  white-space: nowrap;
+  text-box: trim-both cap alphabetic;
+  opacity: 0.05;
+}
+
+.founder__lead {
+  width: calc(430 * var(--u));
+  font-size: var(--fs-subtitle);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  text-box: trim-both cap alphabetic;
+}
+
+.founder__portrait {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(920 * var(--u));
+  width: calc(760 * var(--u));
+  translate: -50% 0;
+  pointer-events: none;
+}
+
+.founder__portrait-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
+/* Низ портрета растворяется в фоне секции. */
+.founder__portrait::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 83%, var(--color-beige));
+}
+
+.founder__foot {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: calc(70 * var(--u));
+}
+
+.founder__row {
+  display: flex;
+  gap: calc(20 * var(--u));
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.founder__since {
+  width: calc(430 * var(--u));
+  font-family: var(--font-serif);
+  font-size: var(--fs-h4-accent);
+  font-style: italic;
+  line-height: var(--lh-h4-accent);
+  letter-spacing: var(--ls-h4-accent);
+  text-box: trim-both cap alphabetic;
+  opacity: 0.2;
+}
+
+.founder__quote {
+  display: flex;
+  flex-shrink: 0;
+  gap: calc(10 * var(--u));
+  align-items: stretch;
+  width: calc(600 * var(--u));
+  padding: calc(5 * var(--u)) calc(20 * var(--u)) calc(5 * var(--u)) calc(5 * var(--u));
+  border-radius: calc(5 * var(--u));
+  background-color: var(--color-bg);
+}
+
+.founder__quote-media {
+  flex-shrink: 0;
+  overflow: hidden;
+  width: calc(177 * var(--u));
+  height: calc(222 * var(--u));
+  border-radius: calc(3 * var(--u));
+  background-color: var(--color-beige);
+}
+
+.founder__quote-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Кавычка вверху, текст прижат к низу карточки. */
+.founder__quote-text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-block: calc(10 * var(--u));
+  font-size: var(--fs-text-18);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+}
+
+.founder__quote-text::before {
+  content: '\201C';
+  line-height: 1;
+}
+
+.founder__quote-text p {
+  text-box: trim-both cap alphabetic;
+}
+
+.founder__name {
+  font-family: var(--font-serif);
+  font-size: var(--fs-h2);
+  font-style: italic;
+  line-height: var(--lh-h2-accent);
+  letter-spacing: var(--ls-h2-accent);
+  text-align: center;
+  text-box: trim-both cap alphabetic;
+}
+
+/* Планшет: сетка в две колонки, обёртки раскрыты. Первый ряд — год и подводка,
+   второй — карточка с цитатой (текст над фото) и портрет, имя лежит на низе
+   портрета, заголовок под ним в правой колонке. Черты нет. Зазор между рядами
+   задан отступом второго ряда: заголовок стоит вплотную к имени. */
+@media (width < 1024px) {
+  .founder {
+    --section-padding-block: 100px 0;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 10px;
+    min-height: 0;
+  }
+
+  .founder__line {
+    display: none;
+  }
+
+  .founder__head,
+  .founder__foot,
+  .founder__row {
+    display: contents;
+  }
+
+  .founder__since {
+    grid-area: 1 / 1;
+    width: auto;
+  }
+
+  .founder__lead {
+    grid-area: 1 / 2;
+    width: auto;
+  }
+
+  .founder__quote {
+    grid-area: 2 / 1;
+    flex-direction: column-reverse;
+    justify-content: space-between;
+    width: auto;
+    margin-top: 30px;
+    padding: 5px;
+  }
+
+  .founder__quote-media {
+    width: 100%;
+    height: 225px;
+  }
+
+  .founder__quote-text {
+    flex: none;
+    height: 144px;
+    padding: 10px;
+  }
+
+  .founder__portrait {
+    grid-area: 2 / 2;
+    position: relative;
+    inset: auto;
+    width: auto;
+    margin-top: 30px;
+    aspect-ratio: 355 / 462;
+    translate: none;
+  }
+
+  .founder__name {
+    grid-area: 2 / 2;
+    z-index: 1;
+    align-self: end;
+  }
+
+  .founder__title {
+    grid-area: 3 / 2;
+    font-size: 31px;
+  }
+}
+
+/* Мобильный: одна колонка — подводка, год, карточка (фото над цитатой),
+   портрет с именем на низе и заголовком по верху. */
+@media (width < 768px) {
+  .founder {
+    grid-template-columns: 1fr;
+    row-gap: 30px;
+  }
+
+  .founder__lead {
+    grid-area: 1 / 1;
+  }
+
+  .founder__since {
+    grid-area: 2 / 1;
+  }
+
+  .founder__quote {
+    grid-area: 3 / 1;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: flex-start;
+    margin-top: 0;
+  }
+
+  .founder__portrait {
+    grid-area: 4 / 1;
+    margin-top: 0;
+  }
+
+  .founder__name {
+    grid-area: 4 / 1;
+  }
+
+  .founder__title {
+    grid-area: 4 / 1;
+    align-self: start;
+  }
+}

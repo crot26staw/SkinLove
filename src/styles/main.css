@@ -39,6 +39,8 @@
 @import './sections/cta.css';
 @import './sections/page-hero.css';
 @import './sections/philosophy.css';
+@import './sections/frame.css';
+@import './sections/founder.css';
 @import './sections/service-hero.css';
 @import './sections/occasions.css';
 @import './sections/tasks.css';

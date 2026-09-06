@@ -1,6 +1,6 @@
 import { gsap } from 'gsap';
 
-import { screen } from './timing.js';
+import { exitLength, screen } from './timing.js';
 import { DESKTOP, MOTION } from '../utils/media.js';
 
 /* Сцена секции: секция закрепляется, маленький кадр в середине карточки
@@ -17,6 +17,11 @@ import { DESKTOP, MOTION } from '../utils/media.js';
    закрепления, и собранный блок видно, пока секция уезжает вверх, — а жалюзи
    подвала в это же время расходятся под ней. Пауза здесь читалась бы как
    зависание: экран стоит, а страница прокручивается.
+
+   Пауза в начале есть только там, где секция подложена под уезжающую
+   (если стоит сразу за лентой преимуществ). Тогда она держит себя на весь
+   уезд — два пина на одном элементе конфликтуют, поэтому лента её не держит —
+   и начинает сборку, когда предыдущая секция ушла.
 
    Ниже 1024 сцены нет: секция сразу собрана, как в макете. */
 
@@ -53,6 +58,12 @@ export function initCta() {
   const windowHeight = () => card.offsetHeight * PREVIEW_HEIGHT;
   const windowTop = () => (card.offsetHeight - windowHeight()) / 2;
 
+  /* Картинка сжимается ровно до ширины окна: тогда в маленьком кадре виден
+     широкий план, а не увеличенный кусок финального. Горизонтальный снимок
+     (`cta--cover`, картинка в высоту карточки) при этом не дотянул бы до низа
+     окна — его сжимаем до высоты окна. */
+  const previewScale = () => Math.max(PREVIEW_WIDTH, windowHeight() / image.offsetHeight);
+
   /* Все четыре стороны выписаны и в закрытом, и в открытом виде: GSAP считает
      строку по числам подряд, и запись `inset(0px …)` разошлась бы с четырьмя. */
   const mediaClosed = () => {
@@ -65,11 +76,10 @@ export function initCta() {
   };
   const mediaOpened = () => `inset(0px 0px 0px 0px round ${radius(media)}px)`;
 
-  /* Картинка сжимается ровно до ширины окна: тогда в маленьком кадре виден
-     широкий план, а не увеличенный кусок финального. Отсчёт от её собственного
-     положения в CSS, чтобы финалом сцены была чистая единица трансформации. */
+  /* Отсчёт от собственного положения картинки в CSS, чтобы финалом сцены
+     была чистая единица трансформации. */
   const imageY = () => {
-    const scaled = image.offsetHeight * PREVIEW_WIDTH;
+    const scaled = image.offsetHeight * previewScale();
     const top = windowTop() - PREVIEW_CROP * (scaled - windowHeight());
 
     return top - image.offsetTop;
@@ -101,14 +111,18 @@ export function initCta() {
     mm.add(`${MOTION} and ${DESKTOP}`, () => {
       section.dataset.scene = 'on';
 
+      /* Подкладку ставит сцена предыдущей секции — она инициализируется раньше. */
+      const hold = () => (section.dataset.underlap === 'on' ? exitLength() : 0);
+
       const length = morph();
+      const start = hold();
 
       const timeline = gsap.timeline({
         defaults: { ease: 'none' },
         scrollTrigger: {
           trigger: section,
           start: 'top top',
-          end: () => `+=${morph()}`,
+          end: () => `+=${hold() + morph()}`,
           pin: true,
           scrub: true,
           invalidateOnRefresh: true
@@ -120,31 +134,41 @@ export function initCta() {
           media,
           { clipPath: () => mediaClosed() },
           { clipPath: () => mediaOpened(), duration: length * 0.6 },
-          0
+          start
         )
         .fromTo(
           image,
-          { scale: PREVIEW_WIDTH, y: () => imageY(), transformOrigin: '50% 0' },
+          { scale: () => previewScale(), y: () => imageY(), transformOrigin: '50% 0' },
           { scale: 1, y: 0, duration: length * 0.6 },
-          0
+          start
         )
-        .fromTo(shade, { opacity: 0 }, { opacity: 1, duration: length * 0.45 }, length * 0.1)
+        .fromTo(shade, { opacity: 0 }, { opacity: 1, duration: length * 0.45 }, start + length * 0.1)
         .fromTo(
           words,
           { x: (index) => spread()[index] },
           { x: 0, duration: length * 0.55 },
-          length * 0.1
+          start + length * 0.1
         )
-        .fromTo(title, { y: () => titleY() }, { y: 0, duration: length * 0.55 }, length * 0.1)
+        .fromTo(
+          title,
+          { y: () => titleY() },
+          { y: 0, duration: length * 0.55 },
+          start + length * 0.1
+        )
         /* Слова светлеют, когда снимок под ними уже потемнел, — иначе строка
            на пару кадров пропадает на светлом фоне. */
         .fromTo(
           title,
           { color: () => token('--color-ink') },
           { color: () => token('--color-bg'), duration: length * 0.25 },
-          length * 0.4
+          start + length * 0.4
         )
-        .fromTo(aside, { opacity: 0 }, { opacity: 1, duration: length * 0.35 }, length * 0.65);
+        .fromTo(
+          aside,
+          { opacity: 0 },
+          { opacity: 1, duration: length * 0.35 },
+          start + length * 0.65
+        );
 
       return () => delete section.dataset.scene;
     });

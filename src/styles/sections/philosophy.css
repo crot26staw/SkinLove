@@ -93,3 +93,104 @@
 
   width: calc(425 * var(--u));
 }
+
+/* Планшет: полукруг на всю ширину, фото по центру с цитатой от его правого
+   нижнего угла, две колонки по половине ширины с фото навылет; нижний ряд
+   выровнен по низу, поэтому смещения левой колонки нет. */
+@media (width < 1024px) {
+  .philosophy {
+    --section-padding-block: 200px 0;
+
+    gap: 0;
+    border-radius: 1000px 1000px 0 0;
+  }
+
+  .philosophy__statement {
+    width: 100%;
+    margin-top: 60px;
+  }
+
+  .philosophy__figure--wide {
+    width: 374px;
+    margin-inline: auto;
+    aspect-ratio: 374 / 272;
+  }
+
+  .philosophy__quote {
+    width: auto;
+    margin-top: -21px;
+    margin-left: calc(50% - 187px);
+    text-indent: 380px;
+  }
+
+  .philosophy__row {
+    gap: 10px;
+    align-items: flex-end;
+    margin-top: 40px;
+    padding-inline: var(--gutter);
+  }
+
+  .philosophy__column {
+    flex: 1;
+    gap: 20px;
+    width: auto;
+  }
+
+  .philosophy__column--offset {
+    padding-top: 0;
+  }
+
+  .philosophy__figure--square,
+  .philosophy__figure--landscape {
+    aspect-ratio: 369 / 255;
+  }
+
+  .philosophy__text {
+    --content-font-size: var(--fs-text-20);
+
+    width: 100%;
+  }
+}
+
+/* Мобильный: одна колонка на поле 10 — шапка слева, квадратное фото,
+   цитата без отступа, два фото друг под другом, текст. */
+@media (width < 768px) {
+  .philosophy {
+    --section-padding-block: 200px 0;
+
+    padding-inline: var(--gutter);
+  }
+
+  .philosophy__head {
+    align-items: flex-start;
+    width: 100%;
+    text-align: left;
+  }
+
+  .philosophy__statement {
+    margin-top: 40px;
+  }
+
+  .philosophy__figure--wide {
+    width: 100%;
+    aspect-ratio: 1;
+  }
+
+  .philosophy__quote {
+    margin-top: 40px;
+    margin-left: 0;
+    text-indent: 0;
+  }
+
+  .philosophy__row {
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+    padding-inline: 0;
+  }
+
+  .philosophy__column {
+    flex: none;
+    width: 100%;
+  }
+}

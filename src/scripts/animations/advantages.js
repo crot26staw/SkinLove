@@ -6,7 +6,8 @@ import { nextSection } from '../utils/siblings.js';
 /* Преимущества: лента → уезд, без жалюзи — секция приходит обычной прокруткой.
    Следующую секцию на время уезда держим отсюда, если у неё нет своей сцены.
    Отзывы с жалюзи (страницы услуг) держат себя сами — см. reviews.js;
-   отзывы без жалюзи (главная) своей сцены не имеют.
+   отзывы без жалюзи (главная) своей сцены не имеют. СТА, если стоит сразу
+   за лентой, держит себя своей сборкой — см. cta.js.
 
    Карточки, которые въезжают из-за правого края, стоят ниже общей линии
    и поднимаются к ней, пока показываются из-за края: подъём начинается,
@@ -33,7 +34,7 @@ export function initAdvantages() {
   return createRailScene({
     section,
     track,
-    holdNext: !next?.querySelector('[data-blind]'),
+    holdNext: !next?.querySelector('[data-blind], [data-cta-card]'),
     build: (timeline, at, { length, distance }) => {
       const width = window.innerWidth;
       const origin = track.getBoundingClientRect().left;
