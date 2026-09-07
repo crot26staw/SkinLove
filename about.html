@@ -516,12 +516,12 @@
           <form class="form" action="#" method="post" novalidate data-form>
             <div class="form__fields">
               <label class="form__field">
-                <input class="form__input" type="text" name="name" placeholder="Ваше имя" autocomplete="name" required>
+                <input class="form__input" type="text" name="name" placeholder="Ваше имя" autocomplete="name" required data-mask="name">
                 <span class="form__error" data-form-error hidden>Данное поле обязательно для заполнения</span>
               </label>
 
               <label class="form__field">
-                <input class="form__input" type="tel" name="phone" placeholder="Номер телефона" autocomplete="tel" required>
+                <input class="form__input" type="tel" name="phone" placeholder="Номер телефона" autocomplete="tel" inputmode="numeric" maxlength="15" pattern="8-\d{3}-\d{3}-\d{2}-\d{2}" required data-mask="phone" data-error-invalid="Введите номер полностью">
                 <span class="form__error" data-form-error hidden>Данное поле обязательно для заполнения</span>
               </label>
 
