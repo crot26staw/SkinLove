@@ -138,6 +138,7 @@
 @media (width < 1024px) {
   .reviews {
     --section-padding-block: 120px 0;
+    --reviews-row-bleed: 10px;
 
     align-items: stretch;
     overflow: hidden;
@@ -176,6 +177,12 @@
     gap: 10px;
     align-items: stretch;
     justify-content: start;
+    /* Запас на выносные элементы: overflow-x: auto режет и по вертикали,
+       а у цитаты и имени текст обрезан по заглавным (text-box), так что
+       «б», «й» сверху и хвосты «Д», «Ц» снизу выходят за блок. Поле уводит
+       край обрезки наружу, отрицательный отступ возвращает текст на место. */
+    margin-block: calc(-1 * var(--reviews-row-bleed));
+    padding-block: var(--reviews-row-bleed);
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;

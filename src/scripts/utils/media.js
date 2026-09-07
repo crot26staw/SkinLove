@@ -5,3 +5,6 @@ export const DESKTOP = '(width >= 1024px)';
 export const TABLET = '(width < 1024px)';
 export const MOBILE = '(width < 768px)';
 export const MOTION = '(prefers-reduced-motion: no-preference)';
+
+/* Тач-устройство — тем же запросом, которым его узнаёт ScrollTrigger.isTouch. */
+export const TOUCH = '(hover: none), (pointer: coarse)';
