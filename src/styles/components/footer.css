@@ -64,12 +64,21 @@
 }
 
 /* Активное направление показано в превью, остальные приглушены. */
+/* Направления — как в меню: горит текущее или то, над которым курсор.
+   Пока курсор в списке, текущее гаснет, чтобы горело одно. */
 .footer__menu--directions .menu-item {
   opacity: 0.5;
+  transition: opacity var(--duration-fast) var(--ease-out);
 }
 
+.footer__menu--directions .menu-item:hover,
+.footer__menu--directions .menu-item:focus-within,
 .footer__menu--directions .current-menu-item {
   opacity: 1;
+}
+
+.footer__menu--directions:hover .current-menu-item:not(:hover) {
+  opacity: 0.5;
 }
 
 .footer__socials {

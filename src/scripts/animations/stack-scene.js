@@ -20,7 +20,8 @@ import { stackStep } from './timing.js';
 
    Описание сцен и их имена — в ANIMATIONS.md. */
 
-/* Из макета: активная карточка 700 в ширину, осевшая — 620, центр на месте. */
+/* Из макета: активная карточка 700 в ширину, осевшая — 620, центр на месте.
+   Секция может переопределить долю на своей ширине через --stack-settle в CSS. */
 const SETTLE_SCALE = 620 / 700;
 
 export function createStackScene({ section, track, items, cards, ...scene }) {
@@ -33,6 +34,7 @@ export function createStackScene({ section, track, items, cards, ...scene }) {
      перед ней. Шаг — ширина слота и зазор ряда из CSS. */
   const gap = () => parseFloat(getComputedStyle(track).columnGap) || 0;
   const enter = (index) => index * (track.offsetWidth + gap());
+  const settle = () => parseFloat(getComputedStyle(section).getPropertyValue('--stack-settle')) || SETTLE_SCALE;
 
   return createPinnedScene({
     section,
@@ -59,7 +61,7 @@ export function createStackScene({ section, track, items, cards, ...scene }) {
             timeline.fromTo(
               cards[index],
               { scale: 1 },
-              { scale: SETTLE_SCALE, duration: step, immediateRender: false },
+              { scale: settle, duration: step, immediateRender: false },
               at + index * step
             );
           }

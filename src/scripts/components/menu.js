@@ -1,15 +1,13 @@
 import { gsap } from 'gsap';
 
 import { lockScroll } from '../utils/smooth-scroll.js';
+import { bindDirections } from '../utils/directions.js';
 
 /* Меню: кнопка в шапке открывает оверлей под ней. Пока меню открыто,
    прокрутка страницы остановлена, а контент под оверлеем недоступен
    для фокуса (inert). Escape закрывает, фокус возвращается на кнопку.
 
-   Список направлений: наведение или фокус на пункте подменяет превью
-   и зажигает его сердце; когда курсор уходит из списка, показывается
-   текущий пункт (current-menu-item). Картинки пунктов приходят
-   в data-image — при натяжке их отдаёт walker меню или ACF. */
+   Список направлений с превью — общий хелпер utils/directions.js. */
 
 const DURATION = 0.4;
 
@@ -81,47 +79,11 @@ export function initMenu() {
 }
 
 function setupDirections(menu) {
-  const list = menu.querySelector('[data-menu-directions]');
-  const links = list ? [...list.querySelectorAll('[data-menu-direction]')] : [];
-  const preview = menu.querySelector('[data-menu-preview]');
-  const hearts = [...menu.querySelectorAll('[data-menu-heart]')];
-
-  if (!list || !links.length) return;
-
-  const current = () => Math.max(0, links.findIndex((link) => link.closest('.current-menu-item')));
-
-  const show = (index) => {
-    const image = links[index].dataset.image;
-
-    if (preview && image && preview.getAttribute('src') !== image) {
-      preview.setAttribute('src', image);
-    }
-
-    hearts.forEach((heart, i) => heart.classList.toggle('site-menu__heart--current', i === index));
-  };
-
-  const unbinds = links.map((link, index) => {
-    const onEnter = () => show(index);
-
-    link.addEventListener('mouseenter', onEnter);
-    link.addEventListener('focus', onEnter);
-
-    return () => {
-      link.removeEventListener('mouseenter', onEnter);
-      link.removeEventListener('focus', onEnter);
-    };
+  return bindDirections({
+    list: menu.querySelector('[data-menu-directions]'),
+    links: [...menu.querySelectorAll('[data-menu-direction]')],
+    preview: menu.querySelector('[data-menu-preview]'),
+    hearts: [...menu.querySelectorAll('[data-menu-heart]')],
+    currentClass: 'site-menu__heart--current',
   });
-
-  const onLeave = () => show(current());
-
-  list.addEventListener('mouseleave', onLeave);
-  list.addEventListener('focusout', (event) => {
-    if (!list.contains(event.relatedTarget)) onLeave();
-  });
-  show(current());
-
-  return () => {
-    unbinds.forEach((unbind) => unbind());
-    list.removeEventListener('mouseleave', onLeave);
-  };
 }
