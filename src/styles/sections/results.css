@@ -110,6 +110,7 @@
     --section-padding-block: 100px;
 
     gap: 40px;
+    padding-top: 0;
   }
 
   .results__track {

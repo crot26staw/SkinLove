@@ -14,3 +14,10 @@ export function paintSpacer(trigger) {
 
   spacer.style.backgroundColor = getComputedStyle(section).backgroundColor;
 }
+
+/* Секция, под которую подтянута следующая (поджатие снизу), красить распорку
+   не должна: распорка наследует z-index секции и закрыла бы подтянутый край.
+   Снимает и краску, оставшуюся от другого брейкпоинта. */
+export function unpaintSpacer(trigger) {
+  trigger?.spacer?.style.removeProperty('background-color');
+}

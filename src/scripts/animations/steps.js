@@ -2,7 +2,7 @@ import { gsap } from 'gsap';
 
 import { createOverlayScene, crossfade, hideLayers } from './overlay-scene.js';
 import { createRailScene } from './rail-scene.js';
-import { DESKTOP, MOTION, TABLET } from '../utils/media.js';
+import { DESKTOP, MOTION, TABLET, TABLET_ONLY } from '../utils/media.js';
 
 /* Этапы на сцене «Наслоение» (overlay-scene.js): при прокрутке фото следующего
    этапа открывается снизу поверх текущего, номер в счётчике подменяется,
@@ -14,7 +14,9 @@ import { DESKTOP, MOTION, TABLET } from '../utils/media.js';
    с фото и номером, остальные этапы стоят в списке приглушёнными.
 
    Ниже 1024 наслоения нет: слои собраны в карточки (steps.css), видны все,
-   и ряд карточек едет лентой (rail-scene.js), пока секция закреплена.
+   и на планшете ряд карточек едет лентой (rail-scene.js), пока секция
+   закреплена. Ниже 768 ленты нет: ряд листается свайпом вбок нативно,
+   со snap по карточкам, как отзывы.
 
    Описание сцен и их имена — в ANIMATIONS.md. */
 
@@ -99,7 +101,7 @@ function setup(section) {
     });
   }, section);
 
-  const rail = createRailScene({ section, track, media: TABLET });
+  const rail = createRailScene({ section, track, media: TABLET_ONLY });
 
   return () => {
     rail?.();

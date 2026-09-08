@@ -192,10 +192,13 @@
   }
 }
 
-/* Мобильный: заголовок слева, карточки 335, счётчик с линией на 30 ниже. */
+/* Мобильный: заголовок слева, карточки 335, счётчик с линией на 30 ниже.
+   Ленты нет (steps.js поднимает её только на планшете): ряд листается
+   свайпом вбок нативно, со snap по карточкам, как отзывы. */
 @media (width < 768px) {
   .steps {
     --section-padding-block: 100px;
+    --steps-row-bleed: 10px;
 
     gap: 40px;
   }
@@ -205,8 +208,22 @@
     text-align: left;
   }
 
+  /* Запас на выносные элементы: overflow-x: auto режет и по вертикали,
+     а текст этапа обрезан по заглавным (text-box), так что хвосты «Д», «Ц»
+     выходят за блок. Поле уводит край обрезки наружу, отрицательный отступ
+     возвращает ряд на место. */
   .steps__row {
     grid-auto-columns: 335px;
+    margin-block: calc(-1 * var(--steps-row-bleed));
+    padding-block: var(--steps-row-bleed);
+    scroll-padding-inline: var(--gutter);
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    will-change: auto;
+  }
+
+  .steps__frame {
+    scroll-snap-align: start;
   }
 
   .steps__count {

@@ -23,7 +23,7 @@ import { DESKTOP, MOTION } from '../utils/media.js';
    Описание сцен и их имена — в ANIMATIONS.md. */
 
 /* Скорость: шагов кольца в секунду. */
-const SPEED = 0.08;
+const SPEED = 0.16;
 
 /* Дальше скольких шагов от центра карточка не уменьшается. */
 const MAX_RANK = 2;

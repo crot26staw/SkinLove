@@ -9,6 +9,11 @@
   --color-shade-top: rgb(0 0 0 / 8%);
   --color-shade-bottom: rgb(0 0 0 / 40%);
   --color-shade: rgb(0 0 0 / 30%);
+  /* Ровное затемнение первых экранов: снимки слишком светлые. Тот же процент —
+     у фона секции главной, где ниже 1024 картинка не на всю секцию. */
+  --shade-hero: 15%;
+  --color-shade-hero: rgb(0 0 0 / var(--shade-hero));
+  --color-bg-hero: color-mix(in srgb, var(--color-bg), black var(--shade-hero));
   --color-scrim: rgb(0 0 0 / 60%);
   --color-error: #f00;
 

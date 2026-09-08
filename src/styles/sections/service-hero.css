@@ -28,12 +28,14 @@
   object-position: 50% 57%;
 }
 
-/* Затемнение снизу, чтобы светлый текст читался на фото. */
+/* Ровное затемнение фото плюс затемнение снизу, чтобы светлый текст читался. */
 .service-hero__decor::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, var(--color-shade-top), var(--color-shade-bottom));
+  background:
+    linear-gradient(var(--color-shade-hero), var(--color-shade-hero)),
+    linear-gradient(to bottom, var(--color-shade-top), var(--color-shade-bottom));
 }
 
 /* Перекрестие: две линии через центр экрана и плюс в точке пересечения. */

@@ -4,7 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { blindsOpen } from './blinds.js';
 import { exitLength, openLength, screen } from './timing.js';
 import { nextSection } from '../utils/siblings.js';
-import { paintSpacer } from '../utils/pin-spacer.js';
+import { paintSpacer, unpaintSpacer } from '../utils/pin-spacer.js';
 import { DESKTOP, MOTION } from '../utils/media.js';
 
 /* Каркас закреплённой сцены: пауза (hold) на длину фазы предыдущей секции →
@@ -19,6 +19,12 @@ import { DESKTOP, MOTION } from '../utils/media.js';
    (stack-scene.js) делят один каркас и не расходятся в устройстве стыков.
    `media` ограничивает сцену своим диапазоном, когда у секции на разных
    ширинах разные фазы.
+
+   Ниже 1024 после своей фазы секция может поджаться снизу на `shrink()`
+   пикселей: окно clip-path поднимает её нижний край, а следующая секция,
+   заранее подтянутая под неё на ту же величину отрицательным отступом в CSS,
+   входит в кадр обычной прокруткой — край секции и верх следующей движутся
+   вместе. Поджатие стоит столько же прокрутки, на сколько поджимается.
 
    Длительности фаз заданы в пикселях прокрутки, а не долями: подкладка
    следующей секции считается от длины уезда, и при пропорциях они разъезжаются.
@@ -37,6 +43,7 @@ export function createPinnedScene({
   blinds = null,
   holdNext = true,
   hold = () => 0,
+  shrink = () => 0,
   media = 'all'
 }) {
   const next = nextSection(section);
@@ -58,6 +65,7 @@ export function createPinnedScene({
       if (!motion || !scope) return;
 
       const exit = desktop;
+      const squeeze = () => (exit ? 0 : shrink());
 
       section.dataset.scene = 'on';
 
@@ -71,15 +79,18 @@ export function createPinnedScene({
         scrollTrigger: {
           trigger: section,
           start: pinStart(section),
-          end: () => `+=${hold() + opening() + phase.length() + (exit ? exitLength() : 0)}`,
+          end: () => `+=${hold() + opening() + phase.length() + (exit ? exitLength() : squeeze())}`,
           pin: true,
           scrub: true,
           invalidateOnRefresh: true,
           onRefreshInit: exit ? applyUnderlap : undefined,
           /* Ниже 1024 подкладок нет, и распорку можно красить: секция может быть
              ниже экрана, и под её краем на время сцены просвечивал бы липкий
-             первый экран. Красится на refresh: при создании распорки ещё нет. */
-          onRefresh: exit ? undefined : paintSpacer
+             первый экран. Красится на refresh: при создании распорки ещё нет.
+             Секция с поджатием — исключение: под её распорку подтянута следующая. */
+          onRefresh: exit
+            ? undefined
+            : (trigger) => (squeeze() ? unpaintSpacer(trigger) : paintSpacer(trigger))
         }
       });
 
@@ -91,6 +102,15 @@ export function createPinnedScene({
       }
 
       const teardown = phase.build(timeline, own);
+
+      if (squeeze()) {
+        timeline.fromTo(
+          section,
+          { clipPath: 'inset(0px 0px 0px 0px)' },
+          { clipPath: () => `inset(0px 0px ${squeeze()}px 0px)`, duration: squeeze() },
+          own + phase.length()
+        );
+      }
 
       if (exit) {
         timeline.to(section, { xPercent: -100, duration: exitLength() }, own + phase.length());

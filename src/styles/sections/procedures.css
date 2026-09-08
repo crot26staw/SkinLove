@@ -114,8 +114,11 @@
   pointer-events: none;
 }
 
+/* Ячейка стопки высотой по самому длинному названию: однострочные
+   прижаты к её низу, чтобы стоять на одной линии с двухстрочными. */
 .procedures__caption {
   grid-area: 1 / 1;
+  align-self: end;
   color: var(--color-bg);
   font-family: var(--font-serif);
   font-size: var(--fs-h2);

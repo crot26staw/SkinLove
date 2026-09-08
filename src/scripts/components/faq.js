@@ -1,10 +1,13 @@
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-/* Аккордеон на <details>: без JS и при отключённых анимациях вопросы
-   открываются нативно, скачком. С JS клик перехватывается, и тело ответа
-   плавно раскрывается по высоте — это единственное место, где высота
-   анимируется намеренно: ответ должен раздвигать соседей.
+/* Аккордеон на <details>: без JS вопросы открываются нативно, скачком.
+   С JS клик перехватывается, и тело ответа плавно раскрывается по высоте —
+   это единственное место, где высота анимируется намеренно: ответ должен
+   раздвигать соседей. При отключённых анимациях — тот же перехват, но без хода.
+
+   В списке открыт только один вопрос: открытие одного закрывает остальные
+   открытые в том же списке (соседи по родителю), тем же ходом.
 
    Пока ответ закрывается, атрибут open ещё стоит, иначе тело схлопнулось бы
    сразу; на это время вопрос помечен data-faq-closing, чтобы кнопка уже
@@ -18,19 +21,28 @@ const DURATION = 0.4;
 export function initFaq() {
   const items = [...document.querySelectorAll('[data-faq-item]')];
 
-  if (!items.length || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (!items.length) return;
 
-  const unbinds = items.map(setup).filter(Boolean);
+  const instant = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const controls = items.map((details) => setup(details, instant)).filter(Boolean);
 
-  return () => unbinds.forEach((unbind) => unbind());
+  controls.forEach((control) => {
+    control.siblings = controls.filter(
+      (other) => other !== control && other.details.parentElement === control.details.parentElement
+    );
+  });
+
+  return () => controls.forEach((control) => control.unbind());
 }
 
-function setup(details) {
+function setup(details, instant) {
   const summary = details.querySelector('summary');
   const body = details.querySelector('[data-faq-body]');
 
   if (!summary || !body) return;
 
+  const control = { details, siblings: [] };
+  const duration = instant ? 0 : DURATION;
   let tween = null;
 
   /* Обрезка стоит только на время хода: в покое она срезала бы выносные
@@ -46,7 +58,7 @@ function setup(details) {
     start();
     tween = gsap.to(body, {
       height: 0,
-      duration: DURATION,
+      duration,
       ease: 'power2.inOut',
       onComplete: () => {
         details.open = false;
@@ -63,28 +75,40 @@ function setup(details) {
     details.open = true;
     start();
 
-    const vars = { height: 'auto', duration: DURATION, ease: 'power2.inOut', onComplete: finish };
+    const vars = { height: 'auto', duration, ease: 'power2.inOut', onComplete: finish };
 
     tween = wasClosing ? gsap.to(body, vars) : gsap.from(body, { ...vars, height: 0 });
+  };
+
+  const isOpen = () => details.open && !('faqClosing' in details.dataset);
+
+  /* Закрыть по просьбе соседа: свой ход, если он идёт, прерывается. */
+  control.close = () => {
+    tween?.kill();
+    close();
   };
 
   const onClick = (event) => {
     event.preventDefault();
     tween?.kill();
 
-    if (details.open && !('faqClosing' in details.dataset)) {
+    if (isOpen()) {
       close();
     } else {
+      control.siblings.forEach((other) => other.isOpen() && other.close());
       open();
     }
   };
 
   summary.addEventListener('click', onClick);
 
-  return () => {
+  control.isOpen = isOpen;
+  control.unbind = () => {
     tween?.kill();
     summary.removeEventListener('click', onClick);
     delete details.dataset.faqClosing;
     finish();
   };
+
+  return control;
 }

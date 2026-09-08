@@ -82,4 +82,8 @@
   .service-card__media {
     height: 200px;
   }
+
+  .service-card__body {
+    gap: 24px;
+  }
 }
