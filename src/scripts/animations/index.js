@@ -3,6 +3,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import { initHeroBackdrop } from './hero.js';
 import { initHeroIntro } from './hero-intro.js';
+import { initHeroVideo } from './hero-video.js';
 import { initServices } from './services.js';
 import { initAtmosphere } from './atmosphere.js';
 import { initAdvantages } from './advantages.js';
@@ -25,6 +26,7 @@ export function initAnimations() {
     initSmoothScroll(),
     initHeroIntro(),
     initHeroBackdrop(),
+    initHeroVideo(),
     initSpread(),
     /* Сцены с закреплением — в порядке секций на странице: распорку
        закреплённой секции ScrollTrigger учитывает только у триггеров,

@@ -1,19 +1,11 @@
+/* Фон полупрозрачный: сквозь него на --about-video-show просвечивает видео
+   первого экрана, закреплённое под страницей (см. hero.css). */
 .about {
   --section-padding-block: calc(159 * var(--u)) calc(296 * var(--u));
+  --about-video-show: 20%;
 
   overflow: hidden;
-}
-
-.about__decor {
-  position: absolute;
-  bottom: 0;
-  left: calc(20.8333% + 14.73 * var(--u));
-  width: calc(1920 * var(--u));
-  height: calc(1080 * var(--u));
-  object-fit: cover;
-  opacity: 0.2;
-  transform: translateX(-50%) scaleY(-1);
-  pointer-events: none;
+  background-color: color-mix(in srgb, var(--color-bg), transparent var(--about-video-show));
 }
 
 .about__inner {
@@ -90,15 +82,6 @@
     --section-padding-block: 120px;
   }
 
-  .about__decor {
-    top: 16px;
-    bottom: auto;
-    left: -368px;
-    width: 1139px;
-    max-width: none;
-    height: 641px;
-    transform: scaleY(-1);
-  }
 
   .about__inner {
     display: flex;
@@ -137,9 +120,6 @@
     --section-padding-block: 100px;
   }
 
-  .about__decor {
-    top: -4px;
-  }
 
   .about__body {
     grid-template-columns: 1fr;

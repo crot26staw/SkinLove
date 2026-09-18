@@ -113,8 +113,10 @@
 
   <main id="main">
     <section class="hero hero--intro" data-section="hero">
-      <div class="hero__decor" aria-hidden="true">
-        <img class="hero__decor-media" src="/img/dna-hero.jpg" width="1672" height="941" alt="" decoding="async">
+      <div class="hero__decor" data-hero-video aria-hidden="true">
+        <div class="hero__decor-frame">
+          <video class="hero__decor-media" src="/video/hero-video.mp4" width="1916" height="1080" muted playsinline preload="auto" disablepictureinpicture tabindex="-1"></video>
+        </div>
       </div>
 
       <div class="hero__veil" data-hero-veil aria-hidden="true"></div>
@@ -140,8 +142,6 @@
     </section>
 
     <section class="section section--light about" data-section="about">
-      <img class="about__decor" src="/img/dna-about.png" width="418" height="236" alt="" aria-hidden="true" decoding="async">
-
       <div class="about__inner">
         <p class="descriptor about__label">о клинике</p>
 

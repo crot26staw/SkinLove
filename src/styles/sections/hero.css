@@ -1,25 +1,37 @@
+/* Фона у секции нет: его даёт видео, закреплённое под страницей (см. ниже). */
 .hero {
   position: relative;
   min-height: 100vh;
   overflow: hidden;
-  background-color: var(--color-bg);
 }
 
+/* Видео закреплено на весь экран и лежит под всей страницей (z-index ниже
+   потока): hero стоит на нём без фона, «О клинике» — с полупрозрачным,
+   так что кадр просвечивает сквозь обе секции, а дальше его закрывают
+   непрозрачные секции. Кадр гонит прокрутка — сцена «прокрутка видео»
+   (`hero-video.js`), она же прячет слой ниже второй секции. */
 .hero__decor {
-  position: absolute;
+  position: fixed;
   inset: 0;
+  z-index: -1;
   pointer-events: none;
 }
 
-/* Слой на всю секцию, как в макете. Позже сюда встанет <video> с теми же правилами. */
+/* Окно с видео: на десктопе — весь экран, ниже 1024 — коробка по макету. */
+.hero__decor-frame {
+  position: absolute;
+  inset: 0;
+}
+
 .hero__decor-media {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-/* Лёгкое затемнение фото. */
-.hero__decor::after {
+/* Лёгкое затемнение кадра. */
+.hero__decor-frame::after {
   content: '';
   position: absolute;
   inset: 0;
@@ -74,15 +86,18 @@
   to { opacity: 1; }
 }
 
-/* Планшет: экран в 800, спираль справа внизу, как в макете 768. Картинка
-   не на всю секцию, поэтому фон секции затемнён на тот же процент, что и она. */
+/* Планшет: экран в 800, видео справа внизу, как в макете 768. Кадр
+   не на весь экран, поэтому слой под ним затемнён на тот же процент, что и кадр. */
 @media (width < 1024px) {
   .hero {
     min-height: 800px;
-    background-color: var(--color-bg-hero);
   }
 
   .hero__decor {
+    background-color: var(--color-bg-hero);
+  }
+
+  .hero__decor-frame {
     inset: auto;
     top: 153px;
     left: -330px;
@@ -103,13 +118,13 @@
   }
 }
 
-/* Мобильный: экран в 765, спираль ниже текста. */
+/* Мобильный: экран в 765, видео ниже текста. */
 @media (width < 768px) {
   .hero {
     min-height: 765px;
   }
 
-  .hero__decor {
+  .hero__decor-frame {
     top: 298px;
     left: -252px;
     width: 830px;
