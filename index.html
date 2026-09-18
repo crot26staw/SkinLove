@@ -115,7 +115,10 @@
     <section class="hero hero--intro" data-section="hero">
       <div class="hero__decor" data-hero-video aria-hidden="true">
         <div class="hero__decor-frame">
-          <video class="hero__decor-media" src="/video/hero-video.mp4" width="1916" height="1080" muted playsinline preload="auto" disablepictureinpicture tabindex="-1"></video>
+          <video class="hero__decor-media" width="1918" height="1080" muted playsinline preload="auto" disablepictureinpicture tabindex="-1">
+            <source src="/video/hero-video-4k.mp4" media="(min-width: 1024px)" type="video/mp4">
+            <source src="/video/hero-video.mp4" type="video/mp4">
+          </video>
         </div>
       </div>
 
