@@ -1,6 +1,7 @@
 import './styles/main.css';
 
 import { initButtons } from './scripts/components/button.js';
+import { initHeader } from './scripts/components/header.js';
 import { initMenu } from './scripts/components/menu.js';
 import { initFooter } from './scripts/components/footer.js';
 import { initModals } from './scripts/components/modal.js';
@@ -11,6 +12,7 @@ import { initResults } from './scripts/components/results.js';
 import { initAnimations } from './scripts/animations/index.js';
 
 initButtons();
+initHeader();
 initMenu();
 initFooter();
 initModals();

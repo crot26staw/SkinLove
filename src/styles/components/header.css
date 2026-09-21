@@ -43,6 +43,23 @@
   mix-blend-mode: difference;
 }
 
+/* Над героем с фото инверсия снимается, пока страница не прокручена
+   (класс ставит scripts/components/header.js): логотип и кнопка тёмные.
+   Картинка логотипа одна на весь сайт, белая, поэтому в тёмный её
+   переводит фильтр: invert(0.77) даёт из белого цвет чернил. */
+.header--plain .header__logo,
+.header--plain .menu-toggle {
+  mix-blend-mode: normal;
+}
+
+.header--plain .header__logo-image {
+  filter: invert(0.77);
+}
+
+.header--plain .menu-toggle:not(:hover, :focus-visible) {
+  color: var(--color-ink);
+}
+
 /* Ховер из кита: тёмная пилюля со светлой подписью, без инверсии. */
 .menu-toggle:hover,
 .menu-toggle:focus-visible {
