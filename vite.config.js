@@ -17,6 +17,7 @@ export default defineConfig({
         index: resolve(import.meta.dirname, 'index.html'),
         about: resolve(import.meta.dirname, 'about.html'),
         contacts: resolve(import.meta.dirname, 'contacts.html'),
+        body: resolve(import.meta.dirname, 'body.html'),
         face: resolve(import.meta.dirname, 'face.html'),
         hardware: resolve(import.meta.dirname, 'hardware.html'),
         injection: resolve(import.meta.dirname, 'injection.html'),
