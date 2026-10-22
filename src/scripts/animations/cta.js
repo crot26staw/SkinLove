@@ -86,8 +86,17 @@ export function initCta() {
   };
 
   /* Разброс — это та же строка, разложенная по ширине карточки с равными
-     промежутками. Считаем целевые сдвиги от текущих позиций слов. */
+     промежутками. Считаем целевые сдвиги от текущих позиций слов. Если строки
+     стоят друг под другом (`cta--stacked`), первая уходит к левому краю,
+     последняя — к правому, средние делят ход поровну. */
   const spread = () => {
+    const stacked = words.length > 1 && words[1].offsetTop > words[0].offsetTop;
+
+    if (stacked) {
+      return words.map((word, index) =>
+        (title.clientWidth - word.offsetWidth) * (index / (words.length - 1)) - word.offsetLeft);
+    }
+
     const taken = words.reduce((sum, word) => sum + word.offsetWidth, 0);
     const gap = (title.clientWidth - taken) / (words.length - 1);
     let left = 0;

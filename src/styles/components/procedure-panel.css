@@ -1,5 +1,5 @@
-/* Описание услуги с выездом: заголовок, зоны (необязательно), «подходит,
-   если» со списком и кнопка. Ширину задаёт контейнер. Без сцены видна одна
+/* Описание услуги: заголовок с описанием, прайс (необязательно)
+   и кнопка. Ширину задаёт контейнер. Без сцены видна одна
    панель, остальные спрятаны атрибутом hidden: правило на него нужно здесь,
    общее из reset проигрывает display: flex по порядку подключения. */
 .procedure-panel {
@@ -21,39 +21,47 @@
   text-box: trim-both cap alphabetic;
 }
 
-.procedure-panel__zones {
-  font-size: var(--fs-subtitle);
-  line-height: var(--lh-text);
-  letter-spacing: var(--ls-text);
-  text-transform: uppercase;
-  text-box: trim-both cap alphabetic;
-}
-
-.procedure-panel__fit {
+/* Заголовок и описание — одна группа с шагом 20. */
+.procedure-panel__intro {
   display: flex;
   flex-direction: column;
   gap: calc(20 * var(--u));
   width: 100%;
 }
 
-.procedure-panel__lead {
+.procedure-panel__text {
   font-size: var(--fs-text-20);
   line-height: var(--lh-text);
   letter-spacing: var(--ls-text);
   text-box: trim-both cap alphabetic;
 }
 
-.procedure-panel__list {
+/* Прайс (необязательно): строки с линией снизу, цена справа приглушена. */
+.procedure-panel__prices {
+  display: flex;
+  flex-direction: column;
+  gap: calc(20 * var(--u));
+  width: 100%;
+}
+
+.procedure-panel__prices-title {
+  font-size: var(--fs-text-20);
+  font-weight: 500;
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  text-box: trim-both cap alphabetic;
+}
+
+.procedure-panel__price-list {
   display: flex;
   flex-direction: column;
   gap: calc(10 * var(--u));
-  opacity: 0.7;
 }
 
-.procedure-panel__item {
+.procedure-panel__price {
   display: flex;
-  gap: calc(10 * var(--u));
-  align-items: center;
+  gap: calc(20 * var(--u));
+  align-items: baseline;
   justify-content: space-between;
   padding-bottom: calc(10 * var(--u));
   border-bottom: 1px solid var(--color-line);
@@ -62,14 +70,14 @@
   letter-spacing: var(--ls-text);
 }
 
-.procedure-panel__item-label {
+.procedure-panel__price-name,
+.procedure-panel__price-value {
   text-box: trim-both cap alphabetic;
 }
 
-.procedure-panel__item-icon {
+.procedure-panel__price-value {
   flex-shrink: 0;
-  width: calc(10.899 * var(--u));
-  height: calc(10 * var(--u));
+  opacity: 0.7;
 }
 
 /* Планшет: карточка в ленте, шаг между блоками меньше. */
