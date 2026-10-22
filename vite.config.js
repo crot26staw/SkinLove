@@ -1,9 +1,19 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'node:path';
 
+// На GitHub Pages сайт живёт по адресу /SkinLove/, локально — в корне
+const base = process.env.GITHUB_ACTIONS ? '/SkinLove/' : '/';
+
+// Vite переписывает base только в стандартных атрибутах (src, href),
+// пути картинок в data-image доводим сами
+const dataImageBase = {
+  name: 'data-image-base',
+  transformIndexHtml: (html) => html.replace(/data-image="\/(?!\/)/g, `data-image="${base}`)
+};
+
 export default defineConfig({
-  // На GitHub Pages сайт живёт по адресу /SkinLove/, локально — в корне
-  base: process.env.GITHUB_ACTIONS ? '/SkinLove/' : '/',
+  base,
+  plugins: [dataImageBase],
   server: {
     port: 5173,
     open: true
