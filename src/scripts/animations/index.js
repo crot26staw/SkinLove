@@ -16,6 +16,7 @@ import { initTasks } from './tasks.js';
 import { initOccasions } from './occasions.js';
 import { initReviewsBlinds } from './reviews.js';
 import { initPromosBlinds } from './promos.js';
+import { initProcess } from './process.js';
 import { initHeadingFill } from './heading-fill.js';
 import { initRules } from './rule.js';
 import { initSmoothScroll } from '../utils/smooth-scroll.js';
@@ -35,6 +36,7 @@ export function initAnimations() {
     initOccasions(),
     initProcedures(),
     initPromosBlinds(),
+    initProcess(),
     initSteps(),
     initTasks(),
     initServices(),

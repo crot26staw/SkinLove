@@ -1,0 +1,23 @@
+/* Связаться напрямую: подпись и ряд светлых пилюль с номерами
+   (button--pill-light). Номера приходят с Options-страницы. */
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: calc(20 * var(--u));
+  align-items: flex-start;
+}
+
+.contact-links__title {
+  max-width: calc(440 * var(--u));
+  font-size: var(--fs-subtitle);
+  font-weight: 500;
+  line-height: var(--lh-h4);
+  letter-spacing: var(--ls-text);
+  text-box: trim-both cap alphabetic;
+}
+
+.contact-links__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(10 * var(--u));
+}

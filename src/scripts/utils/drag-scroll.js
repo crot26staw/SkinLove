@@ -1,7 +1,12 @@
 /* Ряд с горизонтальной прокруткой можно тянуть мышью: без тачпада колесо
    листает только по вертикали, и ряд шире экрана мышью было не пролистать.
    Палец и перо браузер листает сам. Протяжка дальше THRESHOLD — это прокрутка,
-   а не нажатие: клик, который за ней последует, гасится. */
+   а не нажатие: клик, который за ней последует, гасится.
+
+   Пока ряд тянут, на нём стоит data-dragging: прилипание к карточкам
+   (scroll-snap) на это время снимается (layout/section.css), иначе каждый
+   сдвиг scrollLeft отскакивал бы к ближайшей карточке. После отпускания
+   ряд сам докатывается до неё. Картинки внутри не перетаскиваются. */
 
 const THRESHOLD = 5;
 
@@ -25,6 +30,7 @@ export function enableDragScroll(row) {
 
     if (!dragged) {
       dragged = true;
+      row.dataset.dragging = '';
       row.setPointerCapture(start.id);
     }
 
@@ -33,6 +39,7 @@ export function enableDragScroll(row) {
 
   const onUp = () => {
     start = null;
+    delete row.dataset.dragging;
   };
 
   const onClick = (event) => {
@@ -48,4 +55,5 @@ export function enableDragScroll(row) {
   row.addEventListener('pointerup', onUp);
   row.addEventListener('pointercancel', onUp);
   row.addEventListener('click', onClick, true);
+  row.addEventListener('dragstart', (event) => event.preventDefault());
 }

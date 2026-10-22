@@ -1,0 +1,116 @@
+/* «Мы берём организацию на себя»: фото на всю секцию под затемнением,
+   по центру светлые заголовок и текст, под ними ряд карточек. Карточек
+   столько, сколько задаст редактор: ряд делит ширину поровну. */
+.care {
+  display: flex;
+  flex-direction: column;
+  gap: calc(60 * var(--u));
+  align-items: center;
+  padding-inline: var(--gutter);
+  overflow: hidden;
+  background-color: var(--color-beige);
+}
+
+.care__media {
+  position: absolute;
+  inset: 0;
+}
+
+.care__media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: var(--color-shade-bottom);
+}
+
+.care__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.care__head {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: calc(30 * var(--u));
+  align-items: center;
+  text-align: center;
+}
+
+.care__title {
+  align-items: center;
+  max-width: calc(957 * var(--u));
+  color: var(--color-bg);
+}
+
+.care__text {
+  max-width: calc(598 * var(--u));
+  color: var(--color-bg);
+  font-size: var(--fs-text-20);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  text-box: trim-both cap alphabetic;
+}
+
+.care__list {
+  position: relative;
+  display: flex;
+  gap: calc(20 * var(--u));
+  width: 100%;
+}
+
+.care__card {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: calc(40 * var(--u));
+  justify-content: space-between;
+  min-width: 0;
+  min-height: calc(370 * var(--u));
+  padding: calc(30 * var(--u));
+  border-radius: calc(5 * var(--u));
+  background-color: var(--color-bg);
+}
+
+.care__card-title {
+  font-size: var(--fs-h4);
+  font-weight: 500;
+  line-height: var(--lh-h4);
+  letter-spacing: var(--ls-h4);
+  text-box: trim-both cap alphabetic;
+}
+
+.care__card-text {
+  font-size: var(--fs-text-20);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  text-box: trim-both cap alphabetic;
+  opacity: 0.8;
+}
+
+/* Планшет: карточки по две в ряд. */
+@media (width < 1024px) {
+  .care {
+    gap: 40px;
+  }
+
+  .care__list {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .care__card {
+    flex-basis: calc(50% - 5px);
+    min-height: 260px;
+    padding: 20px;
+  }
+}
+
+/* Мобильный: карточки столбиком. */
+@media (width < 768px) {
+  .care__card {
+    flex-basis: 100%;
+    min-height: 220px;
+  }
+}

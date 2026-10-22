@@ -45,3 +45,16 @@
 .pin-spacer > * {
   pointer-events: auto;
 }
+
+/* Ряд тянут мышью (utils/drag-scroll.js): текст не выделяется, у ленты
+   карусели снято прилипание к карточкам — иначе она отскакивала бы на каждом
+   сдвиге. Два атрибута — чтобы перебить scroll-snap-type секции,
+   подключённой позже. */
+[data-dragging] {
+  user-select: none;
+  cursor: grabbing;
+}
+
+[data-carousel-viewport][data-dragging] {
+  scroll-snap-type: none;
+}

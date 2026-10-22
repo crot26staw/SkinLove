@@ -44,6 +44,20 @@
   transform: rotate(180deg);
 }
 
+/* Залитая (отзывы на выездных услугах): тёмная со светлой стрелкой,
+   на ховере светлеет, как кнопка-пилюля. */
+.arrow-button--filled {
+  border-color: var(--color-ink);
+  background-color: var(--color-ink);
+  color: var(--color-bg);
+}
+
+.arrow-button--filled:hover,
+.arrow-button--filled:focus-visible {
+  border-color: var(--color-ink-soft);
+  background-color: var(--color-ink-soft);
+}
+
 @media (width < 1024px) {
   .arrow-button {
     width: 60px;

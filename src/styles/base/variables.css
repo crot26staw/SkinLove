@@ -1,6 +1,8 @@
 :root {
   /* Цвет */
   --color-ink: #3a3a37;
+  /* Ховер тёмной кнопки-пилюли: чернила, чуть разбавленные фоном. */
+  --color-ink-soft: color-mix(in srgb, var(--color-ink), var(--color-bg) 15%);
   --color-bg: #f2f1ed;
   --color-beige: #dfdcd3;
   --color-line: rgb(58 58 55 / 10%);
@@ -16,6 +18,8 @@
   --color-bg-hero: color-mix(in srgb, var(--color-bg), black var(--shade-hero));
   --color-scrim: rgb(0 0 0 / 60%);
   --color-error: #f00;
+  /* Место под иконку, которой ещё нет в макете. */
+  --color-placeholder: #fff;
 
   /* Шрифты */
   --font-sans: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
@@ -37,6 +41,9 @@
   --ls-h2: -0.03em;
   --lh-h2-accent: 0.7;
   --ls-h2-accent: -0.04em;
+
+  /* Заголовок секции выездных услуг: тот же h2, но 70 вместо 80. */
+  --fs-h2-sm: calc(70 * var(--u));
 
   --fs-h3: calc(60 * var(--u));
   --lh-h3: 0.8;
@@ -90,6 +97,7 @@
     --fs-h1-display: 55px;
     --lh-h1-accent: 0.8;
     --fs-h2: 41px;
+    --fs-h2-sm: 41px;
     --lh-h2-accent: 0.8;
     --fs-h3: 30px;
     --fs-h4: 25px;

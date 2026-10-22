@@ -40,6 +40,31 @@
   align-self: stretch;
 }
 
+/* Форма и прямые контакты под ней (выездные услуги). */
+.program-request__actions {
+  display: flex;
+  flex-direction: column;
+  gap: calc(40 * var(--u));
+  align-self: stretch;
+}
+
+/* Варианты выездных услуг: секция со своими отступами, фото не ниже 800
+   (высота строки, а не секции: отступы в неё не входят). inset-end —
+   отступ только снизу, когда выше стоит секция с нижним отступом. */
+.program-request--inset,
+.program-request--inset-end {
+  grid-template-rows: minmax(calc(800 * var(--u)), auto);
+  min-height: 0;
+}
+
+.program-request--inset {
+  --section-padding-block: var(--section-padding);
+}
+
+.program-request--inset-end {
+  --section-padding-block: 0 var(--section-padding);
+}
+
 /* Кадр вынут из потока: иначе фото своей высотой растянуло бы сетку. */
 .program-request__media {
   position: relative;
@@ -69,6 +94,11 @@
 
   .program-request__media {
     height: 500px;
+  }
+
+  /* Вариант: фото над текстом и формой. */
+  .program-request--media-first .program-request__media {
+    order: -1;
   }
 }
 

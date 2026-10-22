@@ -24,6 +24,8 @@
 @import './components/promo-card.css';
 @import './components/result-card.css';
 @import './components/arrow-button.css';
+@import './components/review-card.css';
+@import './components/contact-links.css';
 @import './components/header.css';
 @import './components/site-menu.css';
 @import './components/form.css';
@@ -54,3 +56,8 @@
 @import './sections/steps.css';
 @import './sections/faq.css';
 @import './sections/contacts.css';
+@import './sections/outcall-hero.css';
+@import './sections/reasons.css';
+@import './sections/care.css';
+@import './sections/process.css';
+@import './sections/feedback.css';

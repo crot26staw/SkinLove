@@ -144,6 +144,87 @@
   transform: translateY(calc(-5 * var(--u))) rotate(-45deg);
 }
 
+/* Шапка-строка (выездные услуги): на десктопе не закреплена, стоит над
+   первым экраном обычным потоком — слева логотип и телефон, по центру меню
+   страницы, справа язык и кнопка заявки. Без инверсии: фон под ней всегда
+   светлый. Кнопки меню нет. Ниже 1024 строка распадается: обёртки
+   прозрачны для раскладки (display: contents), логотип, язык и кнопка
+   меню закреплены и инвертируются, как на остальных страницах, а телефон,
+   меню страницы и кнопка заявки прячутся. */
+.header__start,
+.header__end {
+  display: flex;
+  gap: calc(20 * var(--u));
+  align-items: center;
+}
+
+.header__end {
+  justify-self: end;
+}
+
+.header__menu {
+  display: flex;
+  gap: calc(20 * var(--u));
+}
+
+.header__link {
+  display: block;
+  padding: calc(10 * var(--u));
+  font-size: var(--fs-text-18);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  white-space: nowrap;
+  text-box: trim-both cap alphabetic;
+  transition: opacity var(--duration-fast) var(--ease-out);
+}
+
+.header__link:hover,
+.header__link:focus-visible {
+  opacity: 0.6;
+}
+
+@media (width >= 1024px) {
+  .header--bar {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: calc(20 * var(--u));
+    align-items: center;
+    padding: calc(20 * var(--u)) var(--gutter) 0;
+    background-color: var(--color-bg);
+  }
+
+  .header--bar .header__logo,
+  .header--bar .lang-switch {
+    position: static;
+    mix-blend-mode: normal;
+  }
+
+  .header--bar .header__logo-image {
+    filter: invert(0.77);
+  }
+
+  .header--bar .lang-switch:not(:hover, :focus-visible) {
+    color: var(--color-ink);
+  }
+
+  .header--bar .menu-toggle {
+    display: none;
+  }
+}
+
+@media (width < 1024px) {
+  .header__start,
+  .header__end {
+    display: contents;
+  }
+
+  .header__phone,
+  .header__nav,
+  .header__cta {
+    display: none;
+  }
+}
+
 /* Планшет: логотип и кнопка меньше, кнопка у самого края. */
 @media (width < 1024px) {
   .header__logo {

@@ -1,0 +1,126 @@
+/* Первый экран выездных услуг: слева бежевая панель с заголовком, текстом
+   и карточкой формы, прижатыми к низу; справа фото. Высота — экран под
+   шапкой-строкой (components/header.css); длинный текст из админки панель
+   растянет. Форма — общий компонент (components/form.css). */
+.outcall-hero {
+  --section-padding-block: calc(20 * var(--u)) 0;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: calc(20 * var(--u));
+  min-height: calc(993 * var(--u));
+  padding-inline: var(--gutter);
+}
+
+.outcall-hero__panel {
+  display: flex;
+  flex-direction: column;
+  gap: calc(40 * var(--u));
+  align-items: flex-start;
+  justify-content: flex-end;
+  min-width: 0;
+  padding: calc(40 * var(--u));
+  border-radius: calc(3 * var(--u));
+  background-color: var(--color-beige);
+}
+
+.outcall-hero__title {
+  max-width: calc(847 * var(--u));
+}
+
+.outcall-hero__text {
+  max-width: calc(548 * var(--u));
+  font-size: var(--fs-text-20);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  text-box: trim-both cap alphabetic;
+}
+
+.outcall-hero__card {
+  display: flex;
+  flex-direction: column;
+  gap: calc(20 * var(--u));
+  width: min(100%, calc(660 * var(--u)));
+  padding: calc(30 * var(--u));
+  border-radius: calc(3 * var(--u));
+  background-color: var(--color-bg);
+}
+
+.outcall-hero__card-title {
+  font-size: var(--fs-h4);
+  font-weight: 500;
+  line-height: var(--lh-h4);
+  letter-spacing: var(--ls-h4);
+  text-box: trim-both cap alphabetic;
+}
+
+.outcall-hero__card-text {
+  font-size: var(--fs-text-18);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  text-box: trim-both cap alphabetic;
+  opacity: 0.8;
+}
+
+/* Между текстом карточки и полями по макету 30, а не 20. */
+.outcall-hero__card .form {
+  margin-top: calc(10 * var(--u));
+}
+
+/* Кадр вынут из потока: иначе фото своей высотой растянуло бы сетку. */
+.outcall-hero__media {
+  position: relative;
+  overflow: hidden;
+  border-radius: calc(3 * var(--u));
+}
+
+.outcall-hero__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Планшет: шапка закреплена поверх, поэтому сверху место под логотип;
+   фото первым, панель с формой под ним, фото 500. */
+@media (width < 1024px) {
+  .outcall-hero {
+    --section-padding-block: 64px 0;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-height: 0;
+  }
+
+  .outcall-hero__panel {
+    gap: 30px;
+    padding: 40px 20px 20px;
+  }
+
+  .outcall-hero__card {
+    padding: 20px;
+  }
+
+  .outcall-hero__media {
+    order: -1;
+    height: 500px;
+  }
+}
+
+/* Мобильный: панель с отступом 10, фото 400; заголовок на ступень меньше,
+   иначе «косметологические» не помещается в строку. */
+@media (width < 768px) {
+  .outcall-hero__title {
+    font-size: var(--fs-h3);
+  }
+
+  .outcall-hero__panel {
+    padding: 30px 10px 10px;
+  }
+
+  .outcall-hero__media {
+    height: 400px;
+  }
+}

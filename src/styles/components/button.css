@@ -39,7 +39,57 @@
   color: var(--color-bg);
 }
 
+/* Пилюля (выездные услуги): тёмная, сердце слева от подписи, подпись
+   обычным регистром. Сердце не перебегает (у пилюли нет data-button),
+   на ховере пилюля светлеет. */
+.button--pill {
+  padding: calc(17 * var(--u));
+  border-bottom: 0;
+  border-radius: calc(80 * var(--u));
+  background-color: var(--color-ink);
+  color: var(--color-bg);
+  transition: background-color var(--duration-fast) var(--ease-out);
+}
+
+.button--pill:hover,
+.button--pill:focus-visible {
+  background-color: var(--color-ink-soft);
+}
+
+.button--pill .button__label {
+  font-size: var(--fs-text-18);
+  letter-spacing: var(--ls-text);
+  text-align: left;
+  text-transform: none;
+}
+
+.button--pill .button__icon {
+  width: calc(10.899 * var(--u));
+  height: calc(10 * var(--u));
+}
+
+/* Светлая пилюля с иконкой 20 — телефоны и мессенджеры. */
+.button--pill-light {
+  background-color: var(--color-bg);
+  color: var(--color-ink);
+}
+
+.button--pill-light:hover,
+.button--pill-light:focus-visible {
+  background-color: var(--color-ink);
+  color: var(--color-bg);
+}
+
+.button--pill-light .button__icon {
+  width: calc(20 * var(--u));
+  height: calc(20 * var(--u));
+}
+
 @media (width < 1024px) {
+  .button--pill {
+    padding: 12px 14px;
+  }
+
   .button__icon {
     width: 7.82px;
     height: 7.175px;

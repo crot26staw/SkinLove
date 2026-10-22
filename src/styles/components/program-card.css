@@ -1,11 +1,12 @@
 /* Карточка программы: сверху название с меткой и описание, снизу цена
    и кнопка. Высота минимальная, длинное описание её растянет; карточки
    в ряду выравнивает сетка. Ширину в 12-колоночной сетке задаёт
-   --program-span (sections/programs.css). */
+   --program-span, сдвиг неполного ряда к центру — --program-start
+   (components/programs.js). Метка и цена необязательны. */
 .program-card {
   display: flex;
   flex-direction: column;
-  grid-column: span var(--program-span, 4);
+  grid-column: var(--program-start, auto) / span var(--program-span, 4);
   gap: calc(40 * var(--u));
   justify-content: space-between;
   min-width: 0;

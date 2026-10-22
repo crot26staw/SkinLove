@@ -1,0 +1,152 @@
+/* Как проходит выезд: слева заголовок, текст и кнопка — держатся у верха
+   экрана, пока справа идут этапы. Этап — узкая колонка с номером и карточка;
+   колонка заливается по ходу прокрутки (сцена «Прогресс»).
+   Кнопка в карточке необязательна. */
+.process {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: calc(20 * var(--u));
+  align-items: start;
+  padding-inline: var(--gutter);
+}
+
+.process__head {
+  position: sticky;
+  top: calc(var(--section-padding) / 2 + var(--admin-bar-height));
+  display: flex;
+  flex-direction: column;
+  gap: calc(40 * var(--u));
+  align-items: flex-start;
+}
+
+.process__text {
+  max-width: calc(548 * var(--u));
+  font-size: var(--fs-text-20);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  text-box: trim-both cap alphabetic;
+}
+
+.process__list {
+  display: flex;
+  flex-direction: column;
+  gap: calc(10 * var(--u));
+}
+
+.process__step {
+  display: flex;
+  gap: calc(10 * var(--u));
+  min-height: calc(308 * var(--u));
+}
+
+.process__number {
+  position: relative;
+  flex-shrink: 0;
+  width: calc(59 * var(--u));
+  padding: calc(30 * var(--u)) 0;
+  overflow: hidden;
+  isolation: isolate;
+  border-radius: calc(5 * var(--u));
+  background-color: var(--color-beige);
+  font-size: var(--fs-text-16);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  text-align: center;
+}
+
+/* Заливка колонки сверху вниз — сцена «Прогресс» (animations/process.js)
+   ведёт --process-progress от 0 до 1. Без скрипта колонка не залита. */
+.process__number::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-color: var(--color-ink);
+  transform: scaleY(var(--process-progress, 0));
+  transform-origin: top;
+}
+
+.process__index {
+  display: inline-block;
+  text-box: trim-both cap alphabetic;
+  opacity: 0.8;
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+/* Заливка накрыла номер — номер светлый. */
+.process__number--lit .process__index {
+  color: var(--color-bg);
+}
+
+.process__card {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: calc(30 * var(--u));
+  justify-content: space-between;
+  min-width: 0;
+  padding: calc(30 * var(--u));
+  border-radius: calc(5 * var(--u));
+  background-color: var(--color-beige);
+}
+
+/* Место под иконку этапа: в макете пока заглушка. */
+.process__icon {
+  flex-shrink: 0;
+  width: calc(50 * var(--u));
+  height: calc(50 * var(--u));
+  background-color: var(--color-placeholder);
+}
+
+.process__body {
+  display: flex;
+  flex-direction: column;
+  gap: calc(30 * var(--u));
+  align-items: flex-start;
+}
+
+.process__step-title {
+  font-size: var(--fs-h4);
+  font-weight: 500;
+  line-height: var(--lh-h4);
+  letter-spacing: var(--ls-h4);
+  text-box: trim-both cap alphabetic;
+}
+
+.process__step-text {
+  font-size: var(--fs-text-20);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  text-box: trim-both cap alphabetic;
+  opacity: 0.8;
+}
+
+/* Планшет: шапка над этапами и не держится. */
+@media (width < 1024px) {
+  .process {
+    grid-template-columns: 1fr;
+    gap: 50px;
+  }
+
+  .process__head {
+    position: static;
+    gap: 30px;
+  }
+
+  .process__step {
+    min-height: 260px;
+  }
+
+  .process__number {
+    width: 44px;
+    padding-block: 20px;
+  }
+
+  .process__card {
+    padding: 20px;
+  }
+
+  .process__body {
+    gap: 20px;
+  }
+}

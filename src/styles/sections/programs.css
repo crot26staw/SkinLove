@@ -143,3 +143,38 @@
     scrollbar-width: none;
   }
 }
+
+/* Вариант выездных услуг: сверху свой отступ (секция стоит не под «задачами»),
+   под вкладками подпись выбранного направления, под сеткой кнопка «показать
+   остальные» (components/programs.js). */
+.programs--padded {
+  --section-padding-block: var(--section-padding);
+}
+
+.programs--padded .programs__text {
+  max-width: calc(598 * var(--u));
+}
+
+.programs__caption {
+  font-size: var(--fs-text-20);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  text-box: trim-both cap alphabetic;
+  opacity: 0.7;
+}
+
+/* Кнопка показа: правило здесь, общее [hidden] из reset проигрывает
+   display: inline-flex у кнопки по порядку подключения. */
+.programs__more[hidden] {
+  display: none;
+}
+
+@media (width < 1024px) {
+  .programs--padded {
+    --section-padding-block: var(--section-padding);
+  }
+
+  .programs__caption {
+    padding-inline: var(--gutter);
+  }
+}

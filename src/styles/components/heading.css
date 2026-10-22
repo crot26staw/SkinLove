@@ -46,6 +46,15 @@
   letter-spacing: var(--ls-h2-accent);
 }
 
+.heading--h2-sm {
+  font-size: var(--fs-h2-sm);
+}
+
+.heading--h2-sm .heading__line {
+  line-height: var(--lh-h2);
+  letter-spacing: var(--ls-h2);
+}
+
 /* .heading__word — слово заголовка. Обёртку создаёт скрипт заливки
    (heading-fill.js), прозрачность ведёт он же: от --heading-muted до единицы.
    Своих стилей у слова нет. */
@@ -59,7 +68,8 @@
 /* Планшет: строки заголовка с зазором, как в макете 768. */
 @media (width < 1024px) {
   .heading--h1,
-  .heading--h2 {
+  .heading--h2,
+  .heading--h2-sm {
     gap: 5px;
   }
 

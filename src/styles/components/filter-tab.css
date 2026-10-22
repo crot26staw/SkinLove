@@ -62,6 +62,11 @@
   display: block;
 }
 
+/* Вкладка на светлом фоне (выездные услуги): невыбранная — бежевая. */
+.filter-tab--beige {
+  background-color: var(--color-beige);
+}
+
 @media (width < 1024px) {
   .filter-tab {
     padding: 12px 14px;

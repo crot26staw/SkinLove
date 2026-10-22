@@ -28,7 +28,9 @@ p {
   color: var(--color-bg);
   font-size: var(--fs-text-16);
   text-transform: uppercase;
-  transform: translateY(-100%);
+  /* На пиксель дальше своей высоты: при дробной высоте от --u край
+     оставался полоской над светлой шапкой. */
+  transform: translateY(calc(-100% - 1px));
   transition: transform var(--duration-fast) var(--ease-out);
 }
 

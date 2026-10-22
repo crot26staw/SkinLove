@@ -1,0 +1,66 @@
+/* Карточка отзыва в ряду (выездные услуги): сверху фото и имя, снизу текст.
+   Высота минимальная, длинный отзыв её растянет. Фото необязательно:
+   без него в ячейке заглушка-силуэт, как в отзывах на главной. */
+.review-card {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  gap: calc(40 * var(--u));
+  justify-content: space-between;
+  width: calc(445 * var(--u));
+  min-height: calc(370 * var(--u));
+  padding: calc(30 * var(--u));
+  border-radius: calc(5 * var(--u));
+  background-color: var(--color-bg);
+  scroll-snap-align: start;
+}
+
+.review-card__author {
+  display: flex;
+  gap: calc(10 * var(--u));
+  align-items: flex-end;
+}
+
+.review-card__photo {
+  flex-shrink: 0;
+  width: calc(80 * var(--u));
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: calc(8 * var(--u));
+  /* Подложка под заглушку, когда фото нет (как на главной). */
+  background-color: var(--color-beige);
+}
+
+.review-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.review-card__name {
+  font-size: var(--fs-text-20);
+  font-weight: 500;
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  text-box: trim-both cap alphabetic;
+}
+
+.review-card__text {
+  font-size: var(--fs-subtitle);
+  font-weight: 500;
+  line-height: var(--lh-h4);
+  letter-spacing: var(--ls-text);
+  text-box: trim-both cap alphabetic;
+}
+
+@media (width < 1024px) {
+  .review-card {
+    width: 300px;
+    min-height: 300px;
+    padding: 20px;
+  }
+
+  .review-card__photo {
+    width: 60px;
+  }
+}

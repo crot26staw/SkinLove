@@ -1,0 +1,120 @@
+/* «Не меняйте свои планы»: слева фото на всю высоту, справа заголовок, текст
+   и список поводов. У пункта линия сверху и слева, у списка — снизу;
+   сердца над названием показывают номер пункта (components/reasons.js).
+   Снизу отступа нет: каталог ниже несёт свой. */
+.reasons {
+  --section-padding-block: calc(150 * var(--u)) 0;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: calc(20 * var(--u));
+  padding-inline: var(--gutter);
+}
+
+/* Кадр вынут из потока: высоту строки задаёт текст. */
+.reasons__media {
+  position: relative;
+  overflow: hidden;
+  border-radius: calc(3 * var(--u));
+}
+
+.reasons__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.reasons__body {
+  display: flex;
+  flex-direction: column;
+  gap: calc(40 * var(--u));
+  justify-content: flex-end;
+  min-width: 0;
+}
+
+.reasons__title {
+  max-width: calc(847 * var(--u));
+}
+
+.reasons__text {
+  max-width: calc(548 * var(--u));
+  font-size: var(--fs-text-20);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  text-box: trim-both cap alphabetic;
+}
+
+.reasons__list {
+  border-bottom: 1px solid var(--color-line);
+}
+
+.reason {
+  display: flex;
+  flex-direction: column;
+  gap: calc(20 * var(--u));
+  padding: calc(30 * var(--u));
+  border-top: 1px solid var(--color-line);
+  border-left: 1px solid var(--color-line);
+}
+
+.reason__marks {
+  display: flex;
+  gap: calc(2 * var(--u));
+}
+
+/* Пусто, пока скрипт не поставил сердца: без зазора над названием. */
+.reason__marks:empty {
+  display: none;
+}
+
+.reason__mark {
+  width: calc(10 * var(--u));
+  height: calc(9.175 * var(--u));
+  opacity: 0.2;
+}
+
+.reason__mark--current {
+  opacity: 1;
+}
+
+.reason__title {
+  font-size: var(--fs-h4);
+  font-weight: 500;
+  line-height: var(--lh-h4);
+  letter-spacing: var(--ls-h4);
+  text-box: trim-both cap alphabetic;
+}
+
+.reason__text {
+  max-width: calc(482 * var(--u));
+  font-size: var(--fs-text-18);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  text-box: trim-both cap alphabetic;
+  opacity: 0.8;
+}
+
+/* Планшет: текст и список сверху, фото под ними. */
+@media (width < 1024px) {
+  .reasons {
+    --section-padding-block: var(--section-padding) 0;
+
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 40px;
+  }
+
+  .reasons__body {
+    gap: 30px;
+  }
+
+  .reasons__media {
+    aspect-ratio: 4 / 3;
+  }
+
+  .reason {
+    padding: 20px;
+  }
+}

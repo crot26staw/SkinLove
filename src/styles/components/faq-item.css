@@ -62,6 +62,10 @@
 }
 
 .faq-item__answer {
+  display: flex;
+  flex-direction: column;
+  gap: calc(20 * var(--u));
+  align-items: flex-start;
   margin-top: calc(20 * var(--u));
   padding-top: calc(20 * var(--u));
   border-top: 1px solid var(--color-line);
