@@ -39,18 +39,21 @@ export function initPrices() {
   };
 }
 
+/* Списков в блоке может быть несколько (варианты прайса, components/
+   price-variants.js) — лимит считается по видимому, при смене варианта
+   блок получает событие prices:reset и сворачивается под новый список. */
 function setup(block, compact, compactLimit) {
-  const list = block.querySelector('[data-prices-list]');
+  const lists = [...block.querySelectorAll('[data-prices-list]')];
   const toggle = block.querySelector('[data-prices-toggle]');
   const limits = { wide: Number(block.dataset.pricesLimit), compact: compactLimit };
 
-  if (!list || !toggle || !limits.wide || !limits.compact) return;
+  if (!lists.length || !toggle || !limits.wide || !limits.compact) return;
 
-  const rows = [...list.children];
+  let list = lists[0];
   let extra = [];
 
   const set = (open) => {
-    rows.forEach((row) => {
+    [...list.children].forEach((row) => {
       row.hidden = !open && extra.includes(row);
     });
     toggle.setAttribute('aria-expanded', String(open));
@@ -61,7 +64,9 @@ function setup(block, compact, compactLimit) {
   };
 
   const reset = () => {
-    extra = rows.slice(compact.matches ? limits.compact : limits.wide);
+    list.removeAttribute('data-lenis-prevent');
+    list = lists.find((item) => !item.hidden) ?? lists[0];
+    extra = [...list.children].slice(compact.matches ? limits.compact : limits.wide);
     toggle.hidden = !extra.length;
     set(false);
   };
@@ -70,6 +75,13 @@ function setup(block, compact, compactLimit) {
 
   reset();
   toggle.addEventListener('click', onClick);
+  block.addEventListener('prices:reset', reset);
 
-  return { reset, unbind: () => toggle.removeEventListener('click', onClick) };
+  return {
+    reset,
+    unbind: () => {
+      toggle.removeEventListener('click', onClick);
+      block.removeEventListener('prices:reset', reset);
+    }
+  };
 }

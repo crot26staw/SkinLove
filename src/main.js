@@ -14,6 +14,7 @@ import { initCarousels } from './scripts/components/carousel.js';
 import { initLangSwitch } from './scripts/components/lang-switch.js';
 import { initReasons } from './scripts/components/reasons.js';
 import { initPrices } from './scripts/components/prices.js';
+import { initPriceVariants } from './scripts/components/price-variants.js';
 import { initAnimations } from './scripts/animations/index.js';
 
 initButtons();
@@ -30,4 +31,5 @@ initPrograms();
 initCarousels();
 initReasons();
 initPrices();
+initPriceVariants();
 initAnimations();

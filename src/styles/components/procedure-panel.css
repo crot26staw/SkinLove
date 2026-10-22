@@ -58,6 +58,34 @@
   gap: calc(10 * var(--u));
 }
 
+/* Неактивный вариант прайса прячет components/price-variants.js. */
+.procedure-panel__price-list[hidden] {
+  display: none;
+}
+
+/* Варианты прайса (женская / мужская): ряд вкладок-пилюль над списком. */
+.procedure-panel__variants {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(10 * var(--u));
+}
+
+/* Подзаголовок группы внутри прайса (комплекс, курс): строка списка
+   начертанием 500. До соседних строк шаг 20 вместо 10 — добирает
+   собственный отступ; первым в списке сверху он не нужен. */
+.procedure-panel__price-group {
+  padding-bottom: calc(10 * var(--u));
+  font-size: var(--fs-text-20);
+  font-weight: 500;
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  text-box: trim-both cap alphabetic;
+}
+
+.procedure-panel__price-group:not(:first-child) {
+  padding-top: calc(10 * var(--u));
+}
+
 .procedure-panel__price {
   display: flex;
   gap: calc(20 * var(--u));
