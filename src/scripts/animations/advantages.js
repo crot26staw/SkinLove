@@ -40,7 +40,7 @@ export function initAdvantages() {
   return createRailScene({
     section,
     track,
-    holdNext: !next?.querySelector('[data-blind], [data-cta-card]'),
+    holdNext: !next?.matches('[data-reel]') && !next?.querySelector('[data-blind], [data-cta-card]'),
     shrink,
     build: (timeline, at, { length, distance }) => {
       const width = window.innerWidth;

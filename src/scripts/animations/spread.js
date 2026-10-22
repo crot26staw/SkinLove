@@ -58,6 +58,11 @@ function createSpread(section) {
   const lead = () => window.innerHeight * SPREAD_SHARE * LEAD_SHARE;
   const applyLead = () => section.style.setProperty('--spread-lead', `${lead()}px`);
 
+  /* Если на секции идёт «Экскурсия» (её отступ ставит tour.js до разъезда),
+     текст начинает разъезжаться с её началом — то есть с первой прокрутки —
+     с тем же ходом, что и без неё, и дальше видео идёт уже без текста. */
+  const tour = () => parseFloat(section.style.getPropertyValue('--tour-length')) || 0;
+
   return gsap.context(() => {
     const mm = gsap.matchMedia();
 
@@ -66,12 +71,15 @@ function createSpread(section) {
       applyLead();
       gsap.set(veil, { backgroundColor: getComputedStyle(next).backgroundColor });
 
-      /* Длительности — в долях экрана: разбег, потом наезд длиной в экран. */
+      /* Длительности — в долях экрана: экскурсия, если есть, разбег, потом
+         наезд длиной в экран. Доля экскурсии от размера экрана не зависит. */
+      const tourShare = tour() / window.innerHeight;
+
       const timeline = gsap.timeline({
         defaults: { ease: 'none' },
         scrollTrigger: {
           trigger: next,
-          start: () => `top bottom+=${lead()}`,
+          start: () => `top bottom+=${lead() + tour()}`,
           end: 'top top',
           scrub: true,
           invalidateOnRefresh: true,
@@ -79,7 +87,7 @@ function createSpread(section) {
         }
       });
 
-      const overlap = SPREAD_SHARE * LEAD_SHARE;
+      const overlap = tourShare + SPREAD_SHARE * LEAD_SHARE;
 
       if (left.length) {
         timeline.to(left, { x: (_, element) => -travelLeft(element), duration: SPREAD_SHARE }, 0);

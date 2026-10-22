@@ -7,9 +7,11 @@ import { initHeroVideo } from './hero-video.js';
 import { initServices } from './services.js';
 import { initAtmosphere } from './atmosphere.js';
 import { initAdvantages } from './advantages.js';
+import { initReel } from './reel.js';
 import { initCta } from './cta.js';
 import { initFooter } from './footer.js';
 import { initSpread } from './spread.js';
+import { initTour } from './tour.js';
 import { initProcedures } from './procedures.js';
 import { initSteps } from './steps.js';
 import { initTasks } from './tasks.js';
@@ -29,6 +31,8 @@ export function initAnimations() {
     initHeroIntro(),
     initHeroBackdrop(),
     initHeroVideo(),
+    /* До разъезда: отступ экскурсии сдвигает его старт. */
+    initTour(),
     initSpread(),
     /* Сцены с закреплением — в порядке секций на странице: распорку
        закреплённой секции ScrollTrigger учитывает только у триггеров,
@@ -42,6 +46,7 @@ export function initAnimations() {
     initServices(),
     initAtmosphere(),
     initAdvantages(),
+    initReel(),
     initReviewsBlinds(),
     initCta(),
     initFooter(),

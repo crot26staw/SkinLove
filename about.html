@@ -122,9 +122,12 @@
   </div>
 
   <main id="main">
-    <section class="page-hero" data-section="page-hero" data-spread>
+    <section class="page-hero" data-section="page-hero" data-spread data-tour>
       <div class="page-hero__decor" aria-hidden="true">
-        <img class="page-hero__decor-media" src="/img/about-hero.jpg" width="1672" height="941" alt="" decoding="async">
+        <video class="page-hero__decor-media" data-tour-video width="1920" height="1080" poster="/img/about-video-poster.jpg" muted playsinline preload="auto" disablepictureinpicture tabindex="-1">
+          <source src="/video/about-video-4k.mp4" media="(min-width: 1024px)" type="video/mp4">
+          <source src="/video/about-video.mp4" type="video/mp4">
+        </video>
       </div>
 
       <div class="page-hero__veil" data-spread-veil aria-hidden="true"></div>
@@ -297,25 +300,37 @@
       </div>
     </section>
 
-    <section class="section section--light frame frame--reverse" data-section="frame">
-      <div class="frame__card">
+    <section class="section section--light frame frame--reverse" data-section="frame" data-reel>
+      <div class="frame__card" data-reel-card>
         <div class="frame__decor" aria-hidden="true">
-          <img class="frame__image" src="/img/about-hero.jpg" width="1672" height="941" alt="" loading="lazy" decoding="async">
+          <video class="frame__image" data-reel-video width="1920" height="1080" poster="/img/frame-video-poster.jpg" muted playsinline preload="auto" disablepictureinpicture tabindex="-1">
+            <source src="/video/frame-video-4k.mp4" media="(min-width: 1024px)" type="video/mp4">
+            <source src="/video/frame-video.mp4" type="video/mp4">
+          </video>
         </div>
 
-        <div class="frame__lines" aria-hidden="true">
-          <svg class="frame__marker" data-rule-marker viewBox="0 0 13.7866 13.7866" fill="none" aria-hidden="true" focusable="false"><path d="M5.74443 13.7866V0h2.32649v13.7866H5.74443ZM0 8.07092V5.7157h13.7866v2.35522H0Z" fill="currentColor"/></svg>
-        </div>
+        <div class="frame__stack">
+          <h2 class="heading heading--h2 frame__title" data-heading-fill data-reel-layer="0">
+            <span class="heading__line">Пространство, в котором</span>
+            <span class="heading__line heading__line--accent">легко расслабиться</span>
+          </h2>
 
-        <h2 class="heading heading--h2 frame__title" data-heading-fill>
-          <span class="heading__line">Пространство, в котором</span>
-          <span class="heading__line heading__line--accent">легко расслабиться</span>
-        </h2>
+          <h2 class="heading heading--h2 frame__title" data-reel-layer="1" hidden>
+            <span class="heading__line">Время, которое</span>
+            <span class="heading__line heading__line--accent">принадлежит только вам</span>
+          </h2>
+        </div>
 
         <div class="frame__foot">
           <div class="frame__texts">
-            <div class="frame__text content">
-            <p>Каждая деталь SkinLove создана для того, чтобы вы могли переключиться с повседневных забот и почувствовать спокойствие уже с первых минут.</p>
+            <div class="frame__stack">
+              <div class="frame__text content" data-reel-layer="0">
+                <p>Каждая деталь SkinLove создана для того, чтобы вы могли переключиться с повседневных забот и почувствовать спокойствие уже с первых минут.</p>
+              </div>
+
+              <div class="frame__text content" data-reel-layer="1" hidden>
+                <p>Продуманная обстановка, мягкий свет и внимание к деталям создают атмосферу, в которой можно замедлиться и посвятить время себе.</p>
+              </div>
             </div>
           </div>
 

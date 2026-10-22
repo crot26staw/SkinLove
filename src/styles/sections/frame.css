@@ -2,7 +2,7 @@
    перекрестие через центр, внизу текст и сердца. Два варианта в одной секции:
    карточка со скруглением на поле страницы (`frame--inset`) и навылет.
    `frame--reverse` меняет низ местами: сердца слева, текст справа.
-   Подводка (`frame__lead`) необязательна. */
+   Подводка (`frame__lead`) и перекрестие (`frame__lines`) необязательны. */
 .frame {
   --section-padding-block: 0;
 
@@ -36,6 +36,7 @@
 }
 
 .frame__image {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -85,6 +86,23 @@
   color: var(--color-bg);
   opacity: 0.5;
   translate: -50% -50%;
+}
+
+/* Стопка подменяемых слоёв (сцена «Плёнка»): все в одной ячейке, высота —
+   по самому высокому, и при подмене ничего не прыгает. Без JS виден первый,
+   остальные спрятаны `hidden` — правило здесь, потому что display у
+   заголовка перебивает общее из reset. */
+.frame__stack {
+  position: relative;
+  display: grid;
+}
+
+.frame__stack > * {
+  grid-area: 1 / 1;
+}
+
+.frame__stack > [hidden] {
+  display: none;
 }
 
 .frame__title {
