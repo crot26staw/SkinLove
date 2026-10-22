@@ -22,10 +22,15 @@
       <img class="header__logo-image" src="/img/logo-white.png" width="301" height="102" alt="SkinLove" decoding="async">
     </a>
 
-    <button class="lang-switch" type="button" aria-label="Язык сайта: русский" data-lang-switch>
-      <span class="lang-switch__label">Ru</span>
-      <svg class="lang-switch__icon" viewBox="0 0 7.856 6.804" fill="none" aria-hidden="true" focusable="false"><path d="M3.928 6.804 0 0h7.856L3.928 6.804Z" fill="currentColor"/></svg>
-    </button>
+    <div class="lang-switch" data-lang-switch>
+      <button class="lang-switch__toggle" type="button" aria-label="Язык сайта: русский" aria-expanded="false" aria-controls="lang-switch-list" data-lang-switch-toggle>
+        <span class="lang-switch__label">Ru</span>
+        <svg class="lang-switch__icon" viewBox="0 0 7.856 6.804" fill="none" aria-hidden="true" focusable="false"><path d="M3.928 6.804 0 0h7.856L3.928 6.804Z" fill="currentColor"/></svg>
+      </button>
+      <ul class="lang-switch__list" id="lang-switch-list" data-lang-switch-list hidden>
+        <li class="lang-switch__item" data-lang-switch-item><a class="lang-switch__link" href="#" lang="en" hreflang="en">En</a></li>
+      </ul>
+    </div>
 
     <button
       class="menu-toggle"
@@ -208,7 +213,7 @@
           </li>
           <li class="services__item" data-services-item>
             <article class="service-card" data-services-card>
-              <div class="service-card__media"><img class="service-card__image" src="/img/svc-2-inject.jpg" width="916" height="531" alt="Инъекционная косметология" decoding="async"></div>
+              <div class="service-card__media"><img class="service-card__image" src="/img/svc-2-inject-patient.jpg" width="1672" height="1114" alt="Инъекционная косметология" decoding="async"></div>
               <div class="service-card__body">
                 <h3 class="service-card__title">Инъекционная косметология</h3>
                 <p class="service-card__text">Современные методики для естественной коррекции возрастных изменений и улучшения качества кожи.</p>
@@ -234,9 +239,9 @@
           </li>
           <li class="services__item" data-services-item>
             <article class="service-card" data-services-card>
-              <div class="service-card__media"><img class="service-card__image" src="/img/svc-4-laser.png" width="418" height="236" alt="Лазерная косметология" decoding="async"></div>
+              <div class="service-card__media"><img class="service-card__image" src="/img/svc-4-laser.png" width="418" height="236" alt="Аппаратная косметология" decoding="async"></div>
               <div class="service-card__body">
-                <h3 class="service-card__title">Лазерная косметология</h3>
+                <h3 class="service-card__title">Аппаратная косметология</h3>
                 <p class="service-card__text">Технологичные процедуры для омоложения кожи и коррекции эстетических несовершенств.</p>
                 <a class="button" data-button href="#">
                   <span class="button__label">Узнать подробнее</span>

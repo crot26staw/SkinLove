@@ -45,19 +45,83 @@
 
 /* Переключатель языка слева от кнопки меню, на 20 от неё. Ширину кнопки
    подставляет scripts/components/lang-switch.js, запасное значение —
-   на случай без скрипта. */
+   на случай без скрипта.
+
+   Открытый — тёмная плашка из кита: текущий язык сверху, под ним остальные.
+   Место в раскладке занимает только кнопка, список висит под ней
+   абсолютом и заходит на её нижний отступ, чтобы между строками было 8,
+   как в макете. Плашка складывается из двух частей одного цвета: кнопки
+   со скруглением только сверху и списка со скруглением только снизу. */
 .lang-switch {
+  --lang-switch-padding: calc(14 * var(--u));
+
   position: fixed;
   top: var(--header-offset);
   right: calc(46 * var(--u) + var(--menu-toggle-width, 130 * var(--u)));
   z-index: var(--z-header);
+  color: var(--color-bg);
+  mix-blend-mode: difference;
+}
+
+.lang-switch__toggle {
   display: flex;
   align-items: center;
   gap: calc(8 * var(--u));
-  padding: calc(14 * var(--u));
+  padding: var(--lang-switch-padding);
   border-radius: calc(50 * var(--u));
+}
+
+.lang-switch__list {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: calc(8 * var(--u));
+  margin-top: calc(8 * var(--u) - var(--lang-switch-padding));
+  padding: 0 var(--lang-switch-padding) var(--lang-switch-padding);
+  border-radius: 0 0 calc(5 * var(--u)) calc(5 * var(--u));
+  background-color: var(--color-ink);
   color: var(--color-bg);
-  mix-blend-mode: difference;
+  /* Открытое состояние явно: от него скрипт разворачивает список сверху вниз. */
+  clip-path: inset(0% 0% 0% 0%);
+}
+
+.lang-switch__list[hidden] {
+  display: none;
+}
+
+.lang-switch__link {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: var(--fs-text-18);
+  font-weight: 500;
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  text-transform: uppercase;
+  text-box: trim-both cap alphabetic;
+  opacity: 0.5;
+  transition: opacity var(--duration-fast) var(--ease-out);
+}
+
+.lang-switch__link:hover,
+.lang-switch__link:focus-visible {
+  opacity: 1;
+}
+
+.lang-switch[data-open] {
+  mix-blend-mode: normal;
+}
+
+.lang-switch[data-open] .lang-switch__toggle {
+  border-radius: calc(5 * var(--u)) calc(5 * var(--u)) 0 0;
+  background-color: var(--color-ink);
+  color: var(--color-bg);
+}
+
+.lang-switch[data-open] .lang-switch__label {
+  opacity: 1;
 }
 
 .lang-switch__icon {
@@ -82,16 +146,23 @@
 }
 
 .header--plain .menu-toggle:not(:hover, :focus-visible),
-.header--plain .lang-switch:not(:hover, :focus-visible) {
+.header--plain .lang-switch {
   color: var(--color-ink);
 }
 
-/* Ховер из кита: тёмная пилюля со светлой подписью, без инверсии. */
+/* Ховер из кита: тёмная пилюля со светлой подписью, без инверсии.
+   У переключателя инверсия стоит на обёртке, поэтому и снимается с неё. */
 .menu-toggle:hover,
 .menu-toggle:focus-visible,
-.lang-switch:hover,
-.lang-switch:focus-visible {
+.lang-switch__toggle:hover,
+.lang-switch__toggle:focus-visible {
   background-color: var(--color-ink);
+  color: var(--color-bg);
+  mix-blend-mode: normal;
+}
+
+.lang-switch:hover,
+.lang-switch:has(:focus-visible) {
   mix-blend-mode: normal;
 }
 
@@ -210,18 +281,23 @@
     background-color: var(--color-bg);
   }
 
-  .header--bar .header__logo,
-  .header--bar .lang-switch {
+  .header--bar .header__logo {
     position: static;
+    mix-blend-mode: normal;
+  }
+
+  /* Не static: от переключателя отсчитывается выпадающий список,
+     и он должен лежать поверх первого экрана. */
+  .header--bar .lang-switch {
+    position: relative;
+    top: auto;
+    right: auto;
+    color: var(--color-ink);
     mix-blend-mode: normal;
   }
 
   .header--bar .header__logo-image {
     filter: invert(0.77);
-  }
-
-  .header--bar .lang-switch:not(:hover, :focus-visible) {
-    color: var(--color-ink);
   }
 
   .header--bar .menu-toggle {
@@ -259,13 +335,18 @@
   }
 
   .lang-switch {
+    --lang-switch-padding: 8px;
+
     right: calc(2 * var(--gutter) + var(--menu-toggle-width, 90px));
+  }
+
+  .lang-switch__toggle {
     gap: 8px;
-    padding: 8px;
   }
 
   .menu-toggle__label,
-  .lang-switch__label {
+  .lang-switch__label,
+  .lang-switch__link {
     font-size: var(--fs-text-16);
   }
 
