@@ -1,0 +1,69 @@
+/* Вкладка фильтра: пилюля с подписью, выбранная — тёмная, с сердцем.
+   На ховере подпись становится плотнее, как в ките. Чтобы вкладка при этом
+   не росла и не толкала соседей, ширину держит невидимая копия подписи
+   в начертании 500 (data-label), лежащая с ней в одной ячейке. Обрезка
+   по заглавным — на каждом слое отдельно: на самой ячейке она не работает. */
+.filter-tab {
+  display: inline-flex;
+  flex-shrink: 0;
+  gap: calc(10 * var(--u));
+  align-items: center;
+  padding: calc(17 * var(--u));
+  border-radius: calc(80 * var(--u));
+  background-color: var(--color-bg);
+  color: var(--color-ink);
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
+}
+
+.filter-tab__icon {
+  display: none;
+  flex-shrink: 0;
+  width: calc(10.899 * var(--u));
+  height: calc(10 * var(--u));
+}
+
+.filter-tab__label {
+  display: inline-grid;
+  justify-items: center;
+  font-size: var(--fs-text-18);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  white-space: nowrap;
+  opacity: 0.7;
+}
+
+.filter-tab__text,
+.filter-tab__label::after {
+  grid-area: 1 / 1;
+  text-box: trim-both cap alphabetic;
+}
+
+.filter-tab__label::after {
+  content: attr(data-label);
+  font-weight: 500;
+  visibility: hidden;
+}
+
+.filter-tab:hover .filter-tab__label,
+.filter-tab:focus-visible .filter-tab__label,
+.filter-tab[aria-pressed='true'] .filter-tab__label {
+  font-weight: 500;
+  opacity: 1;
+}
+
+.filter-tab[aria-pressed='true'] {
+  background-color: var(--color-ink);
+  color: var(--color-bg);
+}
+
+.filter-tab[aria-pressed='true'] .filter-tab__icon {
+  display: block;
+}
+
+@media (width < 1024px) {
+  .filter-tab {
+    padding: 12px 14px;
+  }
+}

@@ -15,6 +15,7 @@ import { initSteps } from './steps.js';
 import { initTasks } from './tasks.js';
 import { initOccasions } from './occasions.js';
 import { initReviewsBlinds } from './reviews.js';
+import { initPromosBlinds } from './promos.js';
 import { initHeadingFill } from './heading-fill.js';
 import { initRules } from './rule.js';
 import { initSmoothScroll } from '../utils/smooth-scroll.js';
@@ -33,6 +34,7 @@ export function initAnimations() {
        созданных после неё. */
     initOccasions(),
     initProcedures(),
+    initPromosBlinds(),
     initSteps(),
     initTasks(),
     initServices(),

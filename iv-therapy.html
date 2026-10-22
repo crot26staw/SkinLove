@@ -22,6 +22,11 @@
       <img class="header__logo-image" src="/img/logo-white.png" width="301" height="102" alt="SkinLove" decoding="async">
     </a>
 
+    <button class="lang-switch" type="button" aria-label="Язык сайта: русский" data-lang-switch>
+      <span class="lang-switch__label">Ru</span>
+      <svg class="lang-switch__icon" viewBox="0 0 7.856 6.804" fill="none" aria-hidden="true" focusable="false"><path d="M3.928 6.804 0 0h7.856L3.928 6.804Z" fill="currentColor"/></svg>
+    </button>
+
     <button
       class="menu-toggle"
       type="button"
@@ -62,7 +67,7 @@
             <li class="menu-item current-menu-item"><a href="#" data-menu-direction data-image="/img/footer-direction.jpg">IV Therapy</a></li>
             <li class="menu-item"><a href="#" data-menu-direction data-image="/img/svc-3-face.jpg">Инъекционная косметология</a></li>
             <li class="menu-item"><a href="#" data-menu-direction data-image="/img/svc-3-face.jpg">Эстетическая косметология лица</a></li>
-            <li class="menu-item"><a href="#" data-menu-direction data-image="/img/svc-4-laser.png">Лазерная косметология</a></li>
+            <li class="menu-item"><a href="#" data-menu-direction data-image="/img/svc-4-laser.png">Аппаратная косметология</a></li>
             <li class="menu-item"><a href="#" data-menu-direction data-image="/img/svc-5-body.png">Коррекция фигуры и массаж</a></li>
             <li class="menu-item"><a href="#" data-menu-direction data-image="/img/svc-7-wellness.jpg">Wellness</a></li>
             <li class="menu-item"><a href="#" data-menu-direction data-image="/img/svc-6-outcall.jpg">Выездные услуги</a></li>
@@ -193,12 +198,8 @@
       </ul>
     </section>
 
-    <section class="section programs" data-section="programs">
-      <div class="programs__media">
-        <img class="programs__image" src="/img/svc-1-iv.jpg" width="1672" height="941" alt="Пациентка во время капельницы" loading="lazy" decoding="async">
-      </div>
-
-      <div class="programs__body">
+    <section class="section programs" data-section="programs" data-programs>
+      <div class="programs__intro">
         <div class="programs__head">
           <p class="descriptor">Виды</p>
 
@@ -208,123 +209,418 @@
           </h2>
         </div>
 
-        <div class="programs__content">
-          <p class="programs__text">
-            От быстрого восстановления после перелёта или напряжённой недели до комплексной
-            поддержки энергии, иммунитета, сна и общего самочувствия.
-          </p>
+        <p class="programs__text">
+          От быстрого восстановления после перелёта или напряжённой недели до комплексной
+          поддержки энергии, иммунитета, сна и общего самочувствия.
+        </p>
 
-          <ul class="programs__tags">
-            <li class="tag">
-              <svg class="tag__icon" viewBox="0 0 10.8992 10" fill="none" aria-hidden="true" focusable="false"><path d="M5.44959 10L4.6594 9.28065C1.85286 6.7357 0 5.05177 0 2.99728C0 1.31335 1.3188 0 2.99728 0C3.9455 0 4.85559 0.441417 5.44959 1.13351C6.0436 0.441417 6.95368 0 7.90191 0C9.58038 0 10.8992 1.31335 10.8992 2.99728C10.8992 5.05177 9.04632 6.7357 6.23978 9.28065L5.44959 10Z" fill="currentColor"/></svg>
-              <span class="tag__label">Энергия</span>
-            </li>
-            <li class="tag">
-              <svg class="tag__icon" viewBox="0 0 10.8992 10" fill="none" aria-hidden="true" focusable="false"><path d="M5.44959 10L4.6594 9.28065C1.85286 6.7357 0 5.05177 0 2.99728C0 1.31335 1.3188 0 2.99728 0C3.9455 0 4.85559 0.441417 5.44959 1.13351C6.0436 0.441417 6.95368 0 7.90191 0C9.58038 0 10.8992 1.31335 10.8992 2.99728C10.8992 5.05177 9.04632 6.7357 6.23978 9.28065L5.44959 10Z" fill="currentColor"/></svg>
-              <span class="tag__label">Иммунитет</span>
-            </li>
-            <li class="tag">
-              <svg class="tag__icon" viewBox="0 0 10.8992 10" fill="none" aria-hidden="true" focusable="false"><path d="M5.44959 10L4.6594 9.28065C1.85286 6.7357 0 5.05177 0 2.99728C0 1.31335 1.3188 0 2.99728 0C3.9455 0 4.85559 0.441417 5.44959 1.13351C6.0436 0.441417 6.95368 0 7.90191 0C9.58038 0 10.8992 1.31335 10.8992 2.99728C10.8992 5.05177 9.04632 6.7357 6.23978 9.28065L5.44959 10Z" fill="currentColor"/></svg>
-              <span class="tag__label">Beauty</span>
-            </li>
-            <li class="tag">
-              <svg class="tag__icon" viewBox="0 0 10.8992 10" fill="none" aria-hidden="true" focusable="false"><path d="M5.44959 10L4.6594 9.28065C1.85286 6.7357 0 5.05177 0 2.99728C0 1.31335 1.3188 0 2.99728 0C3.9455 0 4.85559 0.441417 5.44959 1.13351C6.0436 0.441417 6.95368 0 7.90191 0C9.58038 0 10.8992 1.31335 10.8992 2.99728C10.8992 5.05177 9.04632 6.7357 6.23978 9.28065L5.44959 10Z" fill="currentColor"/></svg>
-              <span class="tag__label">Детокс</span>
-            </li>
-            <li class="tag">
-              <svg class="tag__icon" viewBox="0 0 10.8992 10" fill="none" aria-hidden="true" focusable="false"><path d="M5.44959 10L4.6594 9.28065C1.85286 6.7357 0 5.05177 0 2.99728C0 1.31335 1.3188 0 2.99728 0C3.9455 0 4.85559 0.441417 5.44959 1.13351C6.0436 0.441417 6.95368 0 7.90191 0C9.58038 0 10.8992 1.31335 10.8992 2.99728C10.8992 5.05177 9.04632 6.7357 6.23978 9.28065L5.44959 10Z" fill="currentColor"/></svg>
-              <span class="tag__label">Brain &amp; Focus</span>
-            </li>
-            <li class="tag">
-              <svg class="tag__icon" viewBox="0 0 10.8992 10" fill="none" aria-hidden="true" focusable="false"><path d="M5.44959 10L4.6594 9.28065C1.85286 6.7357 0 5.05177 0 2.99728C0 1.31335 1.3188 0 2.99728 0C3.9455 0 4.85559 0.441417 5.44959 1.13351C6.0436 0.441417 6.95368 0 7.90191 0C9.58038 0 10.8992 1.31335 10.8992 2.99728C10.8992 5.05177 9.04632 6.7357 6.23978 9.28065L5.44959 10Z" fill="currentColor"/></svg>
-              <span class="tag__label">Восстановление</span>
-            </li>
-            <li class="tag">
-              <svg class="tag__icon" viewBox="0 0 10.8992 10" fill="none" aria-hidden="true" focusable="false"><path d="M5.44959 10L4.6594 9.28065C1.85286 6.7357 0 5.05177 0 2.99728C0 1.31335 1.3188 0 2.99728 0C3.9455 0 4.85559 0.441417 5.44959 1.13351C6.0436 0.441417 6.95368 0 7.90191 0C9.58038 0 10.8992 1.31335 10.8992 2.99728C10.8992 5.05177 9.04632 6.7357 6.23978 9.28065L5.44959 10Z" fill="currentColor"/></svg>
-              <span class="tag__label">Anti-age</span>
-            </li>
-            <li class="tag">
-              <svg class="tag__icon" viewBox="0 0 10.8992 10" fill="none" aria-hidden="true" focusable="false"><path d="M5.44959 10L4.6594 9.28065C1.85286 6.7357 0 5.05177 0 2.99728C0 1.31335 1.3188 0 2.99728 0C3.9455 0 4.85559 0.441417 5.44959 1.13351C6.0436 0.441417 6.95368 0 7.90191 0C9.58038 0 10.8992 1.31335 10.8992 2.99728C10.8992 5.05177 9.04632 6.7357 6.23978 9.28065L5.44959 10Z" fill="currentColor"/></svg>
-              <span class="tag__label">Спорт</span>
-            </li>
-            <li class="tag">
-              <svg class="tag__icon" viewBox="0 0 10.8992 10" fill="none" aria-hidden="true" focusable="false"><path d="M5.44959 10L4.6594 9.28065C1.85286 6.7357 0 5.05177 0 2.99728C0 1.31335 1.3188 0 2.99728 0C3.9455 0 4.85559 0.441417 5.44959 1.13351C6.0436 0.441417 6.95368 0 7.90191 0C9.58038 0 10.8992 1.31335 10.8992 2.99728C10.8992 5.05177 9.04632 6.7357 6.23978 9.28065L5.44959 10Z" fill="currentColor"/></svg>
-              <span class="tag__label">Women’s Health</span>
-            </li>
-            <li class="tag">
-              <svg class="tag__icon" viewBox="0 0 10.8992 10" fill="none" aria-hidden="true" focusable="false"><path d="M5.44959 10L4.6594 9.28065C1.85286 6.7357 0 5.05177 0 2.99728C0 1.31335 1.3188 0 2.99728 0C3.9455 0 4.85559 0.441417 5.44959 1.13351C6.0436 0.441417 6.95368 0 7.90191 0C9.58038 0 10.8992 1.31335 10.8992 2.99728C10.8992 5.05177 9.04632 6.7357 6.23978 9.28065L5.44959 10Z" fill="currentColor"/></svg>
-              <span class="tag__label">Men’s Health</span>
-            </li>
-          </ul>
-
-          <a class="button programs__button" data-button href="#request-modal" data-modal-open="request-modal">
-            <span class="button__label">Записаться на процедуру</span>
-            <svg class="button__icon" viewBox="0 0 10 9.175" fill="none" aria-hidden="true" focusable="false"><path d="M5 9.175 4.275 8.515C1.7 6.18 0 4.635 0 2.75 0 1.205 1.21 0 2.75 0c.87 0 1.705.405 2.25 1.04C5.545.405 6.38 0 7.25 0 8.79 0 10 1.205 10 2.75c0 1.885-1.7 3.43-4.275 5.765L5 9.175Z" fill="currentColor"/></svg>
-          </a>
+        <div class="programs__filters" role="group" aria-label="Виды программ" data-programs-filters>
+          <button class="filter-tab" type="button" aria-pressed="true" data-programs-filter="all">
+            <svg class="filter-tab__icon" viewBox="0 0 10.8992 10" fill="none" aria-hidden="true" focusable="false"><path d="M5.44959 10L4.6594 9.28065C1.85286 6.7357 0 5.05177 0 2.99728C0 1.31335 1.3188 0 2.99728 0C3.9455 0 4.85559 0.441417 5.44959 1.13351C6.0436 0.441417 6.95368 0 7.90191 0C9.58038 0 10.8992 1.31335 10.8992 2.99728C10.8992 5.05177 9.04632 6.7357 6.23978 9.28065L5.44959 10Z" fill="currentColor"/></svg>
+            <span class="filter-tab__label" data-label="Все виды"><span class="filter-tab__text">Все виды</span></span>
+          </button>
+          <button class="filter-tab" type="button" aria-pressed="false" data-programs-filter="vitamin">
+            <svg class="filter-tab__icon" viewBox="0 0 10.8992 10" fill="none" aria-hidden="true" focusable="false"><path d="M5.44959 10L4.6594 9.28065C1.85286 6.7357 0 5.05177 0 2.99728C0 1.31335 1.3188 0 2.99728 0C3.9455 0 4.85559 0.441417 5.44959 1.13351C6.0436 0.441417 6.95368 0 7.90191 0C9.58038 0 10.8992 1.31335 10.8992 2.99728C10.8992 5.05177 9.04632 6.7357 6.23978 9.28065L5.44959 10Z" fill="currentColor"/></svg>
+            <span class="filter-tab__label" data-label="Витаминные"><span class="filter-tab__text">Витаминные</span></span>
+          </button>
+          <button class="filter-tab" type="button" aria-pressed="false" data-programs-filter="recovery">
+            <svg class="filter-tab__icon" viewBox="0 0 10.8992 10" fill="none" aria-hidden="true" focusable="false"><path d="M5.44959 10L4.6594 9.28065C1.85286 6.7357 0 5.05177 0 2.99728C0 1.31335 1.3188 0 2.99728 0C3.9455 0 4.85559 0.441417 5.44959 1.13351C6.0436 0.441417 6.95368 0 7.90191 0C9.58038 0 10.8992 1.31335 10.8992 2.99728C10.8992 5.05177 9.04632 6.7357 6.23978 9.28065L5.44959 10Z" fill="currentColor"/></svg>
+            <span class="filter-tab__label" data-label="Восстановительные"><span class="filter-tab__text">Восстановительные</span></span>
+          </button>
+          <button class="filter-tab" type="button" aria-pressed="false" data-programs-filter="beauty">
+            <svg class="filter-tab__icon" viewBox="0 0 10.8992 10" fill="none" aria-hidden="true" focusable="false"><path d="M5.44959 10L4.6594 9.28065C1.85286 6.7357 0 5.05177 0 2.99728C0 1.31335 1.3188 0 2.99728 0C3.9455 0 4.85559 0.441417 5.44959 1.13351C6.0436 0.441417 6.95368 0 7.90191 0C9.58038 0 10.8992 1.31335 10.8992 2.99728C10.8992 5.05177 9.04632 6.7357 6.23978 9.28065L5.44959 10Z" fill="currentColor"/></svg>
+            <span class="filter-tab__label" data-label="Beauty и Anti-age"><span class="filter-tab__text">Beauty и Anti-age</span></span>
+          </button>
+          <button class="filter-tab" type="button" aria-pressed="false" data-programs-filter="energy">
+            <svg class="filter-tab__icon" viewBox="0 0 10.8992 10" fill="none" aria-hidden="true" focusable="false"><path d="M5.44959 10L4.6594 9.28065C1.85286 6.7357 0 5.05177 0 2.99728C0 1.31335 1.3188 0 2.99728 0C3.9455 0 4.85559 0.441417 5.44959 1.13351C6.0436 0.441417 6.95368 0 7.90191 0C9.58038 0 10.8992 1.31335 10.8992 2.99728C10.8992 5.05177 9.04632 6.7357 6.23978 9.28065L5.44959 10Z" fill="currentColor"/></svg>
+            <span class="filter-tab__label" data-label="Энергетические"><span class="filter-tab__text">Энергетические</span></span>
+          </button>
+          <button class="filter-tab" type="button" aria-pressed="false" data-programs-filter="health">
+            <svg class="filter-tab__icon" viewBox="0 0 10.8992 10" fill="none" aria-hidden="true" focusable="false"><path d="M5.44959 10L4.6594 9.28065C1.85286 6.7357 0 5.05177 0 2.99728C0 1.31335 1.3188 0 2.99728 0C3.9455 0 4.85559 0.441417 5.44959 1.13351C6.0436 0.441417 6.95368 0 7.90191 0C9.58038 0 10.8992 1.31335 10.8992 2.99728C10.8992 5.05177 9.04632 6.7357 6.23978 9.28065L5.44959 10Z" fill="currentColor"/></svg>
+            <span class="filter-tab__label" data-label="Оздоровительные"><span class="filter-tab__text">Оздоровительные</span></span>
+          </button>
+          <button class="filter-tab" type="button" aria-pressed="false" data-programs-filter="course">
+            <svg class="filter-tab__icon" viewBox="0 0 10.8992 10" fill="none" aria-hidden="true" focusable="false"><path d="M5.44959 10L4.6594 9.28065C1.85286 6.7357 0 5.05177 0 2.99728C0 1.31335 1.3188 0 2.99728 0C3.9455 0 4.85559 0.441417 5.44959 1.13351C6.0436 0.441417 6.95368 0 7.90191 0C9.58038 0 10.8992 1.31335 10.8992 2.99728C10.8992 5.05177 9.04632 6.7357 6.23978 9.28065L5.44959 10Z" fill="currentColor"/></svg>
+            <span class="filter-tab__label" data-label="Курсы"><span class="filter-tab__text">Курсы</span></span>
+          </button>
         </div>
       </div>
-    </section>
 
-    <section class="section section--beige steps" data-section="steps" data-steps>
-      <div class="steps__head">
-        <p class="descriptor">Этапы</p>
-
-        <h2 class="heading heading--h2 steps__title" data-heading-fill>
-          <span class="heading__line">Комфортно. Безопасно.</span>
-          <span class="heading__line heading__line--accent">Под наблюдением специалиста</span>
-        </h2>
-      </div>
-
-      <div class="steps__row" data-steps-track>
-        <div class="steps__visual">
-          <p class="steps__counter" aria-hidden="true">
-            <span class="steps__count" data-steps-counter><span class="steps__number">01</span><span class="steps__total">/04</span></span>
-            <span class="steps__count" data-steps-counter hidden><span class="steps__number">02</span><span class="steps__total">/04</span></span>
-            <span class="steps__count" data-steps-counter hidden><span class="steps__number">03</span><span class="steps__total">/04</span></span>
-            <span class="steps__count" data-steps-counter hidden><span class="steps__number">04</span><span class="steps__total">/04</span></span>
-          </p>
-
-          <ul class="steps__frames">
-          <li class="steps__frame" data-steps-frame>
-            <img class="steps__image" src="/img/outcall-step-1.jpg" width="1200" height="900" alt="Поднос с чаем и закусками после процедуры" decoding="async">
-          </li>
-          <li class="steps__frame" data-steps-frame hidden>
-            <img class="steps__image" src="/img/outcall-vitamin.jpg" width="1866" height="1400" alt="Подготовка состава капельницы" decoding="async">
-          </li>
-          <li class="steps__frame" data-steps-frame hidden>
-            <img class="steps__image" src="/img/svc-1-iv.jpg" width="1672" height="941" alt="Пациентка во время капельницы" decoding="async">
-          </li>
-          <li class="steps__frame" data-steps-frame hidden>
-            <img class="steps__image" src="/img/svc-7-wellness.jpg" width="1672" height="941" alt="Специалист даёт рекомендации" decoding="async">
-          </li>
-          </ul>
-        </div>
-
-        <div class="steps__body">
-          <p class="steps__label">Этапы</p>
-
-          <div class="steps__viewport">
-            <ol class="steps__list" data-steps-list>
-            <li class="step" data-steps-item aria-current="step">
-              <h3 class="step__title">Консультация</h3>
-              <p class="step__text">Специалист уточняет ваш запрос, собирает анамнез и при необходимости рекомендует анализы.</p>
-            </li>
-            <li class="step" data-steps-item>
-              <h3 class="step__title">Подбор состава</h3>
-              <p class="step__text">Программа составляется индивидуально с учётом ваших целей и состояния организма.</p>
-            </li>
-            <li class="step" data-steps-item>
-              <h3 class="step__title">Проведение процедуры</h3>
-              <p class="step__text">Капельница проходит в комфортной атмосфере клиники или с выездом в удобное для вас место.</p>
-            </li>
-            <li class="step" data-steps-item>
-              <h3 class="step__title">Рекомендации</h3>
-              <p class="step__text">После процедуры вы получите рекомендации и дальнейший план поддержки организма.</p>
-            </li>
-            </ol>
+      <ul class="programs__grid" data-programs-grid>
+        <li class="program-card" data-program data-category="vitamin">
+          <div class="program-card__body">
+            <div class="program-card__head">
+              <h3 class="program-card__title">Капельница «Витамин D»</h3>
+              <p class="program-card__tag">Витамины</p>
+            </div>
+            <p class="program-card__text">Программа для восполнения дефицита витамина D при подтверждённой необходимости.</p>
           </div>
-        </div>
-      </div>
+
+          <div class="program-card__footer">
+            <p class="program-card__price">
+              <span class="program-card__amount">1 процедура</span>
+              <span class="program-card__value">650 AED</span>
+            </p>
+
+            <a class="button" data-button href="#request-modal" data-modal-open="request-modal">
+              <span class="button__label">Записаться на процедуру</span>
+              <svg class="button__icon" viewBox="0 0 10 9.175" fill="none" aria-hidden="true" focusable="false"><path d="M5 9.175 4.275 8.515C1.7 6.18 0 4.635 0 2.75 0 1.205 1.21 0 2.75 0c.87 0 1.705.405 2.25 1.04C5.545.405 6.38 0 7.25 0 8.79 0 10 1.205 10 2.75c0 1.885-1.7 3.43-4.275 5.765L5 9.175Z" fill="currentColor"/></svg>
+            </a>
+          </div>
+        </li>
+
+        <li class="program-card" data-program data-category="vitamin">
+          <div class="program-card__body">
+            <div class="program-card__head">
+              <h3 class="program-card__title">Капельница «Мультивитамин»</h3>
+              <p class="program-card__tag">Витамины</p>
+            </div>
+            <p class="program-card__text">Комплекс микроэлементов для восполнения индивидуальных потребностей организма и нутритивной поддержки.</p>
+          </div>
+
+          <div class="program-card__footer">
+            <p class="program-card__price">
+              <span class="program-card__amount">1 процедура</span>
+              <span class="program-card__value">750 AED</span>
+            </p>
+
+            <a class="button" data-button href="#request-modal" data-modal-open="request-modal">
+              <span class="button__label">Записаться на процедуру</span>
+              <svg class="button__icon" viewBox="0 0 10 9.175" fill="none" aria-hidden="true" focusable="false"><path d="M5 9.175 4.275 8.515C1.7 6.18 0 4.635 0 2.75 0 1.205 1.21 0 2.75 0c.87 0 1.705.405 2.25 1.04C5.545.405 6.38 0 7.25 0 8.79 0 10 1.205 10 2.75c0 1.885-1.7 3.43-4.275 5.765L5 9.175Z" fill="currentColor"/></svg>
+            </a>
+          </div>
+        </li>
+
+        <li class="program-card" data-program data-category="vitamin">
+          <div class="program-card__body">
+            <div class="program-card__head">
+              <h3 class="program-card__title">Капельница «Железо»</h3>
+              <p class="program-card__tag">Витамины</p>
+            </div>
+            <p class="program-card__text">Инфузионная терапия для восполнения дефицита железа по результатам анализов и назначению врача.</p>
+          </div>
+
+          <div class="program-card__footer">
+            <p class="program-card__price">
+              <span class="program-card__amount">1 процедура</span>
+              <span class="program-card__value">650 AED</span>
+            </p>
+
+            <a class="button" data-button href="#request-modal" data-modal-open="request-modal">
+              <span class="button__label">Записаться на процедуру</span>
+              <svg class="button__icon" viewBox="0 0 10 9.175" fill="none" aria-hidden="true" focusable="false"><path d="M5 9.175 4.275 8.515C1.7 6.18 0 4.635 0 2.75 0 1.205 1.21 0 2.75 0c.87 0 1.705.405 2.25 1.04C5.545.405 6.38 0 7.25 0 8.79 0 10 1.205 10 2.75c0 1.885-1.7 3.43-4.275 5.765L5 9.175Z" fill="currentColor"/></svg>
+            </a>
+          </div>
+        </li>
+
+        <li class="program-card" data-program data-category="recovery">
+          <div class="program-card__body">
+            <div class="program-card__head">
+              <h3 class="program-card__title">Миланский коктейль</h3>
+              <p class="program-card__tag">Восстановление</p>
+            </div>
+            <p class="program-card__text">Инфузионный комплекс с глутатионом, актовегином и витаминами группы B, представленный в прайсе для восстановления после нагрузок.</p>
+          </div>
+
+          <div class="program-card__footer">
+            <p class="program-card__price">
+              <span class="program-card__amount">1 процедура</span>
+              <span class="program-card__value">650 AED</span>
+            </p>
+
+            <a class="button" data-button href="#request-modal" data-modal-open="request-modal">
+              <span class="button__label">Записаться на процедуру</span>
+              <svg class="button__icon" viewBox="0 0 10 9.175" fill="none" aria-hidden="true" focusable="false"><path d="M5 9.175 4.275 8.515C1.7 6.18 0 4.635 0 2.75 0 1.205 1.21 0 2.75 0c.87 0 1.705.405 2.25 1.04C5.545.405 6.38 0 7.25 0 8.79 0 10 1.205 10 2.75c0 1.885-1.7 3.43-4.275 5.765L5 9.175Z" fill="currentColor"/></svg>
+            </a>
+          </div>
+        </li>
+
+        <li class="program-card" data-program data-category="recovery">
+          <div class="program-card__body">
+            <div class="program-card__head">
+              <h3 class="program-card__title">Капельница Майерса</h3>
+              <p class="program-card__tag">Восстановление</p>
+            </div>
+            <p class="program-card__text">Витаминно-минеральный комплекс с витаминами C, группы B, магнием и кальцием для нутритивной поддержки.</p>
+          </div>
+
+          <div class="program-card__footer">
+            <p class="program-card__price">
+              <span class="program-card__amount">1 процедура</span>
+              <span class="program-card__value">650 AED</span>
+            </p>
+
+            <a class="button" data-button href="#request-modal" data-modal-open="request-modal">
+              <span class="button__label">Записаться на процедуру</span>
+              <svg class="button__icon" viewBox="0 0 10 9.175" fill="none" aria-hidden="true" focusable="false"><path d="M5 9.175 4.275 8.515C1.7 6.18 0 4.635 0 2.75 0 1.205 1.21 0 2.75 0c.87 0 1.705.405 2.25 1.04C5.545.405 6.38 0 7.25 0 8.79 0 10 1.205 10 2.75c0 1.885-1.7 3.43-4.275 5.765L5 9.175Z" fill="currentColor"/></svg>
+            </a>
+          </div>
+        </li>
+
+        <li class="program-card" data-program data-category="beauty">
+          <div class="program-card__body">
+            <div class="program-card__head">
+              <h3 class="program-card__title">Капельница «Золушка»</h3>
+              <p class="program-card__tag">Beauty</p>
+            </div>
+            <p class="program-card__text">Антиоксидантный комплекс с глутатионом, альфа-липоевой кислотой и витамином C, представленный как программа поддержки качества кожи.</p>
+          </div>
+
+          <div class="program-card__footer">
+            <p class="program-card__price">
+              <span class="program-card__amount">1 процедура</span>
+              <span class="program-card__value">650 AED</span>
+            </p>
+
+            <a class="button" data-button href="#request-modal" data-modal-open="request-modal">
+              <span class="button__label">Записаться на процедуру</span>
+              <svg class="button__icon" viewBox="0 0 10 9.175" fill="none" aria-hidden="true" focusable="false"><path d="M5 9.175 4.275 8.515C1.7 6.18 0 4.635 0 2.75 0 1.205 1.21 0 2.75 0c.87 0 1.705.405 2.25 1.04C5.545.405 6.38 0 7.25 0 8.79 0 10 1.205 10 2.75c0 1.885-1.7 3.43-4.275 5.765L5 9.175Z" fill="currentColor"/></svg>
+            </a>
+          </div>
+        </li>
+
+        <li class="program-card" data-program data-category="beauty">
+          <div class="program-card__body">
+            <div class="program-card__head">
+              <h3 class="program-card__title">Капельница Laennec</h3>
+              <p class="program-card__tag">Anti-age</p>
+            </div>
+            <p class="program-card__text">Инфузионная терапия на основе плацентарного препарата, представленная в прайсе как программа поддержки восстановления тканей.</p>
+          </div>
+
+          <div class="program-card__footer">
+            <p class="program-card__price">
+              <span class="program-card__amount">1 процедура</span>
+              <span class="program-card__value">750 AED</span>
+            </p>
+
+            <a class="button" data-button href="#request-modal" data-modal-open="request-modal">
+              <span class="button__label">Записаться на процедуру</span>
+              <svg class="button__icon" viewBox="0 0 10 9.175" fill="none" aria-hidden="true" focusable="false"><path d="M5 9.175 4.275 8.515C1.7 6.18 0 4.635 0 2.75 0 1.205 1.21 0 2.75 0c.87 0 1.705.405 2.25 1.04C5.545.405 6.38 0 7.25 0 8.79 0 10 1.205 10 2.75c0 1.885-1.7 3.43-4.275 5.765L5 9.175Z" fill="currentColor"/></svg>
+            </a>
+          </div>
+        </li>
+
+        <li class="program-card" data-program data-category="energy">
+          <div class="program-card__body">
+            <div class="program-card__head">
+              <h3 class="program-card__title">Капельница «Антистресс»</h3>
+              <p class="program-card__tag">Антистресс</p>
+            </div>
+            <p class="program-card__text">Инфузионная программа, представленная в прайсе для поддержки организма в периоды эмоциональных нагрузок и переутомления.</p>
+          </div>
+
+          <div class="program-card__footer">
+            <p class="program-card__price">
+              <span class="program-card__amount">1 процедура</span>
+              <span class="program-card__value">650 AED</span>
+            </p>
+
+            <a class="button" data-button href="#request-modal" data-modal-open="request-modal">
+              <span class="button__label">Записаться на процедуру</span>
+              <svg class="button__icon" viewBox="0 0 10 9.175" fill="none" aria-hidden="true" focusable="false"><path d="M5 9.175 4.275 8.515C1.7 6.18 0 4.635 0 2.75 0 1.205 1.21 0 2.75 0c.87 0 1.705.405 2.25 1.04C5.545.405 6.38 0 7.25 0 8.79 0 10 1.205 10 2.75c0 1.885-1.7 3.43-4.275 5.765L5 9.175Z" fill="currentColor"/></svg>
+            </a>
+          </div>
+        </li>
+
+        <li class="program-card" data-program data-category="energy">
+          <div class="program-card__body">
+            <div class="program-card__head">
+              <h3 class="program-card__title">Капельница с NAD+</h3>
+              <p class="program-card__tag">Энергия</p>
+            </div>
+            <p class="program-card__text">Инфузия с NAD+, позиционируемая как программа поддержки клеточных энергетических процессов.</p>
+          </div>
+
+          <div class="program-card__footer">
+            <p class="program-card__price">
+              <span class="program-card__amount">1 процедура</span>
+              <span class="program-card__value">750 AED</span>
+            </p>
+
+            <a class="button" data-button href="#request-modal" data-modal-open="request-modal">
+              <span class="button__label">Записаться на процедуру</span>
+              <svg class="button__icon" viewBox="0 0 10 9.175" fill="none" aria-hidden="true" focusable="false"><path d="M5 9.175 4.275 8.515C1.7 6.18 0 4.635 0 2.75 0 1.205 1.21 0 2.75 0c.87 0 1.705.405 2.25 1.04C5.545.405 6.38 0 7.25 0 8.79 0 10 1.205 10 2.75c0 1.885-1.7 3.43-4.275 5.765L5 9.175Z" fill="currentColor"/></svg>
+            </a>
+          </div>
+        </li>
+
+        <li class="program-card" data-program data-category="energy">
+          <div class="program-card__body">
+            <div class="program-card__head">
+              <h3 class="program-card__title">Капельница для улучшения работы головного мозга</h3>
+              <p class="program-card__tag">Энергия</p>
+            </div>
+            <p class="program-card__text">Программа, представленная в прайсе для поддержки концентрации внимания и когнитивных функций.</p>
+          </div>
+
+          <div class="program-card__footer">
+            <p class="program-card__price">
+              <span class="program-card__amount">1 процедура</span>
+              <span class="program-card__value">650 AED</span>
+            </p>
+
+            <a class="button" data-button href="#request-modal" data-modal-open="request-modal">
+              <span class="button__label">Записаться на процедуру</span>
+              <svg class="button__icon" viewBox="0 0 10 9.175" fill="none" aria-hidden="true" focusable="false"><path d="M5 9.175 4.275 8.515C1.7 6.18 0 4.635 0 2.75 0 1.205 1.21 0 2.75 0c.87 0 1.705.405 2.25 1.04C5.545.405 6.38 0 7.25 0 8.79 0 10 1.205 10 2.75c0 1.885-1.7 3.43-4.275 5.765L5 9.175Z" fill="currentColor"/></svg>
+            </a>
+          </div>
+        </li>
+
+        <li class="program-card" data-program data-category="health">
+          <div class="program-card__body">
+            <div class="program-card__head">
+              <h3 class="program-card__title">Капельница против простуды и гриппа</h3>
+              <p class="program-card__tag">Здоровье</p>
+            </div>
+            <p class="program-card__text">Комплекс с витамином C, Реамберином и полиоксидонием, указанный в прайсе для применения при простудных состояниях.</p>
+          </div>
+
+          <div class="program-card__footer">
+            <p class="program-card__price">
+              <span class="program-card__amount">1 процедура</span>
+              <span class="program-card__value">650 AED</span>
+            </p>
+
+            <a class="button" data-button href="#request-modal" data-modal-open="request-modal">
+              <span class="button__label">Записаться на процедуру</span>
+              <svg class="button__icon" viewBox="0 0 10 9.175" fill="none" aria-hidden="true" focusable="false"><path d="M5 9.175 4.275 8.515C1.7 6.18 0 4.635 0 2.75 0 1.205 1.21 0 2.75 0c.87 0 1.705.405 2.25 1.04C5.545.405 6.38 0 7.25 0 8.79 0 10 1.205 10 2.75c0 1.885-1.7 3.43-4.275 5.765L5 9.175Z" fill="currentColor"/></svg>
+            </a>
+          </div>
+        </li>
+
+        <li class="program-card" data-program data-category="health">
+          <div class="program-card__body">
+            <div class="program-card__head">
+              <h3 class="program-card__title">Капельница «Супер Слим»</h3>
+              <p class="program-card__tag">Здоровье</p>
+            </div>
+            <p class="program-card__text">Инфузионная программа с альфа-липоевой кислотой, представленная в прайсе как дополнение к программам контроля веса.</p>
+          </div>
+
+          <div class="program-card__footer">
+            <p class="program-card__price">
+              <span class="program-card__amount">1 процедура</span>
+              <span class="program-card__value">650 AED</span>
+            </p>
+
+            <a class="button" data-button href="#request-modal" data-modal-open="request-modal">
+              <span class="button__label">Записаться на процедуру</span>
+              <svg class="button__icon" viewBox="0 0 10 9.175" fill="none" aria-hidden="true" focusable="false"><path d="M5 9.175 4.275 8.515C1.7 6.18 0 4.635 0 2.75 0 1.205 1.21 0 2.75 0c.87 0 1.705.405 2.25 1.04C5.545.405 6.38 0 7.25 0 8.79 0 10 1.205 10 2.75c0 1.885-1.7 3.43-4.275 5.765L5 9.175Z" fill="currentColor"/></svg>
+            </a>
+          </div>
+        </li>
+
+        <li class="program-card" data-program data-category="health">
+          <div class="program-card__body">
+            <div class="program-card__head">
+              <h3 class="program-card__title">Капельница от отравлений</h3>
+              <p class="program-card__tag">Здоровье</p>
+            </div>
+            <p class="program-card__text">Инфузионная программа, указанная в прайсе для восстановительной поддержки при интоксикациях.</p>
+          </div>
+
+          <div class="program-card__footer">
+            <p class="program-card__price">
+              <span class="program-card__amount">1 процедура</span>
+              <span class="program-card__value">750 AED</span>
+            </p>
+
+            <a class="button" data-button href="#request-modal" data-modal-open="request-modal">
+              <span class="button__label">Записаться на процедуру</span>
+              <svg class="button__icon" viewBox="0 0 10 9.175" fill="none" aria-hidden="true" focusable="false"><path d="M5 9.175 4.275 8.515C1.7 6.18 0 4.635 0 2.75 0 1.205 1.21 0 2.75 0c.87 0 1.705.405 2.25 1.04C5.545.405 6.38 0 7.25 0 8.79 0 10 1.205 10 2.75c0 1.885-1.7 3.43-4.275 5.765L5 9.175Z" fill="currentColor"/></svg>
+            </a>
+          </div>
+        </li>
+
+        <li class="program-card" data-program data-category="health">
+          <div class="program-card__body">
+            <div class="program-card__head">
+              <h3 class="program-card__title">Капельница «Очищающая»</h3>
+              <p class="program-card__tag">Здоровье</p>
+            </div>
+            <p class="program-card__text">Программа, представленная в прайсе для поддержки обменных процессов и общего самочувствия.</p>
+          </div>
+
+          <div class="program-card__footer">
+            <p class="program-card__price">
+              <span class="program-card__amount">1 процедура</span>
+              <span class="program-card__value">650 AED</span>
+            </p>
+
+            <a class="button" data-button href="#request-modal" data-modal-open="request-modal">
+              <span class="button__label">Записаться на процедуру</span>
+              <svg class="button__icon" viewBox="0 0 10 9.175" fill="none" aria-hidden="true" focusable="false"><path d="M5 9.175 4.275 8.515C1.7 6.18 0 4.635 0 2.75 0 1.205 1.21 0 2.75 0c.87 0 1.705.405 2.25 1.04C5.545.405 6.38 0 7.25 0 8.79 0 10 1.205 10 2.75c0 1.885-1.7 3.43-4.275 5.765L5 9.175Z" fill="currentColor"/></svg>
+            </a>
+          </div>
+        </li>
+
+        <li class="program-card" data-program data-category="health">
+          <div class="program-card__body">
+            <div class="program-card__head">
+              <h3 class="program-card__title">Капельница «Здоровая печень»</h3>
+              <p class="program-card__tag">Здоровье</p>
+            </div>
+            <p class="program-card__text">Инфузионная программа с Гептралом, представленная в прайсе для поддержки функции печени.</p>
+          </div>
+
+          <div class="program-card__footer">
+            <p class="program-card__price">
+              <span class="program-card__amount">1 процедура</span>
+              <span class="program-card__value">650 AED</span>
+            </p>
+
+            <a class="button" data-button href="#request-modal" data-modal-open="request-modal">
+              <span class="button__label">Записаться на процедуру</span>
+              <svg class="button__icon" viewBox="0 0 10 9.175" fill="none" aria-hidden="true" focusable="false"><path d="M5 9.175 4.275 8.515C1.7 6.18 0 4.635 0 2.75 0 1.205 1.21 0 2.75 0c.87 0 1.705.405 2.25 1.04C5.545.405 6.38 0 7.25 0 8.79 0 10 1.205 10 2.75c0 1.885-1.7 3.43-4.275 5.765L5 9.175Z" fill="currentColor"/></svg>
+            </a>
+          </div>
+        </li>
+
+        <li class="program-card" data-program data-category="course">
+          <div class="program-card__body">
+            <div class="program-card__head">
+              <h3 class="program-card__title">Курс капельниц — 6 процедур</h3>
+              <p class="program-card__tag">Курс</p>
+            </div>
+            <p class="program-card__text">Комплекс инфузионных процедур с подбором состава и программы по индивидуальным показаниям.</p>
+          </div>
+
+          <div class="program-card__footer">
+            <p class="program-card__price">
+              <span class="program-card__amount">6 процедур</span>
+              <span class="program-card__value">2900 AED</span>
+            </p>
+
+            <a class="button" data-button href="#request-modal" data-modal-open="request-modal">
+              <span class="button__label">Записаться на процедуру</span>
+              <svg class="button__icon" viewBox="0 0 10 9.175" fill="none" aria-hidden="true" focusable="false"><path d="M5 9.175 4.275 8.515C1.7 6.18 0 4.635 0 2.75 0 1.205 1.21 0 2.75 0c.87 0 1.705.405 2.25 1.04C5.545.405 6.38 0 7.25 0 8.79 0 10 1.205 10 2.75c0 1.885-1.7 3.43-4.275 5.765L5 9.175Z" fill="currentColor"/></svg>
+            </a>
+          </div>
+        </li>
+
+        <li class="program-card" data-program data-category="course">
+          <div class="program-card__body">
+            <div class="program-card__head">
+              <h3 class="program-card__title">Курс капельниц — 10 процедур</h3>
+              <p class="program-card__tag">Курс</p>
+            </div>
+            <p class="program-card__text">Расширенный курс инфузионной терапии с индивидуальным подбором процедур.</p>
+          </div>
+
+          <div class="program-card__footer">
+            <p class="program-card__price">
+              <span class="program-card__amount">10 процедур</span>
+              <span class="program-card__value">4500 AED</span>
+            </p>
+
+            <a class="button" data-button href="#request-modal" data-modal-open="request-modal">
+              <span class="button__label">Записаться на процедуру</span>
+              <svg class="button__icon" viewBox="0 0 10 9.175" fill="none" aria-hidden="true" focusable="false"><path d="M5 9.175 4.275 8.515C1.7 6.18 0 4.635 0 2.75 0 1.205 1.21 0 2.75 0c.87 0 1.705.405 2.25 1.04C5.545.405 6.38 0 7.25 0 8.79 0 10 1.205 10 2.75c0 1.885-1.7 3.43-4.275 5.765L5 9.175Z" fill="currentColor"/></svg>
+            </a>
+          </div>
+        </li>
+      </ul>
     </section>
 
     <section class="section section--beige program-request" data-section="program-request">
@@ -380,6 +676,178 @@
 
       <div class="program-request__media">
         <img class="program-request__image" src="/img/iv-form.jpg" width="1080" height="1920" alt="Пациентка в кресле во время процедуры" loading="lazy" decoding="async">
+      </div>
+    </section>
+
+    <section class="section section--light promos" data-section="promos" data-promos>
+      <div class="blinds" aria-hidden="true">
+        <span class="blinds__bar" data-blind></span>
+        <span class="blinds__bar" data-blind></span>
+        <span class="blinds__bar" data-blind></span>
+        <span class="blinds__bar" data-blind></span>
+        <span class="blinds__bar" data-blind></span>
+      </div>
+
+      <div class="promos__head">
+        <div class="promos__heading">
+          <p class="descriptor">Акции</p>
+
+          <h2 class="heading heading--h2 promos__title" data-heading-fill>
+            <span class="heading__line">Акции</span>
+            <span class="heading__line heading__line--accent">и спецпредложения</span>
+          </h2>
+        </div>
+
+        <div class="promos__nav">
+          <button class="arrow-button" type="button" aria-label="Предыдущие акции" data-promos-prev>
+            <svg class="arrow-button__icon" viewBox="0 0 17.7168 8" fill="none" aria-hidden="true" focusable="false"><path d="M3.98773 0 4.67485.674847 1.85276 3.5092H17.7168v.9816H1.85276l2.82209 2.82208L3.98773 8 0 4l3.98773-4Z" fill="currentColor"/></svg>
+          </button>
+          <button class="arrow-button arrow-button--next" type="button" aria-label="Следующие акции" data-promos-next>
+            <svg class="arrow-button__icon" viewBox="0 0 17.7168 8" fill="none" aria-hidden="true" focusable="false"><path d="M3.98773 0 4.67485.674847 1.85276 3.5092H17.7168v.9816H1.85276l2.82209 2.82208L3.98773 8 0 4l3.98773-4Z" fill="currentColor"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="promos__viewport" data-promos-viewport>
+        <ul class="promos__track">
+          <li class="promo-card">
+            <div class="promo-card__media">
+              <img class="promo-card__image" src="/img/svc-1-iv.jpg" width="1672" height="941" alt="" loading="lazy" decoding="async">
+            </div>
+
+            <h3 class="promo-card__title">Выходные для здоровья</h3>
+
+            <p class="promo-card__text">
+              Приём врача по выгодной цене — без пробок, очередей и спешки. Забота о себе, которая
+              вписывается в ваше расписание. Субботнее и воскресное утро. Никуда не нужно спешить.
+              Самое время для того, что постоянно откладываете, — для консультации с врачом.
+            </p>
+
+            <a class="button" data-button href="#request-modal" data-modal-open="request-modal">
+              <span class="button__label">Подобрать процедуру</span>
+              <svg class="button__icon" viewBox="0 0 10 9.175" fill="none" aria-hidden="true" focusable="false"><path d="M5 9.175 4.275 8.515C1.7 6.18 0 4.635 0 2.75 0 1.205 1.21 0 2.75 0c.87 0 1.705.405 2.25 1.04C5.545.405 6.38 0 7.25 0 8.79 0 10 1.205 10 2.75c0 1.885-1.7 3.43-4.275 5.765L5 9.175Z" fill="currentColor"/></svg>
+            </a>
+          </li>
+
+          <li class="promo-card">
+            <div class="promo-card__media">
+              <img class="promo-card__image" src="/img/outcall-vitamin.jpg" width="1866" height="1400" alt="" loading="lazy" decoding="async">
+            </div>
+
+            <h3 class="promo-card__title">Выходные для здоровья</h3>
+
+            <p class="promo-card__text">
+              Приём врача по выгодной цене — без пробок, очередей и спешки. Забота о себе, которая
+              вписывается в ваше расписание. Субботнее и воскресное утро. Никуда не нужно спешить.
+              Самое время для того, что постоянно откладываете, — для консультации с врачом.
+            </p>
+
+            <a class="button" data-button href="#request-modal" data-modal-open="request-modal">
+              <span class="button__label">Подобрать процедуру</span>
+              <svg class="button__icon" viewBox="0 0 10 9.175" fill="none" aria-hidden="true" focusable="false"><path d="M5 9.175 4.275 8.515C1.7 6.18 0 4.635 0 2.75 0 1.205 1.21 0 2.75 0c.87 0 1.705.405 2.25 1.04C5.545.405 6.38 0 7.25 0 8.79 0 10 1.205 10 2.75c0 1.885-1.7 3.43-4.275 5.765L5 9.175Z" fill="currentColor"/></svg>
+            </a>
+          </li>
+
+          <li class="promo-card">
+            <div class="promo-card__media">
+              <img class="promo-card__image" src="/img/iv-form.jpg" width="1080" height="1920" alt="" loading="lazy" decoding="async">
+            </div>
+
+            <h3 class="promo-card__title">Выходные для здоровья</h3>
+
+            <p class="promo-card__text">
+              Приём врача по выгодной цене — без пробок, очередей и спешки. Забота о себе, которая
+              вписывается в ваше расписание. Субботнее и воскресное утро. Никуда не нужно спешить.
+              Самое время для того, что постоянно откладываете, — для консультации с врачом.
+            </p>
+
+            <a class="button" data-button href="#request-modal" data-modal-open="request-modal">
+              <span class="button__label">Подобрать процедуру</span>
+              <svg class="button__icon" viewBox="0 0 10 9.175" fill="none" aria-hidden="true" focusable="false"><path d="M5 9.175 4.275 8.515C1.7 6.18 0 4.635 0 2.75 0 1.205 1.21 0 2.75 0c.87 0 1.705.405 2.25 1.04C5.545.405 6.38 0 7.25 0 8.79 0 10 1.205 10 2.75c0 1.885-1.7 3.43-4.275 5.765L5 9.175Z" fill="currentColor"/></svg>
+            </a>
+          </li>
+
+          <li class="promo-card">
+            <div class="promo-card__media">
+              <img class="promo-card__image" src="/img/outcall-tests.jpg" width="2487" height="1400" alt="" loading="lazy" decoding="async">
+            </div>
+
+            <h3 class="promo-card__title">Выходные для здоровья</h3>
+
+            <p class="promo-card__text">
+              Приём врача по выгодной цене — без пробок, очередей и спешки. Забота о себе, которая
+              вписывается в ваше расписание. Субботнее и воскресное утро. Никуда не нужно спешить.
+              Самое время для того, что постоянно откладываете, — для консультации с врачом.
+            </p>
+
+            <a class="button" data-button href="#request-modal" data-modal-open="request-modal">
+              <span class="button__label">Подобрать процедуру</span>
+              <svg class="button__icon" viewBox="0 0 10 9.175" fill="none" aria-hidden="true" focusable="false"><path d="M5 9.175 4.275 8.515C1.7 6.18 0 4.635 0 2.75 0 1.205 1.21 0 2.75 0c.87 0 1.705.405 2.25 1.04C5.545.405 6.38 0 7.25 0 8.79 0 10 1.205 10 2.75c0 1.885-1.7 3.43-4.275 5.765L5 9.175Z" fill="currentColor"/></svg>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section section--light steps" data-section="steps" data-steps>
+      <div class="steps__head">
+        <p class="descriptor">Этапы</p>
+
+        <h2 class="heading heading--h2 steps__title" data-heading-fill>
+          <span class="heading__line">Комфортно. Безопасно</span>
+          <span class="heading__line heading__line--accent">Под наблюдением специалиста</span>
+        </h2>
+      </div>
+
+      <div class="steps__row" data-steps-track>
+        <div class="steps__visual">
+          <p class="steps__counter" aria-hidden="true">
+            <span class="steps__count" data-steps-counter><span class="steps__number">01</span><span class="steps__total">/04</span></span>
+            <span class="steps__count" data-steps-counter hidden><span class="steps__number">02</span><span class="steps__total">/04</span></span>
+            <span class="steps__count" data-steps-counter hidden><span class="steps__number">03</span><span class="steps__total">/04</span></span>
+            <span class="steps__count" data-steps-counter hidden><span class="steps__number">04</span><span class="steps__total">/04</span></span>
+          </p>
+
+          <ul class="steps__frames">
+          <li class="steps__frame" data-steps-frame>
+            <img class="steps__image" src="/img/outcall-step-1.jpg" width="1200" height="900" alt="Поднос с чаем и закусками после процедуры" decoding="async">
+          </li>
+          <li class="steps__frame" data-steps-frame hidden>
+            <img class="steps__image" src="/img/iv-step-2.jpg" width="1448" height="1086" alt="Флаконы для капельницы на стойке" decoding="async">
+          </li>
+          <li class="steps__frame" data-steps-frame hidden>
+            <img class="steps__image" src="/img/iv-step-3.jpg" width="947" height="789" alt="Пациентка в кресле во время капельницы" decoding="async">
+          </li>
+          <li class="steps__frame" data-steps-frame hidden>
+            <img class="steps__image" src="/img/iv-step-4.jpg" width="1600" height="1066" alt="Специалист подбирает уход для пациентки" decoding="async">
+          </li>
+          </ul>
+        </div>
+
+        <div class="steps__body">
+          <p class="steps__label">Этапы</p>
+
+          <div class="steps__viewport">
+            <ol class="steps__list" data-steps-list>
+            <li class="step" data-steps-item aria-current="step">
+              <h3 class="step__title">Консультация</h3>
+              <p class="step__text">Специалист уточняет ваш запрос, собирает анамнез и при необходимости рекомендует анализы.</p>
+            </li>
+            <li class="step" data-steps-item>
+              <h3 class="step__title">Подбор состава</h3>
+              <p class="step__text">Программа составляется индивидуально с учётом ваших целей и состояния организма.</p>
+            </li>
+            <li class="step" data-steps-item>
+              <h3 class="step__title">Проведение процедуры</h3>
+              <p class="step__text">Капельница проходит в комфортной атмосфере клиники или с выездом в удобное для вас место.</p>
+            </li>
+            <li class="step" data-steps-item>
+              <h3 class="step__title">Рекомендации</h3>
+              <p class="step__text">После процедуры вы получите рекомендации и дальнейший план поддержки организма.</p>
+            </li>
+            </ol>
+          </div>
+        </div>
       </div>
     </section>
     <section class="section section--light advantages" data-section="advantages">
@@ -905,6 +1373,7 @@
 
           <ul class="menu footer__menu" aria-labelledby="footer-address">
             <li class="menu-item"><a href="#">Dubai,Damac Smart Height</a></li>
+            <li class="menu-item"><span class="footer__menu-text">Каждый день 09:00 – 21:00</span></li>
           </ul>
         </div>
 
@@ -929,7 +1398,7 @@
             <li class="menu-item current-menu-item"><a href="#" data-footer-direction data-image="/img/footer-direction.jpg">IV Therapy</a></li>
             <li class="menu-item"><a href="#" data-footer-direction data-image="/img/svc-3-face.jpg">Инъекционная косметология</a></li>
             <li class="menu-item"><a href="#" data-footer-direction data-image="/img/svc-3-face.jpg">Эстетическая косметология лица</a></li>
-            <li class="menu-item"><a href="#" data-footer-direction data-image="/img/svc-4-laser.png">Лазерная косметология</a></li>
+            <li class="menu-item"><a href="#" data-footer-direction data-image="/img/svc-4-laser.png">Аппаратная косметология</a></li>
             <li class="menu-item"><a href="#" data-footer-direction data-image="/img/svc-5-body.png">Коррекция фигуры и массаж</a></li>
             <li class="menu-item"><a href="#" data-footer-direction data-image="/img/svc-7-wellness.jpg">Wellness</a></li>
             <li class="menu-item"><a href="#" data-footer-direction data-image="/img/svc-6-outcall.jpg">Выездные услуги</a></li>

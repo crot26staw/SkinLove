@@ -43,12 +43,37 @@
   mix-blend-mode: difference;
 }
 
+/* Переключатель языка слева от кнопки меню, на 20 от неё. Ширину кнопки
+   подставляет scripts/components/lang-switch.js, запасное значение —
+   на случай без скрипта. */
+.lang-switch {
+  position: fixed;
+  top: var(--header-offset);
+  right: calc(46 * var(--u) + var(--menu-toggle-width, 130 * var(--u)));
+  z-index: var(--z-header);
+  display: flex;
+  align-items: center;
+  gap: calc(8 * var(--u));
+  padding: calc(14 * var(--u));
+  border-radius: calc(50 * var(--u));
+  color: var(--color-bg);
+  mix-blend-mode: difference;
+}
+
+.lang-switch__icon {
+  flex-shrink: 0;
+  width: calc(7.856 * var(--u));
+  height: calc(6.804 * var(--u));
+  opacity: 0.8;
+}
+
 /* Над героем с фото инверсия снимается, пока страница не прокручена
-   (класс ставит scripts/components/header.js): логотип и кнопка тёмные.
+   (класс ставит scripts/components/header.js): логотип и кнопки тёмные.
    Картинка логотипа одна на весь сайт, белая, поэтому в тёмный её
    переводит фильтр: invert(0.77) даёт из белого цвет чернил. */
 .header--plain .header__logo,
-.header--plain .menu-toggle {
+.header--plain .menu-toggle,
+.header--plain .lang-switch {
   mix-blend-mode: normal;
 }
 
@@ -56,18 +81,22 @@
   filter: invert(0.77);
 }
 
-.header--plain .menu-toggle:not(:hover, :focus-visible) {
+.header--plain .menu-toggle:not(:hover, :focus-visible),
+.header--plain .lang-switch:not(:hover, :focus-visible) {
   color: var(--color-ink);
 }
 
 /* Ховер из кита: тёмная пилюля со светлой подписью, без инверсии. */
 .menu-toggle:hover,
-.menu-toggle:focus-visible {
+.menu-toggle:focus-visible,
+.lang-switch:hover,
+.lang-switch:focus-visible {
   background-color: var(--color-ink);
   mix-blend-mode: normal;
 }
 
-.menu-toggle__label {
+.menu-toggle__label,
+.lang-switch__label {
   font-family: var(--font-sans);
   font-size: var(--fs-text-18);
   font-weight: 500;
@@ -131,7 +160,14 @@
     padding: 8px;
   }
 
-  .menu-toggle__label {
+  .lang-switch {
+    right: calc(2 * var(--gutter) + var(--menu-toggle-width, 90px));
+    gap: 8px;
+    padding: 8px;
+  }
+
+  .menu-toggle__label,
+  .lang-switch__label {
     font-size: var(--fs-text-16);
   }
 

@@ -1,0 +1,145 @@
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+import { MOTION } from '../utils/media.js';
+import { enableDragScroll } from '../utils/drag-scroll.js';
+
+/* Фильтр видов программ: вкладка показывает карточки своей категории
+   (data-category), «все» — все. Разметка рассчитана на Repeater: карточек
+   и вкладок любое число.
+
+   Раскладка по макету: во «Все виды» ряды по 4 и 3 карточки через один,
+   в категории — по 3. Ряд из одной карточки не остаётся: она забирает
+   соседа из предыдущего ряда. Ширину каждой видимой карточки модуль ставит
+   в --program-span (12-колоночная сетка, sections/programs.css); ниже 1024
+   колонки задаёт CSS, и переменная не действует.
+
+   Высота секции после смены вкладки другая — триггеры ниже пересчитываются.
+
+   Ниже 1024 вкладки стоят в одну строку и листаются вбок: пальцем, тачпадом
+   или протяжкой мышью (utils/drag-scroll.js). Нажатая вкладка выезжает
+   в середину ряда, а край, за которым есть ещё вкладки, затухает
+   (data-fade, sections/programs.css). */
+
+const ALL = 'all';
+const COLUMNS = 12;
+const ROWS_ALL = [4, 3];
+const ROWS_CATEGORY = [3];
+
+export function initPrograms() {
+  document.querySelectorAll('[data-programs]').forEach(setup);
+}
+
+function setup(section) {
+  const row = section.querySelector('[data-programs-filters]');
+  const filters = [...section.querySelectorAll('[data-programs-filter]')];
+  const grid = section.querySelector('[data-programs-grid]');
+  const cards = [...section.querySelectorAll('[data-program]')];
+
+  if (!filters.length || !grid || !cards.length) return;
+
+  const motion = window.matchMedia(MOTION);
+
+  const apply = (value, animate) => {
+    const visible = cards.filter((card) => value === ALL || card.dataset.category === value);
+    const rows = layout(visible.length, value === ALL ? ROWS_ALL : ROWS_CATEGORY);
+
+    filters.forEach((filter) => {
+      filter.setAttribute('aria-pressed', String(filter.dataset.programsFilter === value));
+    });
+
+    cards.forEach((card) => {
+      card.hidden = !visible.includes(card);
+    });
+
+    let index = 0;
+
+    rows.forEach((size) => {
+      visible.slice(index, index + size).forEach((card) => {
+        card.style.setProperty('--program-span', String(COLUMNS / size));
+      });
+      index += size;
+    });
+
+    if (!animate) return;
+
+    grid.scrollLeft = 0;
+    ScrollTrigger.refresh();
+
+    if (motion.matches) {
+      gsap.fromTo(
+        visible,
+        { autoAlpha: 0, y: 20 },
+        { autoAlpha: 1, y: 0, duration: 0.4, ease: 'power2.out', stagger: 0.04, overwrite: true }
+      );
+    }
+  };
+
+  filters.forEach((filter) => {
+    filter.addEventListener('click', () => {
+      if (row) centre(row, filter, motion.matches);
+
+      if (filter.getAttribute('aria-pressed') === 'true') return;
+
+      apply(filter.dataset.programsFilter, true);
+    });
+  });
+
+  if (row) {
+    const fade = () => markFade(row);
+
+    enableDragScroll(row);
+    row.addEventListener('scroll', fade, { passive: true });
+    new ResizeObserver(fade).observe(row);
+  }
+
+  const pressed = filters.find((filter) => filter.getAttribute('aria-pressed') === 'true');
+
+  apply(pressed?.dataset.programsFilter ?? ALL, false);
+}
+
+/* Вкладка — в середину ряда (если ряд не листается, сдвигать нечего). */
+function centre(row, tab, smooth) {
+  const offset = tab.getBoundingClientRect().left - row.getBoundingClientRect().left;
+
+  row.scrollTo({
+    left: row.scrollLeft + offset - (row.clientWidth - tab.offsetWidth) / 2,
+    behavior: smooth ? 'smooth' : 'auto'
+  });
+}
+
+/* С какой стороны за краем ряда ещё есть вкладки: start, end или both. */
+function markFade(row) {
+  const max = row.scrollWidth - row.clientWidth;
+  const start = row.scrollLeft > 1;
+  const end = row.scrollLeft < max - 1;
+
+  if (start && end) {
+    row.dataset.fade = 'both';
+  } else if (start || end) {
+    row.dataset.fade = start ? 'start' : 'end';
+  } else {
+    delete row.dataset.fade;
+  }
+}
+
+/* Размеры рядов: по шаблону по кругу, хвост из одной карточки
+   переезжает к соседу — последние два ряда делят его поровну. */
+function layout(count, pattern) {
+  const rows = [];
+  let left = count;
+
+  while (left > 0) {
+    const size = Math.min(pattern[rows.length % pattern.length], left);
+
+    rows.push(size);
+    left -= size;
+  }
+
+  if (rows.length > 1 && rows.at(-1) === 1) {
+    rows[rows.length - 2] -= 1;
+    rows[rows.length - 1] += 1;
+  }
+
+  return rows;
+}

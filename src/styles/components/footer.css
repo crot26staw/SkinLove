@@ -53,7 +53,9 @@
   align-items: start;
 }
 
-.footer__menu a {
+/* Строка без ссылки (часы работы) — в том же ритме, что и ссылки. */
+.footer__menu a,
+.footer__menu-text {
   display: block;
   padding-block: calc(5 * var(--u));
   font-size: var(--fs-text-20);
@@ -336,7 +338,8 @@
     justify-self: end;
   }
 
-  .footer__menu a {
+  .footer__menu a,
+  .footer__menu-text {
     font-size: var(--fs-subtitle);
   }
 

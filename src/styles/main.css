@@ -19,7 +19,9 @@
 @import './components/faq-item.css';
 @import './components/tab.css';
 @import './components/task-card.css';
-@import './components/tag.css';
+@import './components/filter-tab.css';
+@import './components/program-card.css';
+@import './components/promo-card.css';
 @import './components/result-card.css';
 @import './components/arrow-button.css';
 @import './components/header.css';
@@ -46,6 +48,7 @@
 @import './sections/tasks.css';
 @import './sections/programs.css';
 @import './sections/program-request.css';
+@import './sections/promos.css';
 @import './sections/results.css';
 @import './sections/procedures.css';
 @import './sections/steps.css';

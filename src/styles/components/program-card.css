@@ -1,0 +1,105 @@
+/* Карточка программы: сверху название с меткой и описание, снизу цена
+   и кнопка. Высота минимальная, длинное описание её растянет; карточки
+   в ряду выравнивает сетка. Ширину в 12-колоночной сетке задаёт
+   --program-span (sections/programs.css). */
+.program-card {
+  display: flex;
+  flex-direction: column;
+  grid-column: span var(--program-span, 4);
+  gap: calc(40 * var(--u));
+  justify-content: space-between;
+  min-width: 0;
+  min-height: calc(370 * var(--u));
+  padding: calc(30 * var(--u));
+  border-radius: calc(5 * var(--u));
+  background-color: var(--color-bg);
+}
+
+/* Карточка не из выбранной вкладки (components/programs.js). Правило здесь:
+   общее [hidden] из reset проигрывает display: flex по порядку подключения. */
+.program-card[hidden] {
+  display: none;
+}
+
+.program-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: calc(20 * var(--u));
+}
+
+.program-card__head {
+  display: flex;
+  gap: calc(20 * var(--u));
+  align-items: flex-start;
+}
+
+.program-card__title {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--fs-h4);
+  font-weight: 500;
+  line-height: var(--lh-h4);
+  letter-spacing: var(--ls-h4);
+  text-box: trim-both cap alphabetic;
+}
+
+.program-card__tag {
+  flex-shrink: 0;
+  font-size: var(--fs-text-16);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  white-space: nowrap;
+  text-box: trim-both cap alphabetic;
+  opacity: 0.5;
+}
+
+.program-card__text {
+  font-size: var(--fs-text-20);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  text-box: trim-both cap alphabetic;
+  opacity: 0.8;
+}
+
+.program-card__footer {
+  display: flex;
+  flex-direction: column;
+  gap: calc(20 * var(--u));
+  align-items: flex-start;
+}
+
+.program-card__price {
+  display: flex;
+  flex-direction: column;
+  gap: calc(10 * var(--u));
+}
+
+.program-card__amount {
+  font-size: var(--fs-text-16);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  text-box: trim-both cap alphabetic;
+  opacity: 0.5;
+}
+
+.program-card__value {
+  font-size: var(--fs-text-20);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  text-box: trim-both cap alphabetic;
+}
+
+/* Ниже 1024 колонки задаёт сетка секции, --program-span не действует. */
+@media (width < 1024px) {
+  .program-card {
+    grid-column: auto;
+    min-height: 300px;
+    padding: 20px;
+  }
+}
+
+@media (width < 768px) {
+  .program-card {
+    scroll-snap-align: start;
+  }
+}
