@@ -122,12 +122,6 @@
         <img class="service-hero__decor-media" src="/img/outcall-tests.jpg" width="2487" height="1400" alt="" decoding="async">
       </div>
 
-      <div class="service-hero__lines" aria-hidden="true">
-        <svg class="service-hero__marker" data-rule-marker viewBox="0 0 13.7866 13.7866" fill="none" aria-hidden="true" focusable="false">
-          <path d="M5.74443 13.7866V0h2.32649v13.7866H5.74443ZM0 8.07092V5.7157h13.7866v2.35522H0Z" fill="currentColor"/>
-        </svg>
-      </div>
-
       <div class="service-hero__veil" data-spread-veil aria-hidden="true"></div>
 
       <div class="service-hero__inner">
@@ -297,10 +291,10 @@
                 </p>
               </div>
 
-              <div class="procedure-panel__prices">
+              <div class="procedure-panel__prices" data-prices data-prices-limit="11" data-prices-limit-compact="4">
                 <p class="procedure-panel__prices-title">Стоимость процедур</p>
 
-                <ul class="procedure-panel__price-list">
+                <ul class="procedure-panel__price-list" data-prices-list>
                   <li class="procedure-panel__price">
                     <span class="procedure-panel__price-name">Спина</span>
                     <span class="procedure-panel__price-value">700 AED</span>
@@ -314,6 +308,11 @@
                     <span class="procedure-panel__price-value">900 AED</span>
                   </li>
                 </ul>
+
+                <button class="procedure-panel__more" type="button" aria-expanded="false" data-prices-toggle hidden>
+                  <span class="procedure-panel__more-label procedure-panel__more-label--open">Развернуть полный прайс</span>
+                  <span class="procedure-panel__more-label procedure-panel__more-label--close">Свернуть прайс</span>
+                </button>
               </div>
 
               <a class="button procedure-panel__button" data-button href="#request-modal" data-modal-open="request-modal">
@@ -332,10 +331,10 @@
                 </p>
               </div>
 
-              <div class="procedure-panel__prices">
+              <div class="procedure-panel__prices" data-prices data-prices-limit="11" data-prices-limit-compact="4">
                 <p class="procedure-panel__prices-title">Стоимость процедур</p>
 
-                <ul class="procedure-panel__price-list">
+                <ul class="procedure-panel__price-list" data-prices-list>
                   <li class="procedure-panel__price">
                     <span class="procedure-panel__price-name">Витаминные капельницы</span>
                     <span class="procedure-panel__price-value">от 650 AED</span>
@@ -361,6 +360,11 @@
                     <span class="procedure-panel__price-value">от 2900 AED</span>
                   </li>
                 </ul>
+
+                <button class="procedure-panel__more" type="button" aria-expanded="false" data-prices-toggle hidden>
+                  <span class="procedure-panel__more-label procedure-panel__more-label--open">Развернуть полный прайс</span>
+                  <span class="procedure-panel__more-label procedure-panel__more-label--close">Свернуть прайс</span>
+                </button>
               </div>
 
               <a class="button procedure-panel__button" data-button href="/iv-therapy.html">

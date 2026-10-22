@@ -2,7 +2,6 @@ import { gsap } from 'gsap';
 
 import { blindsOpen } from './blinds.js';
 import { createOverlayScene, crossfade, hideLayers } from './overlay-scene.js';
-import { createRailScene } from './rail-scene.js';
 import { screen } from './timing.js';
 import { scrollTo } from '../utils/smooth-scroll.js';
 import { previousSection } from '../utils/siblings.js';
@@ -22,8 +21,8 @@ import { DESKTOP, MOTION, TABLET } from '../utils/media.js';
    входит в кадр, и полностью открыты ещё до закрепления (BLINDS_OPEN_AT).
 
    Ниже 1024 наслоения нет: слои собраны в карточки (procedures.css), видны
-   все, вкладок нет, и ряд карточек едет лентой (rail-scene.js), пока секция
-   закреплена. Жалюзи те же.
+   все, вкладок нет, секция не закрепляется — ряд карточек листается свайпом
+   вбок нативно. Жалюзи те же.
 
    Описание сцен и их имена — в ANIMATIONS.md. */
 
@@ -41,7 +40,6 @@ export function initProcedures() {
 
 function setup(section) {
   const list = section.querySelector('[data-procedures-tablist]');
-  const track = section.querySelector('[data-procedures-track]');
   const tabs = [...section.querySelectorAll('[data-procedures-tab]')];
   const frames = [...section.querySelectorAll('[data-procedures-frame]')];
   const panels = [...section.querySelectorAll('[data-procedures-panel]')];
@@ -184,10 +182,7 @@ function setup(section) {
     });
   }, section);
 
-  const rail = createRailScene({ section, track, media: TABLET });
-
   return () => {
-    rail?.();
     context.revert();
     list.removeEventListener('keydown', onKeydown);
     onClicks.forEach((unbind) => unbind());

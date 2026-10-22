@@ -129,11 +129,11 @@
   text-box: trim-both cap alphabetic;
 }
 
-/* Планшет: сцена «Лента» вместо «Наслоения». Кадр, название и описание
-   каждой услуги собираются в карточку: обёртки трёх проходов раскрыты
-   (display: contents), а сетка раскладывает слои по строкам — кадры в первую,
-   названия во вторую, описания в третью — колонка за колонкой. Вкладок нет,
-   все услуги видны сразу. Без сцены ряд листается нативно. */
+/* Планшет: наслоения нет. Кадр, название и описание каждой услуги
+   собираются в карточку: обёртки трёх проходов раскрыты (display: contents),
+   а сетка раскладывает слои по строкам — кадры в первую, названия во вторую,
+   описания в третью — колонка за колонкой. Вкладок нет, все услуги видны
+   сразу, ряд листается свайпом вбок нативно, со snap по карточкам. */
 @media (width < 1024px) {
   .procedures {
     --section-padding-block: 120px 0;
@@ -149,15 +149,9 @@
     gap: 20px 10px;
     height: auto;
     padding-right: var(--gutter);
-    will-change: transform;
-  }
-
-  .procedures[data-scene='on'] .procedures__inner {
-    width: max-content;
-  }
-
-  .procedures:not([data-scene='on']) .procedures__inner {
     overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
   }
 
   .procedures__media,
@@ -178,6 +172,7 @@
   .procedures__frame {
     grid-area: 1 / auto;
     height: 540px;
+    scroll-snap-align: start;
   }
 
   .procedures__caption {
@@ -200,6 +195,7 @@
     grid-template-rows: 360px auto auto;
     grid-auto-columns: 345px;
     padding-left: var(--gutter);
+    scroll-padding-inline: var(--gutter);
   }
 
   .procedures__frame {

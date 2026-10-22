@@ -70,6 +70,12 @@
   letter-spacing: var(--ls-text);
 }
 
+/* Строки сверх лимита прячет components/prices.js атрибутом hidden: правило
+   нужно здесь, общее из reset проигрывает display: flex. */
+.procedure-panel__price[hidden] {
+  display: none;
+}
+
 .procedure-panel__price-name,
 .procedure-panel__price-value {
   text-box: trim-both cap alphabetic;
@@ -80,10 +86,56 @@
   opacity: 0.7;
 }
 
-/* Планшет: карточка в ленте, шаг между блоками меньше. */
+/* Раскрытый полный прайс прокручивается в высоте 485, полоса тонкая,
+   отступ под неё справа. */
+.procedure-panel__prices[data-prices='open'] .procedure-panel__price-list {
+  max-height: calc(485 * var(--u));
+  padding-right: calc(10 * var(--u));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-color: var(--color-ink) var(--color-line);
+  scrollbar-width: thin;
+}
+
+/* «Развернуть полный прайс»: пунктир снизу, без сердца. Подпись меняется
+   по aria-expanded, обе лежат в разметке. */
+.procedure-panel__more {
+  align-self: flex-start;
+  padding-block: calc(7 * var(--u));
+  border-bottom: 1px dashed var(--color-ink);
+  font-size: var(--fs-text-16);
+  font-weight: 500;
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-descriptor);
+  text-transform: uppercase;
+  transition: opacity var(--duration-fast) var(--ease-out);
+}
+
+.procedure-panel__more:hover,
+.procedure-panel__more:focus-visible {
+  opacity: 0.6;
+}
+
+.procedure-panel__more-label {
+  display: block;
+  text-box: trim-both cap alphabetic;
+}
+
+.procedure-panel__more[aria-expanded='true'] .procedure-panel__more-label--open,
+.procedure-panel__more[aria-expanded='false'] .procedure-panel__more-label--close {
+  display: none;
+}
+
+/* Планшет: карточка в ряду, шаг между блоками меньше. Ячейки ряда одной
+   высоты (общая строка сетки), кнопка прижата к низу — карточки выглядят
+   одинаковыми при любой длине описания и прайса. */
 @media (width < 1024px) {
   .procedure-panel {
     gap: 30px;
+  }
+
+  .procedure-panel__button {
+    margin-top: auto;
   }
 }
 

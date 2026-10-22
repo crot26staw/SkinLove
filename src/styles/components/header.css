@@ -183,6 +183,23 @@
   opacity: 0.6;
 }
 
+/* Пункты меню на ховере и активный — тёмная пилюля со светлой подписью,
+   как кнопки шапки. */
+.header__menu .header__link {
+  border-radius: calc(50 * var(--u));
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
+}
+
+.header__menu .header__link:hover,
+.header__menu .header__link:focus-visible,
+.current-menu-item > .header__link {
+  opacity: 1;
+  background-color: var(--color-ink);
+  color: var(--color-bg);
+}
+
 @media (width >= 1024px) {
   .header--bar {
     display: grid;
