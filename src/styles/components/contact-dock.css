@@ -1,0 +1,80 @@
+/* Быстрая связь в правом нижнем углу: кнопка с телефоном раскрывает над собой
+   WhatsApp и звонок, сама превращается в крестик. */
+.contact-dock {
+  position: fixed;
+  right: var(--gutter);
+  bottom: calc(var(--gutter) + env(safe-area-inset-bottom));
+  z-index: var(--z-dock);
+  display: flex;
+  flex-direction: column;
+  gap: calc(10 * var(--u));
+}
+
+.contact-dock__list {
+  display: flex;
+  flex-direction: column;
+  gap: calc(10 * var(--u));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.contact-dock__list[hidden] {
+  display: none;
+}
+
+.contact-dock__button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(67 * var(--u));
+  aspect-ratio: 1;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background-color: var(--color-ink);
+  color: var(--color-bg);
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-out);
+}
+
+.contact-dock__button:hover,
+.contact-dock__button:focus-visible {
+  background-color: var(--color-ink-soft);
+}
+
+.contact-dock__icon {
+  width: calc(20 * var(--u));
+  height: calc(20 * var(--u));
+}
+
+/* Телефон и крестик лежат друг на друге и сменяются по состоянию кнопки. */
+.contact-dock__toggle .contact-dock__icon {
+  position: absolute;
+  transition: opacity var(--duration-fast) var(--ease-out),
+    transform var(--duration-base) var(--ease-out);
+}
+
+.contact-dock__icon--close {
+  width: calc(10 * var(--u));
+  height: calc(10 * var(--u));
+  opacity: 0;
+  transform: rotate(-90deg) scale(0.5);
+}
+
+.contact-dock__toggle[aria-expanded='true'] .contact-dock__icon--phone {
+  opacity: 0;
+  transform: rotate(90deg) scale(0.5);
+}
+
+.contact-dock__toggle[aria-expanded='true'] .contact-dock__icon--close {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-dock__toggle .contact-dock__icon {
+    transition: none;
+  }
+}

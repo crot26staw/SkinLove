@@ -121,7 +121,18 @@
 .review__avatar {
   flex-shrink: 0;
   width: calc(80 * var(--u));
-  height: calc(80 * var(--u));
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: calc(8 * var(--u));
+  /* Подложка под заглушку, когда фото нет. */
+  background-color: var(--color-bg);
+}
+
+.review__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .review__name {

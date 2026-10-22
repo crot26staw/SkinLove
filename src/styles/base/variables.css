@@ -74,6 +74,7 @@
   --header-top: calc(30 * var(--u));
   --z-header: 100;
   --z-menu: 90;
+  --z-dock: 80;
   --z-modal: 200;
 
   /* Движение */
