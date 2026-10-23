@@ -5,11 +5,20 @@
 
 const PLAIN_UNTIL = 100;
 
+/* Шапка с data-header-stuck (строка выездных услуг) после первых
+   STICK_FROM пикселей прокрутки получает класс header--stuck — фон. */
+const STICK_FROM = 10;
+
 export function initHeader() {
   const header = document.querySelector('[data-header]');
+
+  if (!header) return;
+
+  if (header.hasAttribute('data-header-stuck')) bindStuck(header);
+
   const plainHero = document.querySelector('[data-header-plain]');
 
-  if (!header || !plainHero) return;
+  if (!plainHero) return;
 
   let plain = null;
 
@@ -19,6 +28,13 @@ export function initHeader() {
     plain = next;
     header.classList.toggle('header--plain', plain);
   };
+
+  update();
+  window.addEventListener('scroll', update, { passive: true });
+}
+
+function bindStuck(header) {
+  const update = () => header.classList.toggle('header--stuck', window.scrollY > STICK_FROM);
 
   update();
   window.addEventListener('scroll', update, { passive: true });

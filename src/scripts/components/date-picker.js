@@ -1,4 +1,4 @@
-/* Выбор даты и времени: кнопка-поле открывает плашку из двух месяцев подряд
+/* Выбор даты и времени: кнопка-поле открывает плашку из месяца со стрелками
    и списка времени на выбранный день. Прошедшие дни и часы недоступны.
    Выбранное значение пишется в скрытое поле (data-date-picker-input)
    строкой «29.10.26, 19:00» и показывается в кнопке; поле получает событие
@@ -37,23 +37,18 @@ function setup(root) {
   toggle.setAttribute('aria-controls', popup.id);
 
   const render = () => {
-    const next = new Date(view.getFullYear(), view.getMonth() + 1, 1);
-
-    popup.replaceChildren(
-      monthPanel(view, { prev: view > startOfMonth(today) }),
-      monthPanel(next, { next: true }),
-      timePanel(),
-    );
+    popup.replaceChildren(monthPanel(view), timePanel());
   };
 
-  const monthPanel = (month, arrows) => {
+  /* Назад листать можно только до текущего месяца. */
+  const monthPanel = (month) => {
     const panel = element('div', 'date-picker__panel');
     const title = capitalize(month.toLocaleDateString(locale, { month: 'long', year: 'numeric' }).replace(/\s?г\.$/, ''));
 
     panel.append(
       head(title, {
-        prev: arrows.prev !== undefined ? { disabled: !arrows.prev, label: 'Предыдущий месяц', onClick: () => shiftMonth(-1) } : null,
-        next: arrows.next ? { label: 'Следующий месяц', onClick: () => shiftMonth(1) } : null,
+        prev: { disabled: month <= startOfMonth(today), label: 'Предыдущий месяц', onClick: () => shiftMonth(-1) },
+        next: { label: 'Следующий месяц', onClick: () => shiftMonth(1) },
       }),
     );
 
@@ -135,18 +130,16 @@ function setup(root) {
   const shiftMonth = (step) => {
     view = new Date(view.getFullYear(), view.getMonth() + step, 1);
     render();
-    popup.querySelector(`.date-picker__arrow--${step < 0 ? 'prev' : 'next'}:not([hidden])`)?.focus();
+    popup.querySelector(`.date-picker__arrow--${step < 0 ? 'prev' : 'next'}:not(:disabled)`)?.focus();
   };
 
   const pickDay = (date) => {
     selected = startOfDay(date);
     time = null;
 
-    /* Выбранный день должен быть на виду: листаем, если он ушёл за пару месяцев. */
-    const first = startOfMonth(selected);
-    const last = new Date(view.getFullYear(), view.getMonth() + 1, 1);
-    if (first < view) view = first;
-    if (first > last) view = new Date(first.getFullYear(), first.getMonth() - 1, 1);
+    /* Выбранный день должен быть на виду: стрелки панели времени могут
+       увести его в соседний месяц — листаем месяц следом. */
+    view = startOfMonth(selected);
 
     render();
     popup.querySelector('.date-picker__cell[aria-pressed="true"]')?.focus();

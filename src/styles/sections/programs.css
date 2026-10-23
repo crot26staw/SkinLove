@@ -151,6 +151,10 @@
    формы-соседи со своими отступами. */
 .programs--padded {
   --section-padding-block: calc(70 * var(--u));
+
+  /* Переход по якорю из закреплённой шапки: отступа 70 мало, заголовок
+     ушёл бы под строку высотой 85. */
+  scroll-margin-top: calc(40 * var(--u));
 }
 
 .programs--padded .programs__text {

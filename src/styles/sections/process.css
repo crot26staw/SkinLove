@@ -10,9 +10,11 @@
   padding-inline: var(--gutter);
 }
 
+/* Под закреплённой шапкой-строкой (--header-clearance, components/header.css)
+   заголовок встаёт ниже неё. */
 .process__head {
   position: sticky;
-  top: calc(var(--section-padding) / 2 + var(--admin-bar-height));
+  top: calc(max(var(--section-padding) / 2, var(--header-clearance, 0px)) + var(--admin-bar-height));
   display: flex;
   flex-direction: column;
   gap: calc(40 * var(--u));

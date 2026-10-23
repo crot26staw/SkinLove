@@ -287,18 +287,37 @@
 }
 
 @media (width >= 1024px) {
-  /* Ширина — левая колонка первого экрана (sections/outcall-hero.css):
-     половина строки за вычетом полей и зазора 20 между колонками. */
+  /* Строка закреплена во всю ширину, но содержимое — в пределах левой
+     колонки первого экрана (sections/outcall-hero.css): справа отступ
+     в половину экрана плюс половина зазора 20 между колонками. Вверху
+     страницы строка прозрачная и стоит на 40 от края, после прокрутки
+     (header--stuck, scripts/components/header.js) поднимается к краю
+     и получает фон — под ней идёт содержимое страницы. */
   .header--bar {
-    position: absolute;
-    top: calc(40 * var(--u) + var(--admin-bar-height));
-    left: var(--gutter);
+    position: fixed;
+    top: var(--admin-bar-height);
+    right: 0;
+    left: 0;
     z-index: var(--z-header);
     display: flex;
     gap: calc(20 * var(--u));
     align-items: center;
     justify-content: space-between;
-    width: calc((100% - 2 * var(--gutter) - 20 * var(--u)) / 2);
+    padding: calc(40 * var(--u)) calc(50% + 10 * var(--u)) calc(20 * var(--u)) var(--gutter);
+    transition:
+      padding var(--duration-base) var(--ease-out),
+      background-color var(--duration-base) var(--ease-out);
+  }
+
+  /* Сколько места оставлять сверху липким блокам страницы: строка 85
+     и зазор 40 под ней. */
+  :root:has(.header--bar) {
+    --header-clearance: calc(125 * var(--u));
+  }
+
+  .header--bar.header--stuck {
+    padding-top: calc(20 * var(--u));
+    background-color: var(--color-bg);
   }
 
   .header--bar .header__nav {
