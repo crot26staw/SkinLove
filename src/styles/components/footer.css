@@ -432,3 +432,105 @@
     justify-self: start;
   }
 }
+
+/* Подвал выездных услуг: своя страница со своей шапкой, поэтому и подвал
+   короче — логотип, контакты с адресом и мессенджером, справа кнопка заявки
+   и плашка разработчика. Без карты сайта, направлений и правовых ссылок. */
+.footer--outcall {
+  padding-bottom: var(--gutter);
+}
+
+.footer--outcall .footer__columns {
+  align-items: stretch;
+}
+
+.footer--outcall .footer__column--contacts {
+  gap: calc(40 * var(--u));
+}
+
+.footer--outcall .footer__logo {
+  width: calc(170 * var(--u));
+}
+
+.footer--outcall .footer__logo-image {
+  height: calc(57.091 * var(--u));
+  object-position: left top;
+}
+
+/* Адрес и часы — строки с шагом 10, без вертикальных отступов ссылок. */
+.footer--outcall .footer__group--address .footer__menu {
+  gap: calc(10 * var(--u));
+}
+
+.footer--outcall .footer__group--address .footer__menu :is(a, .footer__menu-text) {
+  padding-block: 0;
+}
+
+.footer--outcall .footer__column--end {
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+/* Залитая кнопка соцсети: тёмный квадрат со светлой иконкой. */
+.social-button--filled {
+  background-color: var(--color-ink);
+  color: var(--color-bg);
+}
+
+.social-button--filled:hover,
+.social-button--filled:focus-visible {
+  background-color: var(--color-ink-soft);
+  border-color: var(--color-ink-soft);
+}
+
+/* Планшет и мобильный: колонки друг под другом — логотип, контакты,
+   кнопка с плашкой. Общая сетка подвала здесь не нужна. */
+@media (width < 1024px) {
+  .footer--outcall {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 100px var(--gutter) 20px;
+  }
+
+  .footer--outcall .footer__columns {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+  }
+
+  /* Контакты и адрес рядом, соцсети под ними. */
+  .footer--outcall .footer__column--contacts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px 10px;
+  }
+
+  .footer--outcall .footer__logo {
+    width: 161px;
+  }
+
+  .footer--outcall .footer__logo-image {
+    height: 54px;
+  }
+
+  .footer--outcall .footer__column--end {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 30px;
+    align-items: center;
+  }
+}
+
+/* Мобильный: группы контактов столбиком, кнопка и плашка друг под другом. */
+@media (width < 768px) {
+  .footer--outcall .footer__column--contacts {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .footer--outcall .footer__column--end {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

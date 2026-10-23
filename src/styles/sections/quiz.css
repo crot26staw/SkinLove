@@ -1,0 +1,320 @@
+/* «Не знаете, какая процедура подойдёт?»: по центру заголовок и текст,
+   под ними светлая карточка-анкета из нескольких шагов. Виден один шаг,
+   переключает их components/quiz.js; кнопки «Назад» и «Продолжить»
+   прижаты к низу карточки, чтобы не прыгали между шагами разной высоты.
+   Последний шаг — обычная форма (components/form.css), её проверяет
+   и отправляет components/form.js. */
+.quiz {
+  --section-padding-block: calc(70 * var(--u)) var(--section-padding);
+
+  display: flex;
+  flex-direction: column;
+  gap: calc(60 * var(--u));
+  align-items: center;
+  padding-inline: var(--gutter);
+}
+
+.quiz__intro {
+  display: flex;
+  flex-direction: column;
+  gap: calc(30 * var(--u));
+  align-items: center;
+  text-align: center;
+}
+
+.quiz__title {
+  align-items: center;
+  max-width: calc(803 * var(--u));
+}
+
+.quiz__text {
+  max-width: calc(658 * var(--u));
+  font-size: var(--fs-text-20);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  text-box: trim-both cap alphabetic;
+}
+
+.quiz__form {
+  gap: calc(30 * var(--u));
+  align-items: stretch;
+  width: min(100%, calc(1220 * var(--u)));
+  min-height: calc(576 * var(--u));
+  padding: calc(30 * var(--u));
+  border-radius: calc(5 * var(--u));
+  background-color: var(--color-bg);
+}
+
+.quiz__top {
+  display: flex;
+  gap: calc(20 * var(--u));
+  justify-content: space-between;
+  font-size: var(--fs-text-16);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  text-transform: uppercase;
+  opacity: 0.5;
+}
+
+.quiz__label,
+.quiz__counter {
+  text-box: trim-both cap alphabetic;
+}
+
+/* Прогресс: тёмная полоса растёт по шагам (scaleX ставит скрипт). */
+.quiz__progress {
+  height: 2px;
+  border-radius: calc(80 * var(--u));
+  background-color: var(--color-line-strong);
+  overflow: hidden;
+}
+
+.quiz__progress-bar {
+  display: block;
+  height: 100%;
+  background-color: var(--color-ink);
+  transform: scaleX(var(--quiz-progress, 0.2));
+  transform-origin: left;
+  transition: transform var(--duration-base) var(--ease-out);
+}
+
+.quiz__step {
+  display: flex;
+  flex-direction: column;
+  gap: calc(50 * var(--u));
+}
+
+.quiz__step[hidden] {
+  display: none;
+}
+
+.quiz__step-head {
+  display: flex;
+  flex-direction: column;
+  gap: calc(20 * var(--u));
+}
+
+.quiz__step-title {
+  font-size: var(--fs-h4);
+  font-weight: 500;
+  line-height: var(--lh-h4);
+  letter-spacing: var(--ls-h4);
+  text-box: trim-both cap alphabetic;
+}
+
+.quiz__step-title:focus {
+  outline: none;
+}
+
+.quiz__step-text {
+  max-width: calc(620 * var(--u));
+  font-size: var(--fs-text-18);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  text-box: trim-both cap alphabetic;
+  opacity: 0.8;
+}
+
+/* Варианты в две колонки; поля даты и адреса — во всю ширину. */
+.quiz__options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: calc(10 * var(--u));
+}
+
+.quiz__options--stack {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* Вариант ответа: бежевая плашка с квадратным флажком (или круглым —
+   modifier round), выбранный — тёмная со светлой подписью. */
+.quiz__option {
+  display: flex;
+  gap: calc(10 * var(--u));
+  align-items: center;
+  width: 100%;
+  min-height: calc(47 * var(--u));
+  padding: calc(10 * var(--u)) calc(17 * var(--u));
+  border-radius: calc(5 * var(--u));
+  background-color: var(--color-beige);
+  color: var(--color-ink);
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
+}
+
+.quiz__option:has(.quiz__control:checked) {
+  background-color: var(--color-ink);
+  color: var(--color-bg);
+}
+
+.quiz__option:has(:focus-visible) {
+  outline: 1px solid var(--color-ink);
+  outline-offset: 2px;
+}
+
+.quiz__control {
+  appearance: none;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: calc(12 * var(--u));
+  height: calc(12 * var(--u));
+  margin: 0;
+  border: 1px solid currentcolor;
+  border-radius: calc(2 * var(--u));
+  cursor: pointer;
+}
+
+.quiz__control:focus-visible {
+  outline: none;
+}
+
+.quiz__option--round .quiz__control {
+  border-radius: 50%;
+}
+
+.quiz__control:checked {
+  background-color: currentcolor;
+}
+
+.quiz__control::after {
+  content: '';
+  width: 80%;
+  height: 80%;
+  background-color: var(--color-ink);
+  mask: url('../../assets/img/check.svg') center / contain no-repeat;
+  opacity: 0;
+}
+
+.quiz__control:checked::after {
+  opacity: 1;
+}
+
+.quiz__option-label,
+.quiz__option-field {
+  font-size: var(--fs-text-18);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  opacity: 0.7;
+}
+
+.quiz__option:has(.quiz__control:checked) .quiz__option-label {
+  opacity: 1;
+}
+
+.quiz__option-icon {
+  flex-shrink: 0;
+  width: auto;
+  height: calc(15 * var(--u));
+}
+
+.quiz__option-field {
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+}
+
+.quiz__option-field::placeholder {
+  color: inherit;
+}
+
+.quiz__option-field:focus-visible {
+  outline: none;
+}
+
+/* Поле внутри плашки: курсор текстовый, фокус обводит плашку. */
+.quiz__option--input {
+  cursor: text;
+}
+
+.quiz__option--input:has(:focus-visible),
+.quiz__option--input:has(.quiz__option-field:not(:placeholder-shown)) .quiz__option-field {
+  opacity: 1;
+}
+
+/* «Другая ситуация»: пока не выбрана — подпись, выбрана — поле
+   «расскажите своими словами» на месте подписи. */
+.quiz__option--other .quiz__option-field,
+.quiz__option--other:has(.quiz__control:checked) .quiz__option-label {
+  display: none;
+}
+
+.quiz__option--other:has(.quiz__control:checked) .quiz__option-field {
+  display: block;
+  opacity: 1;
+}
+
+.quiz__error {
+  margin-top: calc(-30 * var(--u));
+  color: var(--color-error);
+  font-size: var(--fs-text-16);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+}
+
+.quiz__error[hidden] {
+  display: none;
+}
+
+/* Последний шаг: поля и кнопка отправки на 20 друг от друга. */
+.quiz__step .form__fields + .form__submit {
+  align-self: flex-start;
+  margin-top: calc(-30 * var(--u));
+}
+
+.quiz__nav {
+  display: flex;
+  gap: calc(10 * var(--u));
+  margin-top: auto;
+}
+
+/* Правило здесь: общее [hidden] из reset проигрывает display: inline-flex
+   у кнопки по порядку подключения. */
+.quiz__nav [hidden] {
+  display: none;
+}
+
+/* Отправлено: остаётся только сообщение об успехе. */
+.quiz__form.form--sent :is(.quiz__progress, .quiz__step, .quiz__nav) {
+  display: none;
+}
+
+@media (width < 1024px) {
+  .quiz {
+    gap: 40px;
+  }
+
+  .quiz__form {
+    min-height: 0;
+    padding: 20px;
+  }
+
+  .quiz__step {
+    gap: 30px;
+  }
+
+  .quiz__error {
+    margin-top: -20px;
+  }
+
+  .quiz__step .form__fields + .form__submit {
+    margin-top: -10px;
+  }
+
+  .quiz__nav {
+    margin-top: 0;
+  }
+}
+
+/* Мобильный: варианты в одну колонку. */
+@media (width < 768px) {
+  .quiz__options {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

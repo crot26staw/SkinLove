@@ -30,6 +30,7 @@
 @import './components/header.css';
 @import './components/site-menu.css';
 @import './components/form.css';
+@import './components/date-picker.css';
 @import './components/modal.css';
 @import './components/blinds.css';
 @import './components/rule.css';
@@ -62,3 +63,4 @@
 @import './sections/care.css';
 @import './sections/process.css';
 @import './sections/feedback.css';
+@import './sections/quiz.css';

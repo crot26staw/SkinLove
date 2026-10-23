@@ -80,6 +80,28 @@
   color: var(--color-bg);
 }
 
+/* Бежевая пилюля без иконки — второстепенное действие на светлом фоне. */
+.button--pill-beige {
+  background-color: var(--color-beige);
+  color: var(--color-ink);
+}
+
+.button--pill-beige .button__label {
+  font-weight: 400;
+  opacity: 0.7;
+}
+
+.button--pill-beige:hover,
+.button--pill-beige:focus-visible {
+  background-color: var(--color-ink);
+  color: var(--color-bg);
+}
+
+.button--pill-beige:hover .button__label,
+.button--pill-beige:focus-visible .button__label {
+  opacity: 1;
+}
+
 .button--pill-light .button__icon {
   width: calc(20 * var(--u));
   height: calc(20 * var(--u));

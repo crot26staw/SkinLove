@@ -147,8 +147,10 @@
 /* Вариант выездных услуг: сверху свой отступ (секция стоит не под «задачами»),
    под вкладками подпись выбранного направления, под сеткой кнопка «показать
    остальные» (components/programs.js). */
+/* Каталог выездных услуг: отступы 70, как в макете, — сверху и снизу
+   формы-соседи со своими отступами. */
 .programs--padded {
-  --section-padding-block: var(--section-padding);
+  --section-padding-block: calc(70 * var(--u));
 }
 
 .programs--padded .programs__text {
@@ -170,8 +172,10 @@
 }
 
 @media (width < 1024px) {
+  /* Снизу 30: следом анкета того же бежевого фона со своими 70,
+     вместе выходит обычный шаг между секциями. */
   .programs--padded {
-    --section-padding-block: var(--section-padding);
+    --section-padding-block: 70px 30px;
   }
 
   .programs__caption {

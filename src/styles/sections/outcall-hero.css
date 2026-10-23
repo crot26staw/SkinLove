@@ -1,14 +1,15 @@
-/* Первый экран выездных услуг: слева бежевая панель с заголовком, текстом
-   и карточкой формы, прижатыми к низу; справа фото. Высота — экран под
-   шапкой-строкой (components/header.css); длинный текст из админки панель
-   растянет. Форма — общий компонент (components/form.css). */
+/* Первый экран выездных услуг: слева чипы, заголовок, текст и бежевая
+   карточка формы, прижатые к низу; справа фото во всю высоту экрана.
+   Над левой колонкой лежит шапка-строка (components/header.css), поэтому
+   сверху у колонки место под неё. Длинный текст из админки колонку растянет.
+   Форма — общий компонент (components/form.css). */
 .outcall-hero {
-  --section-padding-block: calc(20 * var(--u)) 0;
+  --section-padding-block: 0;
 
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: calc(20 * var(--u));
-  min-height: calc(993 * var(--u));
+  min-height: calc(1080 * var(--u));
   padding-inline: var(--gutter);
 }
 
@@ -19,9 +20,43 @@
   align-items: flex-start;
   justify-content: flex-end;
   min-width: 0;
-  padding: calc(40 * var(--u));
-  border-radius: calc(3 * var(--u));
+  padding-top: calc(165 * var(--u));
+}
+
+.outcall-hero__head {
+  display: flex;
+  flex-direction: column;
+  gap: calc(20 * var(--u));
+  align-items: flex-start;
+}
+
+.outcall-hero__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(10 * var(--u));
+}
+
+.outcall-hero__tag {
+  display: flex;
+  gap: calc(10 * var(--u));
+  align-items: center;
+  padding: calc(17 * var(--u));
+  border-radius: calc(80 * var(--u));
   background-color: var(--color-beige);
+}
+
+.outcall-hero__tag-icon {
+  flex-shrink: 0;
+  width: calc(8.719 * var(--u));
+  height: calc(8 * var(--u));
+}
+
+.outcall-hero__tag-label {
+  font-size: var(--fs-text-16);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  text-box: trim-both cap alphabetic;
+  opacity: 0.7;
 }
 
 .outcall-hero__title {
@@ -39,14 +74,15 @@
 .outcall-hero__card {
   display: flex;
   flex-direction: column;
-  gap: calc(20 * var(--u));
+  gap: calc(30 * var(--u));
   width: min(100%, calc(660 * var(--u)));
   padding: calc(30 * var(--u));
   border-radius: calc(3 * var(--u));
-  background-color: var(--color-bg);
+  background-color: var(--color-beige);
 }
 
 .outcall-hero__card-title {
+  max-width: calc(421 * var(--u));
   font-size: var(--fs-h4);
   font-weight: 500;
   line-height: var(--lh-h4);
@@ -55,16 +91,12 @@
 }
 
 .outcall-hero__card-text {
+  max-width: calc(514 * var(--u));
   font-size: var(--fs-text-18);
   line-height: var(--lh-text);
   letter-spacing: var(--ls-text);
   text-box: trim-both cap alphabetic;
   opacity: 0.8;
-}
-
-/* Между текстом карточки и полями по макету 30, а не 20. */
-.outcall-hero__card .form {
-  margin-top: calc(10 * var(--u));
 }
 
 /* Кадр вынут из потока: иначе фото своей высотой растянуло бы сетку. */
@@ -83,23 +115,28 @@
 }
 
 /* Планшет: шапка закреплена поверх, поэтому сверху место под логотип;
-   фото первым, панель с формой под ним, фото 500. */
+   фото первым, текст и карточка с формой под ним, фото 500. */
 @media (width < 1024px) {
   .outcall-hero {
     --section-padding-block: 64px 0;
 
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 30px;
     min-height: 0;
   }
 
   .outcall-hero__panel {
     gap: 30px;
-    padding: 40px 20px 20px;
+    padding-top: 0;
+  }
+
+  .outcall-hero__tag {
+    padding: 12px 14px;
   }
 
   .outcall-hero__card {
+    gap: 20px;
     padding: 20px;
   }
 
@@ -109,15 +146,21 @@
   }
 }
 
-/* Мобильный: панель с отступом 10, фото 400; заголовок на ступень меньше,
-   иначе «косметологические» не помещается в строку. */
+/* Мобильный: фото 400; заголовок на ступень меньше, иначе
+   «косметологические» не помещается в строку. */
 @media (width < 768px) {
   .outcall-hero__title {
     font-size: var(--fs-h3);
   }
 
-  .outcall-hero__panel {
-    padding: 30px 10px 10px;
+  /* Чипы мельче, чтобы вставали по два в строку. */
+  .outcall-hero__tags {
+    gap: 5px;
+  }
+
+  .outcall-hero__tag {
+    gap: 6px;
+    padding: 9px 12px;
   }
 
   .outcall-hero__media {

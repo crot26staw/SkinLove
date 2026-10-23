@@ -1,12 +1,14 @@
-/* «Не меняйте свои планы»: слева фото на всю высоту, справа заголовок, текст
-   и список поводов. У пункта линия сверху и слева, у списка — снизу;
-   сердца над названием показывают номер пункта (components/reasons.js).
-   Снизу отступа нет: каталог ниже несёт свой. */
+/* «Не меняйте свои планы»: слева фото, справа заголовок с текстом сверху,
+   кнопка снизу, список поводов между ними. Фото не ниже 913 (высота строки,
+   а не секции), длинный текст строку растянет. У пункта линия сверху
+   и слева, у списка — снизу; сердца над названием показывают номер пункта
+   (components/reasons.js). */
 .reasons {
-  --section-padding-block: calc(150 * var(--u)) 0;
+  --section-padding-block: calc(150 * var(--u)) calc(70 * var(--u));
 
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-template-rows: minmax(calc(913 * var(--u)), auto);
   gap: calc(20 * var(--u));
   padding-inline: var(--gutter);
 }
@@ -30,8 +32,15 @@
   display: flex;
   flex-direction: column;
   gap: calc(40 * var(--u));
-  justify-content: flex-end;
+  align-items: flex-start;
+  justify-content: space-between;
   min-width: 0;
+}
+
+.reasons__head {
+  display: flex;
+  flex-direction: column;
+  gap: calc(40 * var(--u));
 }
 
 .reasons__title {
@@ -47,6 +56,7 @@
 }
 
 .reasons__list {
+  align-self: stretch;
   border-bottom: 1px solid var(--color-line);
 }
 
@@ -96,25 +106,37 @@
   opacity: 0.8;
 }
 
-/* Планшет: текст и список сверху, фото под ними. */
+/* Планшет: фото сверху (как у форм на странице), под ним текст и список. */
 @media (width < 1024px) {
   .reasons {
-    --section-padding-block: var(--section-padding) 0;
+    --section-padding-block: var(--section-padding) 70px;
 
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
     gap: 40px;
   }
 
-  .reasons__body {
+  .reasons__body,
+  .reasons__head {
     gap: 30px;
   }
 
   .reasons__media {
-    aspect-ratio: 4 / 3;
+    height: 500px;
   }
 
   .reason {
     padding: 20px;
+  }
+}
+
+/* Мобильный: фото 300, как у форм. */
+@media (width < 768px) {
+  .reasons {
+    gap: 30px;
+  }
+
+  .reasons__media {
+    height: 300px;
   }
 }

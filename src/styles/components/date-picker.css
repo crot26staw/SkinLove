@@ -1,0 +1,150 @@
+/* Выбор даты и времени (анкета выездных услуг): кнопка-поле, под ней
+   выпадающая плашка из трёх панелей — два месяца подряд и время для
+   выбранного дня. Панели собирает components/date-picker.js. */
+.date-picker {
+  position: relative;
+}
+
+/* Выбрано: в поле дата и время, подпись в полную силу. */
+.date-picker[data-filled] .quiz__option-label {
+  opacity: 1;
+}
+
+.date-picker__popup {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 2;
+  display: flex;
+  gap: 2px;
+  align-items: stretch;
+}
+
+.date-picker__popup[hidden] {
+  display: none;
+}
+
+.date-picker__panel {
+  display: flex;
+  flex-direction: column;
+  gap: calc(20 * var(--u));
+  width: calc(300 * var(--u));
+  padding: calc(17 * var(--u));
+  border-radius: calc(5 * var(--u));
+  background-color: var(--color-beige);
+}
+
+.date-picker__head {
+  display: flex;
+  gap: calc(10 * var(--u));
+  align-items: center;
+  justify-content: space-between;
+}
+
+.date-picker__title {
+  font-size: var(--fs-text-18);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  text-box: trim-both cap alphabetic;
+}
+
+/* Стрелки листают месяц (или день у панели времени); у края — гаснут. */
+.date-picker__arrow {
+  display: grid;
+  place-items: center;
+  width: calc(20 * var(--u));
+  height: calc(20 * var(--u));
+  opacity: 0.5;
+  transition: opacity var(--duration-fast) var(--ease-out);
+}
+
+.date-picker__arrow:hover,
+.date-picker__arrow:focus-visible {
+  opacity: 1;
+}
+
+.date-picker__arrow:disabled {
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+.date-picker__arrow[hidden] {
+  visibility: hidden;
+}
+
+.date-picker__arrow-icon {
+  width: calc(10.5 * var(--u));
+  height: calc(7.364 * var(--u));
+}
+
+.date-picker__arrow--prev .date-picker__arrow-icon {
+  transform: scaleX(-1);
+}
+
+.date-picker__grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  column-gap: calc(5 * var(--u));
+}
+
+.date-picker__grid--times {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.date-picker__weekday {
+  font-size: var(--fs-text-16);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  text-align: center;
+  text-box: trim-both cap alphabetic;
+  opacity: 0.3;
+}
+
+.date-picker__cell {
+  padding-block: calc(8 * var(--u));
+  border-radius: calc(3 * var(--u));
+  font-size: var(--fs-text-16);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  text-align: center;
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
+}
+
+.date-picker__cell:hover,
+.date-picker__cell:focus-visible {
+  background-color: var(--color-line);
+}
+
+.date-picker__cell:disabled {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.date-picker__cell[aria-pressed='true'] {
+  background-color: var(--color-ink);
+  color: var(--color-bg);
+}
+
+/* Панель времени тянется до высоты месяцев; пока день не выбран — подсказка. */
+.date-picker__hint {
+  font-size: var(--fs-text-16);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+  text-align: center;
+  opacity: 0.5;
+}
+
+/* Ниже 1024 плашка в потоке под полем, панели столбиком во всю ширину. */
+@media (width < 1024px) {
+  .date-picker__popup {
+    position: static;
+    flex-direction: column;
+    margin-top: 2px;
+  }
+
+  .date-picker__panel {
+    width: 100%;
+  }
+}

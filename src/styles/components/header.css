@@ -215,22 +215,18 @@
   transform: translateY(calc(-5 * var(--u))) rotate(-45deg);
 }
 
-/* Шапка-строка (выездные услуги): на десктопе не закреплена, стоит над
-   первым экраном обычным потоком — слева логотип и телефон, по центру меню
-   страницы, справа язык и кнопка заявки. Без инверсии: фон под ней всегда
-   светлый. Кнопки меню нет. Ниже 1024 строка распадается: обёртки
-   прозрачны для раскладки (display: contents), логотип, язык и кнопка
-   меню закреплены и инвертируются, как на остальных страницах, а телефон,
-   меню страницы и кнопка заявки прячутся. */
+/* Шапка-строка (выездные услуги): на десктопе не закреплена и лежит поверх
+   левой колонки первого экрана — фото справа поднимается до самого верха.
+   Слева логотип, телефон и мессенджер, справа меню страницы и язык.
+   Без инверсии: фон под ней всегда светлый. Кнопки меню нет. Ниже 1024
+   строка распадается: обёртки прозрачны для раскладки (display: contents),
+   логотип, язык и кнопка меню закреплены и инвертируются, как на остальных
+   страницах, а телефон, мессенджер и меню страницы прячутся. */
 .header__start,
 .header__end {
   display: flex;
   gap: calc(20 * var(--u));
   align-items: center;
-}
-
-.header__end {
-  justify-self: end;
 }
 
 .header__menu {
@@ -254,6 +250,25 @@
   opacity: 0.6;
 }
 
+/* Телефон с иконкой и иконка мессенджера без подписи. Правила после
+   .header__link: перекрывают его display и отступ. */
+.header__phone {
+  display: flex;
+  gap: calc(5 * var(--u));
+  align-items: center;
+}
+
+.header__phone-icon,
+.header__messenger-icon {
+  flex-shrink: 0;
+  width: calc(20 * var(--u));
+  height: calc(20 * var(--u));
+}
+
+.header__messenger {
+  padding: 0;
+}
+
 /* Пункты меню на ховере и активный — тёмная пилюля со светлой подписью,
    как кнопки шапки. */
 .header__menu .header__link {
@@ -272,13 +287,22 @@
 }
 
 @media (width >= 1024px) {
+  /* Ширина — левая колонка первого экрана (sections/outcall-hero.css):
+     половина строки за вычетом полей и зазора 20 между колонками. */
   .header--bar {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
+    position: absolute;
+    top: calc(40 * var(--u) + var(--admin-bar-height));
+    left: var(--gutter);
+    z-index: var(--z-header);
+    display: flex;
     gap: calc(20 * var(--u));
     align-items: center;
-    padding: calc(20 * var(--u)) var(--gutter) 0;
-    background-color: var(--color-bg);
+    justify-content: space-between;
+    width: calc((100% - 2 * var(--gutter) - 20 * var(--u)) / 2);
+  }
+
+  .header--bar .header__nav {
+    margin-left: auto;
   }
 
   .header--bar .header__logo {
@@ -286,14 +310,10 @@
     mix-blend-mode: normal;
   }
 
-  /* Не static: от переключателя отсчитывается выпадающий список,
-     и он должен лежать поверх первого экрана. */
-  .header--bar .lang-switch {
-    position: relative;
-    top: auto;
-    right: auto;
-    color: var(--color-ink);
-    mix-blend-mode: normal;
+  /* В строке над левой колонкой языка по макету нет: он остаётся только
+     в закреплённой шапке ниже 1024. */
+  .header--bar .header__end {
+    display: none;
   }
 
   .header--bar .header__logo-image {
@@ -312,9 +332,14 @@
   }
 
   .header__phone,
-  .header__nav,
-  .header__cta {
+  .header__messenger,
+  .header__nav {
     display: none;
+  }
+
+  /* Кнопки меню у шапки-строки нет: язык встаёт к правому краю. */
+  .header--bar .lang-switch {
+    right: var(--gutter);
   }
 }
 

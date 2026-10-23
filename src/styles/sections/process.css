@@ -90,12 +90,12 @@
   background-color: var(--color-beige);
 }
 
-/* Место под иконку этапа: в макете пока заглушка. */
+/* Иконка этапа — картинка из админки, 25 × 25. */
 .process__icon {
   flex-shrink: 0;
-  width: calc(50 * var(--u));
-  height: calc(50 * var(--u));
-  background-color: var(--color-placeholder);
+  width: calc(25 * var(--u));
+  height: calc(25 * var(--u));
+  object-fit: contain;
 }
 
 .process__body {

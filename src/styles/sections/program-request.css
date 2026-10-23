@@ -49,10 +49,10 @@
 }
 
 /* Варианты выездных услуг: секция со своими отступами, фото не ниже 800
-   (высота строки, а не секции: отступы в неё не входят). inset-end —
-   отступ только снизу, когда выше стоит секция с нижним отступом. */
+   (высота строки, а не секции: отступы в неё не входят). inset-sm —
+   отступы 70 вместо 150, для формы между плотными секциями. */
 .program-request--inset,
-.program-request--inset-end {
+.program-request--inset-sm {
   grid-template-rows: minmax(calc(800 * var(--u)), auto);
   min-height: 0;
 }
@@ -61,8 +61,21 @@
   --section-padding-block: var(--section-padding);
 }
 
-.program-request--inset-end {
-  --section-padding-block: 0 var(--section-padding);
+.program-request--inset-sm {
+  --section-padding-block: calc(70 * var(--u));
+}
+
+/* Фото слева, текст и форма справа; оба края с полями страницы. */
+.program-request--reverse {
+  padding-inline: var(--gutter);
+}
+
+.program-request--reverse .program-request__body {
+  padding-left: 0;
+}
+
+.program-request--reverse .program-request__media {
+  order: -1;
 }
 
 /* Кадр вынут из потока: иначе фото своей высотой растянуло бы сетку. */
@@ -77,6 +90,11 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+/* Кадр смещён вниз: для вертикальных снимков, где главное в нижней части. */
+.program-request__image--low {
+  object-position: center 77%;
 }
 
 /* Планшет: текст и форма сверху, фото под ними во всю ширину. */
@@ -99,6 +117,21 @@
   /* Вариант: фото над текстом и формой. */
   .program-request--media-first .program-request__media {
     order: -1;
+  }
+
+  /* Снизу без отступа: следом секция того же фона со своим отступом
+     (на выездных — отзывы), иначе два отступа складываются в пустоту. */
+  .program-request--flush-end {
+    --section-padding-block: 70px 0;
+  }
+
+  /* Поля переходят с секции на текст, фото снова во всю ширину. */
+  .program-request--reverse {
+    padding-inline: 0;
+  }
+
+  .program-request--reverse .program-request__body {
+    padding-left: var(--gutter);
   }
 }
 
