@@ -1,7 +1,7 @@
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-import { MOTION } from '../utils/media.js';
+import { DESKTOP, MOTION } from '../utils/media.js';
 import { enableDragScroll } from '../utils/drag-scroll.js';
 
 /* Фильтр видов программ: вкладка показывает карточки своей категории
@@ -21,13 +21,17 @@ import { enableDragScroll } from '../utils/drag-scroll.js';
    Необязательно: подпись выбранной вкладки (data-programs-caption со значением
    вкладки) и лимит (data-programs-limit) — сверх него карточки прячутся
    до нажатия data-programs-more, подписи кнопки — data-label-more / -less.
+   Лимит действует только на десктопе: ниже 1024 карточки и так листаются
+   вбок, все сразу, без кнопки.
 
    Высота секции после смены вкладки другая — триггеры ниже пересчитываются.
 
    Ниже 1024 вкладки стоят в одну строку и листаются вбок: пальцем, тачпадом
    или протяжкой мышью (utils/drag-scroll.js). Нажатая вкладка выезжает
    в середину ряда, а край, за которым есть ещё вкладки, затухает
-   (data-fade, sections/programs.css). */
+   (data-fade на обёртке data-programs-tabs, sections/programs.css):
+   маска на самом прокручиваемом ряду заставляла Safari перерисовывать
+   его на каждом кадре прокрутки. */
 
 const ALL = 'all';
 const COLUMNS = 12;
@@ -40,6 +44,7 @@ export function initPrograms() {
 
 function setup(section) {
   const row = section.querySelector('[data-programs-filters]');
+  const tabs = row?.closest('[data-programs-tabs]') ?? row;
   const filters = [...section.querySelectorAll('[data-programs-filter]')];
   const grid = section.querySelector('[data-programs-grid]');
   const cards = [...section.querySelectorAll('[data-program]')];
@@ -47,8 +52,9 @@ function setup(section) {
   if (!filters.length || !grid || !cards.length) return;
 
   const motion = window.matchMedia(MOTION);
+  const desktop = window.matchMedia(DESKTOP);
   const columns = Number(section.dataset.programsColumns) || 0;
-  const limit = Number(section.dataset.programsLimit) || Infinity;
+  const maxCards = Number(section.dataset.programsLimit) || Infinity;
   const captions = [...section.querySelectorAll('[data-programs-caption]')];
   const more = section.querySelector('[data-programs-more]');
   const moreLabel = more?.querySelector('.button__label');
@@ -58,6 +64,7 @@ function setup(section) {
 
   const apply = (value, animate) => {
     const matching = cards.filter((card) => value === ALL || card.dataset.category === value);
+    const limit = desktop.matches ? maxCards : Infinity;
     const visible = expanded ? matching : matching.slice(0, limit);
 
     filters.forEach((filter) => {
@@ -116,8 +123,10 @@ function setup(section) {
     apply(current, true);
   });
 
+  desktop.addEventListener('change', () => apply(current, false));
+
   if (row) {
-    const fade = () => markFade(row);
+    const fade = () => markFade(row, tabs);
 
     enableDragScroll(row);
     row.addEventListener('scroll', fade, { passive: true });
@@ -175,17 +184,19 @@ function centre(row, tab, smooth) {
 }
 
 /* С какой стороны за краем ряда ещё есть вкладки: start, end или both. */
-function markFade(row) {
+function markFade(row, target) {
   const max = row.scrollWidth - row.clientWidth;
   const start = row.scrollLeft > 1;
   const end = row.scrollLeft < max - 1;
 
-  if (start && end) {
-    row.dataset.fade = 'both';
-  } else if (start || end) {
-    row.dataset.fade = start ? 'start' : 'end';
+  const fade = start && end ? 'both' : start ? 'start' : end ? 'end' : null;
+
+  if (fade === (target.dataset.fade ?? null)) return;
+
+  if (fade) {
+    target.dataset.fade = fade;
   } else {
-    delete row.dataset.fade;
+    delete target.dataset.fade;
   }
 }
 

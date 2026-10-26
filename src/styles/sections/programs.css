@@ -82,27 +82,36 @@
     max-width: calc(542px + 2 * var(--gutter));
   }
 
-  .programs__filters {
+  .programs__tabs {
     --fade: 48px;
 
+    width: 100%;
+  }
+
+  /* Ряд листается свободно: без отскока страницы и жеста «назад»
+     на краю ряда. */
+  .programs__filters {
     flex-wrap: nowrap;
     justify-content: flex-start;
     width: 100%;
     overflow-x: auto;
     padding-inline: var(--gutter);
+    overscroll-behavior-x: contain;
     scrollbar-width: none;
   }
 
-  /* Край, за которым есть ещё вкладки, затухает (components/programs.js). */
-  .programs__filters[data-fade='end'] {
+  /* Край, за которым есть ещё вкладки, затухает (components/programs.js).
+     Маска на обёртке, не на прокручиваемом ряду: так Safari не перерисовывает
+     ряд на каждом кадре. */
+  .programs__tabs[data-fade='end'] {
     mask-image: linear-gradient(to right, #000 calc(100% - var(--fade)), transparent);
   }
 
-  .programs__filters[data-fade='start'] {
+  .programs__tabs[data-fade='start'] {
     mask-image: linear-gradient(to left, #000 calc(100% - var(--fade)), transparent);
   }
 
-  .programs__filters[data-fade='both'] {
+  .programs__tabs[data-fade='both'] {
     mask-image: linear-gradient(
       to right,
       transparent,
@@ -141,6 +150,22 @@
     scroll-padding-inline: var(--gutter);
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
+  }
+
+  /* Вкладки листаются так же, как карточки: со snap по вкладкам. */
+  .programs__filters {
+    scroll-padding-inline: var(--gutter);
+    scroll-snap-type: x mandatory;
+  }
+
+  .programs__filters .filter-tab {
+    scroll-snap-align: start;
+  }
+
+  /* Протяжка мышью (utils/drag-scroll.js): без snap, иначе ряд отскакивал бы
+     на каждом сдвиге. */
+  .programs__filters[data-dragging] {
+    scroll-snap-type: none;
   }
 }
 

@@ -242,23 +242,25 @@
           направление — мы уточним ваш запрос и поможем организовать визит специалиста.
         </p>
 
-        <div class="programs__filters" role="group" aria-label="Направления" data-programs-filters>
-          <button class="filter-tab filter-tab--beige" type="button" aria-pressed="true" data-programs-filter="iv">
-            <svg class="filter-tab__icon" viewBox="0 0 10.8992 10" fill="none" aria-hidden="true" focusable="false"><path d="M5.44959 10L4.6594 9.28065C1.85286 6.7357 0 5.05177 0 2.99728C0 1.31335 1.3188 0 2.99728 0C3.9455 0 4.85559 0.441417 5.44959 1.13351C6.0436 0.441417 6.95368 0 7.90191 0C9.58038 0 10.8992 1.31335 10.8992 2.99728C10.8992 5.05177 9.04632 6.7357 6.23978 9.28065L5.44959 10Z" fill="currentColor"/></svg>
-            <span class="filter-tab__label" data-label="IV Therapy"><span class="filter-tab__text">IV Therapy</span></span>
-          </button>
-          <button class="filter-tab filter-tab--beige" type="button" aria-pressed="false" data-programs-filter="doctor">
-            <svg class="filter-tab__icon" viewBox="0 0 10.8992 10" fill="none" aria-hidden="true" focusable="false"><path d="M5.44959 10L4.6594 9.28065C1.85286 6.7357 0 5.05177 0 2.99728C0 1.31335 1.3188 0 2.99728 0C3.9455 0 4.85559 0.441417 5.44959 1.13351C6.0436 0.441417 6.95368 0 7.90191 0C9.58038 0 10.8992 1.31335 10.8992 2.99728C10.8992 5.05177 9.04632 6.7357 6.23978 9.28065L5.44959 10Z" fill="currentColor"/></svg>
-            <span class="filter-tab__label" data-label="Врач и анализы"><span class="filter-tab__text">Врач и анализы</span></span>
-          </button>
-          <button class="filter-tab filter-tab--beige" type="button" aria-pressed="false" data-programs-filter="wellness">
-            <svg class="filter-tab__icon" viewBox="0 0 10.8992 10" fill="none" aria-hidden="true" focusable="false"><path d="M5.44959 10L4.6594 9.28065C1.85286 6.7357 0 5.05177 0 2.99728C0 1.31335 1.3188 0 2.99728 0C3.9455 0 4.85559 0.441417 5.44959 1.13351C6.0436 0.441417 6.95368 0 7.90191 0C9.58038 0 10.8992 1.31335 10.8992 2.99728C10.8992 5.05177 9.04632 6.7357 6.23978 9.28065L5.44959 10Z" fill="currentColor"/></svg>
-            <span class="filter-tab__label" data-label="Wellness"><span class="filter-tab__text">Wellness</span></span>
-          </button>
-          <button class="filter-tab filter-tab--beige" type="button" aria-pressed="false" data-programs-filter="beauty">
-            <svg class="filter-tab__icon" viewBox="0 0 10.8992 10" fill="none" aria-hidden="true" focusable="false"><path d="M5.44959 10L4.6594 9.28065C1.85286 6.7357 0 5.05177 0 2.99728C0 1.31335 1.3188 0 2.99728 0C3.9455 0 4.85559 0.441417 5.44959 1.13351C6.0436 0.441417 6.95368 0 7.90191 0C9.58038 0 10.8992 1.31335 10.8992 2.99728C10.8992 5.05177 9.04632 6.7357 6.23978 9.28065L5.44959 10Z" fill="currentColor"/></svg>
-            <span class="filter-tab__label" data-label="Косметология"><span class="filter-tab__text">Косметология</span></span>
-          </button>
+        <div class="programs__tabs" data-programs-tabs>
+          <div class="programs__filters" role="group" aria-label="Направления" data-programs-filters>
+            <button class="filter-tab filter-tab--beige" type="button" aria-pressed="true" data-programs-filter="iv">
+              <svg class="filter-tab__icon" viewBox="0 0 10.8992 10" fill="none" aria-hidden="true" focusable="false"><path d="M5.44959 10L4.6594 9.28065C1.85286 6.7357 0 5.05177 0 2.99728C0 1.31335 1.3188 0 2.99728 0C3.9455 0 4.85559 0.441417 5.44959 1.13351C6.0436 0.441417 6.95368 0 7.90191 0C9.58038 0 10.8992 1.31335 10.8992 2.99728C10.8992 5.05177 9.04632 6.7357 6.23978 9.28065L5.44959 10Z" fill="currentColor"/></svg>
+              <span class="filter-tab__label" data-label="IV Therapy"><span class="filter-tab__text">IV Therapy</span></span>
+            </button>
+            <button class="filter-tab filter-tab--beige" type="button" aria-pressed="false" data-programs-filter="doctor">
+              <svg class="filter-tab__icon" viewBox="0 0 10.8992 10" fill="none" aria-hidden="true" focusable="false"><path d="M5.44959 10L4.6594 9.28065C1.85286 6.7357 0 5.05177 0 2.99728C0 1.31335 1.3188 0 2.99728 0C3.9455 0 4.85559 0.441417 5.44959 1.13351C6.0436 0.441417 6.95368 0 7.90191 0C9.58038 0 10.8992 1.31335 10.8992 2.99728C10.8992 5.05177 9.04632 6.7357 6.23978 9.28065L5.44959 10Z" fill="currentColor"/></svg>
+              <span class="filter-tab__label" data-label="Врач и анализы"><span class="filter-tab__text">Врач и анализы</span></span>
+            </button>
+            <button class="filter-tab filter-tab--beige" type="button" aria-pressed="false" data-programs-filter="wellness">
+              <svg class="filter-tab__icon" viewBox="0 0 10.8992 10" fill="none" aria-hidden="true" focusable="false"><path d="M5.44959 10L4.6594 9.28065C1.85286 6.7357 0 5.05177 0 2.99728C0 1.31335 1.3188 0 2.99728 0C3.9455 0 4.85559 0.441417 5.44959 1.13351C6.0436 0.441417 6.95368 0 7.90191 0C9.58038 0 10.8992 1.31335 10.8992 2.99728C10.8992 5.05177 9.04632 6.7357 6.23978 9.28065L5.44959 10Z" fill="currentColor"/></svg>
+              <span class="filter-tab__label" data-label="Wellness"><span class="filter-tab__text">Wellness</span></span>
+            </button>
+            <button class="filter-tab filter-tab--beige" type="button" aria-pressed="false" data-programs-filter="beauty">
+              <svg class="filter-tab__icon" viewBox="0 0 10.8992 10" fill="none" aria-hidden="true" focusable="false"><path d="M5.44959 10L4.6594 9.28065C1.85286 6.7357 0 5.05177 0 2.99728C0 1.31335 1.3188 0 2.99728 0C3.9455 0 4.85559 0.441417 5.44959 1.13351C6.0436 0.441417 6.95368 0 7.90191 0C9.58038 0 10.8992 1.31335 10.8992 2.99728C10.8992 5.05177 9.04632 6.7357 6.23978 9.28065L5.44959 10Z" fill="currentColor"/></svg>
+              <span class="filter-tab__label" data-label="Косметология"><span class="filter-tab__text">Косметология</span></span>
+            </button>
+          </div>
         </div>
 
         <p class="programs__caption" data-programs-caption="iv">Инфузионные программы с индивидуальным подбором по медицинским показаниям.</p>

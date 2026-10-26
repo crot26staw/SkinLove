@@ -8,10 +8,21 @@
    preventDefault и полагается на touch-action, иначе страница поедет дважды.
 
    Поэтому ось решается здесь, по первому сдвигу пальца, как в Observer
-   с lockAxis: горизонтальный жест над блоком с overflow-x прячется
-   от нормализатора (stopPropagation на захвате у window — раньше любых его
-   слушателей), и браузер листает блок нативно; вертикальный уходит
-   нормализатору как обычно. Слушатели passive: preventDefault здесь не нужен. */
+   с lockAxis, но с запасом в пользу горизонтали (HORIZONTAL_BIAS): ряд
+   невысокий, и палец по нему почти всегда идёт чуть наискосок — при строгом
+   dx > dy такой жест уходил странице, и ряд не двигался. Горизонтальный
+   жест над блоком с overflow-x прячется от нормализатора (stopPropagation
+   на захвате у window — раньше любых его слушателей), и браузер листает
+   блок нативно; вертикальный уходит нормализатору как обычно. Слушатели passive: preventDefault здесь не нужен.
+
+   Обратная сторона: сдвигов пальца нормализатор не видел, и отпускание после
+   свайпа принимает за тап — через 80 мс сам вызывает click() по элементу
+   под пальцем (Observer, «safety valve» для мобильного Safari). Вкладка
+   под пальцем выбиралась, ряд прыгал к ней. Поэтому после горизонтального
+   жеста ближайший клик в пределах CLICK_GUARD гасится на захвате. */
+const HORIZONTAL_BIAS = 1.5;
+const CLICK_GUARD = 400;
+
 const scrollsX = (node) => {
   const { overflowX } = getComputedStyle(node);
 
@@ -33,6 +44,24 @@ const horizontalHost = (target) => {
 export function allowHorizontalTouchScroll() {
   let start = null;
   let horizontal = false;
+  let guardTimer = 0;
+
+  const swallowClick = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    releaseGuard();
+  };
+
+  const releaseGuard = () => {
+    clearTimeout(guardTimer);
+    window.removeEventListener('click', swallowClick, true);
+  };
+
+  const guardClick = () => {
+    releaseGuard();
+    window.addEventListener('click', swallowClick, true);
+    guardTimer = setTimeout(releaseGuard, CLICK_GUARD);
+  };
 
   const onStart = (event) => {
     const touch = event.touches[0];
@@ -54,7 +83,7 @@ export function allowHorizontalTouchScroll() {
 
       if (!dx && !dy) return;
 
-      horizontal = dx > dy;
+      horizontal = dx * HORIZONTAL_BIAS > dy;
 
       /* Вертикальный жест: дальше им занимается нормализатор. */
       if (!horizontal) start = null;
@@ -64,6 +93,8 @@ export function allowHorizontalTouchScroll() {
   };
 
   const onEnd = () => {
+    if (horizontal) guardClick();
+
     start = null;
     horizontal = false;
   };
@@ -76,6 +107,7 @@ export function allowHorizontalTouchScroll() {
   window.addEventListener('touchcancel', onEnd, options);
 
   return () => {
+    releaseGuard();
     window.removeEventListener('touchstart', onStart, options);
     window.removeEventListener('touchmove', onMove, options);
     window.removeEventListener('touchend', onEnd, options);
