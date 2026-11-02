@@ -1,8 +1,8 @@
 /* Форма обратной связи. Стили держатся на структуре label > input, чтобы
    пережить замену на Contact Form 7: кнопке отправки в настройках формы
    задаётся класс button, ошибке — form__error. Состояния: ошибка у поля
-   (aria-invalid) и у согласия, успех — модификатор form--sent: вместо полей
-   остаётся form__status. */
+   (aria-invalid) и у согласия, ошибка отправки — form__failure над статусом,
+   успех — модификатор form--sent: вместо полей остаётся form__status. */
 .form {
   display: flex;
   flex-direction: column;
@@ -72,4 +72,22 @@
   font-size: var(--fs-text-20);
   line-height: var(--lh-text);
   letter-spacing: var(--ls-text);
+}
+
+.form__failure {
+  color: var(--color-error);
+  font-size: var(--fs-text-16);
+  line-height: var(--lh-text);
+  letter-spacing: var(--ls-text);
+}
+
+/* Ловушка для ботов: поле есть в форме, но человек его не видит.
+   Вне потока, чтобы не добавлять gap контейнеру. */
+.form__trap {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }

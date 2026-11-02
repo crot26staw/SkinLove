@@ -193,33 +193,15 @@
   text-box: trim-both cap alphabetic;
 }
 
+/* Логотип с плашкой занимают правую половину — по линии правых колонок. */
 .footer__bottom {
   display: flex;
-  gap: calc(20 * var(--u));
-  align-items: end;
-}
-
-.footer__legal {
-  display: flex;
-  flex: 1;
-  flex-wrap: wrap;
-  gap: calc(10 * var(--u));
-  min-width: 0;
-}
-
-.footer__legal a {
-  display: block;
-  padding-block: calc(10 * var(--u));
-  font-size: var(--fs-text-16);
-  line-height: var(--lh-text);
-  letter-spacing: var(--ls-text);
-  text-box: trim-both cap alphabetic;
-  opacity: 0.5;
+  justify-content: end;
 }
 
 .footer__brand {
   display: flex;
-  flex: 1;
+  flex: 0 1 calc((100% - 20 * var(--u)) / 2);
   gap: calc(20 * var(--u));
   align-items: end;
   justify-content: space-between;
@@ -248,8 +230,7 @@
 /* Планшет: две колонки, блоки идут парами в порядке макета 768 — контакты
    и адрес, соцсети и запись, карта сайта и направления, правовое и плашка.
    Разметка та же: обёртки колонок раскрыты через display: contents, место
-   каждому блоку задано строкой сетки. Правовые ссылки идут во всю ширину
-   последней строки, плашка стоит в ней же справа — под неё у ссылок отступ.
+   каждому блоку задано строкой сетки. Плашка — в последней строке справа.
    Запись на консультацию здесь не плашка, а кнопка с чертой. */
 @media (width < 1024px) {
   .footer {
@@ -326,12 +307,6 @@
     grid-area: 4 / 2;
   }
 
-  .footer__legal {
-    grid-area: 5 / 1 / 6 / 3;
-    align-self: end;
-    padding-right: 160px;
-  }
-
   .footer__badge {
     grid-area: 5 / 2;
     align-self: end;
@@ -352,10 +327,6 @@
     display: none;
   }
 
-  .footer__legal a {
-    font-size: var(--fs-descriptor);
-  }
-
   .social-button {
     width: 53px;
     height: 53px;
@@ -367,7 +338,7 @@
   }
 }
 
-/* Мобильный: одна колонка в порядке макета 375, правовые ссылки столбиком. */
+/* Мобильный: одна колонка в порядке макета 375. */
 @media (width < 768px) {
   .footer {
     grid-template-columns: 1fr;
@@ -381,7 +352,6 @@
   .footer__cta,
   .footer__column--sitemap,
   .footer__column--directions,
-  .footer__legal,
   .footer__badge {
     grid-area: auto;
   }
@@ -415,27 +385,15 @@
     order: 7;
   }
 
-  .footer__legal {
-    order: 8;
-    flex-direction: column;
-    gap: 0;
-    align-self: start;
-    padding-right: 0;
-  }
-
-  .footer__legal a {
-    padding-block: 5px;
-  }
-
   .footer__badge {
-    order: 9;
+    order: 8;
     justify-self: start;
   }
 }
 
 /* Подвал выездных услуг: своя страница со своей шапкой, поэтому и подвал
    короче — логотип, контакты с адресом и мессенджером, справа кнопка заявки
-   и плашка разработчика. Без карты сайта, направлений и правовых ссылок. */
+   и плашка разработчика. Без карты сайта и направлений. */
 .footer--outcall {
   padding-bottom: var(--gutter);
 }

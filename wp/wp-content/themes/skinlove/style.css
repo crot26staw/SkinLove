@@ -1,0 +1,16 @@
+/*
+Theme Name: SkinLove
+Author: SkinLove
+Description: Тема сайта клиники SkinLove.
+Version: 0.1.0
+Requires at least: 6.0
+Requires PHP: 8.1
+License: GPL-2.0-or-later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: skinlove
+*/
+
+/*
+ * Этот файл нужен WordPress только ради заголовка темы выше.
+ * Стили собирает Vite из src/ вёрстки в assets/css/ (npm run build:theme).
+ */

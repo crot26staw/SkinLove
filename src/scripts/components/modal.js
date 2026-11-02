@@ -6,7 +6,11 @@ import { lockScroll } from '../utils/smooth-scroll.js';
    закрывается кнопкой, кликом по подложке и Escape. Пока открыт, прокрутка
    остановлена, а всё вокруг помечено inert. Фокус уходит в первое поле
    и возвращается на кнопку, которая открыла. При закрытии форма внутри
-   сбрасывается — следующий раз попап открывается чистым. */
+   сбрасывается — следующий раз попап открывается чистым.
+
+   Источник заявки берётся у открывшей кнопки: data-lead-item (программа,
+   акция, процедура) и секция — data-lead-section или data-section
+   ближайшей секции. Попадают в скрытые поля формы попапа. */
 
 const DURATION = 0.4;
 
@@ -37,6 +41,7 @@ function setup(modal) {
     event?.preventDefault();
     tween?.kill();
     opener = event?.currentTarget ?? null;
+    fillSource(modal, opener);
     modal.hidden = false;
     around.forEach((element) => {
       element.inert = true;
@@ -95,4 +100,15 @@ function setup(modal) {
     closers.forEach((button) => button.removeEventListener('click', close));
     document.removeEventListener('keydown', onKeydown);
   };
+}
+
+function fillSource(modal, opener) {
+  const section = modal.querySelector('[data-lead-section]');
+  const item = modal.querySelector('[data-lead-item]');
+
+  if (section) {
+    section.value = opener?.dataset.leadSection ?? opener?.closest('[data-section]')?.dataset.section ?? '';
+  }
+
+  if (item) item.value = opener?.dataset.leadItem ?? '';
 }

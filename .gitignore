@@ -3,3 +3,10 @@ dist
 .DS_Store
 *.local
 .vite
+
+# WordPress: окружение и сборка темы
+wp/.env
+wp/wp-content/uploads/
+wp/wp-content/themes/skinlove/vendor/
+wp/wp-content/themes/skinlove/assets/
+*.log

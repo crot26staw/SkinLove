@@ -1,16 +1,14 @@
-/* Форма обратной связи до подключения Contact Form 7: проверяет обязательные
-   поля, показывает ошибки по киту и вместо отправки выводит сообщение
-   об успехе. Ошибка у поля снимается, как только в него что-то ввели;
-   reset формы возвращает её в исходный вид.
+/* Форма заявки: проверяет обязательные поля, показывает ошибки по киту
+   и отправляет заявку JSON'ом на адрес из action (REST-эндпоинт темы).
+   Успех — сообщение form__status, ошибка — form__failure с текстом ответа
+   сервера. В статической вёрстке action="#": отправки нет, сразу успех.
+   Ошибка у поля снимается, как только в него что-то ввели; reset формы
+   возвращает её в исходный вид.
 
    Поля с data-mask приводятся к формату на лету: в имя попадают только буквы,
-   пробел и дефис, телефон собирается как 8-333-333-33-33 (плюс и семёрка
-   в начале заменяются на восьмёрку). Если у поля есть data-error-invalid,
-   этот текст показывается вместо стандартного, когда поле заполнено,
-   но не проходит проверку. */
-
-const PHONE_LENGTH = 11;
-const PHONE_GROUPS = [1, 3, 3, 2, 2];
+   пробел и дефис. Если у поля есть data-error-invalid, этот текст
+   показывается вместо стандартного, когда поле заполнено, но не проходит
+   проверку. */
 
 export function initForms() {
   const forms = [...document.querySelectorAll('[data-form]')];
@@ -25,6 +23,11 @@ export function initForms() {
 function setup(form) {
   const fields = [...form.querySelectorAll('input[required]')];
   const status = form.querySelector('[data-form-status]');
+  const failure = form.querySelector('[data-form-failure]');
+  const submit = form.querySelector('[type="submit"]');
+  const endpoint = form.getAttribute('action');
+  const defaultFailure = failure?.textContent;
+  let sending = false;
 
   const errorOf = (field) => field.closest('label')?.querySelector('[data-form-error]');
   const defaultErrors = new Map(fields.map((field) => [field, errorOf(field)?.textContent]));
@@ -45,8 +48,32 @@ function setup(form) {
     return valid;
   });
 
-  const onSubmit = (event) => {
+  const succeed = () => {
+    form.classList.add('form--sent');
+
+    if (status) {
+      status.hidden = false;
+      status.focus({ preventScroll: true });
+    }
+  };
+
+  const fail = (message) => {
+    if (!failure) return;
+
+    failure.textContent = message || defaultFailure;
+    failure.hidden = false;
+  };
+
+  const setSending = (value) => {
+    sending = value;
+    form.toggleAttribute('aria-busy', value);
+    if (submit) submit.disabled = value;
+  };
+
+  const onSubmit = async (event) => {
     event.preventDefault();
+
+    if (sending) return;
 
     const results = validate();
     const firstInvalid = fields[results.indexOf(false)];
@@ -56,11 +83,31 @@ function setup(form) {
       return;
     }
 
-    form.classList.add('form--sent');
+    if (!endpoint || endpoint === '#') {
+      succeed();
+      return;
+    }
 
-    if (status) {
-      status.hidden = false;
-      status.focus({ preventScroll: true });
+    if (failure) failure.hidden = true;
+    setSending(true);
+
+    try {
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(collect(form)),
+      });
+      const body = await response.json().catch(() => ({}));
+
+      if (response.ok) {
+        succeed();
+      } else {
+        fail(body.message);
+      }
+    } catch {
+      fail();
+    } finally {
+      setSending(false);
     }
   };
 
@@ -79,6 +126,7 @@ function setup(form) {
     fields.forEach((field) => mark(field, false));
     form.classList.remove('form--sent');
     if (status) status.hidden = true;
+    if (failure) failure.hidden = true;
   };
 
   form.addEventListener('submit', onSubmit);
@@ -92,6 +140,17 @@ function setup(form) {
   };
 }
 
+/* Поля формы объектом; повторяющиеся имена (галочки квиза) — массивом. */
+function collect(form) {
+  const data = {};
+
+  new FormData(form).forEach((value, key) => {
+    data[key] = key in data ? [].concat(data[key], value) : value;
+  });
+
+  return data;
+}
+
 function applyMask(field) {
   const mask = MASKS[field.dataset.mask];
   if (!mask) return;
@@ -102,7 +161,7 @@ function applyMask(field) {
 
   /* Курсор ставим после того же по счёту значимого символа, что и до
      форматирования: так ввод в середине поля не прыгает в конец. */
-  const before = mask.count(value.slice(0, selectionStart ?? value.length)) + mask.shift(value);
+  const before = mask.count(value.slice(0, selectionStart ?? value.length));
   field.value = next;
   field.setSelectionRange(mask.position(next, before), mask.position(next, before));
 }
@@ -111,43 +170,6 @@ const MASKS = {
   name: {
     format: (value) => value.replace(/[^\p{L}\s-]/gu, ''),
     count: (value) => value.replace(/[^\p{L}\s-]/gu, '').length,
-    shift: () => 0,
     position: (value, count) => count,
   },
-
-  phone: {
-    format: (value) => {
-      const digits = phoneDigits(value);
-      const groups = [];
-      let offset = 0;
-
-      for (const size of PHONE_GROUPS) {
-        const group = digits.slice(offset, offset + size);
-        if (!group) break;
-        groups.push(group);
-        offset += size;
-      }
-
-      return groups.join('-');
-    },
-    count: (value) => value.replace(/\D/g, '').length,
-    /* Если восьмёрку добавили за пользователя, курсор сдвигается на неё. */
-    shift: (value) => (/^\D*[78]/.test(value) || !/\d/.test(value) ? 0 : 1),
-    position: (value, count) => {
-      let seen = 0;
-      for (let index = 0; index < value.length; index += 1) {
-        if (/\d/.test(value[index])) seen += 1;
-        if (seen === count) return index + 1;
-      }
-      return value.length;
-    },
-  },
 };
-
-function phoneDigits(value) {
-  const digits = value.replace(/\D/g, '');
-  if (!digits) return '';
-
-  const rest = /^[78]/.test(digits) ? digits.slice(1) : digits;
-  return `8${rest}`.slice(0, PHONE_LENGTH);
-}
