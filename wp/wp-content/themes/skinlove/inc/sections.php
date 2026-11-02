@@ -84,6 +84,8 @@ function skinlove_section_layouts() {
 				array(
 					Field::make( 'html', 'reviews_note' )
 						->set_html( '<p>Сами отзывы общие для всего сайта — раздел «Отзывы» в меню админки. Без отзывов секция не выводится.</p>' ),
+					Field::make( 'checkbox', 'blinds', 'Открывается жалюзи' )
+						->set_help_text( 'Полосы цвета предыдущей секции расходятся, пока отзывы входят в кадр. На страницах услуг включено, на главной — нет.' ),
 				),
 				skinlove_sub_pair( 'text', 'label', 'Надзаголовок' ),
 				skinlove_sub_pair( 'textarea', 'title', 'Заголовок', 'skinlove_heading_help' ),
@@ -190,7 +192,232 @@ function skinlove_section_layouts() {
 				skinlove_sub_pair( 'textarea', 'title', 'Заголовок', 'skinlove_heading_help' )
 			),
 		),
+		'service-hero'    => array(
+			'label'  => 'Первый экран услуги',
+			'fields' => fn() => array_merge(
+				array( Field::make( 'image', 'image', 'Фото фоном' )->set_help_text( 'Горизонтальное, 3 : 2.' ) ),
+				skinlove_sub_pair( 'textarea', 'title', 'Заголовок', 'skinlove_service_title_help' ),
+				skinlove_sub_pair( 'textarea', 'lead', 'Крупный текст', 'skinlove_short_text' ),
+				skinlove_sub_pair( 'textarea', 'text', 'Текст', 'skinlove_short_text' ),
+				skinlove_sub_pair( 'text', 'button', 'Кнопка', 'skinlove_cta_button_help' )
+			),
+		),
+		'tasks'           => array(
+			'label'  => 'Задачи',
+			'fields' => fn() => array_merge(
+				skinlove_sub_pair( 'text', 'label', 'Надзаголовок' ),
+				skinlove_sub_pair( 'textarea', 'title', 'Заголовок', 'skinlove_heading_help' ),
+				array( skinlove_items_field( 'items', 'Задачи', 'задачу', 'задачи' ) )
+			),
+		),
+		'procedures'      => array(
+			'label'  => 'Процедуры и цены',
+			'fields' => fn() => array(
+				Field::make( 'html', 'procedures_note' )
+					->set_html( '<p>Каждая процедура — вкладка с фото, описанием и прайсом. В длинном прайсе сначала видна часть строк, остальные под кнопкой «Развернуть полный прайс».</p>' ),
+				Field::make( 'text', 'prices_limit', 'Строк прайса до сворачивания' )
+					->set_attribute( 'type', 'number' )
+					->set_attribute( 'min', '1' )
+					->set_default_value( SKINLOVE_PRICES_LIMIT )
+					->set_help_text( 'На десктопе. Если панель с длинным заголовком и описанием упирается в шапку или подпись внизу — уменьшить. На мобильном всегда 4.' ),
+				skinlove_procedures_field(),
+			),
+		),
+		'promos'          => array(
+			'label'  => 'Акции',
+			'fields' => fn() => array_merge(
+				array( skinlove_background_field( 'beige' ) ),
+				skinlove_sub_pair( 'text', 'label', 'Надзаголовок' ),
+				skinlove_sub_pair( 'textarea', 'title', 'Заголовок', 'skinlove_heading_help' ),
+				array(
+					Field::make( 'complex', 'items', 'Акции' )
+						->setup_labels(
+							array(
+								'plural_name'   => 'акции',
+								'singular_name' => 'акцию',
+							)
+						)
+						->set_collapsed( true )
+						->add_fields(
+							array_merge(
+								array( Field::make( 'image', 'image', 'Фото' )->set_help_text( 'Горизонтальное, примерно 16 : 9.' ) ),
+								skinlove_sub_pair( 'text', 'title', 'Заголовок' ),
+								skinlove_sub_pair( 'textarea', 'text', 'Текст', 'skinlove_short_text' ),
+								skinlove_sub_pair( 'text', 'button', 'Кнопка', 'skinlove_cta_button_help' )
+							)
+						)
+						->set_header_template( '<%- title_ru %>' ),
+				)
+			),
+		),
+		'steps'           => array(
+			'label'  => 'Этапы',
+			'fields' => fn() => array_merge(
+				array( skinlove_background_field( 'beige' ) ),
+				skinlove_sub_pair( 'text', 'label', 'Надзаголовок' ),
+				skinlove_sub_pair( 'textarea', 'title', 'Заголовок', 'skinlove_heading_help' ),
+				array(
+					skinlove_items_field(
+						'items',
+						'Этапы',
+						'этап',
+						'этапы',
+						array( Field::make( 'image', 'image', 'Фото' )->set_help_text( 'Горизонтальное, примерно 16 : 9.' ) )
+					),
+				)
+			),
+		),
+		'program-request' => array(
+			'label'  => 'Заявка с формой',
+			'fields' => fn() => array_merge(
+				skinlove_sub_pair( 'textarea', 'title', 'Заголовок', 'skinlove_heading_help' ),
+				skinlove_sub_pair( 'textarea', 'text', 'Текст', 'skinlove_short_text' ),
+				skinlove_sub_pair( 'text', 'button', 'Кнопка формы' ),
+				array( Field::make( 'image', 'image', 'Фото' )->set_help_text( 'Вертикальное, 2 : 3.' ) )
+			),
+		),
+		'results'         => array(
+			'label'  => 'Результаты',
+			'fields' => fn() => array_merge(
+				array(
+					Field::make( 'html', 'results_note' )
+						->set_html( '<p>Фото «до / после» общие для всего сайта — «Настройки сайта», вкладка «Результаты». Без фото секция не выводится.</p>' ),
+				),
+				skinlove_sub_pair( 'text', 'label', 'Надзаголовок' ),
+				skinlove_sub_pair( 'textarea', 'title', 'Заголовок', 'skinlove_heading_help' )
+			),
+		),
+		'faq'             => array(
+			'label'  => 'Вопросы и ответы',
+			'fields' => fn() => array_merge(
+				skinlove_sub_pair( 'text', 'label', 'Надзаголовок' ),
+				skinlove_sub_pair( 'textarea', 'title', 'Заголовок', 'skinlove_heading_help' ),
+				array(
+					Field::make( 'complex', 'items', 'Вопросы' )
+						->setup_labels(
+							array(
+								'plural_name'   => 'вопросы',
+								'singular_name' => 'вопрос',
+							)
+						)
+						->set_collapsed( true )
+						->add_fields(
+							array_merge(
+								skinlove_sub_pair( 'text', 'question', 'Вопрос' ),
+								skinlove_sub_pair( 'textarea', 'answer', 'Ответ', 'skinlove_paragraphs_help' )
+							)
+						)
+						->set_header_template( '<%- question_ru %>' )
+						->set_help_text( 'Первый вопрос открыт сразу.' ),
+				)
+			),
+		),
 	);
+}
+
+/** Строк прайса до сворачивания на десктопе по умолчанию (решение 20). */
+const SKINLOVE_PRICES_LIMIT = 16;
+
+/** Строк прайса до сворачивания на мобильном (решение 20). */
+const SKINLOVE_PRICES_LIMIT_COMPACT = 4;
+
+/**
+ * Процедуры секции «Процедуры и цены»: вкладка, фото, описание, прайс и кнопка.
+ * Прайс — строки «название + цена» вперемешку с заголовками групп.
+ *
+ * @return Field
+ */
+function skinlove_procedures_field() {
+	$prices = Field::make( 'complex', 'prices', 'Прайс' )
+		->setup_labels(
+			array(
+				'plural_name'   => 'строки',
+				'singular_name' => 'строку',
+			)
+		)
+		->set_collapsed( true );
+
+	$prices->add_fields(
+		'row',
+		'Строка',
+		array_merge(
+			skinlove_sub_pair( 'text', 'name', 'Название' ),
+			array(
+				Field::make( 'text', 'price', 'Цена' )
+					->set_help_text( 'Как показывать: 1750 AED, 2550 / 4050 AED.' ),
+			)
+		)
+	);
+	$prices->set_header_template( '<%- name_ru %> — <%- price %>' );
+
+	$prices->add_fields( 'group', 'Заголовок группы', skinlove_sub_pair( 'text', 'name', 'Заголовок' ) );
+	$prices->set_header_template( '<strong><%- name_ru %></strong>' );
+
+	return Field::make( 'complex', 'items', 'Процедуры' )
+		->setup_labels(
+			array(
+				'plural_name'   => 'процедуры',
+				'singular_name' => 'процедуру',
+			)
+		)
+		->set_collapsed( true )
+		->add_fields(
+			array_merge(
+				skinlove_sub_pair( 'text', 'tab', 'Название вкладки' ),
+				array( Field::make( 'image', 'image', 'Фото' )->set_help_text( 'Горизонтальное, 3 : 2.' ) ),
+				skinlove_sub_pair( 'textarea', 'title', 'Заголовок', 'skinlove_short_text' ),
+				skinlove_sub_pair( 'textarea', 'text', 'Описание', 'skinlove_short_text' ),
+				array( $prices ),
+				skinlove_sub_pair( 'text', 'button', 'Кнопка', 'skinlove_cta_button_help' )
+			)
+		)
+		->set_header_template( '<%- tab_ru %>' );
+}
+
+/**
+ * Фон секции — модификатор section--{значение}.
+ *
+ * @param string $default Фон по умолчанию.
+ * @return Field
+ */
+function skinlove_background_field( $default ) {
+	return Field::make( 'select', 'background', 'Фон' )
+		->set_options( skinlove_backgrounds() )
+		->set_default_value( $default );
+}
+
+/**
+ * Фоны секций: значение => подпись.
+ *
+ * @return array<string,string>
+ */
+function skinlove_backgrounds() {
+	return array(
+		'beige' => 'Бежевый',
+		'light' => 'Светлый',
+	);
+}
+
+/**
+ * Класс фона секции из поля skinlove_background_field().
+ *
+ * @param array  $section Элемент конструктора.
+ * @param string $default Фон, если поле пустое или значение неизвестно.
+ * @return string section--beige, section--light.
+ */
+function skinlove_background_class( $section, $default ) {
+	$background = $section['background'] ?? '';
+
+	return 'section--' . ( isset( skinlove_backgrounds()[ $background ] ) ? $background : $default );
+}
+
+/**
+ * Заголовок первого экрана услуги: строки разъезжаются в стороны.
+ *
+ * @param Field $field Поле.
+ */
+function skinlove_service_title_help( $field ) {
+	$field->set_rows( 2 )->set_help_text( 'Каждая строка — с новой строки, акцентная — в *звёздочках*. Строки по очереди уезжают влево и вправо; одна строка встаёт по центру.' );
 }
 
 /**

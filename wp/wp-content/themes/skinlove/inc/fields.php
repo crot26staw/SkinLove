@@ -97,13 +97,14 @@ function skinlove_short_text( $field ) {
  * строка с модификатором --accent. Пример: «Начните *с заботы* о себе» —
  * три строки, средняя акцентная. Текст экранируется до разбора.
  *
- * @param string $text Значение поля.
- * @param string $attr Атрибут для каждой строки (например, data-hero-intro) — только из шаблона.
+ * @param string          $text Значение поля.
+ * @param string|string[] $attr Атрибут для каждой строки (например, data-hero-intro) — только из шаблона.
+ *                              Список атрибутов раздаётся строкам по кругу: левая, правая, левая…
  * @return string Готовая разметка или пустая строка.
  */
 function skinlove_heading( $text, $attr = '' ) {
 	$lines = array();
-	$attr  = $attr ? ' ' . $attr : '';
+	$attrs = array_map( fn( $item ) => $item ? ' ' . $item : '', (array) $attr );
 
 	foreach ( preg_split( '/\R/u', esc_html( $text ) ) as $row ) {
 		foreach ( preg_split( '/(\*[^*]+\*)/u', $row, -1, PREG_SPLIT_DELIM_CAPTURE ) as $part ) {
@@ -115,6 +116,7 @@ function skinlove_heading( $text, $attr = '' ) {
 			}
 
 			$class   = $accent ? 'heading__line heading__line--accent' : 'heading__line';
+			$attr    = $attrs[ count( $lines ) % count( $attrs ) ];
 			$lines[] = "<span class=\"{$class}\"{$attr}>{$part}</span>";
 		}
 	}

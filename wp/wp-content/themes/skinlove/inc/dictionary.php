@@ -182,5 +182,37 @@ function skinlove_dictionary() {
 			'ru' => 'Клиника SkinLove на карте',
 			'en' => 'SkinLove clinic on the map',
 		),
+		'procedures_tabs'   => array(
+			'ru' => 'Процедуры',
+			'en' => 'Treatments',
+		),
+		'prices_title'      => array(
+			'ru' => 'Стоимость процедур',
+			'en' => 'Prices',
+		),
+		'prices_more'       => array(
+			'ru' => 'Развернуть полный прайс',
+			'en' => 'Show full price list',
+		),
+		'prices_less'       => array(
+			'ru' => 'Свернуть прайс',
+			'en' => 'Collapse price list',
+		),
+		'promos_prev'       => array(
+			'ru' => 'Предыдущие акции',
+			'en' => 'Previous offers',
+		),
+		'promos_next'       => array(
+			'ru' => 'Следующие акции',
+			'en' => 'Next offers',
+		),
+		'results_prev'      => array(
+			'ru' => 'Предыдущие результаты',
+			'en' => 'Previous results',
+		),
+		'results_next'      => array(
+			'ru' => 'Следующие результаты',
+			'en' => 'Next results',
+		),
 	);
 }

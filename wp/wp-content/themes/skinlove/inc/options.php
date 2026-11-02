@@ -72,6 +72,14 @@ function skinlove_register_options() {
 			)
 		)
 		->add_tab(
+			'Результаты',
+			array(
+				Field::make( 'media_gallery', 'sl_results', 'Фото «до / после»' )
+					->set_type( array( 'image' ) )
+					->set_help_text( 'Общие для всех страниц услуг, выводятся в секции «Результаты» в этом порядке. Вертикальные, примерно 6 : 7; подпись — alt в медиабиблиотеке.' ),
+			)
+		)
+		->add_tab(
 			'Модалка заявки',
 			array_merge(
 				skinlove_pair( 'text', 'modal_title', 'Заголовок' ),
@@ -182,4 +190,13 @@ function skinlove_map_embed( $class ) {
 		esc_url( $src ),
 		esc_attr( skinlove_t( 'map_title' ) )
 	);
+}
+
+/**
+ * Фото «до / после» для секции «Результаты».
+ *
+ * @return int[] ID вложений.
+ */
+function skinlove_results() {
+	return array_values( array_filter( array_map( 'intval', (array) carbon_get_theme_option( 'sl_results' ) ) ) );
 }

@@ -55,4 +55,23 @@ skinlove_seed_option_pair(
 	'Thank you, your request has been sent. A SkinLove administrator will be in touch shortly.'
 );
 
+// Результаты «до / после» — общие для страниц услуг.
+carbon_set_theme_option(
+	'sl_results',
+	array(
+		skinlove_seed_image( 'result-1.jpg', 'Разглаживание морщин лба, до и после' ),
+		skinlove_seed_image( 'result-2.jpg', 'Коррекция межбровных морщин, до и после' ),
+		skinlove_seed_image( 'result-3.jpg', 'Коррекция морщин вокруг глаз, до и после' ),
+		skinlove_seed_image( 'result-4.jpg', 'Коррекция нижней трети лица, до и после' ),
+		skinlove_seed_image( 'result-5.jpg', 'Увеличение губ, до и после' ),
+		skinlove_seed_image( 'result-6.jpg', 'Коррекция формы губ, до и после' ),
+		skinlove_seed_image( 'result-7.jpg', 'Контурная пластика губ, до и после' ),
+		skinlove_seed_image( 'result-8.jpg', 'Увеличение губ, до и после' ),
+		skinlove_seed_image( 'result-9.jpg', 'Коррекция овала лица и подбородка, до и после' ),
+		skinlove_seed_image( 'result-10.jpg', 'Коррекция подбородка, до и после' ),
+		skinlove_seed_image( 'result-11.jpg', 'Коррекция межбровья и области глаз, до и после' ),
+		skinlove_seed_image( 'result-12.jpg', 'Разглаживание морщин лба, до и после' ),
+	)
+);
+
 WP_CLI::success( 'Настройки сайта заполнены' );

@@ -62,6 +62,10 @@ function skinlove_icons() {
 			'0 0 80 80',
 			'<path d="M40 33a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 13c6.6 0 12 3.6 12 8v2H28v-2c0-4.4 5.4-8 12-8Z" fill="#3A3A37" opacity=".4"/>',
 		),
+		'plus-faq' => array(
+			'0 0 12 12',
+			'<path d="M5 12V0H7.025V12H5ZM0 7.025V4.975H12V7.025H0Z" fill="currentColor"/>',
+		),
 	);
 }
 

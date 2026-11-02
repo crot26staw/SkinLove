@@ -20,6 +20,12 @@ $skinlove_title   = skinlove_entry( $skinlove_section, 'title' );
 $skinlove_uid     = skinlove_section_uid( 'review' );
 ?>
 <section class="section section--beige reviews" data-section="reviews" data-reviews>
+	<?php if ( ! empty( $skinlove_section['blinds'] ) ) : ?>
+		<div class="blinds" aria-hidden="true">
+			<?php echo str_repeat( '<span class="blinds__bar" data-blind></span>', 5 ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+		</div>
+
+	<?php endif; ?>
 	<span class="reviews__line rule" data-rule aria-hidden="true"></span>
 	<span class="reviews__divider rule rule--vertical" data-rule aria-hidden="true"></span>
 	<?php echo skinlove_icon( 'plus', 'reviews__marker', 'data-rule-marker' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>

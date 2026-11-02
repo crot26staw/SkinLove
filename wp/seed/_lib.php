@@ -261,3 +261,89 @@ function skinlove_seed_entry( $pairs, $extra = array() ) {
 
 	return $entry;
 }
+
+/**
+ * Карточки «Преимуществ» главной и страниц услуг: тексты у них общие,
+ * фото у каждой страницы свои.
+ *
+ * @return array Пары для skinlove_seed_entry().
+ */
+function skinlove_seed_advantages() {
+	return array(
+		array(
+			'title' => array( 'Индивидуальный подход', 'A personal approach' ),
+			'text'  => array(
+				'Мы внимательно изучаем ваш запрос, образ жизни и состояние здоровья, чтобы подобрать решение, которое подойдёт именно вам.',
+				'We take time to understand your goals, lifestyle and health so we can find the solution that is right for you.',
+			),
+		),
+		array(
+			'title' => array( 'Комплексная забота', 'Comprehensive care' ),
+			'text'  => array(
+				'Эстетическая медицина, IV Therapy и wellness работают вместе, помогая сохранять не только красоту, но и хорошее самочувствие.',
+				'Aesthetic medicine, IV Therapy and wellness work together to help you look after not only your appearance but also how you feel.',
+			),
+		),
+		array(
+			'title' => array( 'Премиальный сервис', 'Premium service' ),
+			'text'  => array(
+				'Внимание к деталям делает каждый визит комфортным — от тёплой встречи до сопровождения после процедуры.',
+				'Attention to detail makes every visit comfortable — from a warm welcome to follow-up care after your treatment.',
+			),
+		),
+		array(
+			'title' => array( 'Медицинская экспертиза', 'Medical expertise' ),
+			'text'  => array(
+				'Современные методики, сертифицированные препараты и специалисты, для которых безопасность пациента всегда остаётся главным приоритетом.',
+				'Modern techniques, certified products and specialists for whom patient safety always comes first.',
+			),
+		),
+		array(
+			'title' => array( 'Выездные услуги', 'At-home services' ),
+			'text'  => array(
+				'Если приехать в клинику неудобно, многие процедуры доступны с выездом домой, в отель, офис или другое удобное место.',
+				'If visiting the clinic isn’t convenient, many treatments are available at your home, hotel, office or another place that suits you.',
+			),
+		),
+		array(
+			'title' => array( 'Естественный результат', 'Natural-looking results' ),
+			'text'  => array(
+				'Мы не меняем внешность, а деликатно подчёркиваем вашу индивидуальность и сохраняем естественную красоту.',
+				'We don’t change how you look — we gently enhance your individuality and preserve your natural beauty.',
+			),
+		),
+	);
+}
+
+/**
+ * Строка прайса процедуры. Названия препаратов международные, поэтому
+ * без EN строка получает русское название как есть.
+ *
+ * @param string      $ru    Название.
+ * @param string      $price Цена: 1750 AED, 2550 / 4050 AED.
+ * @param string|null $en    Название на английском, если отличается.
+ * @return array
+ */
+function skinlove_seed_price( $ru, $price, $en = null ) {
+	return array(
+		'_type'   => 'row',
+		'name_ru' => $ru,
+		'name_en' => $en ?? $ru,
+		'price'   => $price,
+	);
+}
+
+/**
+ * Заголовок группы в прайсе процедуры.
+ *
+ * @param string $ru Заголовок.
+ * @param string $en Заголовок на английском.
+ * @return array
+ */
+function skinlove_seed_price_group( $ru, $en ) {
+	return array(
+		'_type'   => 'group',
+		'name_ru' => $ru,
+		'name_en' => $en,
+	);
+}
