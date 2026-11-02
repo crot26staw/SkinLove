@@ -190,6 +190,14 @@ function skinlove_dictionary() {
 			'ru' => 'Стоимость процедур',
 			'en' => 'Prices',
 		),
+		'price_from'        => array(
+			'ru' => 'от',
+			'en' => 'from',
+		),
+		'prices_variants'   => array(
+			'ru' => 'Вид прайса',
+			'en' => 'Price list type',
+		),
 		'prices_more'       => array(
 			'ru' => 'Развернуть полный прайс',
 			'en' => 'Show full price list',

@@ -322,13 +322,14 @@ const SKINLOVE_PRICES_LIMIT = 16;
 const SKINLOVE_PRICES_LIMIT_COMPACT = 4;
 
 /**
- * Процедуры секции «Процедуры и цены»: вкладка, фото, описание, прайс и кнопка.
- * Прайс — строки «название + цена» вперемешку с заголовками групп.
+ * Прайс процедуры: строки «название + цена» вперемешку с заголовками групп.
  *
+ * @param string $name  Имя поля.
+ * @param string $label Подпись.
  * @return Field
  */
-function skinlove_procedures_field() {
-	$prices = Field::make( 'complex', 'prices', 'Прайс' )
+function skinlove_prices_field( $name, $label ) {
+	$prices = Field::make( 'complex', $name, $label )
 		->setup_labels(
 			array(
 				'plural_name'   => 'строки',
@@ -344,15 +345,43 @@ function skinlove_procedures_field() {
 			skinlove_sub_pair( 'text', 'name', 'Название' ),
 			array(
 				Field::make( 'text', 'price', 'Цена' )
-					->set_help_text( 'Как показывать: 1750 AED, 2550 / 4050 AED.' ),
+					->set_width( 50 )
+					->set_help_text( 'Как показывать: 1750 AED, 2550 / 4050 AED. Одна на оба языка.' ),
+				Field::make( 'checkbox', 'price_from', 'Цена «от»' )
+					->set_width( 50 )
+					->set_option_value( 'yes' )
+					->set_help_text( 'Перед ценой появится «от» / «from».' ),
 			)
 		)
 	);
-	$prices->set_header_template( '<%- name_ru %> — <%- price %>' );
+	$prices->set_header_template( '<%- name_ru %> — <% if ( price_from ) { %>от <% } %><%- price %>' );
 
 	$prices->add_fields( 'group', 'Заголовок группы', skinlove_sub_pair( 'text', 'name', 'Заголовок' ) );
 	$prices->set_header_template( '<strong><%- name_ru %></strong>' );
 
+	return $prices;
+}
+
+/**
+ * Цена строки прайса с «от» на языке страницы, если отмечено.
+ *
+ * @param array $row Элемент complex prices.
+ * @return string
+ */
+function skinlove_price( $row ) {
+	$price = skinlove_clean( $row['price'] ?? '' );
+
+	return $price && ! empty( $row['price_from'] ) ? skinlove_t( 'price_from' ) . ' ' . $price : $price;
+}
+
+/**
+ * Процедуры секции «Процедуры и цены»: вкладка, фото, описание, прайс и кнопка.
+ * Второй прайс необязательный (решение 19): с ним над списком появляется
+ * переключатель из двух подписей, например «Женская / Мужская».
+ *
+ * @return Field
+ */
+function skinlove_procedures_field() {
 	return Field::make( 'complex', 'items', 'Процедуры' )
 		->setup_labels(
 			array(
@@ -367,8 +396,19 @@ function skinlove_procedures_field() {
 				array( Field::make( 'image', 'image', 'Фото' )->set_help_text( 'Горизонтальное, 3 : 2.' ) ),
 				skinlove_sub_pair( 'textarea', 'title', 'Заголовок', 'skinlove_short_text' ),
 				skinlove_sub_pair( 'textarea', 'text', 'Описание', 'skinlove_short_text' ),
-				array( $prices ),
-				skinlove_sub_pair( 'text', 'button', 'Кнопка', 'skinlove_cta_button_help' )
+				array( skinlove_prices_field( 'prices', 'Прайс' ) ),
+				array(
+					Field::make( 'html', 'prices_alt_note' )
+						->set_html( '<p>Второй прайс — если у процедуры два вида цен, например для женщин и для мужчин. Переключатель появится, когда заполнены оба прайса и обе подписи.</p>' ),
+				),
+				skinlove_sub_pair( 'text', 'variant', 'Подпись первого прайса' ),
+				skinlove_sub_pair( 'text', 'variant_alt', 'Подпись второго прайса' ),
+				array( skinlove_prices_field( 'prices_alt', 'Второй прайс' ) ),
+				skinlove_button_fields(),
+				array(
+					Field::make( 'html', 'button_note' )
+						->set_html( '<p>Без ссылки кнопка открывает окно заявки.</p>' ),
+				)
 			)
 		)
 		->set_header_template( '<%- tab_ru %>' );

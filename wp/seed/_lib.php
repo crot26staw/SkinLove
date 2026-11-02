@@ -78,6 +78,8 @@ function skinlove_seed_image( $file, $alt = '' ) {
 
 /**
  * Страница по slug: создаёт, если её нет, иначе обновляет заголовок и порядок.
+ * Без menu_order в $args порядок существующей страницы сохраняется:
+ * wp_insert_post не сливает поля с записью и сбросил бы его в 0.
  *
  * @param string $slug  Slug, один на оба языка.
  * @param string $title Заголовок в админке (русский).
@@ -95,6 +97,7 @@ function skinlove_seed_page( $slug, $title, $args = array() ) {
 				'post_status' => 'publish',
 				'post_name'   => $slug,
 				'post_title'  => $title,
+				'menu_order'  => $page ? $page->menu_order : 0,
 			),
 			$args
 		),
@@ -317,19 +320,23 @@ function skinlove_seed_advantages() {
 
 /**
  * Строка прайса процедуры. Названия препаратов международные, поэтому
- * без EN строка получает русское название как есть.
+ * без EN строка получает русское название как есть. «от» в начале цены
+ * становится флажком «Цена „от“» — слово выводится на языке страницы.
  *
  * @param string      $ru    Название.
- * @param string      $price Цена: 1750 AED, 2550 / 4050 AED.
+ * @param string      $price Цена: 1750 AED, 2550 / 4050 AED, от 650 AED.
  * @param string|null $en    Название на английском, если отличается.
  * @return array
  */
 function skinlove_seed_price( $ru, $price, $en = null ) {
+	$from = str_starts_with( $price, 'от ' );
+
 	return array(
-		'_type'   => 'row',
-		'name_ru' => $ru,
-		'name_en' => $en ?? $ru,
-		'price'   => $price,
+		'_type'      => 'row',
+		'name_ru'    => $ru,
+		'name_en'    => $en ?? $ru,
+		'price'      => $from ? substr( $price, strlen( 'от ' ) ) : $price,
+		'price_from' => $from ? 'yes' : '',
 	);
 }
 
@@ -345,5 +352,169 @@ function skinlove_seed_price_group( $ru, $en ) {
 		'_type'   => 'group',
 		'name_ru' => $ru,
 		'name_en' => $en,
+	);
+}
+
+/**
+ * Процедуры секции «Процедуры и цены».
+ *
+ * @param array $procedures Процедуры: pairs (tab, title, text, при втором
+ *                          прайсе variant, variant_alt), image [файл, alt],
+ *                          prices, prices_alt, button [ru, en], button_url.
+ * @param array $button     Подпись кнопки по умолчанию [ru, en].
+ * @return array
+ */
+function skinlove_seed_procedures( $procedures, $button ) {
+	return array_map(
+		fn( $procedure ) => skinlove_seed_entry(
+			$procedure['pairs'] + array( 'button' => $procedure['button'] ?? $button ),
+			array(
+				'image'      => skinlove_seed_image( ...$procedure['image'] ),
+				'prices'     => $procedure['prices'] ?? array(),
+				'prices_alt' => $procedure['prices_alt'] ?? array(),
+				'button_url' => $procedure['button_url'] ?? '',
+			)
+		),
+		$procedures
+	);
+}
+
+/**
+ * Элементы с фото — этапы: пары и image [файл, alt].
+ *
+ * @param array $items Элементы.
+ * @return array
+ */
+function skinlove_seed_image_items( $items ) {
+	return array_map(
+		fn( $item ) => skinlove_seed_entry(
+			array_diff_key( $item, array( 'image' => true ) ),
+			array( 'image' => skinlove_seed_image( ...$item['image'] ) )
+		),
+		$items
+	);
+}
+
+/**
+ * Карточки акций: в вёрстке страниц услуг это заглушки с одним текстом,
+ * отличаются только фото.
+ *
+ * @param array $files Фото карточек.
+ * @return array
+ */
+function skinlove_seed_promos( $files ) {
+	$promo = array(
+		'title'  => array( 'Выходные для здоровья', 'Wellness weekends' ),
+		'text'   => array(
+			'Приём врача по выгодной цене — без пробок, очередей и спешки. Забота о себе, которая вписывается в ваше расписание. Субботнее и воскресное утро. Никуда не нужно спешить. Самое время для того, что постоянно откладываете, — для консультации с врачом.',
+			'A doctor’s appointment at a special price — no traffic, no queues, no rush. Self-care that fits into your schedule. Saturday and Sunday mornings, with nowhere to hurry. The perfect time for what you keep putting off: a consultation with a doctor.',
+		),
+		'button' => array( 'Подобрать процедуру', 'Find my treatment' ),
+	);
+
+	return array_map(
+		fn( $file ) => skinlove_seed_entry( $promo, array( 'image' => skinlove_seed_image( $file ) ) ),
+		$files
+	);
+}
+
+/**
+ * Карточки «Почему выбирают» страницы услуги: общие тексты, свои фото
+ * {$prefix}-adv-N.jpg (alt — заголовок карточки).
+ *
+ * @param string $prefix Префикс фото: inject, face…
+ * @param int    $count  Сколько карточек: у wellness и iv-therapy их 5.
+ * @return array
+ */
+function skinlove_seed_service_advantages( $prefix, $count = 6 ) {
+	$advantages = array_slice( skinlove_seed_advantages(), 0, $count );
+
+	foreach ( $advantages as $index => $advantage ) {
+		$advantages[ $index ] = skinlove_seed_entry(
+			$advantage,
+			array( 'image' => skinlove_seed_image( "{$prefix}-adv-" . ( $index + 1 ) . '.jpg', $advantage['title'][0] ) )
+		);
+	}
+
+	return $advantages;
+}
+
+/**
+ * Секции, одинаковые на всех страницах услуг: акции, этапы, заявка,
+ * преимущества, результаты, отзывы, FAQ — в порядке вёрстки, между
+ * процедурами и финальным CTA.
+ *
+ * @param array $args promos (файлы фото), steps_title [ru, en], steps,
+ *                    request (пары title, text, button + image), advantages
+ *                    (префикс фото), advantages_count, faq.
+ * @return array
+ */
+function skinlove_seed_service_sections( $args ) {
+	return array(
+		skinlove_seed_entry(
+			array(
+				'label' => array( 'Акции', 'Offers' ),
+				'title' => array( "Акции\n*и спецпредложения*", "Offers\n*and promotions*" ),
+			),
+			array(
+				'_type'      => 'promos',
+				'background' => 'beige',
+				'items'      => skinlove_seed_promos( $args['promos'] ),
+			)
+		),
+		skinlove_seed_entry(
+			array(
+				'label' => array( 'Этапы', 'Steps' ),
+				'title' => $args['steps_title'],
+			),
+			array(
+				'_type'      => 'steps',
+				'background' => 'beige',
+				'items'      => skinlove_seed_image_items( $args['steps'] ),
+			)
+		),
+		skinlove_seed_entry(
+			array_diff_key( $args['request'], array( 'image' => true ) ),
+			array(
+				'_type' => 'program-request',
+				'image' => skinlove_seed_image( ...$args['request']['image'] ),
+			)
+		),
+		skinlove_seed_entry(
+			array( 'title' => array( "Почему выбирают\n*SkinLove*", "Why clients choose\n*SkinLove*" ) ),
+			array(
+				'_type' => 'advantages',
+				'items' => skinlove_seed_service_advantages( $args['advantages'], $args['advantages_count'] ?? 6 ),
+			)
+		),
+		skinlove_seed_entry(
+			array(
+				'label' => array( 'Результаты', 'Results' ),
+				'title' => array( "Результаты наших\n*пациентов*", "Our patients’\n*results*" ),
+			),
+			array( '_type' => 'results' )
+		),
+		skinlove_seed_entry(
+			array(
+				'label'  => array( 'Отзывы', 'Reviews' ),
+				'title'  => array( "Нам доверяют\n*самое ценное — здоровье*", "Trusted with\n*what matters most — your health*" ),
+				'button' => array( 'Больше отзывов', 'More reviews' ),
+			),
+			array(
+				'_type'      => 'reviews',
+				'blinds'     => true,
+				'button_url' => '#',
+			)
+		),
+		skinlove_seed_entry(
+			array(
+				'label' => array( 'FAQ', 'FAQ' ),
+				'title' => array( 'Частые вопросы', 'Frequently asked questions' ),
+			),
+			array(
+				'_type' => 'faq',
+				'items' => array_map( 'skinlove_seed_entry', $args['faq'] ),
+			)
+		),
 	);
 }

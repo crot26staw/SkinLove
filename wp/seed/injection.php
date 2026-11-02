@@ -203,30 +203,6 @@ $procedures = array(
 	),
 );
 
-foreach ( $procedures as $index => $procedure ) {
-	$procedures[ $index ] = skinlove_seed_entry(
-		$procedure['pairs'] + array( 'button' => $procedure_button ),
-		array(
-			'image'  => skinlove_seed_image( ...$procedure['image'] ),
-			'prices' => $procedure['prices'],
-		)
-	);
-}
-
-// Карточки акций в вёрстке — заглушки с одним текстом.
-$promo  = array(
-	'title'  => array( 'Выходные для здоровья', 'Wellness weekends' ),
-	'text'   => array(
-		'Приём врача по выгодной цене — без пробок, очередей и спешки. Забота о себе, которая вписывается в ваше расписание. Субботнее и воскресное утро. Никуда не нужно спешить. Самое время для того, что постоянно откладываете, — для консультации с врачом.',
-		'A doctor’s appointment at a special price — no traffic, no queues, no rush. Self-care that fits into your schedule. Saturday and Sunday mornings, with nowhere to hurry. The perfect time for what you keep putting off: a consultation with a doctor.',
-	),
-	'button' => array( 'Подобрать процедуру', 'Find my treatment' ),
-);
-$promos = array_map(
-	fn( $file ) => skinlove_seed_entry( $promo, array( 'image' => skinlove_seed_image( $file ) ) ),
-	array( 'svc-2-inject.jpg', 'inject-step-3.jpg', 'svc-3-face.jpg', 'wellness-consultation.jpg' )
-);
-
 $steps = array(
 	array(
 		'title' => array( 'Диагностика', 'Assessment' ),
@@ -261,24 +237,6 @@ $steps = array(
 		'image' => array( 'iv-step-4.jpg', 'Специалист подбирает уход для пациентки' ),
 	),
 );
-
-foreach ( $steps as $index => $step ) {
-	$image           = $step['image'];
-	$steps[ $index ] = skinlove_seed_entry(
-		array_diff_key( $step, array( 'image' => true ) ),
-		array( 'image' => skinlove_seed_image( ...$image ) )
-	);
-}
-
-// Тексты преимуществ общие с главной, фото — свои у страницы.
-$advantages = skinlove_seed_advantages();
-
-foreach ( $advantages as $index => $advantage ) {
-	$advantages[ $index ] = skinlove_seed_entry(
-		$advantage,
-		array( 'image' => skinlove_seed_image( 'inject-adv-' . ( $index + 1 ) . '.jpg', $advantage['title'][0] ) )
-	);
-}
 
 $faq = array(
 	array(
@@ -349,78 +307,24 @@ skinlove_seed_sections(
 		array(
 			'_type'        => 'procedures',
 			'prices_limit' => 11,
-			'items'        => $procedures,
+			'items'        => skinlove_seed_procedures( $procedures, $procedure_button ),
 		),
-		skinlove_seed_entry(
+		...skinlove_seed_service_sections(
 			array(
-				'label' => array( 'Акции', 'Offers' ),
-				'title' => array( "Акции\n*и спецпредложения*", "Offers\n*and promotions*" ),
-			),
-			array(
-				'_type'      => 'promos',
-				'background' => 'beige',
-				'items'      => $promos,
-			)
-		),
-		skinlove_seed_entry(
-			array(
-				'label' => array( 'Этапы', 'Steps' ),
-				'title' => array( "Комфортно. Безопасно\n*Под наблюдением специалиста*", "Comfortable. Safe\n*Under expert care*" ),
-			),
-			array(
-				'_type'      => 'steps',
-				'background' => 'beige',
-				'items'      => $steps,
-			)
-		),
-		skinlove_seed_entry(
-			array(
-				'title'  => array( "Естественный\nрезультат начинается\n*с индивидуального подхода*", "Natural results\nbegin with\n*a personal approach*" ),
-				'text'   => array(
-					'Оставьте контакты — администратор SkinLove поможет записаться к специалисту. На консультации врач оценит особенности лица, обсудит ваши пожелания и предложит деликатный план коррекции с сохранением естественных черт.',
-					'Leave your details and a SkinLove administrator will help you book with a specialist. At the consultation, the doctor will assess your facial features, discuss your wishes and suggest a delicate correction plan that keeps your natural features.',
+				'promos'      => array( 'svc-2-inject.jpg', 'inject-step-3.jpg', 'svc-3-face.jpg', 'wellness-consultation.jpg' ),
+				'steps_title' => array( "Комфортно. Безопасно\n*Под наблюдением специалиста*", "Comfortable. Safe\n*Under expert care*" ),
+				'steps'       => $steps,
+				'request'     => array(
+					'title'  => array( "Естественный\nрезультат начинается\n*с индивидуального подхода*", "Natural results\nbegin with\n*a personal approach*" ),
+					'text'   => array(
+						'Оставьте контакты — администратор SkinLove поможет записаться к специалисту. На консультации врач оценит особенности лица, обсудит ваши пожелания и предложит деликатный план коррекции с сохранением естественных черт.',
+						'Leave your details and a SkinLove administrator will help you book with a specialist. At the consultation, the doctor will assess your facial features, discuss your wishes and suggest a delicate correction plan that keeps your natural features.',
+					),
+					'button' => array( 'Подобрать процедуру', 'Find my treatment' ),
+					'image'  => array( 'inject-botox.jpg' ),
 				),
-				'button' => array( 'Подобрать процедуру', 'Find my treatment' ),
-			),
-			array(
-				'_type' => 'program-request',
-				'image' => skinlove_seed_image( 'inject-botox.jpg' ),
-			)
-		),
-		skinlove_seed_entry(
-			array( 'title' => array( "Почему выбирают\n*SkinLove*", "Why clients choose\n*SkinLove*" ) ),
-			array(
-				'_type' => 'advantages',
-				'items' => $advantages,
-			)
-		),
-		skinlove_seed_entry(
-			array(
-				'label' => array( 'Результаты', 'Results' ),
-				'title' => array( "Результаты наших\n*пациентов*", "Our patients’\n*results*" ),
-			),
-			array( '_type' => 'results' )
-		),
-		skinlove_seed_entry(
-			array(
-				'label'  => array( 'Отзывы', 'Reviews' ),
-				'title'  => array( "Нам доверяют\n*самое ценное — здоровье*", "Trusted with\n*what matters most — your health*" ),
-				'button' => array( 'Больше отзывов', 'More reviews' ),
-			),
-			array(
-				'_type'      => 'reviews',
-				'blinds'     => true,
-				'button_url' => '#',
-			)
-		),
-		skinlove_seed_entry(
-			array(
-				'label' => array( 'FAQ', 'FAQ' ),
-				'title' => array( 'Частые вопросы', 'Frequently asked questions' ),
-			),
-			array(
-				'_type' => 'faq',
-				'items' => array_map( 'skinlove_seed_entry', $faq ),
+				'advantages'  => 'inject',
+				'faq'         => $faq,
 			)
 		),
 		skinlove_seed_entry(
