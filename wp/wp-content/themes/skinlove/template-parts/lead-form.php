@@ -7,7 +7,9 @@
  * - section — data-section секции с формой (у модалки подставит скрипт);
  * - class   — дополнительный класс формы, например program-request__form;
  * - button  — подпись кнопки, по умолчанию «Оставить заявку»;
- * - success — сообщение после отправки, по умолчанию из словаря.
+ * - success — сообщение после отправки, по умолчанию из словаря;
+ * - item    — элемент в источнике заявки, например заголовок секции;
+ * - pill    — кнопка-пилюля с сердцем перед подписью (Outcall).
  *
  * @package SkinLove
  */
@@ -22,6 +24,8 @@ $skinlove_args = wp_parse_args(
 		'class'   => '',
 		'button'  => '',
 		'success' => '',
+		'item'    => '',
+		'pill'    => false,
 	)
 );
 
@@ -29,7 +33,7 @@ $skinlove_button  = $skinlove_args['button'] ? $skinlove_args['button'] : skinlo
 $skinlove_success = $skinlove_args['success'] ? $skinlove_args['success'] : skinlove_t( 'form_success' );
 ?>
 <form class="<?php echo esc_attr( trim( 'form ' . $skinlove_args['class'] ) ); ?>" action="<?php skinlove_lead_action(); ?>" method="post" novalidate data-form>
-	<?php skinlove_lead_fields( $skinlove_args['form'], $skinlove_args['section'] ); ?>
+	<?php skinlove_lead_fields( $skinlove_args['form'], $skinlove_args['section'], $skinlove_args['item'] ); ?>
 
 	<div class="form__fields">
 		<label class="form__field">
@@ -43,10 +47,17 @@ $skinlove_success = $skinlove_args['success'] ? $skinlove_args['success'] : skin
 		</label>
 	</div>
 
-	<button class="button form__submit" type="submit" data-button>
-		<span class="button__label"><?php echo esc_html( $skinlove_button ); ?></span>
-		<?php echo skinlove_icon( 'heart', 'button__icon' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
-	</button>
+	<?php if ( $skinlove_args['pill'] ) : ?>
+		<button class="button button--pill form__submit" type="submit">
+			<?php echo skinlove_icon( 'heart-filter', 'button__icon' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+			<span class="button__label"><?php echo esc_html( $skinlove_button ); ?></span>
+		</button>
+	<?php else : ?>
+		<button class="button form__submit" type="submit" data-button>
+			<span class="button__label"><?php echo esc_html( $skinlove_button ); ?></span>
+			<?php echo skinlove_icon( 'heart', 'button__icon' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+		</button>
+	<?php endif; ?>
 
 	<?php skinlove_form_failure(); ?>
 

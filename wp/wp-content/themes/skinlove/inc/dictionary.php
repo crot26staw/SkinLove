@@ -238,5 +238,17 @@ function skinlove_dictionary() {
 			'ru' => 'Следующие результаты',
 			'en' => 'Next results',
 		),
+		'outcall_nav'       => array(
+			'ru' => 'Разделы страницы',
+			'en' => 'Page sections',
+		),
+		'outcall_book'      => array(
+			'ru' => 'Заказать выезд специалиста',
+			'en' => 'Book a home visit',
+		),
+		'contact_links'     => array(
+			'ru' => 'Или свяжитесь с нами напрямую и расскажите, что вам необходимо',
+			'en' => 'Or contact us directly and tell us what you need',
+		),
 	);
 }

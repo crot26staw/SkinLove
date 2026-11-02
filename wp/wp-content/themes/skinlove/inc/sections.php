@@ -297,6 +297,33 @@ function skinlove_section_layouts() {
 		'program-request' => array(
 			'label'  => 'Заявка с формой',
 			'fields' => fn() => array_merge(
+				array(
+					Field::make( 'select', 'variant', 'Вид' )
+						->set_options(
+							array(
+								''        => 'Страница услуг',
+								'outcall' => 'Выездные услуги',
+							)
+						)
+						->set_help_text( 'У выездных — кнопка-пилюля, под формой WhatsApp и телефоны из «Настроек сайта», на планшете и телефоне фото над текстом.' ),
+					Field::make( 'select', 'inset', 'Отступы сверху и снизу' )
+						->set_options(
+							array(
+								'inset-sm' => 'Малые — между плотными секциями',
+								'inset'    => 'Большие',
+							)
+						)
+						->set_conditional_logic( skinlove_outcall_variant_logic() ),
+					Field::make( 'set', 'options', 'Настройки' )
+						->set_options(
+							array(
+								'reverse'   => 'Фото слева',
+								'flush-end' => 'Без отступа снизу на планшете и телефоне — следом секция того же фона',
+								'image-low' => 'Кадр фото смещён вниз',
+							)
+						)
+						->set_conditional_logic( skinlove_outcall_variant_logic() ),
+				),
 				skinlove_sub_pair( 'textarea', 'title', 'Заголовок', 'skinlove_heading_help' ),
 				skinlove_sub_pair( 'textarea', 'text', 'Текст', 'skinlove_short_text' ),
 				skinlove_sub_pair( 'text', 'button', 'Кнопка формы' ),
@@ -337,6 +364,61 @@ function skinlove_section_layouts() {
 						->set_header_template( '<%- question_ru %>' )
 						->set_help_text( 'Первый вопрос открыт сразу.' ),
 				)
+			),
+		),
+		'outcall-hero'    => array(
+			'label'  => 'Выездные: первый экран',
+			'fields' => fn() => array_merge(
+				array(
+					Field::make( 'complex', 'tags', 'Преимущества над заголовком' )
+						->setup_labels(
+							array(
+								'plural_name'   => 'преимущества',
+								'singular_name' => 'преимущество',
+							)
+						)
+						->set_collapsed( true )
+						->add_fields( skinlove_sub_pair( 'text', 'label', 'Подпись' ) )
+						->set_header_template( '<%- label_ru %>' )
+						->set_help_text( 'Коротко, в два-четыре слова.' ),
+				),
+				skinlove_sub_pair( 'textarea', 'title', 'Заголовок', 'skinlove_heading_help' ),
+				skinlove_sub_pair( 'textarea', 'text', 'Текст', 'skinlove_short_text' ),
+				skinlove_sub_pair( 'text', 'card_title', 'Заголовок формы' ),
+				skinlove_sub_pair( 'textarea', 'card_text', 'Текст формы', 'skinlove_short_text' ),
+				skinlove_sub_pair( 'text', 'button', 'Кнопка формы' ),
+				array( Field::make( 'image', 'image', 'Фото' )->set_help_text( 'Вертикальное, 9 : 16.' ) )
+			),
+		),
+		'outcall-services' => array(
+			'label'  => 'Выездные: каталог услуг',
+			'fields' => fn() => array_merge(
+				array(
+					Field::make( 'html', 'outcall_services_note' )
+						->set_html( '<p>Карточки — все услуги из раздела «Выездные услуги» в меню админки, вкладки фильтра и подписи под ним — их категории. Без услуг секция не выводится.</p>' ),
+				),
+				skinlove_sub_pair( 'textarea', 'title', 'Заголовок', 'skinlove_heading_help' ),
+				skinlove_sub_pair( 'textarea', 'text', 'Текст', 'skinlove_short_text' ),
+				skinlove_sub_pair( 'text', 'button', 'Кнопка карточки', 'skinlove_outcall_button_default_help' ),
+				array(
+					Field::make( 'text', 'limit', 'Карточек до кнопки «Показать остальные»' )
+						->set_attribute( 'type', 'number' )
+						->set_attribute( 'min', '1' )
+						->set_help_text( 'На десктопе, в выбранной вкладке. Пусто — все карточки сразу. На планшете и телефоне карточки листаются вбок, все.' ),
+				)
+			),
+		),
+		'reasons'         => array(
+			'label'  => 'Выездные: когда удобно',
+			'fields' => fn() => array_merge(
+				array(
+					Field::make( 'html', 'reasons_note' )
+						->set_html( '<p>Видео слева — из темы, в админке не меняется.</p>' ),
+				),
+				skinlove_sub_pair( 'textarea', 'title', 'Заголовок', 'skinlove_heading_help' ),
+				skinlove_sub_pair( 'textarea', 'text', 'Текст', 'skinlove_short_text' ),
+				array( skinlove_items_field( 'items', 'Ситуации', 'ситуацию', 'ситуации' ) ),
+				skinlove_sub_pair( 'text', 'button', 'Кнопка', 'skinlove_cta_button_help' )
 			),
 		),
 	);
@@ -454,6 +536,20 @@ function skinlove_background_field( $default ) {
 }
 
 /**
+ * Поле «Заявки с формой» видно только у вида «Выездные услуги».
+ *
+ * @return array
+ */
+function skinlove_outcall_variant_logic() {
+	return array(
+		array(
+			'field' => 'variant',
+			'value' => 'outcall',
+		),
+	);
+}
+
+/**
  * Фоны секций: значение => подпись.
  *
  * @return array<string,string>
@@ -532,6 +628,15 @@ function skinlove_paragraphs_help( $field ) {
  */
 function skinlove_cta_button_help( $field ) {
 	$field->set_help_text( 'Открывает окно заявки.' );
+}
+
+/**
+ * Подпись кнопки карточек каталога Outcall — по умолчанию для всех услуг.
+ *
+ * @param Field $field Поле.
+ */
+function skinlove_outcall_button_default_help( $field ) {
+	$field->set_help_text( 'Открывает окно заявки. У услуги может быть своя подпись — тогда она вместо этой.' );
 }
 
 /**

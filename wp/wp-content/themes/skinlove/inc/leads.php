@@ -370,13 +370,14 @@ function skinlove_send_lead_to_crm( $lead_id, $lead ) {
  *
  * @param string $form    Тип формы из skinlove_lead_forms().
  * @param string $section data-section секции, в которой стоит форма.
+ * @param string $item    Элемент источника, если он известен заранее.
  */
-function skinlove_lead_fields( $form, $section = '' ) {
+function skinlove_lead_fields( $form, $section = '', $item = '' ) {
 	printf( '<input type="hidden" name="form" value="%s">', esc_attr( $form ) );
 	printf( '<input type="hidden" name="page_id" value="%d">', (int) get_queried_object_id() );
 	printf( '<input type="hidden" name="lang" value="%s">', esc_attr( skinlove_lang() ) );
 	printf( '<input type="hidden" name="section" value="%s" data-lead-section>', esc_attr( $section ) );
-	echo '<input type="hidden" name="item" value="" data-lead-item>';
+	printf( '<input type="hidden" name="item" value="%s" data-lead-item>', esc_attr( $item ) );
 	echo '<label class="form__trap" aria-hidden="true">Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label>';
 }
 

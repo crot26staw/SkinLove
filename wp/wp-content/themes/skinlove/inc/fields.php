@@ -183,6 +183,31 @@ function skinlove_button( $label, $url, $class = '', $attr = '' ) {
 }
 
 /**
+ * Кнопка-пилюля: сердце перед подписью (Outcall, «Показать ещё»).
+ * Без подписи или адреса — пустая строка.
+ *
+ * @param string $label Подпись.
+ * @param string $url   Адрес.
+ * @param string $class Классы после button button--pill.
+ * @param string $attr  Дополнительные атрибуты — только из шаблона.
+ * @return string
+ */
+function skinlove_pill_button( $label, $url, $class = '', $attr = '' ) {
+	if ( '' === $label || '' === $url ) {
+		return '';
+	}
+
+	return sprintf(
+		'<a class="%s" href="%s"%s>%s<span class="button__label">%s</span></a>',
+		esc_attr( trim( 'button button--pill ' . $class ) ),
+		esc_url( $url ),
+		$attr ? ' ' . $attr : '',
+		skinlove_icon( 'heart-filter', 'button__icon' ),
+		esc_html( $label )
+	);
+}
+
+/**
  * Кнопка из полей skinlove_button_fields() элемента complex.
  *
  * @param array  $entry Элемент complex.

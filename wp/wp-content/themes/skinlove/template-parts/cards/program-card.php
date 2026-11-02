@@ -1,7 +1,8 @@
 <?php
 /**
- * Карточка программы в каталоге «Программы». Кнопка открывает модалку
- * заявки с названием программы в источнике.
+ * Карточка программы в каталоге «Программы» и выездной услуги в каталоге
+ * Outcall. Кнопка открывает модалку заявки с названием в источнике; у
+ * выездных она пилюлей (аргумент pill) и подпись может быть своя у услуги.
  *
  * @package SkinLove
  */
@@ -10,6 +11,8 @@ defined( 'ABSPATH' ) || exit;
 
 $skinlove_program = $args['program'];
 $skinlove_tag     = $args['tag'];
+$skinlove_label   = $skinlove_program['button'] ? $skinlove_program['button'] : $args['button'];
+$skinlove_render  = empty( $args['pill'] ) ? 'skinlove_button' : 'skinlove_pill_button';
 ?>
 <li class="program-card" data-program data-category="<?php echo esc_attr( $args['category'] ); ?>">
 	<div class="program-card__body">
@@ -34,6 +37,6 @@ $skinlove_tag     = $args['tag'];
 			</p>
 		<?php endforeach; ?>
 
-		<?php echo skinlove_button( $args['button'], '#request-modal', '', sprintf( 'data-modal-open="request-modal" data-lead-item="%s"', esc_attr( $skinlove_program['title'] ) ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+		<?php echo $skinlove_render( $skinlove_label, '#request-modal', '', sprintf( 'data-modal-open="request-modal" data-lead-item="%s"', esc_attr( $skinlove_program['title'] ) ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 	</div>
 </li>

@@ -123,12 +123,21 @@ function skinlove_program_prices_field() {
 }
 
 /**
- * Заголовок записи = русское название, чтобы программа находилась в списке.
+ * Типы записей каталогов: программы IV и выездные услуги (inc/outcall.php).
+ *
+ * @return string[]
+ */
+function skinlove_catalog_post_types() {
+	return array( 'sl_program', 'sl_outcall_service' );
+}
+
+/**
+ * Заголовок записи = русское название, чтобы запись находилась в списке.
  *
  * @param int $post_id ID записи.
  */
 function skinlove_program_title( $post_id ) {
-	if ( 'sl_program' !== get_post_type( $post_id ) ) {
+	if ( ! in_array( get_post_type( $post_id ), skinlove_catalog_post_types(), true ) ) {
 		return;
 	}
 
@@ -148,12 +157,12 @@ function skinlove_program_title( $post_id ) {
 add_action( 'carbon_fields_post_meta_container_saved', 'skinlove_program_title' );
 
 /**
- * В списке программ в админке — тот же порядок, что на сайте.
+ * В списке программ и выездных услуг в админке — тот же порядок, что на сайте.
  *
  * @param WP_Query $query Запрос.
  */
 function skinlove_programs_admin_order( $query ) {
-	if ( ! is_admin() || ! $query->is_main_query() || 'sl_program' !== $query->get( 'post_type' ) || $query->get( 'orderby' ) ) {
+	if ( ! is_admin() || ! $query->is_main_query() || ! in_array( $query->get( 'post_type' ), skinlove_catalog_post_types(), true ) || $query->get( 'orderby' ) ) {
 		return;
 	}
 
@@ -163,16 +172,17 @@ function skinlove_programs_admin_order( $query ) {
 add_action( 'pre_get_posts', 'skinlove_programs_admin_order' );
 
 /**
- * Категории по порядку: slug, название и метка на текущем языке.
- * Категория без названия на языке остаётся в списке — у её программ
- * есть метка, но вкладки нет.
+ * Категории по порядку: slug, название, метка (у программ IV) и подпись
+ * под фильтром (у выездных услуг) на текущем языке. Категория без названия
+ * на языке остаётся в списке — у её программ есть метка, но вкладки нет.
  *
- * @return array<int,array{slug:string,name:string,tag:string}> По ID термина.
+ * @param string $taxonomy Таксономия: категории программ или выездных услуг.
+ * @return array<int,array{slug:string,name:string,tag:string,caption:string}> По ID термина.
  */
-function skinlove_program_categories() {
+function skinlove_program_categories( $taxonomy = 'sl_program_category' ) {
 	$terms = get_terms(
 		array(
-			'taxonomy'   => 'sl_program_category',
+			'taxonomy'   => $taxonomy,
 			'hide_empty' => false,
 		)
 	);
@@ -193,16 +203,18 @@ function skinlove_program_categories() {
 	);
 
 	$lang       = skinlove_lang();
+	$outcall    = 'sl_outcall_category' === $taxonomy;
 	$categories = array();
 
 	foreach ( $terms as $term ) {
 		$name = 'ru' === $lang ? skinlove_clean( $term->name ) : skinlove_clean( carbon_get_term_meta( $term->term_id, 'sl_name_en' ) );
-		$tag  = skinlove_clean( carbon_get_term_meta( $term->term_id, "sl_tag_{$lang}" ) );
+		$tag  = $outcall ? '' : skinlove_clean( carbon_get_term_meta( $term->term_id, "sl_tag_{$lang}" ) );
 
 		$categories[ $term->term_id ] = array(
-			'slug' => $term->slug,
-			'name' => $name,
-			'tag'  => '' === $tag ? $name : $tag,
+			'slug'    => $term->slug,
+			'name'    => $name,
+			'tag'     => '' === $tag ? $name : $tag,
+			'caption' => $outcall ? skinlove_clean( carbon_get_term_meta( $term->term_id, "sl_caption_{$lang}" ) ) : '',
 		);
 	}
 
@@ -213,10 +225,12 @@ function skinlove_program_categories() {
  * Программы на текущем языке по порядку. Без названия программа
  * пропускается; строка цены без цены — тоже.
  *
- * @param array $categories Результат skinlove_program_categories().
- * @return array<int,array{title:string,text:string,category:int,prices:array}>
+ * @param array  $categories Результат skinlove_program_categories().
+ * @param string $post_type  Тип записей: программы или выездные услуги.
+ * @param string $taxonomy   Таксономия категорий этого типа.
+ * @return array<int,array{title:string,text:string,button:string,category:int,prices:array}>
  */
-function skinlove_programs( $categories ) {
+function skinlove_programs( $categories, $post_type = 'sl_program', $taxonomy = 'sl_program_category' ) {
 	$programs = array();
 
 	if ( ! skinlove_carbon_ready() ) {
@@ -225,7 +239,7 @@ function skinlove_programs( $categories ) {
 
 	$posts = get_posts(
 		array(
-			'post_type'      => 'sl_program',
+			'post_type'      => $post_type,
 			'post_status'    => 'publish',
 			'posts_per_page' => -1,
 			'orderby'        => array(
@@ -242,7 +256,7 @@ function skinlove_programs( $categories ) {
 			continue;
 		}
 
-		$terms    = wp_list_pluck( get_the_terms( $post, 'sl_program_category' ) ?: array(), 'term_id' );
+		$terms    = wp_list_pluck( get_the_terms( $post, $taxonomy ) ?: array(), 'term_id' );
 		$category = array_values( array_intersect( array_keys( $categories ), $terms ) );
 		$prices   = array();
 
@@ -260,6 +274,7 @@ function skinlove_programs( $categories ) {
 		$programs[] = array(
 			'title'    => $title,
 			'text'     => skinlove_field( 'text', $post->ID ),
+			'button'   => 'sl_outcall_service' === $post_type ? skinlove_field( 'button', $post->ID ) : '',
 			'category' => $category[0] ?? 0,
 			'prices'   => $prices,
 		);
