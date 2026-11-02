@@ -180,6 +180,16 @@ function skinlove_section_layouts() {
 				skinlove_sub_pair( 'text', 'name', 'Имя' )
 			),
 		),
+		'contacts'    => array(
+			'label'  => 'Контакты',
+			'fields' => fn() => array_merge(
+				array(
+					Field::make( 'html', 'contacts_note' )
+						->set_html( '<p>Адрес, телефоны с пометками, почта, соцсети и карта — в «Настройках сайта». Пустое значение скрывает свою строку.</p>' ),
+				),
+				skinlove_sub_pair( 'textarea', 'title', 'Заголовок', 'skinlove_heading_help' )
+			),
+		),
 	);
 }
 

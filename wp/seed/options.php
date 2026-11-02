@@ -1,6 +1,6 @@
 <?php
 /**
- * Сид «Настроек сайта»: контакты, модалка заявки.
+ * Сид «Настроек сайта»: контакты, карта, модалка заявки.
  * Соцсети пустые — ссылки проставят позже (решение 11), блок скрыт.
  *
  * Запуск: docker compose run --rm wpcli wp eval-file /seed/options.php
@@ -15,8 +15,16 @@ require __DIR__ . '/_lib.php';
 carbon_set_theme_option(
 	'sl_phones',
 	array(
-		array( 'number' => '+971 56 497 4681' ),
-		array( 'number' => '+971 50 689 4801' ),
+		array(
+			'number'  => '+971 56 497 4681',
+			'note_ru' => '(what’s app и звонки)',
+			'note_en' => '(WhatsApp and calls)',
+		),
+		array(
+			'number'  => '+971 50 689 4801',
+			'note_ru' => '(только звонки)',
+			'note_en' => '(calls only)',
+		),
 	)
 );
 carbon_set_theme_option( 'sl_email', 'Medicalclinicskin@gmail.com' );
@@ -25,6 +33,11 @@ carbon_set_theme_option( 'sl_whatsapp', '+971 56 497 4681' );
 skinlove_seed_option_pair( 'address', 'Dubai, Damac Smart Height', 'Dubai, Damac Smart Height' );
 carbon_set_theme_option( 'sl_address_url', '' );
 skinlove_seed_option_pair( 'hours', 'Каждый день 09:00 – 21:00', 'Daily, 09:00 – 21:00' );
+
+carbon_set_theme_option(
+	'sl_map_code',
+	'<iframe src="https://www.google.com/maps?q=Damac+Smart+Heights,+Barsha+Heights,+Dubai&output=embed" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>'
+);
 
 carbon_set_theme_option( 'sl_instagram', '' );
 carbon_set_theme_option( 'sl_telegram', '' );

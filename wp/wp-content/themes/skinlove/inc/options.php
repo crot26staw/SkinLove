@@ -34,9 +34,12 @@ function skinlove_register_options() {
 							)
 						)
 						->add_fields(
-							array(
-								Field::make( 'text', 'number', 'Номер' )
-									->set_help_text( 'Как показывать на сайте: +971 56 497 4681. Первый номер — для кнопки «Позвонить».' ),
+							array_merge(
+								array(
+									Field::make( 'text', 'number', 'Номер' )
+										->set_help_text( 'Как показывать на сайте: +971 56 497 4681. Первый номер — для кнопки «Позвонить».' ),
+								),
+								skinlove_sub_pair( 'text', 'note', 'Пометка', 'skinlove_phone_note_help' )
 							)
 						)
 						->set_header_template( '<%- number %>' ),
@@ -81,9 +84,18 @@ function skinlove_register_options() {
 add_action( 'carbon_fields_register_fields', 'skinlove_register_options' );
 
 /**
- * Телефоны из настроек: подпись и номер для tel:.
+ * Пометка у телефона видна только на странице «Контакты».
  *
- * @return array<int,array{label:string,href:string}>
+ * @param Field $field Поле.
+ */
+function skinlove_phone_note_help( $field ) {
+	$field->set_help_text( 'Над номером на странице «Контакты», например «(только звонки)».' );
+}
+
+/**
+ * Телефоны из настроек: подпись, номер для tel: и пометка на текущем языке.
+ *
+ * @return array<int,array{label:string,href:string,note:string}>
  */
 function skinlove_phones() {
 	$phones = array();
@@ -96,6 +108,7 @@ function skinlove_phones() {
 			$phones[] = array(
 				'label' => $label,
 				'href'  => 'tel:+' . $digits,
+				'note'  => skinlove_entry( $entry, 'note' ),
 			);
 		}
 	}
@@ -138,4 +151,35 @@ function skinlove_address_url( $address ) {
 	$url = (string) skinlove_option_raw( 'address_url' );
 
 	return '' !== $url ? $url : 'https://www.google.com/maps/search/?api=1&query=' . rawurlencode( $address );
+}
+
+/**
+ * Карта из настроек: из вставленного кода берётся только адрес первого
+ * iframe, и только с google.com или yandex.ru (с поддоменами). Сам iframe
+ * собирается заново — чужие атрибуты и скрипты в вывод не попадают.
+ *
+ * @param string $class Класс iframe из вёрстки.
+ * @return string HTML iframe или пустая строка.
+ */
+function skinlove_map_embed( $class ) {
+	$tags = new WP_HTML_Tag_Processor( (string) skinlove_option_raw( 'map_code' ) );
+
+	if ( ! $tags->next_tag( 'iframe' ) ) {
+		return '';
+	}
+
+	$src    = html_entity_decode( (string) $tags->get_attribute( 'src' ) );
+	$scheme = wp_parse_url( $src, PHP_URL_SCHEME );
+	$host   = strtolower( (string) wp_parse_url( $src, PHP_URL_HOST ) );
+
+	if ( 'https' !== $scheme || ! preg_match( '/(^|\.)(google\.com|yandex\.ru)$/', $host ) ) {
+		return '';
+	}
+
+	return sprintf(
+		'<iframe class="%1$s" src="%2$s" title="%3$s" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>',
+		esc_attr( $class ),
+		esc_url( $src ),
+		esc_attr( skinlove_t( 'map_title' ) )
+	);
 }

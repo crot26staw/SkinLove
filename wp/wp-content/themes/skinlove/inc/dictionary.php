@@ -162,5 +162,25 @@ function skinlove_dictionary() {
 			'ru' => 'Следующий отзыв',
 			'en' => 'Next review',
 		),
+		'contacts_address'  => array(
+			'ru' => 'Адрес:',
+			'en' => 'Address:',
+		),
+		'contacts_phone'    => array(
+			'ru' => 'Телефон для связи:',
+			'en' => 'Phone:',
+		),
+		'contacts_email'    => array(
+			'ru' => 'Почта:',
+			'en' => 'Email:',
+		),
+		'contacts_socials'  => array(
+			'ru' => 'Социальные сети:',
+			'en' => 'Social media:',
+		),
+		'map_title'         => array(
+			'ru' => 'Клиника SkinLove на карте',
+			'en' => 'SkinLove clinic on the map',
+		),
 	);
 }
