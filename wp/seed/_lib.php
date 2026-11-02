@@ -446,10 +446,14 @@ function skinlove_seed_service_advantages( $prefix, $count = 6 ) {
  *
  * @param array $args promos (файлы фото), steps_title [ru, en], steps,
  *                    request (пары title, text, button + image), advantages
- *                    (префикс фото), advantages_count, faq.
+ *                    (префикс фото), advantages_count, faq; необязательно
+ *                    background (фон акций и этапов, по умолчанию beige)
+ *                    и promos_blinds (жалюзи у акций).
  * @return array
  */
 function skinlove_seed_service_sections( $args ) {
+	$background = $args['background'] ?? 'beige';
+
 	return array(
 		skinlove_seed_entry(
 			array(
@@ -458,7 +462,8 @@ function skinlove_seed_service_sections( $args ) {
 			),
 			array(
 				'_type'      => 'promos',
-				'background' => 'beige',
+				'background' => $background,
+				'blinds'     => ! empty( $args['promos_blinds'] ),
 				'items'      => skinlove_seed_promos( $args['promos'] ),
 			)
 		),
@@ -469,7 +474,7 @@ function skinlove_seed_service_sections( $args ) {
 			),
 			array(
 				'_type'      => 'steps',
-				'background' => 'beige',
+				'background' => $background,
 				'items'      => skinlove_seed_image_items( $args['steps'] ),
 			)
 		),

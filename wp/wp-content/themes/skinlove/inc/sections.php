@@ -195,7 +195,11 @@ function skinlove_section_layouts() {
 		'service-hero'    => array(
 			'label'  => 'Первый экран услуги',
 			'fields' => fn() => array_merge(
-				array( Field::make( 'image', 'image', 'Фото фоном' )->set_help_text( 'Горизонтальное, 3 : 2.' ) ),
+				array(
+					Field::make( 'image', 'image', 'Фото фоном' )->set_help_text( 'Горизонтальное, 3 : 2.' ),
+					Field::make( 'checkbox', 'header_plain', 'Шапка без инверсии' )
+						->set_help_text( 'Логотип и меню тёмные, пока страница не прокручена. Для пёстрого фото, на котором инвертированная шапка теряется (IV Therapy).' ),
+				),
 				skinlove_sub_pair( 'textarea', 'title', 'Заголовок', 'skinlove_service_title_help' ),
 				skinlove_sub_pair( 'textarea', 'lead', 'Крупный текст', 'skinlove_short_text' ),
 				skinlove_sub_pair( 'textarea', 'text', 'Текст', 'skinlove_short_text' ),
@@ -223,10 +227,33 @@ function skinlove_section_layouts() {
 				skinlove_procedures_field(),
 			),
 		),
+		'programs'        => array(
+			'label'  => 'Программы',
+			'fields' => fn() => array_merge(
+				array(
+					Field::make( 'html', 'programs_note' )
+						->set_html( '<p>Карточки — все программы из раздела «Программы IV» в меню админки, вкладки фильтра — их категории. Без программ секция не выводится.</p>' ),
+				),
+				skinlove_sub_pair( 'text', 'label', 'Надзаголовок' ),
+				skinlove_sub_pair( 'textarea', 'title', 'Заголовок', 'skinlove_heading_help' ),
+				skinlove_sub_pair( 'textarea', 'text', 'Текст', 'skinlove_short_text' ),
+				skinlove_sub_pair( 'text', 'button', 'Кнопка карточки', 'skinlove_cta_button_help' ),
+				array(
+					Field::make( 'text', 'limit', 'Карточек до кнопки «Показать остальные»' )
+						->set_attribute( 'type', 'number' )
+						->set_attribute( 'min', '1' )
+						->set_help_text( 'На десктопе, в выбранной вкладке. Пусто — все карточки сразу. На планшете и телефоне карточки листаются вбок, все.' ),
+				)
+			),
+		),
 		'promos'          => array(
 			'label'  => 'Акции',
 			'fields' => fn() => array_merge(
-				array( skinlove_background_field( 'beige' ) ),
+				array(
+					skinlove_background_field( 'beige' ),
+					Field::make( 'checkbox', 'blinds', 'Открывается жалюзи' )
+						->set_help_text( 'Полосы цвета предыдущей секции расходятся, пока акции входят в кадр. Включено на IV Therapy.' ),
+				),
 				skinlove_sub_pair( 'text', 'label', 'Надзаголовок' ),
 				skinlove_sub_pair( 'textarea', 'title', 'Заголовок', 'skinlove_heading_help' ),
 				array(

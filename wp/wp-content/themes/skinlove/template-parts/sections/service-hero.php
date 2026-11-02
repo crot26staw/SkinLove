@@ -27,7 +27,7 @@ if ( $skinlove_single ) {
 	$skinlove_heading = skinlove_heading( $skinlove_title );
 }
 ?>
-<section class="service-hero" data-section="service-hero" data-spread>
+<section class="service-hero" data-section="service-hero" data-spread<?php echo empty( $skinlove_section['header_plain'] ) ? '' : ' data-header-plain'; ?>>
 	<div class="service-hero__decor" aria-hidden="true">
 		<?php
 		if ( $skinlove_image ) {

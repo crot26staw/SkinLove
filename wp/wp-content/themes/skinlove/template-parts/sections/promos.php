@@ -2,7 +2,7 @@
 /**
  * Секция «Акции»: заголовок со стрелками и карусель карточек. Кнопка
  * карточки открывает модалку заявки с названием акции в источнике.
- * Без акций не выводится.
+ * Без акций не выводится. Жалюзи — по флажку, как у «Отзывов».
  *
  * @package SkinLove
  */
@@ -32,6 +32,12 @@ if ( ! $skinlove_items ) {
 }
 ?>
 <section class="section <?php echo esc_attr( skinlove_background_class( $skinlove_section, 'beige' ) ); ?> promos" data-section="promos" data-promos data-carousel>
+	<?php if ( ! empty( $skinlove_section['blinds'] ) ) : ?>
+		<div class="blinds" aria-hidden="true">
+			<?php echo str_repeat( '<span class="blinds__bar" data-blind></span>', 5 ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+		</div>
+
+	<?php endif; ?>
 	<div class="promos__head">
 		<?php if ( $skinlove_label || $skinlove_title ) : ?>
 			<div class="promos__heading">

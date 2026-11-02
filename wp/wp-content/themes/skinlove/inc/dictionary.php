@@ -206,6 +206,22 @@ function skinlove_dictionary() {
 			'ru' => 'Свернуть прайс',
 			'en' => 'Collapse price list',
 		),
+		'programs_all'      => array(
+			'ru' => 'Все виды',
+			'en' => 'All',
+		),
+		'programs_filters'  => array(
+			'ru' => 'Виды программ',
+			'en' => 'Programme types',
+		),
+		'programs_more'     => array(
+			'ru' => 'Показать остальные программы',
+			'en' => 'Show more programmes',
+		),
+		'programs_less'     => array(
+			'ru' => 'Скрыть программы',
+			'en' => 'Show fewer programmes',
+		),
 		'promos_prev'       => array(
 			'ru' => 'Предыдущие акции',
 			'en' => 'Previous offers',
