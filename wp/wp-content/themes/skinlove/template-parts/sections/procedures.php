@@ -67,7 +67,7 @@ if ( ! $skinlove_items ) {
 $skinlove_limit = (int) ( $skinlove_section['prices_limit'] ?? 0 );
 $skinlove_limit = $skinlove_limit > 0 ? $skinlove_limit : SKINLOVE_PRICES_LIMIT;
 ?>
-<section class="section section--beige procedures" data-section="procedures" data-procedures>
+<section class="section section--beige procedures" data-section="procedures" data-warm-images data-procedures>
 	<div class="blinds" aria-hidden="true">
 		<?php echo str_repeat( '<span class="blinds__bar" data-blind></span>', 5 ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 	</div>
@@ -85,7 +85,7 @@ $skinlove_limit = $skinlove_limit > 0 ? $skinlove_limit : SKINLOVE_PRICES_LIMIT;
 								false,
 								array(
 									'class'    => 'procedures__image',
-									'loading'  => false,
+									'loading'  => 'lazy',
 									'decoding' => 'async',
 								)
 							);

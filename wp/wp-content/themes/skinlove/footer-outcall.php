@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
 		<div class="footer__columns">
 			<div class="footer__column footer__column--logo">
 				<span class="footer__logo">
-					<img class="footer__logo-image" src="<?php skinlove_asset_url( 'img/logo-black.png' ); ?>" width="301" height="102" alt="SkinLove" decoding="async">
+					<img class="footer__logo-image" src="<?php skinlove_asset_url( 'img/logo-black.webp' ); ?>" width="301" height="102" alt="SkinLove" decoding="async">
 				</span>
 			</div>
 

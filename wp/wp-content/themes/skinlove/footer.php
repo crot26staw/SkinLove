@@ -63,7 +63,7 @@ $skinlove_preview    = skinlove_current_direction( $skinlove_directions );
 		<div class="footer__bottom">
 			<div class="footer__brand">
 				<a class="footer__logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" aria-label="<?php echo esc_attr( skinlove_t( 'logo_home' ) ); ?>">
-					<img class="footer__logo-image" src="<?php skinlove_asset_url( 'img/logo-black.png' ); ?>" width="301" height="102" alt="SkinLove" decoding="async">
+					<img class="footer__logo-image" src="<?php skinlove_asset_url( 'img/logo-black.webp' ); ?>" width="301" height="102" alt="SkinLove" decoding="async">
 				</a>
 
 				<?php get_template_part( 'template-parts/footer-credits' ); ?>

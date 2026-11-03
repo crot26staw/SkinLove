@@ -9,17 +9,13 @@
   <meta property="og:title" content="О клинике — SkinLove">
   <meta property="og:description" content="Команда, подход и философия заботы о красоте и здоровье.">
   <meta property="og:type" content="website">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@1,400&family=Inter+Tight:wght@400;500&display=swap">
 </head>
 <body>
   <a class="skip-link" href="#main">Перейти к содержимому</a>
 
   <header class="header" data-header>
     <a class="header__logo" href="/" aria-label="SkinLove, на главную">
-      <img class="header__logo-image" src="/img/logo-white.png" width="301" height="102" alt="SkinLove" decoding="async">
+      <img class="header__logo-image" src="/img/logo-white.webp" width="301" height="102" alt="SkinLove" decoding="async">
     </a>
 
     <div class="lang-switch" data-lang-switch>
@@ -65,7 +61,7 @@
           <p class="site-menu__label">Направления</p>
 
           <div class="site-menu__preview">
-            <img class="site-menu__preview-image" data-menu-preview src="/img/footer-direction.jpg" width="720" height="1280" alt="" decoding="async">
+            <img class="site-menu__preview-image" data-menu-preview src="/img/footer-direction.jpg" width="720" height="1280" alt="" loading="lazy" decoding="async">
           </div>
 
           <ul class="menu site-menu__list">
@@ -125,7 +121,8 @@
     <section class="page-hero" data-section="page-hero" data-spread data-tour>
       <div class="page-hero__decor" aria-hidden="true">
         <video class="page-hero__decor-media" data-tour-video width="1920" height="1080" poster="/img/about-video-poster.jpg" muted playsinline preload="auto" disablepictureinpicture tabindex="-1">
-          <source src="/video/about-video-4k.mp4" media="(min-width: 1024px)" type="video/mp4">
+          <source src="/video/about-video-4k.mp4" media="(min-width: 1921px), (min-width: 1024px) and (min-resolution: 2dppx)" type="video/mp4">
+          <source src="/video/about-video-hd.mp4" media="(min-width: 1024px)" type="video/mp4">
           <source src="/video/about-video.mp4" type="video/mp4">
         </video>
       </div>
@@ -223,11 +220,11 @@
       </div>
     </section>
 
-    <section class="section section--light advantages" data-section="advantages">
+    <section class="section section--light advantages" data-section="advantages" data-warm-images>
       <div class="advantages__viewport">
         <ul class="advantages__track" data-advantages-track>
           <li class="advantages__intro">
-            <img class="advantages__logo" src="/img/logo-black.png" width="2402" height="808" alt="SkinLove" decoding="async">
+            <img class="advantages__logo" src="/img/logo-black.webp" width="2402" height="808" alt="SkinLove" decoding="async">
 
             <h2 class="heading heading--h2 advantages__title" data-heading-fill>
               <span class="heading__line">Не просто процедуры,</span>
@@ -242,7 +239,7 @@
           <li class="advantage">
             <div class="advantage__body" data-advantage-body>
               <div class="advantage__media">
-                <img class="advantage__image" src="/img/adv-1.jpg" width="1476" height="768" alt="Персональный подход" decoding="async">
+                <img class="advantage__image" src="/img/adv-1.jpg" width="1476" height="768" alt="Персональный подход" loading="lazy" decoding="async">
               </div>
               <h3 class="advantage__title">Персональный подход</h3>
               <p class="advantage__text">Каждая программа строится с учётом вашего образа жизни, состояния здоровья и индивидуальных особенностей.</p>
@@ -251,7 +248,7 @@
           <li class="advantage">
             <div class="advantage__body" data-advantage-body>
               <div class="advantage__media">
-                <img class="advantage__image" src="/img/adv-2.jpg" width="1476" height="768" alt="Комплексная медицина" decoding="async">
+                <img class="advantage__image" src="/img/adv-2.jpg" width="1476" height="768" alt="Комплексная медицина" loading="lazy" decoding="async">
               </div>
               <h3 class="advantage__title">Комплексная медицина</h3>
               <p class="advantage__text">Мы объединяем эстетическую косметологию, IV Therapy, wellness и диагностику, чтобы работать не только с внешними изменениями, но и с внутренним состоянием организма.</p>
@@ -260,7 +257,7 @@
           <li class="advantage">
             <div class="advantage__body" data-advantage-body>
               <div class="advantage__media">
-                <img class="advantage__image" src="/img/adv-3.jpg" width="1476" height="768" alt="Долгосрочные отношения" decoding="async">
+                <img class="advantage__image" src="/img/adv-3.jpg" width="1476" height="768" alt="Долгосрочные отношения" loading="lazy" decoding="async">
               </div>
               <h3 class="advantage__title">Долгосрочные отношения</h3>
               <p class="advantage__text">Мы стремимся стать вашим постоянным партнёром в вопросах красоты, здоровья и профилактики, а не местом для разового визита.</p>
@@ -269,7 +266,7 @@
           <li class="advantage">
             <div class="advantage__body" data-advantage-body>
               <div class="advantage__media">
-                <img class="advantage__image" src="/img/adv-4.jpg" width="1476" height="768" alt="Медицинская безопасность" decoding="async">
+                <img class="advantage__image" src="/img/adv-4.jpg" width="1476" height="768" alt="Медицинская безопасность" loading="lazy" decoding="async">
               </div>
               <h3 class="advantage__title">Медицинская безопасность</h3>
               <p class="advantage__text">Используем сертифицированные препараты, современное оборудование и работаем по международным медицинским стандартам.</p>
@@ -278,7 +275,7 @@
           <li class="advantage">
             <div class="advantage__body" data-advantage-body>
               <div class="advantage__media">
-                <img class="advantage__image" src="/img/adv-5.jpg" width="1476" height="768" alt="Выездной сервис" decoding="async">
+                <img class="advantage__image" src="/img/adv-5.jpg" width="1476" height="768" alt="Выездной сервис" loading="lazy" decoding="async">
               </div>
               <h3 class="advantage__title">Выездной сервис</h3>
               <p class="advantage__text">Если приехать в клинику неудобно, мы организуем профессиональный выезд домой, в отель, офис или на яхту.</p>
@@ -287,7 +284,7 @@
           <li class="advantage">
             <div class="advantage__body" data-advantage-body>
               <div class="advantage__media">
-                <img class="advantage__image" src="/img/adv-6.jpg" width="1476" height="768" alt="Естественная красота" decoding="async">
+                <img class="advantage__image" src="/img/adv-6.jpg" width="1476" height="768" alt="Естественная красота" loading="lazy" decoding="async">
               </div>
               <h3 class="advantage__title">Естественная красота</h3>
               <p class="advantage__text">Мы не меняем внешность, а подчёркиваем индивидуальность и сохраняем гармоничные черты лица.</p>
@@ -303,8 +300,9 @@
     <section class="section section--light frame frame--reverse" data-section="frame" data-reel>
       <div class="frame__card" data-reel-card>
         <div class="frame__decor" aria-hidden="true">
-          <video class="frame__image" data-reel-video width="1920" height="1080" poster="/img/frame-video-poster.jpg" muted playsinline preload="auto" disablepictureinpicture tabindex="-1">
-            <source src="/video/frame-video-4k.mp4" media="(min-width: 1024px)" type="video/mp4">
+          <video class="frame__image" data-reel-video width="1920" height="1080" poster="/img/frame-video-poster.jpg" muted playsinline preload="none" data-lazy-video disablepictureinpicture tabindex="-1">
+            <source src="/video/frame-video-4k.mp4" media="(min-width: 1921px), (min-width: 1024px) and (min-resolution: 2dppx)" type="video/mp4">
+            <source src="/video/frame-video-hd.mp4" media="(min-width: 1024px)" type="video/mp4">
             <source src="/video/frame-video.mp4" type="video/mp4">
           </video>
         </div>
@@ -494,7 +492,7 @@
     <div class="footer__bottom">
       <div class="footer__brand">
         <a class="footer__logo" href="/" aria-label="SkinLove, на главную">
-          <img class="footer__logo-image" src="/img/logo-black.png" width="301" height="102" alt="SkinLove" decoding="async">
+          <img class="footer__logo-image" src="/img/logo-black.webp" width="301" height="102" alt="SkinLove" decoding="async">
         </a>
 
         <img class="footer__badge" src="/img/alfa.svg" width="149" height="20" alt="Разработано в alfa" decoding="async">
@@ -526,7 +524,7 @@
       </div>
 
       <div class="modal__body">
-        <img class="modal__logo" src="/img/logo-black.png" width="301" height="102" alt="SkinLove" decoding="async">
+        <img class="modal__logo" src="/img/logo-black.webp" width="301" height="102" alt="SkinLove" decoding="async">
 
         <div class="modal__content">
           <div class="modal__head">

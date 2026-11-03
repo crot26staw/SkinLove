@@ -123,6 +123,8 @@ function skinlove_reviews() {
 		)
 	);
 
+	_prime_post_caches( $ids );
+
 	foreach ( $ids as $id ) {
 		$name = skinlove_field( 'name', $id );
 		$text = skinlove_field( 'text', $id );
@@ -134,9 +136,11 @@ function skinlove_reviews() {
 		$reviews[] = array(
 			'name'  => $name,
 			'text'  => $text,
-			'photo' => (int) carbon_get_post_meta( $id, 'sl_photo' ),
+			'photo' => (int) get_post_meta( $id, '_sl_photo', true ),
 		);
 	}
+
+	skinlove_prime_attachments( array_column( $reviews, 'photo' ) );
 
 	return $reviews;
 }

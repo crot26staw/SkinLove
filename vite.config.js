@@ -20,11 +20,12 @@ const cssTarget = ['chrome112', 'edge112', 'firefox117', 'safari16.5'];
 // а не в медиабиблиотеке. Остальное из public/ — контент, его заносят сиды.
 const themeStatic = [
   'favicon.svg',
-  'img/logo-black.png',
-  'img/logo-white.png',
+  'img/logo-black.webp',
+  'img/logo-white.webp',
   'img/alfa.svg',
   'img/wordmark-light.svg',
-  'img/services-aside.png',
+  'img/services-aside.webp',
+  'img/hero-video-poster.jpg',
   'img/about-video-poster.jpg',
   'img/frame-video-poster.jpg',
   'img/outcall-reasons-poster.jpg',
@@ -60,7 +61,11 @@ const themeConfig = {
       output: {
         entryFileNames: 'js/main.js',
         chunkFileNames: 'js/[name].js',
-        assetFileNames: ({ names }) => (names[0]?.endsWith('.css') ? 'css/[name][extname]' : 'img/[name][extname]')
+        assetFileNames: ({ names }) => {
+          if (names[0]?.endsWith('.css')) return 'css/[name][extname]';
+          if (names[0]?.endsWith('.woff2')) return 'fonts/[name][extname]';
+          return 'img/[name][extname]';
+        }
       }
     }
   }

@@ -19,6 +19,7 @@ require_once get_theme_file_path( 'inc/sections.php' );
 require_once get_theme_file_path( 'inc/section-previews.php' );
 require_once get_theme_file_path( 'inc/seo.php' );
 require_once get_theme_file_path( 'inc/icons.php' );
+require_once get_theme_file_path( 'inc/images.php' );
 require_once get_theme_file_path( 'inc/options.php' );
 require_once get_theme_file_path( 'inc/directions.php' );
 require_once get_theme_file_path( 'inc/menus.php' );
@@ -96,16 +97,9 @@ add_action( 'wp_enqueue_scripts', 'skinlove_dequeue_block_styles', 100 );
  * Подключение стилей и скриптов темы.
  */
 function skinlove_assets() {
-	wp_enqueue_style(
-		'skinlove-fonts',
-		'https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@1,400&family=Inter+Tight:wght@400;500&display=swap',
-		array(),
-		null
-	);
-
 	$main_css = skinlove_asset( 'css/main.css' );
 	if ( $main_css ) {
-		wp_enqueue_style( 'skinlove-main', $main_css[0], array( 'skinlove-fonts' ), $main_css[1] );
+		wp_enqueue_style( 'skinlove-main', $main_css[0], array(), $main_css[1] );
 	}
 
 	$main_js = skinlove_asset( 'js/main.js' );
@@ -132,20 +126,19 @@ function skinlove_script_as_module( $tag, $handle ) {
 add_filter( 'script_loader_tag', 'skinlove_script_as_module', 10, 2 );
 
 /**
- * Google Fonts быстрее отдаёт шрифты, если заранее открыть соединение.
- *
- * @param array  $urls          Уже собранные URL.
- * @param string $relation_type Тип связи.
- * @return array
+ * Основной шрифт качается сразу, не дожидаясь разбора main.css, где он
+ * объявлен. Только наборы символов, которые точно есть на странице:
+ * латиница всегда, кириллица — на русской версии.
  */
-function skinlove_resource_hints( $urls, $relation_type ) {
-	if ( 'preconnect' !== $relation_type ) {
-		return $urls;
+function skinlove_preload_fonts() {
+	$subsets = 'ru' === skinlove_lang() ? array( 'latin', 'cyrillic' ) : array( 'latin' );
+
+	foreach ( $subsets as $subset ) {
+		$font = skinlove_asset( "fonts/inter-tight-{$subset}.woff2" );
+
+		if ( $font ) {
+			printf( '<link rel="preload" href="%s" as="font" type="font/woff2" crossorigin>' . "\n", esc_url( $font[0] ) );
+		}
 	}
-
-	$urls[] = 'https://fonts.googleapis.com';
-	$urls[] = array( 'href' => 'https://fonts.gstatic.com', 'crossorigin' );
-
-	return $urls;
 }
-add_filter( 'wp_resource_hints', 'skinlove_resource_hints', 10, 2 );
+add_action( 'wp_head', 'skinlove_preload_fonts', 1 );

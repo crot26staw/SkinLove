@@ -15,7 +15,8 @@ $skinlove_note    = skinlove_entry( $skinlove_section, 'note' );
 <section class="page-hero" data-section="page-hero" data-spread data-tour>
 	<div class="page-hero__decor" aria-hidden="true">
 		<video class="page-hero__decor-media" data-tour-video width="1920" height="1080" poster="<?php skinlove_asset_url( 'img/about-video-poster.jpg' ); ?>" muted playsinline preload="auto" disablepictureinpicture tabindex="-1">
-			<source src="<?php skinlove_asset_url( 'video/about-video-4k.mp4' ); ?>" media="(min-width: 1024px)" type="video/mp4">
+			<source src="<?php skinlove_asset_url( 'video/about-video-4k.mp4' ); ?>" media="(min-width: 1921px), (min-width: 1024px) and (min-resolution: 2dppx)" type="video/mp4">
+			<source src="<?php skinlove_asset_url( 'video/about-video-hd.mp4' ); ?>" media="(min-width: 1024px)" type="video/mp4">
 			<source src="<?php skinlove_asset_url( 'video/about-video.mp4' ); ?>" type="video/mp4">
 		</video>
 	</div>

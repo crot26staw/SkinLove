@@ -33,7 +33,7 @@ if ( ! $skinlove_items ) {
 
 $skinlove_total = sprintf( '%02d', count( $skinlove_items ) );
 ?>
-<section class="section <?php echo esc_attr( skinlove_background_class( $skinlove_section, 'beige' ) ); ?> steps" data-section="steps" data-steps>
+<section class="section <?php echo esc_attr( skinlove_background_class( $skinlove_section, 'beige' ) ); ?> steps" data-section="steps" data-warm-images data-steps>
 	<?php if ( $skinlove_label || $skinlove_title ) : ?>
 		<div class="steps__head">
 			<?php if ( $skinlove_label ) : ?>
@@ -67,7 +67,7 @@ $skinlove_total = sprintf( '%02d', count( $skinlove_items ) );
 								false,
 								array(
 									'class'    => 'steps__image',
-									'loading'  => false,
+									'loading'  => 'lazy',
 									'decoding' => 'async',
 								)
 							);

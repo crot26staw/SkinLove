@@ -28,11 +28,11 @@ if ( ! $skinlove_items ) {
 	return;
 }
 ?>
-<section class="section section--light advantages" data-section="advantages">
+<section class="section section--light advantages" data-section="advantages" data-warm-images>
 	<div class="advantages__viewport">
 		<ul class="advantages__track" data-advantages-track>
 			<li class="advantages__intro">
-				<img class="advantages__logo" src="<?php skinlove_asset_url( 'img/logo-black.png' ); ?>" width="2402" height="808" alt="SkinLove" decoding="async">
+				<img class="advantages__logo" src="<?php skinlove_asset_url( 'img/logo-black.webp' ); ?>" width="2402" height="808" alt="SkinLove" decoding="async">
 
 				<?php if ( $skinlove_title ) : ?>
 					<h2 class="heading heading--h2 advantages__title" data-heading-fill>
@@ -63,7 +63,7 @@ if ( ! $skinlove_items ) {
 									false,
 									array(
 										'class'    => 'advantage__image',
-										'loading'  => false,
+										'loading'  => 'lazy',
 										'decoding' => 'async',
 									)
 								);

@@ -28,7 +28,7 @@ $skinlove_socials    = skinlove_socials();
 						<p class="site-menu__label"><?php echo esc_html( skinlove_t( 'directions' ) ); ?></p>
 
 						<div class="site-menu__preview">
-							<img class="site-menu__preview-image" data-menu-preview src="<?php echo esc_url( skinlove_direction_image_url( $skinlove_preview ) ); ?>" width="720" height="1280" alt="" decoding="async">
+							<img class="site-menu__preview-image" data-menu-preview src="<?php echo esc_url( skinlove_direction_image_url( $skinlove_preview ) ); ?>" width="720" height="1280" alt="" loading="lazy" decoding="async">
 						</div>
 
 						<ul class="menu site-menu__list">

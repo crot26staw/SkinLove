@@ -182,6 +182,11 @@ function skinlove_clean( $value ) {
 /**
  * Двуязычное поле записи: sl_{$name}_{$lang}.
  *
+ * Простое поле Carbon Fields хранит обычной метой с подчёркиванием, поэтому
+ * читаем её через get_post_meta: та берёт мету из кэша записи, один запрос
+ * на запись. carbon_get_post_meta ходит в базу за каждым полем — на
+ * странице выездных услуг это было больше сотни запросов.
+ *
  * @param string   $name    Имя поля без префикса и языка.
  * @param int|null $post_id ID записи, по умолчанию текущая.
  * @return string
@@ -193,7 +198,7 @@ function skinlove_field( $name, $post_id = null ) {
 
 	$lang = skinlove_lang();
 
-	return skinlove_clean( carbon_get_post_meta( $post_id ?? get_the_ID(), "sl_{$name}_{$lang}" ) );
+	return skinlove_clean( get_post_meta( $post_id ?? get_the_ID(), "_sl_{$name}_{$lang}", true ) );
 }
 
 /**
@@ -220,7 +225,7 @@ function skinlove_option( $name ) {
 
 	$lang = skinlove_lang();
 
-	return skinlove_clean( carbon_get_theme_option( "sl_{$name}_{$lang}" ) );
+	return skinlove_clean( skinlove_simple_options()[ "_sl_{$name}_{$lang}" ] ?? '' );
 }
 
 /**
@@ -234,7 +239,72 @@ function skinlove_option_raw( $name ) {
 		return '';
 	}
 
+	$options = skinlove_simple_options();
+
+	if ( isset( $options[ "_sl_{$name}" ] ) ) {
+		return trim( $options[ "_sl_{$name}" ] );
+	}
+
 	$value = carbon_get_theme_option( "sl_{$name}" );
 
 	return is_string( $value ) ? trim( $value ) : $value;
+}
+
+/**
+ * Простые настройки сайта одним запросом: имя опции => значение.
+ *
+ * carbon_get_theme_option ходит в базу за каждой настройкой (autoload у них
+ * выключен). Простое поле Carbon хранит опцией _sl_{имя} как есть — их и
+ * читаем разом. Составные (телефоны, галерея результатов) лежат строками
+ * вида _sl_phones|number|0|0|value: их здесь нет, они идут через Carbon.
+ *
+ * @return array<string,string>
+ */
+function skinlove_simple_options() {
+	static $options = null;
+
+	if ( null === $options ) {
+		global $wpdb;
+
+		$rows = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+			$wpdb->prepare(
+				"SELECT option_name, option_value FROM {$wpdb->options} WHERE option_name LIKE %s AND option_name NOT LIKE %s",
+				$wpdb->esc_like( '_sl_' ) . '%',
+				'%' . $wpdb->esc_like( '|' ) . '%'
+			)
+		);
+
+		$options = wp_list_pluck( $rows, 'option_value', 'option_name' );
+	}
+
+	return $options;
+}
+
+/**
+ * Плоское поле complex записи (без вложенных complex) из кэша меты.
+ *
+ * Carbon хранит строку N поля так: _sl_{имя}|||N|value — тип строки,
+ * _sl_{имя}|{поле}|N|0|value — значение. carbon_get_post_meta собирает это
+ * двумя запросами на запись; у программ и выездных услуг прайс читается
+ * в цикле по всем записям, а их мета уже в кэше после get_posts.
+ *
+ * @param int    $post_id ID записи.
+ * @param string $name    Имя поля без префикса sl_.
+ * @return array<int,array<string,string>> Строки как у carbon_get_post_meta.
+ */
+function skinlove_complex_meta( $post_id, $name ) {
+	$rows   = array();
+	$prefix = preg_quote( "_sl_{$name}|", '/' );
+
+	foreach ( get_post_meta( $post_id ) as $key => $values ) {
+		if ( preg_match( "/^{$prefix}\|\|(\d+)\|value$/", $key, $match ) ) {
+			$rows[ (int) $match[1] ]['_type'] = $values[0];
+		} elseif ( preg_match( "/^{$prefix}([a-z0-9_]+)\|(\d+)\|0\|value$/", $key, $match ) ) {
+			$rows[ (int) $match[2] ][ $match[1] ] = $values[0];
+		}
+	}
+
+	ksort( $rows );
+
+	return array_values( $rows );
 }

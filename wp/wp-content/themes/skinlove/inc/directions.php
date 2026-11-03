@@ -93,6 +93,8 @@ function skinlove_directions() {
 		)
 	);
 
+	_prime_post_caches( $ids );
+
 	foreach ( $ids as $id ) {
 		$title = skinlove_field( 'direction_title', $id );
 
@@ -109,6 +111,8 @@ function skinlove_directions() {
 			'current' => is_page( $id ),
 		);
 	}
+
+	skinlove_prime_attachments( array_column( $directions, 'image' ) );
 
 	return $directions;
 }

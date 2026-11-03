@@ -845,6 +845,8 @@ function skinlove_render_sections( $post_id = null ) {
 	$layouts  = skinlove_section_layouts();
 	$sections = carbon_get_post_meta( $post_id ?? get_the_ID(), 'sl_sections' );
 
+	skinlove_prime_attachments( skinlove_image_ids( $sections ) );
+
 	foreach ( (array) $sections as $section ) {
 		$type = $section['_type'] ?? '';
 

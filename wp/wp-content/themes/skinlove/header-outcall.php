@@ -19,7 +19,7 @@ get_template_part( 'template-parts/document-start' );
 	<header class="header header--bar" data-header data-header-stuck>
 		<div class="header__start">
 			<span class="header__logo">
-				<img class="header__logo-image" src="<?php skinlove_asset_url( 'img/logo-white.png' ); ?>" width="301" height="102" alt="SkinLove" decoding="async">
+				<img class="header__logo-image" src="<?php skinlove_asset_url( 'img/logo-white.webp' ); ?>" width="301" height="102" alt="SkinLove" decoding="async">
 			</span>
 
 			<?php if ( $skinlove_phone ) : ?>

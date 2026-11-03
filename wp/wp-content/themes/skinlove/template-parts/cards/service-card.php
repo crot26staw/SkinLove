@@ -19,7 +19,7 @@ $skinlove_direction = $args['direction'];
 				false,
 				array(
 					'class'    => 'service-card__image',
-					'loading'  => false,
+					'loading'  => 'lazy',
 					'decoding' => 'async',
 				)
 			);

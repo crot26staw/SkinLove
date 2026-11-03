@@ -17,7 +17,7 @@ if ( ! $skinlove_images ) {
 	return;
 }
 ?>
-<section class="section section--light results" data-section="results" data-results>
+<section class="section section--light results" data-section="results" data-warm-images data-results>
 	<div class="results__aside">
 		<?php if ( $skinlove_label || $skinlove_title ) : ?>
 			<div class="results__head">
@@ -54,7 +54,7 @@ if ( ! $skinlove_images ) {
 						false,
 						array(
 							'class'    => 'result-card__image',
-							'loading'  => false,
+							'loading'  => 'lazy',
 							'decoding' => 'async',
 						)
 					);

@@ -15,8 +15,8 @@ $skinlove_lead    = skinlove_entry( $skinlove_section, 'lead' );
 <section class="hero hero--intro" data-section="hero">
 	<div class="hero__decor" data-hero-video aria-hidden="true">
 		<div class="hero__decor-frame">
-			<video class="hero__decor-media" width="1918" height="1080" muted playsinline preload="auto" disablepictureinpicture tabindex="-1">
-				<source src="<?php skinlove_asset_url( 'video/hero-video-4k.mp4' ); ?>" media="(min-width: 1024px)" type="video/mp4">
+			<video class="hero__decor-media" width="1918" height="1080" poster="<?php skinlove_asset_url( 'img/hero-video-poster.jpg' ); ?>" muted playsinline preload="auto" disablepictureinpicture tabindex="-1">
+				<source src="<?php skinlove_asset_url( 'video/hero-video-4k.mp4' ); ?>" media="(min-width: 1921px), (min-width: 1024px) and (min-resolution: 2dppx)" type="video/mp4">
 				<source src="<?php skinlove_asset_url( 'video/hero-video.mp4' ); ?>" type="video/mp4">
 			</video>
 		</div>

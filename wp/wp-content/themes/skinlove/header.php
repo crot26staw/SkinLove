@@ -12,7 +12,7 @@ get_template_part( 'template-parts/document-start' );
 
 	<header class="header" data-header>
 		<a class="header__logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" aria-label="<?php echo esc_attr( skinlove_t( 'logo_home' ) ); ?>">
-			<img class="header__logo-image" src="<?php skinlove_asset_url( 'img/logo-white.png' ); ?>" width="301" height="102" alt="SkinLove" decoding="async">
+			<img class="header__logo-image" src="<?php skinlove_asset_url( 'img/logo-white.webp' ); ?>" width="301" height="102" alt="SkinLove" decoding="async">
 		</a>
 
 		<?php get_template_part( 'template-parts/lang-switch' ); ?>

@@ -198,5 +198,9 @@ function skinlove_map_embed( $class ) {
  * @return int[] ID вложений.
  */
 function skinlove_results() {
-	return array_values( array_filter( array_map( 'intval', (array) carbon_get_theme_option( 'sl_results' ) ) ) );
+	$ids = array_values( array_filter( array_map( 'intval', (array) carbon_get_theme_option( 'sl_results' ) ) ) );
+
+	skinlove_prime_attachments( $ids );
+
+	return $ids;
 }

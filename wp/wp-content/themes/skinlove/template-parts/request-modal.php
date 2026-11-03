@@ -40,7 +40,7 @@ $skinlove_image   = (int) skinlove_option_raw( 'modal_image' );
 			<?php endif; ?>
 
 			<div class="modal__body">
-				<img class="modal__logo" src="<?php skinlove_asset_url( 'img/logo-black.png' ); ?>" width="301" height="102" alt="SkinLove" decoding="async">
+				<img class="modal__logo" src="<?php skinlove_asset_url( 'img/logo-black.webp' ); ?>" width="301" height="102" alt="SkinLove" decoding="async">
 
 				<div class="modal__content">
 					<?php if ( $skinlove_title || $skinlove_text ) : ?>

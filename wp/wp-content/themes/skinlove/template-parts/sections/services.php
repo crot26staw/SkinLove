@@ -16,9 +16,9 @@ if ( ! $skinlove_directions ) {
 	return;
 }
 ?>
-<section class="section section--beige services" id="services" data-section="services">
+<section class="section section--beige services" id="services" data-section="services" data-warm-images>
 	<div class="services__viewport">
-		<img class="services__aside" src="<?php skinlove_asset_url( 'img/services-aside.png' ); ?>" width="1024" height="1536" alt="" aria-hidden="true" decoding="async">
+		<img class="services__aside" src="<?php skinlove_asset_url( 'img/services-aside.webp' ); ?>" width="1024" height="1536" alt="" aria-hidden="true" decoding="async">
 
 		<ul class="services__track" data-services-track>
 			<?php foreach ( $skinlove_directions as $skinlove_direction ) : ?>

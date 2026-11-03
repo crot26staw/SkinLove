@@ -194,7 +194,7 @@ function skinlove_program_categories( $taxonomy = 'sl_program_category' ) {
 	$order = array();
 
 	foreach ( $terms as $term ) {
-		$order[ $term->term_id ] = (int) carbon_get_term_meta( $term->term_id, 'sl_order' );
+		$order[ $term->term_id ] = (int) get_term_meta( $term->term_id, '_sl_order', true );
 	}
 
 	usort(
@@ -207,14 +207,14 @@ function skinlove_program_categories( $taxonomy = 'sl_program_category' ) {
 	$categories = array();
 
 	foreach ( $terms as $term ) {
-		$name = 'ru' === $lang ? skinlove_clean( $term->name ) : skinlove_clean( carbon_get_term_meta( $term->term_id, 'sl_name_en' ) );
-		$tag  = $outcall ? '' : skinlove_clean( carbon_get_term_meta( $term->term_id, "sl_tag_{$lang}" ) );
+		$name = 'ru' === $lang ? skinlove_clean( $term->name ) : skinlove_clean( get_term_meta( $term->term_id, '_sl_name_en', true ) );
+		$tag  = $outcall ? '' : skinlove_clean( get_term_meta( $term->term_id, "_sl_tag_{$lang}", true ) );
 
 		$categories[ $term->term_id ] = array(
 			'slug'    => $term->slug,
 			'name'    => $name,
 			'tag'     => '' === $tag ? $name : $tag,
-			'caption' => $outcall ? skinlove_clean( carbon_get_term_meta( $term->term_id, "sl_caption_{$lang}" ) ) : '',
+			'caption' => $outcall ? skinlove_clean( get_term_meta( $term->term_id, "_sl_caption_{$lang}", true ) ) : '',
 		);
 	}
 
@@ -260,7 +260,7 @@ function skinlove_programs( $categories, $post_type = 'sl_program', $taxonomy = 
 		$category = array_values( array_intersect( array_keys( $categories ), $terms ) );
 		$prices   = array();
 
-		foreach ( (array) carbon_get_post_meta( $post->ID, 'sl_prices' ) as $row ) {
+		foreach ( skinlove_complex_meta( $post->ID, 'prices' ) as $row ) {
 			$price = skinlove_clean( $row['price'] ?? '' );
 
 			if ( '' !== $price ) {

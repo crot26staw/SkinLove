@@ -9,17 +9,13 @@
   <meta property="og:title" content="SkinLove — клиника эстетической медицины и wellness">
   <meta property="og:description" content="Персональные решения для красоты, здоровья и восстановления — в клинике или с выездом.">
   <meta property="og:type" content="website">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@1,400&family=Inter+Tight:wght@400;500&display=swap">
 </head>
 <body>
   <a class="skip-link" href="#main">Перейти к содержимому</a>
 
   <header class="header" data-header>
     <a class="header__logo" href="/" aria-label="SkinLove, на главную">
-      <img class="header__logo-image" src="/img/logo-white.png" width="301" height="102" alt="SkinLove" decoding="async">
+      <img class="header__logo-image" src="/img/logo-white.webp" width="301" height="102" alt="SkinLove" decoding="async">
     </a>
 
     <div class="lang-switch" data-lang-switch>
@@ -65,7 +61,7 @@
           <p class="site-menu__label">Направления</p>
 
           <div class="site-menu__preview">
-            <img class="site-menu__preview-image" data-menu-preview src="/img/footer-direction.jpg" width="720" height="1280" alt="" decoding="async">
+            <img class="site-menu__preview-image" data-menu-preview src="/img/footer-direction.jpg" width="720" height="1280" alt="" loading="lazy" decoding="async">
           </div>
 
           <ul class="menu site-menu__list">
@@ -125,8 +121,8 @@
     <section class="hero hero--intro" data-section="hero">
       <div class="hero__decor" data-hero-video aria-hidden="true">
         <div class="hero__decor-frame">
-          <video class="hero__decor-media" width="1918" height="1080" muted playsinline preload="auto" disablepictureinpicture tabindex="-1">
-            <source src="/video/hero-video-4k.mp4" media="(min-width: 1024px)" type="video/mp4">
+          <video class="hero__decor-media" width="1918" height="1080" poster="/img/hero-video-poster.jpg" muted playsinline preload="auto" disablepictureinpicture tabindex="-1">
+            <source src="/video/hero-video-4k.mp4" media="(min-width: 1921px), (min-width: 1024px) and (min-resolution: 2dppx)" type="video/mp4">
             <source src="/video/hero-video.mp4" type="video/mp4">
           </video>
         </div>
@@ -193,14 +189,14 @@
       </div>
     </section>
 
-    <section class="section section--beige services" id="services" data-section="services">
+    <section class="section section--beige services" id="services" data-section="services" data-warm-images>
       <div class="services__viewport">
-        <img class="services__aside" src="/img/services-aside.png" width="1024" height="1536" alt="" aria-hidden="true" decoding="async">
+        <img class="services__aside" src="/img/services-aside.webp" width="1024" height="1536" alt="" aria-hidden="true" decoding="async">
 
         <ul class="services__track" data-services-track>
           <li class="services__item" data-services-item>
             <article class="service-card" data-services-card>
-              <div class="service-card__media"><img class="service-card__image" src="/img/svc-1-iv.jpg" width="1672" height="941" alt="IV Therapy" decoding="async"></div>
+              <div class="service-card__media"><img class="service-card__image" src="/img/svc-1-iv.jpg" width="1672" height="941" alt="IV Therapy" loading="lazy" decoding="async"></div>
               <div class="service-card__body">
                 <h3 class="service-card__title">IV Therapy</h3>
                 <p class="service-card__text">Персонально подобранные витаминные капельницы для восстановления после перелётов, стресса, физических нагрузок и дефицитных состояний.</p>
@@ -213,7 +209,7 @@
           </li>
           <li class="services__item" data-services-item>
             <article class="service-card" data-services-card>
-              <div class="service-card__media"><img class="service-card__image" src="/img/svc-2-inject-patient.jpg" width="1672" height="1114" alt="Инъекционная косметология" decoding="async"></div>
+              <div class="service-card__media"><img class="service-card__image" src="/img/svc-2-inject-patient.jpg" width="1672" height="1114" alt="Инъекционная косметология" loading="lazy" decoding="async"></div>
               <div class="service-card__body">
                 <h3 class="service-card__title">Инъекционная косметология</h3>
                 <p class="service-card__text">Современные методики для естественной коррекции возрастных изменений и улучшения качества кожи.</p>
@@ -226,7 +222,7 @@
           </li>
           <li class="services__item" data-services-item>
             <article class="service-card" data-services-card>
-              <div class="service-card__media"><img class="service-card__image" src="/img/svc-3-face.jpg" width="1672" height="941" alt="Эстетическая косметология лица" decoding="async"></div>
+              <div class="service-card__media"><img class="service-card__image" src="/img/svc-3-face.jpg" width="1672" height="941" alt="Эстетическая косметология лица" loading="lazy" decoding="async"></div>
               <div class="service-card__body">
                 <h3 class="service-card__title">Эстетическая косметология лица</h3>
                 <p class="service-card__text">Профессиональный уход, который помогает поддерживать здоровье, чистоту и сияние кожи.</p>
@@ -239,7 +235,7 @@
           </li>
           <li class="services__item" data-services-item>
             <article class="service-card" data-services-card>
-              <div class="service-card__media"><img class="service-card__image" src="/img/svc-4-laser.png" width="418" height="236" alt="Аппаратная косметология" decoding="async"></div>
+              <div class="service-card__media"><img class="service-card__image" src="/img/svc-4-laser.png" width="418" height="236" alt="Аппаратная косметология" loading="lazy" decoding="async"></div>
               <div class="service-card__body">
                 <h3 class="service-card__title">Аппаратная косметология</h3>
                 <p class="service-card__text">Технологичные процедуры для омоложения кожи и коррекции эстетических несовершенств.</p>
@@ -252,7 +248,7 @@
           </li>
           <li class="services__item" data-services-item>
             <article class="service-card" data-services-card>
-              <div class="service-card__media"><img class="service-card__image" src="/img/svc-5-body.png" width="418" height="236" alt="Коррекция фигуры и массаж" decoding="async"></div>
+              <div class="service-card__media"><img class="service-card__image" src="/img/svc-5-body.png" width="418" height="236" alt="Коррекция фигуры и массаж" loading="lazy" decoding="async"></div>
               <div class="service-card__body">
                 <h3 class="service-card__title">Коррекция фигуры и массаж</h3>
                 <p class="service-card__text">Ручные и аппаратные методики для моделирования силуэта, восстановления и улучшения качества кожи.</p>
@@ -265,7 +261,7 @@
           </li>
           <li class="services__item" data-services-item>
             <article class="service-card" data-services-card>
-              <div class="service-card__media"><img class="service-card__image" src="/img/svc-6-outcall-wide.jpg" width="720" height="417" alt="Выездные услуги" decoding="async"></div>
+              <div class="service-card__media"><img class="service-card__image" src="/img/svc-6-outcall-wide.jpg" width="720" height="417" alt="Выездные услуги" loading="lazy" decoding="async"></div>
               <div class="service-card__body">
                 <h3 class="service-card__title">Выездные услуги</h3>
                 <p class="service-card__text">Профессиональная медицинская помощь там, где вам удобно — дома, в отеле, офисе или на яхте.</p>
@@ -278,7 +274,7 @@
           </li>
           <li class="services__item" data-services-item>
             <article class="service-card" data-services-card>
-              <div class="service-card__media"><img class="service-card__image" src="/img/svc-7-wellness.jpg" width="1672" height="941" alt="Wellness" decoding="async"></div>
+              <div class="service-card__media"><img class="service-card__image" src="/img/svc-7-wellness.jpg" width="1672" height="941" alt="Wellness" loading="lazy" decoding="async"></div>
               <div class="service-card__body">
                 <h3 class="service-card__title">Wellness</h3>
                 <p class="service-card__text">Комплексные программы для поддержания энергии, здоровья и хорошего самочувствия.</p>
@@ -357,11 +353,11 @@
       </div>
     </section>
 
-    <section class="section section--light advantages" data-section="advantages">
+    <section class="section section--light advantages" data-section="advantages" data-warm-images>
       <div class="advantages__viewport">
         <ul class="advantages__track" data-advantages-track>
           <li class="advantages__intro">
-            <img class="advantages__logo" src="/img/logo-black.png" width="2402" height="808" alt="SkinLove" decoding="async">
+            <img class="advantages__logo" src="/img/logo-black.webp" width="2402" height="808" alt="SkinLove" decoding="async">
 
             <h2 class="heading heading--h2 advantages__title" data-heading-fill>
               <span class="heading__line">Почему выбирают</span>
@@ -376,7 +372,7 @@
           <li class="advantage">
             <div class="advantage__body" data-advantage-body>
               <div class="advantage__media">
-                <img class="advantage__image" src="/img/adv-1.jpg" width="1476" height="768" alt="Индивидуальный подход" decoding="async">
+                <img class="advantage__image" src="/img/adv-1.jpg" width="1476" height="768" alt="Индивидуальный подход" loading="lazy" decoding="async">
               </div>
               <h3 class="advantage__title">Индивидуальный подход</h3>
               <p class="advantage__text">Мы внимательно изучаем ваш запрос, образ жизни и состояние здоровья, чтобы подобрать решение, которое подойдёт именно вам.</p>
@@ -385,7 +381,7 @@
           <li class="advantage">
             <div class="advantage__body" data-advantage-body>
               <div class="advantage__media">
-                <img class="advantage__image" src="/img/adv-2.jpg" width="1476" height="768" alt="Комплексная забота" decoding="async">
+                <img class="advantage__image" src="/img/adv-2.jpg" width="1476" height="768" alt="Комплексная забота" loading="lazy" decoding="async">
               </div>
               <h3 class="advantage__title">Комплексная забота</h3>
               <p class="advantage__text">Эстетическая медицина, IV Therapy и wellness работают вместе, помогая сохранять не только красоту, но и хорошее самочувствие.</p>
@@ -394,7 +390,7 @@
           <li class="advantage">
             <div class="advantage__body" data-advantage-body>
               <div class="advantage__media">
-                <img class="advantage__image" src="/img/adv-3.jpg" width="1476" height="768" alt="Премиальный сервис" decoding="async">
+                <img class="advantage__image" src="/img/adv-3.jpg" width="1476" height="768" alt="Премиальный сервис" loading="lazy" decoding="async">
               </div>
               <h3 class="advantage__title">Премиальный сервис</h3>
               <p class="advantage__text">Внимание к деталям делает каждый визит комфортным — от тёплой встречи до сопровождения после процедуры.</p>
@@ -403,7 +399,7 @@
           <li class="advantage">
             <div class="advantage__body" data-advantage-body>
               <div class="advantage__media">
-                <img class="advantage__image" src="/img/adv-4.jpg" width="1476" height="768" alt="Медицинская экспертиза" decoding="async">
+                <img class="advantage__image" src="/img/adv-4.jpg" width="1476" height="768" alt="Медицинская экспертиза" loading="lazy" decoding="async">
               </div>
               <h3 class="advantage__title">Медицинская экспертиза</h3>
               <p class="advantage__text">Современные методики, сертифицированные препараты и специалисты, для которых безопасность пациента всегда остаётся главным приоритетом.</p>
@@ -412,7 +408,7 @@
           <li class="advantage">
             <div class="advantage__body" data-advantage-body>
               <div class="advantage__media">
-                <img class="advantage__image" src="/img/adv-5.jpg" width="1476" height="768" alt="Выездные услуги" decoding="async">
+                <img class="advantage__image" src="/img/adv-5.jpg" width="1476" height="768" alt="Выездные услуги" loading="lazy" decoding="async">
               </div>
               <h3 class="advantage__title">Выездные услуги</h3>
               <p class="advantage__text">Если приехать в клинику неудобно, многие процедуры доступны с выездом домой, в отель, офис или другое удобное место.</p>
@@ -421,7 +417,7 @@
           <li class="advantage">
             <div class="advantage__body" data-advantage-body>
               <div class="advantage__media">
-                <img class="advantage__image" src="/img/adv-6.jpg" width="1476" height="768" alt="Естественный результат" decoding="async">
+                <img class="advantage__image" src="/img/adv-6.jpg" width="1476" height="768" alt="Естественный результат" loading="lazy" decoding="async">
               </div>
               <h3 class="advantage__title">Естественный результат</h3>
               <p class="advantage__text">Мы не меняем внешность, а деликатно подчёркиваем вашу индивидуальность и сохраняем естественную красоту.</p>
@@ -873,7 +869,7 @@
     <div class="footer__bottom">
       <div class="footer__brand">
         <a class="footer__logo" href="/" aria-label="SkinLove, на главную">
-          <img class="footer__logo-image" src="/img/logo-black.png" width="301" height="102" alt="SkinLove" decoding="async">
+          <img class="footer__logo-image" src="/img/logo-black.webp" width="301" height="102" alt="SkinLove" decoding="async">
         </a>
 
         <img class="footer__badge" src="/img/alfa.svg" width="149" height="20" alt="Разработано в alfa" decoding="async">
@@ -905,7 +901,7 @@
       </div>
 
       <div class="modal__body">
-        <img class="modal__logo" src="/img/logo-black.png" width="301" height="102" alt="SkinLove" decoding="async">
+        <img class="modal__logo" src="/img/logo-black.webp" width="301" height="102" alt="SkinLove" decoding="async">
 
         <div class="modal__content">
           <div class="modal__head">

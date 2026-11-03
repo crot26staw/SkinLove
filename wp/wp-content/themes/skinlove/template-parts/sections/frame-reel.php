@@ -33,8 +33,9 @@ $skinlove_has_texts  = (bool) array_filter( array_column( $skinlove_layers, 'tex
 <section class="section section--light frame frame--reverse" data-section="frame" data-reel>
 	<div class="frame__card" data-reel-card>
 		<div class="frame__decor" aria-hidden="true">
-			<video class="frame__image" data-reel-video width="1920" height="1080" poster="<?php skinlove_asset_url( 'img/frame-video-poster.jpg' ); ?>" muted playsinline preload="auto" disablepictureinpicture tabindex="-1">
-				<source src="<?php skinlove_asset_url( 'video/frame-video-4k.mp4' ); ?>" media="(min-width: 1024px)" type="video/mp4">
+			<video class="frame__image" data-reel-video width="1920" height="1080" poster="<?php skinlove_asset_url( 'img/frame-video-poster.jpg' ); ?>" muted playsinline preload="none" data-lazy-video disablepictureinpicture tabindex="-1">
+				<source src="<?php skinlove_asset_url( 'video/frame-video-4k.mp4' ); ?>" media="(min-width: 1921px), (min-width: 1024px) and (min-resolution: 2dppx)" type="video/mp4">
+				<source src="<?php skinlove_asset_url( 'video/frame-video-hd.mp4' ); ?>" media="(min-width: 1024px)" type="video/mp4">
 				<source src="<?php skinlove_asset_url( 'video/frame-video.mp4' ); ?>" type="video/mp4">
 			</video>
 		</div>
