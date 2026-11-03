@@ -2,6 +2,8 @@
 /**
  * Секция «Вопросы и ответы»: аккордеон на <details>, первый вопрос открыт.
  * Вопрос без ответа (или наоборот) пропускается, без вопросов секции нет.
+ * Под ответом может стоять кнопка-пилюля в окно заявки. У вида «Выездные»
+ * заголовок мельче.
  *
  * @package SkinLove
  */
@@ -11,6 +13,7 @@ defined( 'ABSPATH' ) || exit;
 $skinlove_section = $args['section'];
 $skinlove_label   = skinlove_entry( $skinlove_section, 'label' );
 $skinlove_title   = skinlove_entry( $skinlove_section, 'title' );
+$skinlove_heading = 'outcall' === ( $skinlove_section['variant'] ?? '' ) ? 'heading--h2-sm' : 'heading--h2';
 $skinlove_items   = array();
 
 foreach ( (array) ( $skinlove_section['items'] ?? array() ) as $skinlove_item ) {
@@ -21,6 +24,7 @@ foreach ( (array) ( $skinlove_section['items'] ?? array() ) as $skinlove_item ) 
 		$skinlove_items[] = array(
 			'question'   => $skinlove_question,
 			'paragraphs' => preg_split( '/\R\s*\R/u', $skinlove_answer ),
+			'button'     => skinlove_entry( $skinlove_item, 'button' ),
 		);
 	}
 }
@@ -29,7 +33,7 @@ if ( ! $skinlove_items ) {
 	return;
 }
 ?>
-<section class="section section--beige faq" data-section="faq">
+<section class="section section--beige faq" id="<?php echo esc_attr( skinlove_section_uid( 'faq' ) ); ?>" data-section="faq">
 	<?php if ( $skinlove_label || $skinlove_title ) : ?>
 		<div class="faq__head">
 			<?php if ( $skinlove_label ) : ?>
@@ -37,7 +41,7 @@ if ( ! $skinlove_items ) {
 			<?php endif; ?>
 
 			<?php if ( $skinlove_title ) : ?>
-				<h2 class="heading heading--h2 faq__title" data-heading-fill>
+				<h2 class="heading <?php echo esc_attr( $skinlove_heading ); ?> faq__title" data-heading-fill>
 					<?php echo skinlove_heading( $skinlove_title ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 				</h2>
 			<?php endif; ?>
@@ -58,6 +62,7 @@ if ( ! $skinlove_items ) {
 						<?php foreach ( $skinlove_item['paragraphs'] as $skinlove_paragraph ) : ?>
 							<p class="faq-item__text"><?php echo nl2br( esc_html( trim( $skinlove_paragraph ) ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?></p>
 						<?php endforeach; ?>
+						<?php echo skinlove_pill_button( $skinlove_item['button'], '#request-modal', 'faq-item__action', 'data-modal-open="request-modal"' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 					</div>
 				</div>
 			</details>

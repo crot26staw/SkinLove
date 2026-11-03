@@ -7,7 +7,11 @@
 
    Время берётся из data-times на корне — список через запятую, его задаёт
    редактор. Плашка закрывается после выбора времени, по Escape и по клику
-   мимо. */
+   мимо.
+
+   Подписи стрелок и панели времени можно переопределить data-label-* на
+   корне (prev-month, next-month, prev-day, next-day, time, hint), локаль
+   дат — data-locale; без них — русские подписи и язык из <html lang>. */
 
 const DAY = 24 * 60 * 60 * 1000;
 
@@ -23,7 +27,15 @@ function setup(root) {
 
   if (!toggle || !label || !input || !popup) return;
 
-  const locale = document.documentElement.lang || 'ru';
+  const locale = root.dataset.locale || document.documentElement.lang || 'ru';
+  const labels = {
+    prevMonth: root.dataset.labelPrevMonth || 'Предыдущий месяц',
+    nextMonth: root.dataset.labelNextMonth || 'Следующий месяц',
+    prevDay: root.dataset.labelPrevDay || 'Предыдущий день',
+    nextDay: root.dataset.labelNextDay || 'Следующий день',
+    time: root.dataset.labelTime || 'Время',
+    hint: root.dataset.labelHint || 'Сначала выберите день',
+  };
   const placeholder = label.textContent;
   const times = (root.dataset.times || '').split(',').map((time) => time.trim()).filter(Boolean);
   const weekdays = weekdayNames(locale);
@@ -47,8 +59,8 @@ function setup(root) {
 
     panel.append(
       head(title, {
-        prev: { disabled: month <= startOfMonth(today), label: 'Предыдущий месяц', onClick: () => shiftMonth(-1) },
-        next: { label: 'Следующий месяц', onClick: () => shiftMonth(1) },
+        prev: { disabled: month <= startOfMonth(today), label: labels.prevMonth, onClick: () => shiftMonth(-1) },
+        next: { label: labels.nextMonth, onClick: () => shiftMonth(1) },
       }),
     );
 
@@ -81,7 +93,7 @@ function setup(root) {
     const panel = element('div', 'date-picker__panel');
 
     if (!selected) {
-      panel.append(head('Время'), element('p', 'date-picker__hint', 'Сначала выберите день'));
+      panel.append(head(labels.time), element('p', 'date-picker__hint', labels.hint));
       return panel;
     }
 
@@ -89,8 +101,8 @@ function setup(root) {
 
     panel.append(
       head(title, {
-        prev: { disabled: selected <= today, label: 'Предыдущий день', onClick: () => pickDay(new Date(selected.getTime() - DAY)) },
-        next: { label: 'Следующий день', onClick: () => pickDay(new Date(selected.getTime() + DAY)) },
+        prev: { disabled: selected <= today, label: labels.prevDay, onClick: () => pickDay(new Date(selected.getTime() - DAY)) },
+        next: { label: labels.nextDay, onClick: () => pickDay(new Date(selected.getTime() + DAY)) },
       }),
     );
 

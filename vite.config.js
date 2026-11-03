@@ -28,6 +28,10 @@ const themeStatic = [
   'img/about-video-poster.jpg',
   'img/frame-video-poster.jpg',
   'img/outcall-reasons-poster.jpg',
+  'img/outcall-step-icon-1.svg',
+  'img/outcall-step-icon-2.svg',
+  'img/outcall-step-icon-3.svg',
+  'img/outcall-step-icon-4.svg',
   'video'
 ];
 

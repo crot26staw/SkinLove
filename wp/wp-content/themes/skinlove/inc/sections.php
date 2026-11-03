@@ -344,6 +344,16 @@ function skinlove_section_layouts() {
 		'faq'             => array(
 			'label'  => 'Вопросы и ответы',
 			'fields' => fn() => array_merge(
+				array(
+					Field::make( 'select', 'variant', 'Вид' )
+						->set_options(
+							array(
+								''        => 'Страница услуг',
+								'outcall' => 'Выездные услуги',
+							)
+						)
+						->set_help_text( 'У выездных заголовок мельче. Якорь секции — #faq, на него ведёт пункт меню шапки.' ),
+				),
 				skinlove_sub_pair( 'text', 'label', 'Надзаголовок' ),
 				skinlove_sub_pair( 'textarea', 'title', 'Заголовок', 'skinlove_heading_help' ),
 				array(
@@ -358,7 +368,8 @@ function skinlove_section_layouts() {
 						->add_fields(
 							array_merge(
 								skinlove_sub_pair( 'text', 'question', 'Вопрос' ),
-								skinlove_sub_pair( 'textarea', 'answer', 'Ответ', 'skinlove_paragraphs_help' )
+								skinlove_sub_pair( 'textarea', 'answer', 'Ответ', 'skinlove_paragraphs_help' ),
+								skinlove_sub_pair( 'text', 'button', 'Кнопка под ответом', 'skinlove_cta_button_help' )
 							)
 						)
 						->set_header_template( '<%- question_ru %>' )
@@ -419,6 +430,83 @@ function skinlove_section_layouts() {
 				skinlove_sub_pair( 'textarea', 'text', 'Текст', 'skinlove_short_text' ),
 				array( skinlove_items_field( 'items', 'Ситуации', 'ситуацию', 'ситуации' ) ),
 				skinlove_sub_pair( 'text', 'button', 'Кнопка', 'skinlove_cta_button_help' )
+			),
+		),
+		'quiz'            => array(
+			'label'  => 'Выездные: подбор услуги',
+			'fields' => fn() => array_merge(
+				array(
+					Field::make( 'html', 'quiz_note' )
+						->set_html( '<p>Анкета из шагов, ответы приходят в заявке. Шаг без заголовка (а у шагов с вариантами — без вариантов, у шага даты — без времени) пропускается. Последний шаг — имя и телефон, он есть всегда.</p>' ),
+				),
+				skinlove_sub_pair( 'textarea', 'title', 'Заголовок', 'skinlove_heading_help' ),
+				skinlove_sub_pair( 'textarea', 'text', 'Текст', 'skinlove_short_text' ),
+				skinlove_sub_pair( 'text', 'label', 'Надпись над анкетой' ),
+				array( Field::make( 'separator', 'concern_separator', 'Шаг «Что беспокоит» — можно выбрать несколько' ) ),
+				skinlove_sub_pair( 'text', 'concern_title', 'Вопрос' ),
+				skinlove_sub_pair( 'textarea', 'concern_text', 'Пояснение', 'skinlove_short_text' ),
+				array( skinlove_quiz_options_field( 'concern_options' ) ),
+				skinlove_sub_pair( 'text', 'other_label', 'Вариант «своими словами»' ),
+				skinlove_sub_pair( 'text', 'other_placeholder', 'Подсказка в поле «своими словами»' ),
+				array( Field::make( 'separator', 'place_separator', 'Шаг «Где удобно» — один вариант' ) ),
+				skinlove_sub_pair( 'text', 'place_title', 'Вопрос' ),
+				skinlove_sub_pair( 'textarea', 'place_text', 'Пояснение', 'skinlove_short_text' ),
+				array(
+					skinlove_quiz_options_field( 'place_options' ),
+					Field::make( 'separator', 'date_separator', 'Шаг «Когда удобно» — календарь' ),
+				),
+				skinlove_sub_pair( 'text', 'date_title', 'Вопрос' ),
+				skinlove_sub_pair( 'textarea', 'date_text', 'Пояснение', 'skinlove_short_text' ),
+				array(
+					Field::make( 'text', 'times', 'Время визита' )
+						->set_help_text( 'Через запятую: 10:00, 12:00, 13:00. Прошедшее время на сегодня недоступно.' ),
+					Field::make( 'separator', 'address_separator', 'Шаг «Адрес»' ),
+				),
+				skinlove_sub_pair( 'text', 'address_title', 'Вопрос' ),
+				skinlove_sub_pair( 'textarea', 'address_text', 'Пояснение', 'skinlove_short_text' ),
+				array( Field::make( 'separator', 'contacts_separator', 'Последний шаг — имя и телефон' ) ),
+				skinlove_sub_pair( 'text', 'contacts_title', 'Заголовок' ),
+				skinlove_sub_pair( 'textarea', 'contacts_text', 'Пояснение', 'skinlove_short_text' )
+			),
+		),
+		'care'            => array(
+			'label'  => 'Выездные: забота в деталях',
+			'fields' => fn() => array_merge(
+				array( Field::make( 'image', 'image', 'Фото' )->set_help_text( 'Горизонтальное, 16 : 9.' ) ),
+				skinlove_sub_pair( 'textarea', 'title', 'Заголовок', 'skinlove_heading_help' ),
+				skinlove_sub_pair( 'textarea', 'text', 'Текст', 'skinlove_short_text' ),
+				array( skinlove_items_field( 'items', 'Карточки', 'карточку', 'карточки' ) )
+			),
+		),
+		'process'         => array(
+			'label'  => 'Выездные: как проходит',
+			'fields' => fn() => array_merge(
+				skinlove_sub_pair( 'textarea', 'title', 'Заголовок', 'skinlove_heading_help' ),
+				skinlove_sub_pair( 'textarea', 'text', 'Текст', 'skinlove_short_text' ),
+				skinlove_sub_pair( 'text', 'button', 'Кнопка', 'skinlove_cta_button_help' ),
+				array(
+					skinlove_items_field(
+						'items',
+						'Этапы',
+						'этап',
+						'этапы',
+						array(
+							Field::make( 'select', 'icon', 'Иконка' )
+								->set_options( array_map( fn( $icon ) => $icon['label'], skinlove_process_icons() ) ),
+						),
+						skinlove_sub_pair( 'text', 'button', 'Кнопка', 'skinlove_cta_button_help' )
+					),
+				)
+			),
+		),
+		'feedback'        => array(
+			'label'  => 'Выездные: отзывы',
+			'fields' => fn() => array_merge(
+				array(
+					Field::make( 'html', 'feedback_note' )
+						->set_html( '<p>Отзывы общие для всего сайта — раздел «Отзывы» в меню админки. Без отзывов секция не выводится.</p>' ),
+				),
+				skinlove_sub_pair( 'textarea', 'title', 'Заголовок', 'skinlove_heading_help' )
 			),
 		),
 	);
@@ -591,9 +679,10 @@ function skinlove_service_title_help( $field ) {
  * @param string  $singular «Добавить …».
  * @param string  $plural   Множественное число для подписей Carbon.
  * @param Field[] $before   Поля перед заголовком (например, фото).
+ * @param Field[] $after    Поля после текста (например, кнопка).
  * @return Field
  */
-function skinlove_items_field( $name, $label, $singular, $plural, $before = array() ) {
+function skinlove_items_field( $name, $label, $singular, $plural, $before = array(), $after = array() ) {
 	return Field::make( 'complex', $name, $label )
 		->setup_labels(
 			array(
@@ -606,10 +695,57 @@ function skinlove_items_field( $name, $label, $singular, $plural, $before = arra
 			array_merge(
 				$before,
 				skinlove_sub_pair( 'text', 'title', 'Заголовок' ),
-				skinlove_sub_pair( 'textarea', 'text', 'Текст', 'skinlove_short_text' )
+				skinlove_sub_pair( 'textarea', 'text', 'Текст', 'skinlove_short_text' ),
+				$after
 			)
 		)
 		->set_header_template( '<%- title_ru %>' );
+}
+
+/**
+ * Варианты ответа на шаге квиза. Подпись варианта на языке страницы
+ * приходит в заявке как ответ (решение 26).
+ *
+ * @param string $name Имя поля.
+ * @return Field
+ */
+function skinlove_quiz_options_field( $name ) {
+	return Field::make( 'complex', $name, 'Варианты' )
+		->setup_labels(
+			array(
+				'plural_name'   => 'варианты',
+				'singular_name' => 'вариант',
+			)
+		)
+		->set_collapsed( true )
+		->add_fields( skinlove_sub_pair( 'text', 'label', 'Подпись' ) )
+		->set_header_template( '<%- label_ru %>' );
+}
+
+/**
+ * Иконки этапов «Как проходит» — из темы: значение => подпись и файл.
+ *
+ * @return array<string,array{label:string,file:string}>
+ */
+function skinlove_process_icons() {
+	return array(
+		'pulse'  => array(
+			'label' => 'Пульс',
+			'file'  => 'img/outcall-step-icon-1.svg',
+		),
+		'list'   => array(
+			'label' => 'Список',
+			'file'  => 'img/outcall-step-icon-2.svg',
+		),
+		'person' => array(
+			'label' => 'Специалист',
+			'file'  => 'img/outcall-step-icon-3.svg',
+		),
+		'care'   => array(
+			'label' => 'Забота',
+			'file'  => 'img/outcall-step-icon-4.svg',
+		),
+	);
 }
 
 /**

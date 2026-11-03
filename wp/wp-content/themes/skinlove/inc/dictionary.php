@@ -250,5 +250,85 @@ function skinlove_dictionary() {
 			'ru' => 'Или свяжитесь с нами напрямую и расскажите, что вам необходимо',
 			'en' => 'Or contact us directly and tell us what you need',
 		),
+		'quiz_back'         => array(
+			'ru' => 'Назад',
+			'en' => 'Back',
+		),
+		'quiz_next'         => array(
+			'ru' => 'Продолжить',
+			'en' => 'Continue',
+		),
+		'quiz_unknown'      => array(
+			'ru' => 'Не определился',
+			'en' => 'Not sure yet',
+		),
+		'quiz_address'      => array(
+			'ru' => 'Адрес выезда',
+			'en' => 'Visit address',
+		),
+		'quiz_error_many'   => array(
+			'ru' => 'Выберите хотя бы один вариант',
+			'en' => 'Choose at least one option',
+		),
+		'quiz_error_one'    => array(
+			'ru' => 'Выберите один из вариантов',
+			'en' => 'Choose one of the options',
+		),
+		'quiz_error_date'   => array(
+			'ru' => 'Выберите дату или отметьте, что ещё не определились',
+			'en' => 'Choose a date or tick that you are not sure yet',
+		),
+		'quiz_error_address' => array(
+			'ru' => 'Напишите адрес или отметьте, что ещё не определились',
+			'en' => 'Enter an address or tick that you are not sure yet',
+		),
+		'quiz_submit'       => array(
+			'ru' => 'Отправить заявку',
+			'en' => 'Send request',
+		),
+		'date_placeholder'  => array(
+			'ru' => 'ДД.ММ.ГГ',
+			'en' => 'DD/MM/YY',
+		),
+		'date_locale'       => array(
+			'ru' => 'ru',
+			'en' => 'en-GB',
+		),
+		'date_dialog'       => array(
+			'ru' => 'Выбор даты и времени',
+			'en' => 'Choose date and time',
+		),
+		'date_prev_month'   => array(
+			'ru' => 'Предыдущий месяц',
+			'en' => 'Previous month',
+		),
+		'date_next_month'   => array(
+			'ru' => 'Следующий месяц',
+			'en' => 'Next month',
+		),
+		'date_prev_day'     => array(
+			'ru' => 'Предыдущий день',
+			'en' => 'Previous day',
+		),
+		'date_next_day'     => array(
+			'ru' => 'Следующий день',
+			'en' => 'Next day',
+		),
+		'date_time'         => array(
+			'ru' => 'Время',
+			'en' => 'Time',
+		),
+		'date_hint'         => array(
+			'ru' => 'Сначала выберите день',
+			'en' => 'Choose a day first',
+		),
+		'feedback_prev'     => array(
+			'ru' => 'Предыдущие отзывы',
+			'en' => 'Previous reviews',
+		),
+		'feedback_next'     => array(
+			'ru' => 'Следующие отзывы',
+			'en' => 'Next reviews',
+		),
 	);
 }

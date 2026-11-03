@@ -43,6 +43,24 @@ function skinlove_lead_known_fields() {
 }
 
 /**
+ * Подписи ответов квиза в карточке заявки: ключ поля формы => вопрос.
+ * Пара «значение — не определился» делит одну подпись.
+ *
+ * @return array<string,string>
+ */
+function skinlove_lead_answer_labels() {
+	return array(
+		'concern'         => 'Что беспокоит',
+		'concern_other'   => 'Своими словами',
+		'place'           => 'Где удобно',
+		'date'            => 'Когда удобно',
+		'date_unknown'    => 'Когда удобно',
+		'address'         => 'Адрес выезда',
+		'address_unknown' => 'Адрес выезда',
+	);
+}
+
+/**
  * Тип записи «Заявки» — только для админки.
  */
 function skinlove_register_lead_post_type() {
@@ -169,8 +187,10 @@ function skinlove_render_lead_meta_box( $post ) {
 		'Элемент'  => get_post_meta( $post->ID, 'item', true ),
 	);
 
-	foreach ( (array) get_post_meta( $post->ID, 'answers', true ) as $question => $answer ) {
-		$rows[ $question ] = is_array( $answer ) ? implode( ', ', $answer ) : $answer;
+	foreach ( (array) get_post_meta( $post->ID, 'answers', true ) as $key => $answer ) {
+		$question          = skinlove_lead_answer_labels()[ $key ] ?? $key;
+		$answer            = is_array( $answer ) ? implode( ', ', $answer ) : $answer;
+		$rows[ $question ] = isset( $rows[ $question ] ) ? "{$rows[ $question ]}, {$answer}" : $answer;
 	}
 
 	echo '<table class="widefat striped"><tbody>';
