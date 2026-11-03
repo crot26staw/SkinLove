@@ -177,8 +177,8 @@ $faq = array(
 	array(
 		'question' => array( 'Когда будет заметен эффект?', 'When will I see the effect?' ),
 		'answer'   => array(
-			'Во время консультации косметолог оценит состояние кожи и подберёт наиболее эффективную программу ухода.',
-			'During the consultation, the cosmetologist will assess your skin and select the most effective care programme.',
+			'После большинства процедур кожа выглядит более свежей и ухоженной уже после первого посещения, а регулярный уход позволяет сохранить результат надолго.',
+			'After most treatments, your skin looks fresher and more cared for from the very first visit, and regular care helps the result last.',
 		),
 	),
 	array(
@@ -205,8 +205,8 @@ $faq = array(
 	array(
 		'question' => array( 'Как понять, какая процедура подойдёт именно мне?', 'How do I know which treatment is right for me?' ),
 		'answer'   => array(
-			'После большинства процедур кожа выглядит более свежей и ухоженной уже после первого посещения, а регулярный уход позволяет сохранить результат надолго.',
-			'After most treatments, your skin looks fresher and more cared for from the very first visit, and regular care helps the result last.',
+			'Во время консультации косметолог оценит состояние кожи и подберёт наиболее эффективную программу ухода.',
+			'During the consultation, the cosmetologist will assess your skin and select the most effective care programme.',
 		),
 	),
 );
