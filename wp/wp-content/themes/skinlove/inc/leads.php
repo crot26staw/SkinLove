@@ -16,6 +16,8 @@ const SKINLOVE_LEAD_POST_TYPE = 'sl_lead';
 const SKINLOVE_RATE_LIMIT     = 5;
 const SKINLOVE_RATE_WINDOW    = HOUR_IN_SECONDS;
 const SKINLOVE_ANSWERS_MAX    = 30;
+const SKINLOVE_ANSWER_ITEMS   = 20;
+const SKINLOVE_LEAD_BODY_MAX  = 16 * KB_IN_BYTES;
 
 /**
  * Типы форм: значение поля form => подпись в админке.
@@ -61,13 +63,15 @@ function skinlove_lead_answer_labels() {
 }
 
 /**
- * Тип записи «Заявки» — только для админки.
+ * Тип записи «Заявки» — только для админки. Права как у страниц: заявки
+ * с именами и телефонами видят редактор и администратор, но не автор
+ * и не участник, у которых есть права на записи.
  */
 function skinlove_register_lead_post_type() {
 	register_post_type(
 		SKINLOVE_LEAD_POST_TYPE,
 		array(
-			'labels'        => array(
+			'labels'          => array(
 				'name'          => 'Заявки',
 				'singular_name' => 'Заявка',
 				'menu_name'     => 'Заявки',
@@ -75,17 +79,18 @@ function skinlove_register_lead_post_type() {
 				'search_items'  => 'Найти заявку',
 				'not_found'     => 'Заявок пока нет',
 			),
-			'public'        => false,
-			'show_ui'       => true,
-			'show_in_menu'  => true,
-			'menu_icon'     => 'dashicons-email-alt',
-			'menu_position' => 4,
-			'supports'      => array( 'title' ),
-			'capabilities'  => array( 'create_posts' => 'do_not_allow' ),
-			'map_meta_cap'  => true,
-			'rewrite'       => false,
-			'query_var'     => false,
-			'show_in_rest'  => false,
+			'public'          => false,
+			'show_ui'         => true,
+			'show_in_menu'    => true,
+			'menu_icon'       => 'dashicons-email-alt',
+			'menu_position'   => 4,
+			'supports'        => array( 'title' ),
+			'capability_type' => 'page',
+			'capabilities'    => array( 'create_posts' => 'do_not_allow' ),
+			'map_meta_cap'    => true,
+			'rewrite'         => false,
+			'query_var'       => false,
+			'show_in_rest'    => false,
 		)
 	);
 }
@@ -279,7 +284,7 @@ function skinlove_lead_answers( $params ) {
 
 		$key   = sanitize_key( $key );
 		$value = is_array( $value )
-			? array_values( array_filter( array_map( 'skinlove_lead_text', $value ), 'strlen' ) )
+			? array_slice( array_values( array_filter( array_map( 'skinlove_lead_text', $value ), 'strlen' ) ), 0, SKINLOVE_ANSWER_ITEMS )
 			: skinlove_lead_text( $value );
 
 		if ( '' !== $key && array() !== $value && '' !== $value ) {
@@ -312,6 +317,12 @@ function skinlove_handle_lead( WP_REST_Request $request ) {
 
 	$lang                     = 'en' === ( $params['lang'] ?? '' ) ? 'en' : 'ru';
 	$GLOBALS['skinlove_lang'] = $lang;
+
+	// Настоящая заявка с квизом укладывается в пару килобайт, а без
+	// ограничения один запрос кладёт в базу всё, что пропустит PHP.
+	if ( strlen( $request->get_body() ) > SKINLOVE_LEAD_BODY_MAX ) {
+		return skinlove_lead_error( 'form_failure', 413 );
+	}
 
 	// Ловушка для ботов: человек это поле не видит. Отвечаем как при успехе,
 	// чтобы не подсказывать, что заявка отброшена.
