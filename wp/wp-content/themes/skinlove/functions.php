@@ -15,6 +15,7 @@ require_once get_theme_file_path( 'inc/lang.php' );
 require_once get_theme_file_path( 'inc/geo.php' );
 require_once get_theme_file_path( 'inc/fields.php' );
 require_once get_theme_file_path( 'inc/sections.php' );
+require_once get_theme_file_path( 'inc/section-previews.php' );
 require_once get_theme_file_path( 'inc/seo.php' );
 require_once get_theme_file_path( 'inc/icons.php' );
 require_once get_theme_file_path( 'inc/options.php' );

@@ -1,0 +1,48 @@
+/* Меню «Добавить секцию» и превью секции рядом с ним */
+
+[data-sl-sections] [data-sl-group]::before {
+  content: attr(data-sl-group);
+  display: block;
+  margin: 0 -12px 6px;
+  padding: 10px 12px 4px;
+  border-top: 1px solid rgb(255 255 255 / 0.15);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgb(255 255 255 / 0.55);
+  pointer-events: none;
+}
+
+[data-sl-sections] [data-sl-group]:first-child::before {
+  border-top: 0;
+}
+
+[data-sl-sections] .cf-complex__inserter-item:focus-visible {
+  outline: 2px solid #72aee6;
+  outline-offset: -2px;
+}
+
+.sl-section-preview {
+  position: fixed;
+  z-index: 100000;
+  width: min(480px, calc(100vw - 24px));
+  margin: 0;
+  padding: 6px;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0 8px 32px rgb(0 0 0 / 0.25);
+  pointer-events: none;
+}
+
+.sl-section-preview[hidden] {
+  display: none;
+}
+
+.sl-section-preview img {
+  display: block;
+  width: 100%;
+  max-height: 70vh;
+  object-fit: cover;
+  object-position: top;
+}
