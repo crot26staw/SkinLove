@@ -149,6 +149,9 @@ function skinlove_geo_update() {
 		return true;
 	}
 
+	// wp_tempnam() — из админки: WP-CLI её подгружает, wp-cron.php нет.
+	require_once ABSPATH . 'wp-admin/includes/file.php';
+
 	$archive = wp_tempnam( 'dbip-country-lite' );
 	$month   = null;
 

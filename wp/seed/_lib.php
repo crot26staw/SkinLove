@@ -18,8 +18,8 @@ require_once ABSPATH . 'wp-admin/includes/image.php';
 require_once ABSPATH . 'wp-admin/includes/file.php';
 require_once ABSPATH . 'wp-admin/includes/media.php';
 
-/** Папка public/ вёрстки внутри контейнера wpcli. */
-const SKINLOVE_SEED_ASSETS = '/seed-assets';
+/** Папка public/ вёрстки: в контейнере wpcli — /seed-assets, на сервере — из окружения. */
+define( 'SKINLOVE_SEED_ASSETS', getenv( 'SKINLOVE_SEED_ASSETS' ) ?: '/seed-assets' );
 
 /**
  * ID вложения для картинки из public/img вёрстки. Загружает файл

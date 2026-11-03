@@ -99,10 +99,10 @@
       заказчиком: подключаем позже, отдельной задачей после натяжки. Выкладку
       не блокирует — 2026-11-03 заказчик: если данных не будет, выкатываем без
       CRM, заявки пока только сохраняются в админке.
-- [ ] Хостинг: есть, доступы заказчик даст позже, до деплоя ещё будут небольшие
-      правки. Когда будут доступы — выяснить, стоит ли сайт за прокси
-      (Cloudflare и т. п.): `inc/geo.php` и лимит заявок в `inc/leads.php`
-      берут IP из `REMOTE_ADDR`.
+- [x] Хостинг: cPanel `sarie.tasjeel.ae`, аккаунт `skinlove`, домен skinlove.ae.
+      Прокси нет — DNS ведёт прямо на сервер (198.38.95.5), `REMOTE_ADDR`
+      настоящий (2026-11-03).
+
 - [x] Куда ведёт «Больше отзывов»: Google Maps
       `https://maps.app.goo.gl/Nn7DLKbUKJPvBk4n6` (2026-11-03), в сидах
       `home.php` и `_lib.php`, открывается в новой вкладке.
@@ -433,6 +433,38 @@ docker compose run --rm wpcli wp eval-file /seed/{файл}.php   # сид
 
 Новые записи — сверху. Формат: дата, этап, что сделано, где остановились,
 следующий шаг, проблемы.
+
+### 2026-11-03 — выкладка на прод (skinlove.ae)
+- Сервер: cPanel, LiteSpeed, PHP 8.4 (MultiPHP, `ea-php84`), MariaDB 10.11,
+  WP-CLI есть, Composer нет — `vendor/` собирается локально. SSH:
+  `ssh skinlove@sarie.tasjeel.ae` по ключу. WP-CLI не хватает 128M на
+  `core download` — запускать `php -d memory_limit=512M /usr/local/bin/wp`.
+- Чистая установка WP 7.1.4 ru_RU в `~/public_html`, база `skinlove_wp`
+  (`uapi Mysql`). Доступы к БД и админке — `~/.skinlove-db` на сервере (600),
+  логин администратора `skinlove_admin`, почта — Medicalclinicskin@gmail.com.
+  В `wp-config.php`: `WP_DEBUG` выкл., `DISALLOW_FILE_EDIT`, `FORCE_SSL_ADMIN`.
+- Тема — rsync из `wp/wp-content/themes/skinlove/` после `composer install
+  --no-dev` и `npm run build:theme`. Сиды и `public/` — в `~/deploy/`, путь
+  к картинкам — `SKINLOVE_SEED_ASSETS=$HOME/deploy/seed-assets` (в `_lib.php`
+  константа стала переопределяемой). Все 15 сидов прошли без предупреждений,
+  меню во всех шести локациях, `blog_public` = 1, лишние темы и плагины удалены.
+- `.htaccess`: `wp rewrite --hard` из консоли правила не пишет — блок
+  WordPress и блок «SkinLove hardening» дописаны руками (без списков файлов;
+  403 на `php.ini`, `.user.ini`, `wp-config*`, `readme.html`, `license.txt`,
+  `xmlrpc.php`, логи, `composer.*`, `vendor/` темы кроме статики — js / css /
+  картинки / шрифты Carbon Fields нужны админке, без них конструктор пустой;
+  `uploads/skinlove-geoip/`).
+  Копия исходного — `~/deploy/htaccess.bak`. `readme.html`, `license.txt`,
+  `wp-config-sample.php` удалены (вернутся при обновлении ядра — под 403).
+- Исправлено: `skinlove_geo_update()` падал из `wp-cron.php` — `wp_tempnam()`
+  есть только с `wp-admin/includes/file.php`, WP-CLI его грузит, веб-cron нет.
+  Проверено запуском через `wp-cron.php` по HTTP.
+- Проверено: 13 адресов RU / EN — 200, hreflang и canonical с https://skinlove.ae,
+  33 ассета главной — 200, редирект по стране (NL → `/en/`, браузерный UA),
+  по заявке каждого из пяти типов форм + 429 на шестой; тестовые заявки удалены.
+- Не сделано: HSTS (включить, когда https точно постоянный), CRM, ссылки
+  на соцсети. Визуально сайт в браузере на проде не смотрел. Изменения
+  `_lib.php` и `geo.php` не закоммичены.
 
 ### 2026-11-03 — автопролистывание «Результатов»
 - `components/results.js`: лента «до / после» на всех страницах листается
