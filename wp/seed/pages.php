@@ -13,6 +13,17 @@ defined( 'ABSPATH' ) || exit;
 
 require __DIR__ . '/_lib.php';
 
+// Демо-контент установки WordPress: на сайте нет записей, а пустые страницы
+// попали бы в карту сайта.
+foreach ( array( array( 'hello-world', 'post' ), array( 'sample-page', 'page' ), array( 'privacy-policy', 'page' ) ) as list( $slug, $type ) ) {
+	$demo = get_page_by_path( $slug, OBJECT, $type );
+	if ( $demo ) {
+		wp_delete_post( $demo->ID, true );
+		WP_CLI::log( "Удалена демо-запись {$slug}" );
+	}
+}
+delete_option( 'wp_page_for_privacy_policy' );
+
 $pages = array(
 	'home'     => 'Главная',
 	'about'    => 'О клинике',

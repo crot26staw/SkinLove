@@ -123,3 +123,15 @@
     --section-padding: 100px;
   }
 }
+
+/* Админ-бар WordPress: класс .admin-bar у <body> только у залогиненных.
+   Бар 46px, с 783px — 32px. До 600px WordPress делает его position: absolute,
+   и после прокрутки над шапкой остаётся зазор — зато вверху страницы бар
+   не закрывает кнопку меню. */
+.admin-bar {
+  --admin-bar-height: 46px;
+
+  @media (width > 782px) {
+    --admin-bar-height: 32px;
+  }
+}

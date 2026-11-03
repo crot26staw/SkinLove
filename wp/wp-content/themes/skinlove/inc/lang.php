@@ -119,6 +119,23 @@ function skinlove_lang_url( $lang ) {
 }
 
 /**
+ * Постоянная ссылка записи на заданном языке — для hreflang. Язык
+ * подменяется на время вызова, и ссылку собирает тот же фильтр home_url.
+ *
+ * @param string $lang    'ru' | 'en'.
+ * @param int    $post_id ID записи.
+ * @return string
+ */
+function skinlove_permalink_in( $lang, $post_id ) {
+	$current                  = skinlove_lang();
+	$GLOBALS['skinlove_lang'] = $lang;
+	$url                      = (string) get_permalink( $post_id );
+	$GLOBALS['skinlove_lang'] = $current;
+
+	return $url;
+}
+
+/**
  * Атрибут lang у <html> — по текущему языку, а не по локали сайта.
  * По нему же календарь выбирает локаль.
  *

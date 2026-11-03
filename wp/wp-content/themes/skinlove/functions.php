@@ -62,6 +62,34 @@ function skinlove_setup() {
 add_action( 'after_setup_theme', 'skinlove_setup' );
 
 /**
+ * Убирает из <head> то, что сайту без редактора блоков, записей и
+ * встраивания не нужно: эмодзи, oEmbed, RSD, shortlink, версию WordPress.
+ */
+function skinlove_cleanup_head() {
+	remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+	remove_action( 'wp_enqueue_scripts', 'wp_enqueue_emoji_styles' );
+	remove_action( 'wp_print_styles', 'print_emoji_styles' );
+	remove_action( 'wp_enqueue_scripts', 'wp_enqueue_global_styles' );
+	remove_action( 'wp_footer', 'wp_enqueue_global_styles', 1 );
+	remove_action( 'wp_head', 'wp_oembed_add_discovery_links' );
+	remove_action( 'wp_head', 'rest_output_link_wp_head' );
+	remove_action( 'wp_head', 'rsd_link' );
+	remove_action( 'wp_head', 'wp_shortlink_wp_head' );
+	remove_action( 'wp_head', 'wp_generator' );
+}
+add_action( 'init', 'skinlove_cleanup_head' );
+
+/**
+ * Стили блоков: блоков на фронте нет, а их CSS грузится на каждой странице.
+ * Стили theme.json (global-styles) сняты в skinlove_cleanup_head().
+ */
+function skinlove_dequeue_block_styles() {
+	wp_dequeue_style( 'wp-block-library' );
+	wp_dequeue_style( 'classic-theme-styles' );
+}
+add_action( 'wp_enqueue_scripts', 'skinlove_dequeue_block_styles', 100 );
+
+/**
  * Подключение стилей и скриптов темы.
  */
 function skinlove_assets() {
