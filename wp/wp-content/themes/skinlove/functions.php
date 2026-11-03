@@ -12,6 +12,7 @@ define( 'SKINLOVE_VERSION', '0.1.0' );
 require_once get_theme_file_path( 'inc/carbon.php' );
 require_once get_theme_file_path( 'inc/dictionary.php' );
 require_once get_theme_file_path( 'inc/lang.php' );
+require_once get_theme_file_path( 'inc/geo.php' );
 require_once get_theme_file_path( 'inc/fields.php' );
 require_once get_theme_file_path( 'inc/sections.php' );
 require_once get_theme_file_path( 'inc/seo.php' );

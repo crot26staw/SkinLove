@@ -22,7 +22,7 @@ defined( 'ABSPATH' ) || exit;
 			<div class="footer__column footer__column--end">
 				<?php echo skinlove_pill_button( skinlove_t( 'outcall_book' ), '#request-modal', '', 'data-modal-open="request-modal" data-lead-section="footer"' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 
-				<img class="footer__badge" src="<?php skinlove_asset_url( 'img/alfa.svg' ); ?>" width="149" height="20" alt="<?php echo esc_attr( skinlove_t( 'badge_alfa' ) ); ?>" decoding="async">
+				<?php get_template_part( 'template-parts/footer-credits' ); ?>
 			</div>
 		</div>
 	</footer>

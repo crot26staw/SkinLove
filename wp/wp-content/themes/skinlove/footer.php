@@ -66,7 +66,7 @@ $skinlove_preview    = skinlove_current_direction( $skinlove_directions );
 					<img class="footer__logo-image" src="<?php skinlove_asset_url( 'img/logo-black.png' ); ?>" width="301" height="102" alt="SkinLove" decoding="async">
 				</a>
 
-				<img class="footer__badge" src="<?php skinlove_asset_url( 'img/alfa.svg' ); ?>" width="149" height="20" alt="<?php echo esc_attr( skinlove_t( 'badge_alfa' ) ); ?>" decoding="async">
+				<?php get_template_part( 'template-parts/footer-credits' ); ?>
 			</div>
 		</div>
 	</footer>
