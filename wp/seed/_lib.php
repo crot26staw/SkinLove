@@ -508,7 +508,7 @@ function skinlove_seed_service_sections( $args ) {
 			array(
 				'_type'      => 'reviews',
 				'blinds'     => true,
-				'button_url' => '#',
+				'button_url' => 'https://maps.app.goo.gl/Nn7DLKbUKJPvBk4n6',
 			)
 		),
 		skinlove_seed_entry(

@@ -93,6 +93,6 @@ $skinlove_uid     = skinlove_section_uid( 'review' );
 			</div>
 		</div>
 
-		<?php echo skinlove_entry_button( $skinlove_section ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+		<?php echo skinlove_entry_button( $skinlove_section, '', 'target="_blank" rel="noopener"' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 	</div>
 </section>
