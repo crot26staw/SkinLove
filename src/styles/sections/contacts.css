@@ -88,13 +88,7 @@
   background-color: var(--color-beige);
 }
 
-.contacts__map-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* В теме вместо картинки — iframe карты из настроек сайта. */
+/* Интерактивная карта Google Maps; в теме iframe — из настроек сайта. */
 .contacts__map-frame {
   display: block;
   width: 100%;

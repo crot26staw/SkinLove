@@ -59,8 +59,8 @@ function skinlove_register_options() {
 		->add_tab(
 			'Соцсети',
 			array(
-				Field::make( 'text', 'sl_instagram', 'Instagram' )->set_width( 50 ),
-				Field::make( 'text', 'sl_telegram', 'Telegram' )->set_width( 50 ),
+				Field::make( 'text', 'sl_instagram', 'Instagram клиники' )->set_width( 50 ),
+				Field::make( 'text', 'sl_instagram_medical', 'Instagram medical clinic' )->set_width( 50 ),
 			)
 		)
 		->add_tab(
@@ -142,8 +142,8 @@ function skinlove_whatsapp_url() {
  */
 function skinlove_socials() {
 	$socials = array(
-		'social_instagram' => skinlove_option_raw( 'instagram' ),
-		'social_telegram'  => skinlove_option_raw( 'telegram' ),
+		'social_instagram'         => skinlove_option_raw( 'instagram' ),
+		'social_instagram_medical' => skinlove_option_raw( 'instagram_medical' ),
 	);
 
 	return array_filter( $socials );

@@ -86,9 +86,9 @@ function skinlove_dictionary() {
 			'ru' => 'SkinLove в Instagram',
 			'en' => 'SkinLove on Instagram',
 		),
-		'social_telegram'   => array(
-			'ru' => 'SkinLove в Telegram',
-			'en' => 'SkinLove on Telegram',
+		'social_instagram_medical' => array(
+			'ru' => 'SkinLove Medical Clinic в Instagram',
+			'en' => 'SkinLove Medical Clinic on Instagram',
 		),
 		'whatsapp'          => array(
 			'ru' => 'Написать в WhatsApp',

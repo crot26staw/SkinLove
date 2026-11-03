@@ -4,7 +4,7 @@
    Портрет в разметке идёт после шапки и до низа: он закрывает заголовок,
    а карточка с цитатой и имя лежат поверх него. */
 .founder {
-  --section-padding-block: calc(150 * var(--u)) 0;
+  --section-padding-block: calc(150 * var(--u));
 
   display: flex;
   flex-direction: column;

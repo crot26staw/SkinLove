@@ -13,6 +13,7 @@ $skinlove_phones     = skinlove_phones();
 $skinlove_email      = skinlove_option_raw( 'email' );
 $skinlove_address    = skinlove_option( 'address' );
 $skinlove_socials    = skinlove_socials();
+$skinlove_whatsapp   = skinlove_whatsapp_url();
 ?>
 	<div class="site-menu" id="site-menu" data-menu data-lenis-prevent hidden>
 		<div class="site-menu__inner">
@@ -71,14 +72,12 @@ $skinlove_socials    = skinlove_socials();
 						</div>
 					<?php endif; ?>
 
-					<?php if ( $skinlove_socials ) : ?>
+					<?php if ( $skinlove_socials || $skinlove_whatsapp ) : ?>
 						<div class="site-menu__group">
 							<p class="site-menu__label"><?php echo esc_html( skinlove_t( 'socials' ) ); ?></p>
 
 							<div class="site-menu__socials">
-								<?php foreach ( $skinlove_socials as $skinlove_key => $skinlove_url ) : ?>
-									<a class="social-button" href="<?php echo esc_url( $skinlove_url ); ?>" aria-label="<?php echo esc_attr( skinlove_t( $skinlove_key ) ); ?>" target="_blank" rel="noopener"><?php echo skinlove_icon( 'social', 'social-button__icon' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></a>
-								<?php endforeach; ?>
+								<?php get_template_part( 'template-parts/social-buttons' ); ?>
 							</div>
 						</div>
 					<?php endif; ?>

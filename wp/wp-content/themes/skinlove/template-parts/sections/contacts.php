@@ -15,7 +15,7 @@ $skinlove_address = skinlove_option( 'address' );
 $skinlove_map     = skinlove_map_embed( 'contacts__map-frame' );
 $skinlove_phones  = skinlove_phones();
 $skinlove_email   = skinlove_option_raw( 'email' );
-$skinlove_socials = skinlove_socials();
+$skinlove_buttons = skinlove_socials() || skinlove_whatsapp_url();
 ?>
 <section class="section section--light contacts" data-section="contacts">
 	<?php if ( $skinlove_title ) : ?>
@@ -70,15 +70,13 @@ $skinlove_socials = skinlove_socials();
 			</div>
 		<?php endif; ?>
 
-		<?php if ( $skinlove_socials ) : ?>
+		<?php if ( $skinlove_buttons ) : ?>
 			<div class="contacts__row">
 				<p class="contacts__label"><?php echo esc_html( skinlove_t( 'contacts_socials' ) ); ?></p>
 
 				<div class="contacts__body">
 					<div class="contacts__socials">
-						<?php foreach ( $skinlove_socials as $skinlove_key => $skinlove_url ) : ?>
-							<a class="social-button" href="<?php echo esc_url( $skinlove_url ); ?>" aria-label="<?php echo esc_attr( skinlove_t( $skinlove_key ) ); ?>" target="_blank" rel="noopener"><?php echo skinlove_icon( 'social', 'social-button__icon' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></a>
-						<?php endforeach; ?>
+						<?php get_template_part( 'template-parts/social-buttons' ); ?>
 					</div>
 				</div>
 			</div>

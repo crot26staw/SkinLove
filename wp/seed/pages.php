@@ -77,7 +77,7 @@ $directions = array(
 			'Ручные и аппаратные методики для моделирования силуэта, восстановления и улучшения качества кожи.',
 			'Manual and device-based techniques to sculpt your silhouette, support recovery and improve skin quality.',
 		),
-		'image' => 'svc-5-body.png',
+		'image' => 'svc-5-body.jpg',
 	),
 	'outcall'    => array(
 		'title' => array( 'Выездные услуги', 'At-home services' ),
@@ -93,7 +93,7 @@ $directions = array(
 			'Комплексные программы для поддержания энергии, здоровья и хорошего самочувствия.',
 			'Comprehensive programmes to support your energy, health and overall wellbeing.',
 		),
-		'image' => 'svc-7-wellness.jpg',
+		'image' => 'svc-7-wellness-massage.jpg',
 	),
 );
 

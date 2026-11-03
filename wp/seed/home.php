@@ -54,9 +54,12 @@ $features = array(
 $advantages = skinlove_seed_advantages();
 
 foreach ( $advantages as $index => $advantage ) {
+	// Фото «Естественного результата» у главной своё, «О клинике» — с прежним.
+	$file = 5 === $index ? 'home-adv-6.jpg' : 'adv-' . ( $index + 1 ) . '.jpg';
+
 	$advantages[ $index ] = skinlove_seed_entry(
 		$advantage,
-		array( 'image' => skinlove_seed_image( 'adv-' . ( $index + 1 ) . '.jpg', $advantage['title'][0] ) )
+		array( 'image' => skinlove_seed_image( $file, $advantage['title'][0] ) )
 	);
 }
 
