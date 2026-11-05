@@ -13,21 +13,11 @@ import { RAIL_PACE } from './timing.js';
    стоит ход, `distance` — на сколько пикселей едет лента. Из их отношения
    считается, в какой момент хода элемент ленты окажется в нужной точке экрана.
 
-   Ход по умолчанию — «ширина ленты − ширина экрана»: лента начинается
-   у левого края экрана. Ленте, которая стоит правее (результаты — справа
-   от заголовка), ход задаётся снаружи (`distance`).
-
    Описание сцен и их имена — в ANIMATIONS.md. */
-export function createRailScene({
-  section,
-  track,
-  travellers = [],
-  build = () => {},
-  distance = () => Math.max(0, track.offsetWidth - window.innerWidth),
-  ...scene
-}) {
+export function createRailScene({ section, track, travellers = [], build = () => {}, ...scene }) {
   if (!section || !track) return;
 
+  const distance = () => Math.max(0, track.offsetWidth - window.innerWidth);
   const railLength = () => distance() * RAIL_PACE;
 
   return createPinnedScene({

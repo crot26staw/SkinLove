@@ -20,10 +20,6 @@ import { DESKTOP, MOTION } from '../utils/media.js';
    `media` ограничивает сцену своим диапазоном, когда у секции на разных
    ширинах разные фазы.
 
-   `exit: false` — секция без уезда: на десктопе тоже играет фазу и снимается
-   с закрепления, следующая идёт обычной прокруткой (результаты на страницах
-   услуг). Подложенной быть такая секция может — паузу задаёт `hold`.
-
    Ниже 1024 после своей фазы секция может поджаться снизу на `shrink()`
    пикселей: окно clip-path поднимает её нижний край, а следующая секция,
    заранее подтянутая под неё на ту же величину отрицательным отступом в CSS,
@@ -48,7 +44,6 @@ export function createPinnedScene({
   holdNext = true,
   hold = () => 0,
   shrink = () => 0,
-  exit: exits = true,
   media = 'all'
 }) {
   const next = nextSection(section);
@@ -69,7 +64,7 @@ export function createPinnedScene({
 
       if (!motion || !scope) return;
 
-      const exit = desktop && exits;
+      const exit = desktop;
       const squeeze = () => (exit ? 0 : shrink());
 
       section.dataset.scene = 'on';
