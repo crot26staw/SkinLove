@@ -1,7 +1,7 @@
-/* Результаты пациентов: слева заголовок и стрелки на высоту карточек,
-   справа лента карточек «до/после». Лента шире экрана и обрезается по правому
-   краю; стрелки листают её по карточке (components/results.js). Без скрипта
-   лента прокручивается по горизонтали нативно. */
+/* Результаты пациентов: слева заголовок, справа лента карточек «до/после»,
+   под ней стрелки. Лента шире экрана и обрезается по правому краю; стрелки
+   листают её по карточке (components/results.js). Без скрипта лента
+   прокручивается по горизонтали нативно. */
 .results {
   --section-padding-block: calc(150 * var(--u));
 
@@ -16,8 +16,6 @@
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
-  justify-content: space-between;
-  align-self: stretch;
   width: calc(910 * var(--u));
 }
 
@@ -28,12 +26,20 @@
   align-items: flex-start;
 }
 
+.results__main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: calc(50 * var(--u));
+  min-width: 0;
+}
+
 .results__nav {
   display: flex;
+  gap: calc(6 * var(--u));
 }
 
 .results__viewport {
-  flex: 1;
   min-width: 0;
 }
 
@@ -68,7 +74,8 @@
     padding-inline: 0;
   }
 
-  .results__aside {
+  .results__aside,
+  .results__main {
     display: contents;
   }
 
@@ -79,7 +86,7 @@
   }
 
   .results__nav {
-    order: 1;
+    gap: 6px;
   }
 
   .results__viewport {

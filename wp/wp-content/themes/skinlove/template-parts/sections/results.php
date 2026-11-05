@@ -32,35 +32,37 @@ if ( ! $skinlove_images ) {
 				<?php endif; ?>
 			</div>
 		<?php endif; ?>
+	</div>
+
+	<div class="results__main">
+		<div class="results__viewport" data-results-viewport>
+			<ul class="results__track" data-results-track>
+				<?php foreach ( $skinlove_images as $skinlove_image ) : ?>
+					<li class="result-card">
+						<?php
+						echo wp_get_attachment_image(
+							$skinlove_image,
+							'full',
+							false,
+							array(
+								'class'    => 'result-card__image',
+								'loading'  => 'lazy',
+								'decoding' => 'async',
+							)
+						);
+						?>
+					</li>
+				<?php endforeach; ?>
+			</ul>
+		</div>
 
 		<div class="results__nav">
-			<button class="arrow-button" type="button" aria-label="<?php echo esc_attr( skinlove_t( 'results_prev' ) ); ?>" data-results-prev>
+			<button class="arrow-button arrow-button--filled" type="button" aria-label="<?php echo esc_attr( skinlove_t( 'results_prev' ) ); ?>" data-results-prev>
 				<?php echo skinlove_icon( 'arrow', 'arrow-button__icon' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 			</button>
-			<button class="arrow-button arrow-button--next" type="button" aria-label="<?php echo esc_attr( skinlove_t( 'results_next' ) ); ?>" data-results-next>
+			<button class="arrow-button arrow-button--filled arrow-button--next" type="button" aria-label="<?php echo esc_attr( skinlove_t( 'results_next' ) ); ?>" data-results-next>
 				<?php echo skinlove_icon( 'arrow', 'arrow-button__icon' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 			</button>
 		</div>
-	</div>
-
-	<div class="results__viewport" data-results-viewport>
-		<ul class="results__track" data-results-track>
-			<?php foreach ( $skinlove_images as $skinlove_image ) : ?>
-				<li class="result-card">
-					<?php
-					echo wp_get_attachment_image(
-						$skinlove_image,
-						'full',
-						false,
-						array(
-							'class'    => 'result-card__image',
-							'loading'  => 'lazy',
-							'decoding' => 'async',
-						)
-					);
-					?>
-				</li>
-			<?php endforeach; ?>
-		</ul>
 	</div>
 </section>
