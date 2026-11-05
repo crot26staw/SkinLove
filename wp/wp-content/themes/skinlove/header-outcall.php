@@ -1,6 +1,6 @@
 <?php
 /**
- * Шапка лендинга «Выездные услуги» (решение 24): логотип без ссылки,
+ * Шапка лендинга «Выездные услуги» (решение 24): логотип ведёт на эту же страницу,
  * телефон и WhatsApp, разделы страницы, язык и кнопка заявки. Вверху
  * страницы RU и кнопка скрыты, после прокрутки шапка становится полной
  * строкой (components/header.js, data-header-stuck). Меню сайта нет.
@@ -18,9 +18,9 @@ get_template_part( 'template-parts/document-start' );
 
 	<header class="header header--bar" data-header data-header-stuck>
 		<div class="header__start">
-			<span class="header__logo">
+			<a class="header__logo" href="<?php echo esc_url( get_permalink( get_queried_object_id() ) ); ?>">
 				<img class="header__logo-image" src="<?php skinlove_asset_url( 'img/logo-white.webp' ); ?>" width="301" height="102" alt="SkinLove" decoding="async">
-			</span>
+			</a>
 
 			<?php if ( $skinlove_phone ) : ?>
 				<a class="header__link header__phone" href="<?php echo esc_url( $skinlove_phone['href'] ); ?>">
