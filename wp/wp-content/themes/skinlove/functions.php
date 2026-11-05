@@ -27,6 +27,7 @@ require_once get_theme_file_path( 'inc/leads.php' );
 require_once get_theme_file_path( 'inc/reviews.php' );
 require_once get_theme_file_path( 'inc/programs.php' );
 require_once get_theme_file_path( 'inc/outcall.php' );
+require_once get_theme_file_path( 'inc/guide.php' );
 
 /**
  * Возвращает URL файла из assets/ и его версию по времени изменения.
