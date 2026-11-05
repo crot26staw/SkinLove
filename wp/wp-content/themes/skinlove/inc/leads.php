@@ -119,15 +119,22 @@ function skinlove_lead_source( $lead_id ) {
  * @return array
  */
 function skinlove_lead_columns( $columns ) {
-	return array(
+	$columns = array(
 		'cb'        => $columns['cb'] ?? '',
 		'title'     => 'Имя',
 		'sl_phone'  => 'Телефон',
 		'sl_form'   => 'Форма',
 		'sl_source' => 'Источник',
 		'sl_lang'   => 'Язык',
+		'sl_crm'    => 'CRM',
 		'date'      => 'Получена',
 	);
+
+	if ( ! skinlove_altegio_enabled() ) {
+		unset( $columns['sl_crm'] );
+	}
+
+	return $columns;
 }
 add_filter( 'manage_' . SKINLOVE_LEAD_POST_TYPE . '_posts_columns', 'skinlove_lead_columns' );
 
@@ -156,9 +163,32 @@ function skinlove_lead_column_content( $column, $post_id ) {
 		case 'sl_lang':
 			echo esc_html( strtoupper( get_post_meta( $post_id, 'lang', true ) ) );
 			break;
+
+		case 'sl_crm':
+			echo esc_html( skinlove_altegio_status_label( $post_id ) );
+			break;
 	}
 }
 add_action( 'manage_' . SKINLOVE_LEAD_POST_TYPE . '_posts_custom_column', 'skinlove_lead_column_content', 10, 2 );
+
+/**
+ * Ответы квиза с человеческими подписями: вопрос => ответ одной строкой.
+ * Пара «значение — не определился» сливается в одну строку.
+ *
+ * @param int $lead_id ID заявки.
+ * @return array<string,string>
+ */
+function skinlove_lead_answer_rows( $lead_id ) {
+	$rows = array();
+
+	foreach ( (array) get_post_meta( $lead_id, 'answers', true ) as $key => $answer ) {
+		$question          = skinlove_lead_answer_labels()[ $key ] ?? $key;
+		$answer            = is_array( $answer ) ? implode( ', ', $answer ) : $answer;
+		$rows[ $question ] = isset( $rows[ $question ] ) ? "{$rows[ $question ]}, {$answer}" : $answer;
+	}
+
+	return $rows;
+}
 
 /**
  * Поля заявки на экране редактирования.
@@ -192,10 +222,10 @@ function skinlove_render_lead_meta_box( $post ) {
 		'Элемент'  => get_post_meta( $post->ID, 'item', true ),
 	);
 
-	foreach ( (array) get_post_meta( $post->ID, 'answers', true ) as $key => $answer ) {
-		$question          = skinlove_lead_answer_labels()[ $key ] ?? $key;
-		$answer            = is_array( $answer ) ? implode( ', ', $answer ) : $answer;
-		$rows[ $question ] = isset( $rows[ $question ] ) ? "{$rows[ $question ]}, {$answer}" : $answer;
+	$rows += skinlove_lead_answer_rows( $post->ID );
+
+	if ( skinlove_altegio_enabled() || get_post_meta( $post->ID, 'crm_status', true ) ) {
+		$rows['CRM'] = skinlove_altegio_status_label( $post->ID );
 	}
 
 	echo '<table class="widefat striped"><tbody>';
@@ -385,14 +415,14 @@ function skinlove_handle_lead( WP_REST_Request $request ) {
 }
 
 /**
- * Отправка заявки в CRM. Подключается отдельной задачей (решение 31):
- * пока заявки только сохраняются в админке. Заявка к этому моменту уже
- * в базе, поэтому ошибка отправки не должна ронять ответ посетителю.
+ * Отправка заявки в CRM (Altegio, inc/altegio.php). Заявка к этому моменту
+ * уже в базе, поэтому ошибка отправки не должна ронять ответ посетителю.
  *
  * @param int   $lead_id ID сохранённой заявки.
  * @param array $lead    Данные заявки.
  */
 function skinlove_send_lead_to_crm( $lead_id, $lead ) {
+	skinlove_altegio_queue( $lead_id );
 }
 
 /**

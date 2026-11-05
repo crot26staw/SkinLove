@@ -24,6 +24,7 @@ require_once get_theme_file_path( 'inc/options.php' );
 require_once get_theme_file_path( 'inc/directions.php' );
 require_once get_theme_file_path( 'inc/menus.php' );
 require_once get_theme_file_path( 'inc/leads.php' );
+require_once get_theme_file_path( 'inc/altegio.php' );
 require_once get_theme_file_path( 'inc/reviews.php' );
 require_once get_theme_file_path( 'inc/programs.php' );
 require_once get_theme_file_path( 'inc/outcall.php' );
