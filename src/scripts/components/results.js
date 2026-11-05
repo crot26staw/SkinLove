@@ -1,6 +1,6 @@
 import { gsap } from 'gsap';
 
-import { TABLET } from '../utils/media.js';
+import { DESKTOP, MOTION, TABLET } from '../utils/media.js';
 
 /* Лента результатов: стрелки сдвигают ленту на карточку. Дальше последней
    карточки, прижатой к правому краю секции, лента не едет, поэтому последний
@@ -17,7 +17,10 @@ import { TABLET } from '../utils/media.js';
    в середину экрана, и под курсором тоже: при прокрутке колесом курсор
    почти всегда оказывается над лентой. Пауза — пока внутри фокус
    с клавиатуры; стрелка перезапускает отсчёт. При reduced motion
-   автопролистывания нет. */
+   автопролистывания нет.
+
+   На десктопе с анимациями ленту ведёт прокрутка (animations/results.js):
+   стрелки скрыты, автопролистывания нет, сдвиг здесь не трогается. */
 
 const DURATION = 0.5;
 const AUTOPLAY_DELAY = 4;
@@ -38,6 +41,7 @@ function setup(section) {
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const tablet = window.matchMedia(TABLET);
+  const scrolled = window.matchMedia(`${DESKTOP} and ${MOTION}`);
   let index = 0;
   let inView = false;
   let focused = false;
@@ -62,6 +66,8 @@ function setup(section) {
 
   /* duration — длительность сдвига; 0 — без анимации. */
   const render = (duration) => {
+    if (scrolled.matches) return;
+
     index = Math.min(Math.max(index, 0), last());
     previous.disabled = index === 0;
     next.disabled = index >= last();
@@ -92,7 +98,7 @@ function setup(section) {
 
   /* Отсчёт идёт заново после каждой паузы и ручного шага. */
   const sync = () => {
-    const running = inView && !focused && !reduceMotion.matches && last() > 0;
+    const running = inView && !focused && !reduceMotion.matches && !scrolled.matches && last() > 0;
 
     if (running && timer.paused()) {
       timer.restart(true);
@@ -136,6 +142,19 @@ function setup(section) {
     sync();
   }).observe(section);
   tablet.addEventListener('change', () => render(0));
+
+  /* Переход в режим прокрутки: лента возвращается к началу до того, как сцена
+     запишет её стартовую позицию, — этот слушатель создан раньше сцены. */
+  scrolled.addEventListener('change', () => {
+    if (scrolled.matches) {
+      index = 0;
+      gsap.set(track, { x: 0, overwrite: true });
+    } else {
+      render(0);
+    }
+
+    sync();
+  });
   reduceMotion.addEventListener('change', sync);
 
   section.dataset.results = 'on';

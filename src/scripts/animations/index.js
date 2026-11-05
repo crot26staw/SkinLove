@@ -16,6 +16,7 @@ import { initProcedures } from './procedures.js';
 import { initSteps } from './steps.js';
 import { initTasks } from './tasks.js';
 import { initOccasions } from './occasions.js';
+import { initResultsRail } from './results.js';
 import { initReviewsBlinds } from './reviews.js';
 import { initPromosBlinds } from './promos.js';
 import { initProcess } from './process.js';
@@ -47,6 +48,7 @@ export function initAnimations() {
     initAtmosphere(),
     initAdvantages(),
     initReel(),
+    initResultsRail(),
     initReviewsBlinds(),
     initCta(),
     initFooter(),
